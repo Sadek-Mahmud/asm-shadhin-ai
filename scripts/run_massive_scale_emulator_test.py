@@ -32,8 +32,8 @@ from daemon.security_daemon import SecurityMonitorDaemon
 from daemon.pqc_guard import PQCKeyExchange
 
 # Benchmark constants
-TOTAL_TARGET_FLOWS = 2_000_000  # 2 Million Comprehensive Flows
-BATCH_SIZE = 100_000
+TOTAL_TARGET_FLOWS = 10_000_000  # 1 Crore (10 Million) Comprehensive Flows
+BATCH_SIZE = 1_000_000
 
 def wilson_score_interval(p: float, n: int, z: float = 1.96) -> tuple:
     """Calculates the two-tailed Wilson score confidence interval."""

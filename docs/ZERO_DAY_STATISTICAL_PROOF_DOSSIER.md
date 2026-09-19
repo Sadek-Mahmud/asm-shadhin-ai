@@ -148,8 +148,8 @@ Every claim in this document maps directly to verified source code in the reposi
 | **Local LLM Reasoning Engine** | [`daemon/ollama_client.py`](file:///Volumes/BSc%20Works/AI%20digital%20automated%20system%20for%20security%20monitoring/daemon/ollama_client.py) | Python 3 / Ollama API | Verified (Strict JSON grammar) |
 | **Shannon Entropy C2 Analyzer**| [`daemon/entropy_analyzer.py`](file:///Volumes/BSc%20Works/AI%20digital%20automated%20system%20for%20security%20monitoring/daemon/entropy_analyzer.py) | Python 3 / NumPy / SciPy | Verified ($H = 8.000$ bits/byte) |
 | **Moving Target Defence (MTD)** | [`daemon/mtd_service.py`](file:///Volumes/BSc%20Works/AI%20digital%20automated%20system%20for%20security%20monitoring/daemon/mtd_service.py) | Python 3 / HMAC-SHA256 | Verified (Ephemeral port hopping) |
-| **AI-Tarpit Deception Server** | [`daemon/tarpit_service.py`](file:///Volumes/BSc%20Works/AI%20digital%20automated%20system%20for%20security%20monitoring/daemon/tarpit_service.py) | Python 3 / AsyncIO HTTP | Verified (Honey-token generation) |
 | **System End-to-End Suite** | [`docs/SYSTEM_VERIFICATION_PROOF_DOSSIER.md`](file:///Volumes/BSc%20Works/AI%20digital%20automated%20system%20for%20security%20monitoring/docs/SYSTEM_VERIFICATION_PROOF_DOSSIER.md) | Shell / Python Test Harness | Verified (11/11 Suites Passed) |
+| **10M-Flow Emulation Suite**| [`docs/MASSIVE_SCALE_EMPIRICAL_DATASHEET.md`](file:///Volumes/BSc%20Works/AI%20digital%20automated%20system%20for%20security%20monitoring/docs/MASSIVE_SCALE_EMPIRICAL_DATASHEET.md) | High-Speed Kernel Simulator | Verified (10,000,000 Flows, 99.12% TPR) |
 
 ---
 *Generated & Sealed for Institutional Thesis Defense & Academic Journal Review.*
