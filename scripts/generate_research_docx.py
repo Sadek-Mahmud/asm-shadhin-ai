@@ -263,6 +263,9 @@ def build_docx(out_path: str):
         "Email: sadekshadhin2000@gmail.com",
         size=9.5, color=C_PRIMARY, space_after=2)
     add_center(
+        "Official Repository: https://github.com/Sadek-Mahmud/asm-shadhin-ai",
+        size=9.5, bold=True, color=C_PRIMARY, space_after=2)
+    add_center(
         "Submitted: September 2026  |  Field: Cybersecurity, Systems Security, AI-Driven Defence",
         size=9, color=C_GRAY, space_after=8)
     hr()
@@ -618,8 +621,9 @@ def build_docx(out_path: str):
 
     add_heading("B. End-to-End Verification Suite & Reproducibility Package", level=2, size=11.5, color=C_DARK, space_before=6)
     add_body(
-        "To ensure full experimental reproducibility, the complete system implementation is provided with an "
-        "automated test harness (scripts/test_master_suite.sh and scripts/test_ubuntu_full.py), self-contained systemd "
+        "To ensure full experimental reproducibility, the complete open-source implementation is made publicly "
+        "available at https://github.com/Sadek-Mahmud/asm-shadhin-ai under the MIT licence. The release package "
+        "includes the automated test harness (scripts/test_master_suite.sh and scripts/test_ubuntu_full.py), self-contained systemd "
         "service unit files (sec-inline-bridge, sec-monitor, sec-tarpit), and offline release packaging. "
         "The automated validation suite achieves a 9/9 (100%) pass rate across all verification phases:"
     )
