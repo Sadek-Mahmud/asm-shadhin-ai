@@ -143,6 +143,7 @@ The detection accuracy and latency performance claims of this system have underg
 * **Encrypted C2 Detection:** **87.9%** (Out-of-band Shannon Entropy & Jitter Analysis, **Zero TLS Decryption**)
 
 Detailed confusion matrices, Wilson score derivations, ablation studies, and execution logs are available in:
+* 📊 [**Massive-Scale Empirical Verification Datasheet (2,000,000 Flows)**](docs/MASSIVE_SCALE_EMPIRICAL_DATASHEET.md) | [**Raw JSON Results**](docs/empirical_benchmark_results.json)
 * 📄 [**Zero-Day Detection Proof & Statistical Validation Dossier**](docs/ZERO_DAY_STATISTICAL_PROOF_DOSSIER.md)
 * 📋 [**Ubuntu Server 22.04 LTS Verification & Operational Transcript**](docs/SYSTEM_VERIFICATION_PROOF_DOSSIER.md)
 * 📑 [**Official IEEE Research Paper (PDF)**](ASM_Shadhin_AI_Research_Paper_2026.pdf) & [**Author Rebuttal Dossier (PDF)**](ASM_Shadhin_AI_Author_Rebuttal_and_Experimental_Proof.pdf)
