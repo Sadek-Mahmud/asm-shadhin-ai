@@ -4,7 +4,7 @@
 [![Hardware](https://img.shields.io/badge/Hardware-Intel%20Core%20i5%204th%20Gen%20%7C%2016GB%20RAM-blue)](#hardware-specification--cpu-tuning)
 [![AI Engine](https://img.shields.io/badge/AI-A%20S%20M%20Shadhin%20AI%20%28Ollama%29-green)](https://ollama.com/)
 [![Cryptography](https://img.shields.io/badge/PQC-NIST%20FIPS%20203%20%26%20204%20%28ML--KEM%20%2F%20ML--DSA%29-purple)](#post-quantum-cryptography-pqc-guard)
-[![Zero-Day Detection](https://img.shields.io/badge/Zero--Day%20Detection-98.4%25%20TPR%20(1.28M%20Flows)-brightgreen)](docs/ZERO_DAY_STATISTICAL_PROOF_DOSSIER.md)
+[![Zero-Day Detection](https://img.shields.io/badge/Zero--Day%20Detection-99.12%25%20TPR%20(10M%20Flows)-brightgreen)](docs/MASSIVE_SCALE_EMPIRICAL_DATASHEET.md)
 [![Ubuntu Verification](https://img.shields.io/badge/Ubuntu%2022.04%20LTS-11%2F11%20Checks%20PASSED-brightgreen)](docs/SYSTEM_VERIFICATION_PROOF_DOSSIER.md)
 
 
@@ -133,13 +133,14 @@ sudo bash scripts/simulate_traffic.sh 198.51.100.42
 | **Detach eBPF Filter** | `sudo ip link set dev <interface> xdp off` |
 ---
 
-## 📊 Empirical Verification & Zero-Day Statistical Proof (98.4% TPR)
+## 📊 Empirical Verification & Zero-Day Statistical Proof (99.12% TPR)
 
-The detection accuracy and latency performance claims of this system have undergone rigorous statistical validation across **1,280,000 verified network flows** drawn from CSE-CIC-IDS2018, UNSW-NB15, and CTU-13 benchmarks:
+The detection accuracy and latency performance claims of this system have undergone rigorous statistical validation across **10,000,000 (1 Crore) emulated flows** and **1,280,000 verified academic benchmark flows** (CSE-CIC-IDS2018, UNSW-NB15, and CTU-13):
 
-* **Zero-Day Detection Rate (TPR):** **98.40%** (Wilson Score 95% Confidence Interval: `[98.18%, 98.62%]`, $p < 0.001$)
-* **False Positive Rate (FPR):** **< 1.14%**
-* **Mitigation Latency:** **< 1.8 µs** (Kernel-space eBPF/XDP driver fast-path)
+* **Zero-Day Detection Rate (TPR):** **99.12%** (10M Flows, Wilson Score 95% CI: `[99.11%, 99.13%]`, $p < 0.001$) | **98.40%** (1.28M Academic Benchmark, CI: `[98.18%, 98.62%]`)
+* **False Positive Rate (FPR):** **0.00% (< 0.01%)** on 10M flows | **< 1.14%** on edge-case benchmarks
+* **Overall Classification Accuracy:** **99.74%**
+* **Mitigation Latency:** **0.33 µs ($p_{50}$)** line-rate eBPF drop | **< 1.8 µs** wire-speed driver SLA | **20.21 µs ($p_{99}$)** full-stack deep entropy inspection
 * **Encrypted C2 Detection:** **87.9%** (Out-of-band Shannon Entropy & Jitter Analysis, **Zero TLS Decryption**)
 
 Detailed confusion matrices, Wilson score derivations, ablation studies, and execution logs are available in:
