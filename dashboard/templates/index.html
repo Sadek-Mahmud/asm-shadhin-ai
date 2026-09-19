@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>A S M Shadhin AI — Defense Operations Center</title>
+  <link rel="stylesheet" href="/static/css/style.css"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>"/>
+</head>
+<body>
+
+<!-- ====================== SIDEBAR ====================== -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+    </div>
+    <div>
+      <div class="logo-text">A S M Shadhin AI</div>
+      <div class="logo-sub">Defense Operations Center</div>
+    </div>
+  </div>
+
+  <div class="sidebar-status">
+    <div class="status-dot"></div>
+    <span class="status-text">SYSTEM ACTIVE</span>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-group-label">Overview</div>
+    <div class="nav-item active" onclick="showPage('dashboard')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </div>
+    <div class="nav-item" onclick="showPage('threats')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      Threat Events
+    </div>
+
+    <div class="nav-group-label">Defense</div>
+    <div class="nav-item" onclick="showPage('blocked')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      Blocked IPs
+    </div>
+    <div class="nav-item" onclick="showPage('tarpit')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+      AI Tarpit
+    </div>
+    <div class="nav-item" onclick="showPage('terminal')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+      Live Terminal
+    </div>
+
+    <div class="nav-group-label">Security</div>
+    <div class="nav-item" onclick="showPage('pqc')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+      Post-Quantum Crypto
+    </div>
+  </nav>
+</aside>
+
+<!-- ====================== MAIN ====================== -->
+<div class="main-wrapper">
+
+  <!-- Top Bar -->
+  <header class="topbar">
+    <span class="topbar-title" id="pageTitle">Dashboard Overview</span>
+    <div class="topbar-right">
+      <span id="systemUptime" style="font-size:12px; color: var(--text-muted); font-family: var(--font-mono);">Uptime: --</span>
+      <button class="btn btn-primary" onclick="document.getElementById('blockModal').style.display='flex'">
+        + Block IP
+      </button>
+    </div>
+  </header>
+
+  <main class="page-content">
+
+    <!-- ===== PAGE: DASHBOARD ===== -->
+    <div id="page-dashboard">
+      <!-- KPI Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-icon blue">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div class="kpi-body">
+            <div class="kpi-label">Throughput</div>
+            <div class="kpi-value" id="valThroughput">— Mbps</div>
+            <div class="kpi-sub">Line-rate PCIe Gigabit NIC</div>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon red">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+          </div>
+          <div class="kpi-body">
+            <div class="kpi-label">Packets Dropped (XDP)</div>
+            <div class="kpi-value" id="valDropped">—</div>
+            <div class="kpi-sub">eBPF kernel fast-path</div>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon green">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div class="kpi-body">
+            <div class="kpi-label">Blocked Adversaries</div>
+            <div class="kpi-value" id="valBlocked">—</div>
+            <div class="kpi-sub">Active kernel blocklist entries</div>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <div class="kpi-icon amber">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+          </div>
+          <div class="kpi-body">
+            <div class="kpi-label">Tarpit Bots Trapped</div>
+            <div class="kpi-value" id="valTarpit">—</div>
+            <div class="kpi-sub" id="valTokens">Tokens drained: —</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts + Subsystems -->
+      <div class="dashboard-grid">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              Network Throughput (Live)
+            </span>
+            <span class="badge badge-green">● Live</span>
+          </div>
+          <div class="card-body">
+            <div class="chart-wrap"><canvas id="networkCanvas"></canvas></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              Subsystem Health
+            </span>
+          </div>
+          <div class="card-body">
+            <div class="subsystem-list">
+              <div class="subsys-row">
+                <span class="subsys-label">eBPF / XDP Filter</span>
+                <span class="badge badge-green" id="ebpfStatus">● Active</span>
+              </div>
+              <div class="subsys-row">
+                <span class="subsys-label">AI Engine (asm-shadhin-ai)</span>
+                <span class="badge badge-blue" id="aiStatus">● Online</span>
+              </div>
+              <div class="subsys-row">
+                <span class="subsys-label">Post-Quantum Crypto (ML-KEM-768)</span>
+                <span class="badge badge-purple" id="pqcStatus">● Protected</span>
+              </div>
+              <div class="subsys-row">
+                <span class="subsys-label">AI Tarpit (Port 8088 / 2222)</span>
+                <span class="badge badge-amber" id="tarpitStatus">● Active</span>
+              </div>
+              <div class="subsys-row">
+                <span class="subsys-label">CPU Usage</span>
+                <span class="subsys-value" id="valCpu" style="color:var(--text-primary)">—</span>
+              </div>
+              <div class="subsys-row">
+                <span class="subsys-label">RAM Usage</span>
+                <span class="subsys-value" id="valRam" style="color:var(--text-primary)">—</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Terminal (compact, shown on dashboard too) -->
+      <div class="terminal-panel">
+        <div class="terminal-header">
+          <div class="term-dot red"></div>
+          <div class="term-dot amber"></div>
+          <div class="term-dot green"></div>
+          <span class="terminal-title">SYSTEM LOG — Kernel / Daemon / AI Events</span>
+          <div class="badge badge-green" style="margin-left:auto; font-size:9px;">● Streaming</div>
+        </div>
+        <div class="terminal-body" id="dashTerminal">
+          <span style="color:#4b5563;">Connecting to daemon log stream...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: THREATS ===== -->
+    <div id="page-threats" style="display:none;">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+            Live AI Threat Intelligence Feed
+          </span>
+          <span class="badge badge-green">● Auto-refresh</span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="event-table" id="eventTable">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Source IP</th>
+                <th>Port</th>
+                <th>Threat Type</th>
+                <th>AI Verdict</th>
+                <th>Confidence</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="eventTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: BLOCKED IPs ===== -->
+    <div id="page-blocked" style="display:none;">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            eBPF Kernel Blocked IP Registry
+          </span>
+          <button class="btn btn-primary btn-sm" onclick="document.getElementById('blockModal').style.display='flex'">+ Add Block</button>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="blocked-table">
+            <thead>
+              <tr>
+                <th>IP Address</th>
+                <th>Drop Count</th>
+                <th>TTL Remaining</th>
+                <th>Reason</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="blockedTableBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: TARPIT ===== -->
+    <div id="page-tarpit" style="display:none;">
+      <div class="kpi-grid" style="grid-template-columns:repeat(2,1fr)">
+        <div class="kpi-card">
+          <div class="kpi-icon amber">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/></svg>
+          </div>
+          <div class="kpi-body">
+            <div class="kpi-label">Bots Trapped</div>
+            <div class="kpi-value" id="valTarpit2">—</div>
+            <div class="kpi-sub">Honeypot sessions active</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-icon red">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="kpi-body">
+            <div class="kpi-label">Total Tokens Drained</div>
+            <div class="kpi-value" id="valTokens2">—</div>
+            <div class="kpi-sub">AI agent context exhaustion</div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="margin-top:16px;">
+        <div class="card-header">
+          <span class="card-title">Active Honeypot Ports</span>
+        </div>
+        <div class="card-body">
+          <div class="subsystem-list">
+            <div class="subsys-row">
+              <span class="subsys-label">HTTP Decoy (Port 8088)</span>
+              <span class="badge badge-amber">● Streaming Deception</span>
+            </div>
+            <div class="subsys-row">
+              <span class="subsys-label">SSH Decoy (Port 2222)</span>
+              <span class="badge badge-amber">● MFA Loop Active</span>
+            </div>
+            <div class="subsys-row">
+              <span class="subsys-label">AI Model for Deception</span>
+              <span class="badge badge-blue">asm-shadhin-ai</span>
+            </div>
+            <div class="subsys-row">
+              <span class="subsys-label">Chunk Trickle Delay</span>
+              <span class="subsys-value" style="color:var(--text-primary);">35 ms/packet</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: TERMINAL ===== -->
+    <div id="page-terminal" style="display:none;">
+      <div class="terminal-panel">
+        <div class="terminal-header">
+          <div class="term-dot red"></div>
+          <div class="term-dot amber"></div>
+          <div class="term-dot green"></div>
+          <span class="terminal-title">LIVE SYSTEM TERMINAL — Kernel / eBPF / AI / Daemon Events</span>
+          <div class="badge badge-green" style="margin-left:auto; font-size:9px;">● Streaming</div>
+        </div>
+        <div class="terminal-body" id="fullTerminal" style="height:460px;"></div>
+      </div>
+    </div>
+
+    <!-- ===== PAGE: PQC ===== -->
+    <div id="page-pqc" style="display:none;">
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Post-Quantum Cryptography Status</span>
+          <span class="badge badge-purple">NIST FIPS 203 / 204</span>
+        </div>
+        <div class="card-body">
+          <div class="subsystem-list">
+            <div class="subsys-row">
+              <span class="subsys-label">Key Encapsulation (KEM)</span>
+              <span class="badge badge-purple">ML-KEM-768 (Kyber-768)</span>
+            </div>
+            <div class="subsys-row">
+              <span class="subsys-label">Digital Signatures</span>
+              <span class="badge badge-purple">ML-DSA-65 (Dilithium3)</span>
+            </div>
+            <div class="subsys-row">
+              <span class="subsys-label">Symmetric Cipher</span>
+              <span class="badge badge-blue">AES-256-GCM (HKDF derived)</span>
+            </div>
+            <div class="subsys-row">
+              <span class="subsys-label">HNDL Protection</span>
+              <span class="badge badge-green">● Active</span>
+            </div>
+            <div class="subsys-row">
+              <span class="subsys-label">Public Key Size</span>
+              <span class="subsys-value" style="color:var(--text-primary);">1184 bytes (ML-KEM-768)</span>
+            </div>
+            <div class="subsys-row">
+              <span class="subsys-label">Signature Size</span>
+              <span class="subsys-value" style="color:var(--text-primary);">64 bytes (ML-DSA-65)</span>
+            </div>
+            <div class="subsys-row">
+              <span class="subsys-label">Handshake Latency</span>
+              <span class="subsys-value" style="color:var(--text-primary);">&lt; 1 ms on Intel i5 4th Gen</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ====================== BLOCK IP MODAL ====================== -->
+<div id="blockModal" class="modal-backdrop">
+  <div class="modal-box">
+    <h3 class="modal-title">Block IP Address</h3>
+    <form id="formBlock" onsubmit="submitBlock(event)">
+      <label class="form-label">IPv4 Address</label>
+      <input type="text" id="inputIp" class="form-input" placeholder="e.g. 198.51.100.42" required/>
+      <label class="form-label">Duration (seconds)</label>
+      <input type="number" id="inputTtl" class="form-input" value="3600"/>
+      <label class="form-label">Reason / Note</label>
+      <input type="text" id="inputReason" class="form-input" value="Operator Manual Block"/>
+      <div class="modal-footer">
+        <button type="button" class="btn" style="background:#f1f5f9; color:var(--text-secondary);" onclick="document.getElementById('blockModal').style.display='none'">Cancel</button>
+        <button type="submit" class="btn btn-primary">Commit to eBPF</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/static/js/dashboard.js"></script>
+</body>
+</html>

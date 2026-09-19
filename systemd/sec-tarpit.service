@@ -1,0 +1,33 @@
+[Unit]
+Description=AI-Tarpit & Bot Deception Token-Drain Daemon
+After=network-online.target ollama.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/ai-security-system/daemon
+Environment="PYTHONUNBUFFERED=1"
+Environment="TARPIT_HTTP_PORT=8088"
+Environment="TARPIT_SSH_PORT=2222"
+Environment="OLLAMA_HOST=http://127.0.0.1:11434"
+
+ExecStart=/opt/ai-security-system/venv/bin/python3 tarpit_service.py
+
+# Network Privileges
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+LimitNOFILE=32768
+
+# Throttled resource allocation
+CPUQuota=50%
+MemoryMax=1G
+
+Restart=always
+RestartSec=5s
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,38 @@
+[Unit]
+Description=AI-Driven Inline Network Security Monitor & eBPF Defense Daemon
+Documentation=https://github.com/your-repo/ai-security-system
+After=network-online.target suricata.service ollama.service
+Wants=network-online.target
+Requires=ollama.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/ai-security-system/daemon
+Environment="PYTHONUNBUFFERED=1"
+Environment="SEC_INTERFACE=eth0"
+Environment="OLLAMA_HOST=http://127.0.0.1:11434"
+Environment="SURICATA_EVE_PATH=/var/log/suricata/eve.json"
+
+ExecStart=/opt/ai-security-system/venv/bin/python3 security_daemon.py
+ExecReload=/bin/kill -HUP $MAINPID
+
+# Process Sandboxing & Privileges
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_BPF CAP_SYS_ADMIN CAP_NET_RAW
+AmbientCapabilities=CAP_NET_ADMIN CAP_BPF CAP_SYS_ADMIN CAP_NET_RAW
+LimitMEMLOCK=infinity
+LimitNOFILE=65536
+
+# Hardware Resource Protection for Intel Core i5 (4 cores)
+CPUQuota=150%
+MemoryMax=3G
+
+# Auto-recovery
+Restart=always
+RestartSec=5s
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

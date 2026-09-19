@@ -1,0 +1,28 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Large binary model files (Exceeds GitHub 100MB direct push limit)
+# Instructions to download/populate asm-shadhin-ai-q4_k_m.gguf are in models/README.md
+*.gguf
+models/*.gguf
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Log files
+*.log
+logs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE files
+.vscode/
+.idea/

@@ -1,0 +1,27 @@
+[Unit]
+Description=A S M Shadhin AI Cyber Defense SOC Operations Dashboard
+After=network-online.target sec-monitor.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/ai-security-system/dashboard
+Environment="PYTHONUNBUFFERED=1"
+Environment="DASHBOARD_PORT=9090"
+
+ExecStart=/opt/ai-security-system/venv/bin/python3 app.py
+
+# Networking and capabilities
+LimitNOFILE=16384
+CPUQuota=30%
+MemoryMax=512M
+
+Restart=always
+RestartSec=5s
+
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

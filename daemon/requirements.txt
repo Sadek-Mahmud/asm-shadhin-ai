@@ -1,0 +1,6 @@
+# Python dependencies for AI Network Security Monitoring System
+httpx>=0.25.2
+cryptography>=41.0.7
+pyyaml>=6.0.1
+pydantic>=2.5.3
+# liboqs-python (Optional native NIST PQC bindings: pip install liboqs-python)
