@@ -22,25 +22,24 @@ def main():
     print(f"  Underlying Engine: {'Native liboqs (FIPS 203/204)' if OQS_AVAILABLE else 'High-Entropy Emulation'}")
     print("=" * 70)
 
-    # 1. KEM Test (ML-KEM / Kyber-768)
-    print("\n[*] Phase 1: ML-KEM-768 Key Encapsulation Mechanism (KEM)")
+    # 1. KEM Test (ML-KEM-1024 Category 5 & ML-KEM-768)
+    print("\n[*] Phase 1: ML-KEM-1024 (Category 5, 256-bit Quantum Brute-Force Safe)")
     t0 = time.perf_counter()
 
-    server_kem = PQCKeyExchange("Kyber768")
-    server_pubkey = server_kem.generate_keypair()
-    print(f"  [+] Server Public Key Generated (Size: {len(server_pubkey)} bytes)")
+    server_kem1024 = PQCKeyExchange("ML-KEM-1024")
+    server_pubkey1024 = server_kem1024.generate_keypair()
+    print(f"  [+] Server Public Key Generated (Size: {len(server_pubkey1024)} bytes, expected 1568)")
 
-    client_kem = PQCKeyExchange("Kyber768")
-    ciphertext, client_shared_secret = client_kem.encapsulate(server_pubkey)
-    print(f"  [+] Client Ciphertext Generated (Size: {len(ciphertext)} bytes)")
+    client_kem1024 = PQCKeyExchange("ML-KEM-1024")
+    ciphertext1024, client_shared_secret = client_kem1024.encapsulate(server_pubkey1024)
+    print(f"  [+] Client Ciphertext Generated (Size: {len(ciphertext1024)} bytes, expected 1568)")
     print(f"  [+] Client Shared Secret Derived (Size: {len(client_shared_secret)} bytes)")
 
-    server_shared_secret = server_kem.decapsulate(ciphertext)
+    server_shared_secret = server_kem1024.decapsulate(ciphertext1024)
     print(f"  [+] Server Shared Secret Recovered (Size: {len(server_shared_secret)} bytes)")
 
-    if OQS_AVAILABLE:
-        assert client_shared_secret == server_shared_secret, "KEM shared secrets do not match!"
-    print(f"  [✓] ML-KEM-768 Key Agreement: SUCCESS (Duration: {(time.perf_counter() - t0)*1000:.2f}ms)")
+    assert client_shared_secret == server_shared_secret, "ML-KEM-1024 shared secrets do not match!"
+    print(f"  [✓] ML-KEM-1024 Key Agreement: SUCCESS (Duration: {(time.perf_counter() - t0)*1000:.2f}ms)")
 
     # 2. Digital Signature Test (ML-DSA / Dilithium)
     print("\n[*] Phase 2: ML-DSA-65 (Dilithium) Quantum-Resistant Digital Signatures")

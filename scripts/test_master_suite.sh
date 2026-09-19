@@ -59,18 +59,18 @@ cd ..
 mark_pass "eBPF C bytecode generated successfully with clang -target bpf."
 
 # ------------------------------------------------------------------------------
-# TEST 4: Full System Integrity Diagnostic Suite (7/7 Checks)
+# TEST 4: Full System Integrity Diagnostic Suite (11/11 Checks)
 # ------------------------------------------------------------------------------
-echo -e "\n${BLUE}[4/9] Running 9-Step System Diagnostic & Integrity Suite...${NC}"
+echo -e "\n${BLUE}[4/9] Running 11-Step System Diagnostic & Integrity Suite...${NC}"
 python3 scripts/test_system_integrity.py
-mark_pass "All 9 system diagnostic integrity checks passed."
+mark_pass "All 11 system diagnostic integrity checks passed."
 
 # ------------------------------------------------------------------------------
 # TEST 5: Post-Quantum Cryptography (PQC) & AES-256 Tunnel Handshake
 # ------------------------------------------------------------------------------
-echo -e "\n${BLUE}[5/9] Executing Post-Quantum Cryptography Handshake (NIST FIPS 203/204)...${NC}"
+echo -e "\n${BLUE}[5/9] Executing Post-Quantum Cryptography Handshake (ML-KEM-1024, NIST FIPS 203/204)...${NC}"
 python3 scripts/test_pqc_handshake.py
-mark_pass "ML-KEM-768, ML-DSA-65 signatures, and AES-256 AEAD tunnel verified."
+mark_pass "ML-KEM-1024 (Cat. 5), ML-DSA-65 signatures, and AES-256 AEAD tunnel verified."
 
 # ------------------------------------------------------------------------------
 # TEST 6: Dual-NIC Inline Transparent Bridge (br0) Simulation
