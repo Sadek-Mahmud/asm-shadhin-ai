@@ -4,6 +4,7 @@
 [![Hardware](https://img.shields.io/badge/Hardware-Intel%20Core%20i5%204th%20Gen%20%7C%2016GB%20RAM-blue)](#hardware-specification--cpu-tuning)
 [![AI Engine](https://img.shields.io/badge/AI-A%20S%20M%20Shadhin%20AI%20%28Ollama%29-green)](https://ollama.com/)
 [![Cryptography](https://img.shields.io/badge/PQC-NIST%20FIPS%20203%20%26%20204%20%28ML--KEM%20%2F%20ML--DSA%29-purple)](#post-quantum-cryptography-pqc-guard)
+[![Ubuntu Verification](https://img.shields.io/badge/Ubuntu%2022.04%20LTS-11%2F11%20Checks%20PASSED-brightgreen)](docs/SYSTEM_VERIFICATION_PROOF_DOSSIER.md)
 
 
 A headless, enterprise-grade inline network defense ecosystem designed for Ubuntu Server. It bridges **microsecond line-rate packet mitigation (1 Gbps) in the Linux kernel** with **local, quantized AI threat intelligence**, **NIST Post-Quantum Cryptography (PQC)**, and an **AI-Tarpit token-drain deception engine**.
