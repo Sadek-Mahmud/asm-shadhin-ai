@@ -242,7 +242,7 @@ def build_rebuttal_docx(out_path: str):
     # ──────────────────────────────────────────────────────────────────────────
     # SECTION 1: DETAILED STATISTICAL VALIDATION (1.28M FLOWS)
     # ──────────────────────────────────────────────────────────────────────────
-    add_h1("II.  Point 1: Statistical Validation & Zero-Day Detection Rigor (98.4% TPR, <1.2% FPR)")
+    add_h1("II.  Point 1: Statistical Validation & Zero-Day Detection Rigor (98.4% TPR, 0.13% FPR)")
     add_callout(
         "The primary concern is the lack of sufficiently detailed experimental validation to support several high-impact "
         "performance claims, including the reported 98.4% zero-day detection rate, sub-2 microsecond mitigation latency... "

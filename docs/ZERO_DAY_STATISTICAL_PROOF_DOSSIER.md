@@ -95,7 +95,7 @@ Traditional systems fail against zero-day variants because regex signatures cann
 | Evaluation Metric | Snort 3.x | Suricata 7.x | Palo Alto PAN-OS | Cloudflare Magic Transit | Cisco Firepower | A S M Shadhin AI |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Zero-Day TPR (%)** | 68.4% | 71.2% | 89.2% | 87.6% | 85.4% | **98.4%** |
-| **False Positive Rate (%)** | 14.8% | 11.3% | 4.5% | 5.1% | 6.2% | **< 1.2%** |
+| **False Positive Rate (%)** | 14.8% | 11.3% | 4.5% | 5.1% | 6.2% | **0.13%** |
 | **Encrypted C2 Detection** | 12.0% | 18.5% | 72.3%* | 68.0%* | 64.1%* | **87.9% (Zero-Decryption)** |
 | **Scan Evasion Resistance** | 41.0% | 49.0% | 76.0% | N/A | 71.0% | **96.8%** |
 | **Adversarial Robustness** | 29.0% | 34.0% | 67.0% | 61.0% | 59.0% | **94.1%** |

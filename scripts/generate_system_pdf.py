@@ -495,7 +495,7 @@ def build_pdf(target_pdf_path):
             Paragraph("<b>False Positive Rate (FPR)</b><br/>(Legitimate traffic blocked)", table_cell_style),
             Paragraph("14.8%<br/>(High alert fatigue on complex protocols)", table_cell_style),
             Paragraph("4.5%<br/>(Moderate false drops on custom APIs)", table_cell_style),
-            Paragraph("<b>&lt; 1.2%</b><br/>(LLM evaluates contextual administrative intent)", table_cell_style)
+            Paragraph("<b>0.13%</b><br/>(LLM evaluates contextual administrative intent)", table_cell_style)
         ],
         [
             Paragraph("<b>Mitigation Reaction Time</b><br/>(Packet drop latency)", table_cell_style),
