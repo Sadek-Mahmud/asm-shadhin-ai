@@ -13,17 +13,17 @@ from docx.oxml.ns import qn
 from docx.oxml import OxmlElement
 import copy
 
-# ── Colour constants ──────────────────────────────────────────────────────────
-C_PRIMARY = RGBColor(0x1e, 0x40, 0xaf)   # blue
-C_DARK    = RGBColor(0x1e, 0x29, 0x3b)   # near-black
-C_GRAY    = RGBColor(0x64, 0x74, 0x8b)   # slate gray
+# ── Colour constants (Strict IEEE Standard Monochrome / Black) ────────────────
+C_PRIMARY = RGBColor(0x00, 0x00, 0x00)   # Pure IEEE Black
+C_DARK    = RGBColor(0x00, 0x00, 0x00)   # Pure IEEE Black
+C_GRAY    = RGBColor(0x33, 0x33, 0x33)   # Charcoal Gray
 C_WHITE   = RGBColor(0xFF, 0xFF, 0xFF)
-C_THEAD   = RGBColor(0x1e, 0x3a, 0x8a)   # dark navy for table headers
+C_THEAD   = RGBColor(0x11, 0x18, 0x27)   # Dark / Black for table headers
 C_TROW1   = RGBColor(0xFF, 0xFF, 0xFF)
-C_TROW2   = RGBColor(0xf8, 0xfa, 0xfc)
-C_GREEN   = RGBColor(0x15, 0x80, 0x3d)
-C_RED     = RGBColor(0xb9, 0x1c, 0x1c)
-C_HIGHL   = RGBColor(0xef, 0xf6, 0xff)   # light blue highlight
+C_TROW2   = RGBColor(0xF9, 0xF9, 0xF9)
+C_GREEN   = RGBColor(0x00, 0x00, 0x00)
+C_RED     = RGBColor(0x00, 0x00, 0x00)
+C_HIGHL   = RGBColor(0xF1, 0xF5, 0xF9)   # Light gray highlight
 
 
 # ── XML helpers ───────────────────────────────────────────────────────────────
@@ -54,7 +54,7 @@ def set_cell_border(cell, **kwargs):
     tcPr.append(tcBorders)
 
 
-def add_para_border_bottom(para, color="1E40AF", sz=12):
+def add_para_border_bottom(para, color="000000", sz=8):
     """Add a bottom border to a paragraph (used for section dividers)."""
     pPr = para._p.get_or_add_pPr()
     pBdr = OxmlElement("w:pBdr")
@@ -178,7 +178,7 @@ def build_docx(out_path: str):
         hdr_row = tbl.rows[0]
         for j, h in enumerate(headers):
             cell = hdr_row.cells[j]
-            set_cell_bg(cell, "1E3A8A")
+            set_cell_bg(cell, "111827")
             cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
             p = cell.paragraphs[0]
             p.alignment = WD_ALIGN_PARAGRAPH.CENTER
@@ -191,12 +191,12 @@ def build_docx(out_path: str):
         # Data rows
         for i, row_data in enumerate(rows):
             row = tbl.rows[i + 1]
-            bg = "FFFFFF" if i % 2 == 0 else "F8FAFC"
+            bg = "FFFFFF" if i % 2 == 0 else "F9F9F9"
             for j, cell_text in enumerate(row_data):
                 cell = row.cells[j]
                 cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
                 if highlight_last_col and j == ncols - 1:
-                    set_cell_bg(cell, "EFF6FF")
+                    set_cell_bg(cell, "F1F5F9")
                 else:
                     set_cell_bg(cell, bg)
                 p = cell.paragraphs[0]
@@ -252,22 +252,16 @@ def build_docx(out_path: str):
     r.font.color.rgb = C_DARK
     r.font.name = "Calibri"
 
-    add_center("A S M Hossain Mahmud (Shadhin)", size=12, bold=True, color=C_PRIMARY, space_after=2)
+    add_center("A. S. M. Hossain Mahmud (Shadhin), Member, IEEE", size=11.5, bold=True, color=C_PRIMARY, space_after=2)
     add_center(
-        "Department of Computer Science and Engineering",
-        size=10, bold=False, color=C_DARK, space_after=1)
+        "Department of Computer Science and Engineering, Bangladesh Army University of Science and Technology (BAUST)",
+        size=9.5, bold=False, color=C_DARK, space_after=1)
     add_center(
-        "Bangladesh Army University of Science and Technology (BAUST), Saidpur, Bangladesh",
-        size=9.5, color=C_GRAY, space_after=1)
+        "Saidpur 5310, Bangladesh  |  Email: sadekshadhin2000@gmail.com",
+        size=9.5, color=C_DARK, space_after=2)
     add_center(
-        "Email: sadekshadhin2000@gmail.com",
-        size=9.5, color=C_PRIMARY, space_after=2)
-    add_center(
-        "Official Repository: https://github.com/Sadek-Mahmud/asm-shadhin-ai",
-        size=9.5, bold=True, color=C_PRIMARY, space_after=2)
-    add_center(
-        "Submitted: September 2026  |  Field: Cybersecurity, Systems Security, AI-Driven Defence",
-        size=9, color=C_GRAY, space_after=8)
+        "Open-Source Code & Artifacts: https://github.com/Sadek-Mahmud/asm-shadhin-ai",
+        size=9.5, bold=True, color=C_PRIMARY, space_after=6)
     hr()
 
     # ── ABSTRACT ─────────────────────────────────────────────────────────────

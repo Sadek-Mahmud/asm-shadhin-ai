@@ -72,15 +72,15 @@ def build_pdf(target_pdf_path):
 
     styles = getSampleStyleSheet()
     
-    # Custom Palette
-    c_primary = colors.HexColor("#0f172a")    # Deep Slate
-    c_accent = colors.HexColor("#0284c7")     # Ocean Blue
-    c_dark = colors.HexColor("#1e293b")       # Slate 800
+    # Custom Palette (IEEE Monochrome / Black)
+    c_primary = colors.HexColor("#000000")    # Pure Black
+    c_accent = colors.HexColor("#111827")     # Dark Slate / Black
+    c_dark = colors.HexColor("#000000")       # Black
     c_light = colors.HexColor("#f8fafc")      # Off-white
-    c_border = colors.HexColor("#e2e8f0")     # Light border
-    c_teal = colors.HexColor("#0d9488")       # Teal green
-    c_alert_bg = colors.HexColor("#f0fdf4")   # Soft green tint
-    c_alert_border = colors.HexColor("#16a34a")
+    c_border = colors.HexColor("#cbd5e1")     # Light border
+    c_teal = colors.HexColor("#111827")       # Dark
+    c_alert_bg = colors.HexColor("#f8fafc")   # Neutral light tint
+    c_alert_border = colors.HexColor("#334155")
 
     title_style = ParagraphStyle(
         'CoverTitle',
@@ -217,6 +217,10 @@ def build_pdf(target_pdf_path):
         [
             Paragraph("<b>Deception Engine:</b>", table_cell_style), Paragraph("AI-Tarpit (Token-Drain & Trickle)", table_cell_style),
             Paragraph("<b>Offline Capability:</b>", table_cell_style), Paragraph("100% Air-Gapped / Zero Internet Required", table_cell_style)
+        ],
+        [
+            Paragraph("<b>GitHub Repository:</b>", table_cell_style), Paragraph('<font size="7.5" color="#000000"><b>github.com/Sadek-Mahmud/asm-shadhin-ai</b></font>', table_cell_style),
+            Paragraph("<b>License & Access:</b>", table_cell_style), Paragraph("Open-Source (MIT) / Public", table_cell_style)
         ]
     ]
     meta_table = Table(meta_data, colWidths=[1.3*inch, 2.2*inch, 1.3*inch, 2.2*inch])

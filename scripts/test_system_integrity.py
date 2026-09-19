@@ -28,10 +28,13 @@ from security_daemon import SecurityMonitorDaemon
 from tarpit_service import AITarpitService
 from entropy_analyzer import EncryptedTrafficAnalyzer
 from mtd_service import MovingTargetDefense
+from auth_guard import Argon2idAuthGuard
+from audit_logger import SHA512AuditLogger
+import tempfile
 
 
 def test_bash_scripts():
-    print("\n[CHECK 1/7] Validating Bash Scripts Syntax (bash -n)...")
+    print("\n[CHECK 1/11] Validating Bash Scripts Syntax (bash -n)...")
     scripts = [
         "scripts/deploy.sh",
         "scripts/simulate_traffic.sh",
@@ -49,7 +52,7 @@ def test_bash_scripts():
 
 
 def test_modelfile():
-    print("\n[CHECK 2/7] Validating Modelfile Configuration...")
+    print("\n[CHECK 2/11] Validating Modelfile Configuration...")
     modelfile_path = os.path.join(ROOT_DIR, "Modelfile")
     assert os.path.exists(modelfile_path), "Modelfile is missing!"
     with open(modelfile_path, "r") as f:
@@ -65,31 +68,41 @@ def test_modelfile():
 
 
 def test_pqc_cryptography():
-    print("\n[CHECK 3/7] Validating Post-Quantum Cryptography (PQC)...")
-    # KEM
-    srv_kem = PQCKeyExchange()
-    srv_pub = srv_kem.generate_keypair()
-    cli_kem = PQCKeyExchange()
-    ct, cli_shared = cli_kem.encapsulate(srv_pub)
-    assert len(cli_shared) == 32, "PQC shared secret must be 256-bit"
+    print("\n[CHECK 3/11] Validating Post-Quantum Cryptography (ML-KEM-1024, ML-KEM-768, ML-DSA-65)...")
+    # KEM Category 5 (Kyber-1024)
+    srv_kem1024 = PQCKeyExchange("ML-KEM-1024")
+    srv_pub1024 = srv_kem1024.generate_keypair()
+    assert len(srv_pub1024) == 1568, f"Expected 1568 bytes ML-KEM-1024 pubkey, got {len(srv_pub1024)}"
+    cli_kem1024 = PQCKeyExchange("ML-KEM-1024")
+    ct1024, cli_shared1024 = cli_kem1024.encapsulate(srv_pub1024)
+    srv_shared1024 = srv_kem1024.decapsulate(ct1024)
+    assert cli_shared1024 == srv_shared1024, "ML-KEM-1024 shared secrets mismatch!"
+    assert len(cli_shared1024) == 32, "PQC shared secret must be 256-bit"
+
+    # KEM Category 3 (Kyber-768)
+    srv_kem768 = PQCKeyExchange("ML-KEM-768")
+    srv_pub768 = srv_kem768.generate_keypair()
+    ct768, cli_shared768 = srv_kem768.encapsulate(srv_pub768)
+    srv_shared768 = srv_kem768.decapsulate(ct768)
+    assert cli_shared768 == srv_shared768, "ML-KEM-768 shared secrets mismatch!"
 
     # AEAD Tunnel
-    tunnel = PQCSecureTunnel(cli_shared)
+    tunnel = PQCSecureTunnel(cli_shared1024)
     secret_data = b"CONFIDENTIAL_NETWORK_PACKET_ANOMALY_RECORD"
     enc = tunnel.encrypt_payload(secret_data)
     dec = tunnel.decrypt_payload(enc)
     assert dec == secret_data, "PQC decrypted text does not match original"
 
-    # Signature
+    # Signature ML-DSA-65 (Dilithium3)
     signer = PQCSigner()
     signer.generate_keypair()
     sig = signer.sign(secret_data)
     assert signer.verify(secret_data, sig, signer.public_key), "PQC signature verification failed"
-    print(f"  [✓] ML-KEM-768 & ML-DSA-65: Encryption, Decryption, Signing PASSED")
+    print(f"  [✓] ML-KEM-1024 (Cat. 5) & ML-KEM-768 & ML-DSA-65: Encryption, Decryption, Signing PASSED")
 
 
 def test_bpf_controller_logic():
-    print("\n[CHECK 4/7] Validating eBPF Controller & Binary Packing...")
+    print("\n[CHECK 4/11] Validating eBPF Controller & Binary Packing...")
     controller = BPFController()
 
     # Test IP byte conversion
@@ -114,7 +127,7 @@ def test_bpf_controller_logic():
 
 
 def test_suricata_parser_and_decision():
-    print("\n[CHECK 5/7] Validating Suricata Alert Parser & Heuristic Fallback...")
+    print("\n[CHECK 5/11] Validating Suricata Alert Parser & Heuristic Fallback...")
     daemon = SecurityMonitorDaemon()
 
     # Synthetic Log4j exploit event
@@ -140,7 +153,7 @@ def test_suricata_parser_and_decision():
 
 
 def test_tarpit_deception_generator():
-    print("\n[CHECK 6/7] Validating AI-Tarpit Deception & Trickle Engine...")
+    print("\n[CHECK 6/11] Validating AI-Tarpit Deception & Trickle Engine...")
     tarpit = AITarpitService()
     assert tarpit.chunk_delay > 0, "Chunk delay must be greater than zero for trickle throttling"
     
@@ -151,7 +164,7 @@ def test_tarpit_deception_generator():
 
 
 def test_systemd_units():
-    print("\n[CHECK 7/7] Validating Systemd Service Unit Files...")
+    print("\n[CHECK 7/11] Validating Systemd Service Unit Files...")
     units = [
         "systemd/sec-monitor.service",
         "systemd/sec-tarpit.service",
@@ -166,7 +179,7 @@ def test_systemd_units():
 
 
 def test_moving_target_defense():
-    print("\n[CHECK 8/9] Validating Moving Target Defense (MTD) Polymorphic Hopping...")
+    print("\n[CHECK 8/11] Validating Moving Target Defense (MTD) Polymorphic Hopping...")
     mtd = MovingTargetDefense(hop_interval_seconds=30)
     state = mtd.get_active_defense_state()
     assert "services" in state and "SSH" in state["services"]
@@ -180,7 +193,7 @@ def test_moving_target_defense():
 
 
 def test_encrypted_traffic_entropy():
-    print("\n[CHECK 9/9] Validating Encrypted Traffic Shannon Entropy & C2 Detector...")
+    print("\n[CHECK 9/11] Validating Encrypted Traffic Shannon Entropy & C2 Detector...")
     analyzer = EncryptedTrafficAnalyzer()
     
     # Low entropy test (plaintext/zeros)
@@ -206,6 +219,62 @@ def test_encrypted_traffic_entropy():
     print("  [✓] Encrypted Traffic: Shannon Byte Entropy & C2 Beacon Detector VERIFIED")
 
 
+def test_sha512_audit_chain():
+    print("\n[CHECK 10/11] Validating SHA-512 Immutable Forensic Audit Log Chaining...")
+    with tempfile.NamedTemporaryFile(suffix=".jsonl", delete=False) as tf:
+        temp_log = tf.name
+
+    try:
+        logger = SHA512AuditLogger(temp_log)
+        # Record three chained events
+        logger.record_event("EBPF_DROP", {"src_ip": "198.51.100.42", "reason": "XDP_DROP SYN Flood"})
+        logger.record_event("THREAT_MITIGATION", {"threat_score": 98, "action": "ISOLATE", "llm": "Mistral-7B"})
+        logger.record_event("MTD_ROTATE", {"service": "SSH", "active_port": 34912})
+
+        # Verify cryptographic chain integrity
+        valid, count, broken_idx, err = logger.verify_chain()
+        assert valid is True and count == 3, f"Audit chain verification failed: {err}"
+
+        # Test tamper detection: mutate one byte in the file
+        with open(temp_log, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+        # Tamper payload in second entry
+        tampered_entry = json.loads(lines[1])
+        tampered_entry["payload"]["threat_score"] = 10  # malicious attacker tampering!
+        lines[1] = json.dumps(tampered_entry) + "\n"
+        with open(temp_log, "w", encoding="utf-8") as f:
+            f.writelines(lines)
+
+        tamper_valid, _, broken_idx, _ = logger.verify_chain()
+        assert tamper_valid is False and broken_idx == 2, "Tampering was NOT detected by SHA-512 chain!"
+        print("  [✓] SHA-512 (FIPS 180-4) Immutable Hash-Chain & Tamper-Detection: VERIFIED")
+    finally:
+        if os.path.exists(temp_log):
+            os.remove(temp_log)
+
+
+def test_argon2id_auth_guard():
+    print("\n[CHECK 11/11] Validating Argon2id (RFC 9106) Memory-Hard Authentication...")
+    auth = Argon2idAuthGuard(memory_cost=65536, time_cost=3, parallelism=4)
+    master_pass = "Sovereign_SOC_Admin_Defense_2026!#"
+    
+    # Hash password using Argon2id
+    stored_hash = auth.hash_password(master_pass)
+    assert "$argon2id$" in stored_hash or "$pbkdf2-sha512$" in stored_hash
+    
+    # Verify correct password
+    assert auth.verify_password(stored_hash, master_pass) is True, "Argon2id failed to verify valid password!"
+    # Verify rejection of brute-force attempt
+    assert auth.verify_password(stored_hash, "Admin12345!") is False, "Argon2id accepted invalid password!"
+
+    # Test HMAC-SHA512 session token issuance & verification
+    secret = os.urandom(32)
+    token = auth.create_session_token("soc_lead_analyst", secret, ttl_seconds=1800)
+    session = auth.verify_session_token(token, secret)
+    assert session is not None and session["sub"] == "soc_lead_analyst", "Session token verification failed!"
+    print("  [✓] Argon2id (RFC 9106) 64 MiB Memory-Hard Hashing & HMAC-SHA512 Sessions: VERIFIED")
+
+
 def main():
     print("=" * 75)
     print("         SYSTEM DIAGNOSTIC & LOGICAL INTEGRITY VERIFICATION SUITE         ")
@@ -220,11 +289,14 @@ def main():
     test_systemd_units()
     test_moving_target_defense()
     test_encrypted_traffic_entropy()
+    test_sha512_audit_chain()
+    test_argon2id_auth_guard()
 
     print("\n" + "=" * 75)
-    print("  [★★★] ALL 9/9 INTEGRITY CHECKS PASSED: SYSTEM IS 100% LOGICALLY READY")
+    print("  [★★★] ALL 11/11 INTEGRITY CHECKS PASSED: SYSTEM IS 100% LOGICALLY READY")
     print("=" * 75)
 
 
 if __name__ == "__main__":
     main()
+

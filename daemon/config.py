@@ -46,10 +46,16 @@ TARPIT_CHUNK_DELAY_MS = int(os.getenv("TARPIT_CHUNK_DELAY_MS", "35"))  # Throttl
 TARPIT_MAX_DRAIN_TOKENS = int(os.getenv("TARPIT_MAX_DRAIN_TOKENS", "4096"))
 
 # --- Post-Quantum Cryptography (PQC) Configuration ---
-PQC_KEM_ALGORITHM = os.getenv("PQC_KEM_ALG", "ML-KEM-768")     # NIST FIPS 203 (Kyber-768)
+PQC_KEM_ALGORITHM = os.getenv("PQC_KEM_ALG", "ML-KEM-1024")    # NIST FIPS 203 Category 5 (Kyber-1024)
 PQC_SIG_ALGORITHM = os.getenv("PQC_SIG_ALG", "ML-DSA-65")      # NIST FIPS 204 (Dilithium3)
 PQC_TUNNEL_PORT = int(os.getenv("PQC_TUNNEL_PORT", "8443"))
 PQC_CERT_DIR = BASE_DIR / "certs" / "pqc"
+
+# --- Authentication & Immutable Audit Trail (RFC 9106 & FIPS 180-4) ---
+AUTH_ARGON2_MEMORY_KIB = int(os.getenv("AUTH_ARGON2_MEMORY_KIB", "65536"))  # 64 MiB
+AUTH_ARGON2_TIME_COST = int(os.getenv("AUTH_ARGON2_TIME_COST", "3"))        # 3 iterations
+AUTH_ARGON2_PARALLELISM = int(os.getenv("AUTH_ARGON2_PARALLELISM", "4"))    # 4 threads
+AUDIT_LOG_CHAIN_PATH = BASE_DIR / "logs" / "audit_chain.jsonl"
 
 # --- Logging & Telemetry ---
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
