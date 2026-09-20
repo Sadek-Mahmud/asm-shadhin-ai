@@ -665,6 +665,15 @@ def build_docx(out_path: str, anonymous: bool = False):
                 "Autonomous Agent achieves 87.9% C2 detection out-of-band without payload decryption.")
 
     add_heading("C. Latency and Throughput Comparison", level=2, size=11.5, color=C_DARK, space_before=6)
+    add_body(
+        "Table IV compares inline data-plane and control-plane decision latencies across the evaluated systems. "
+        "A foundational architectural distinction lies in the separation of kernel-space packet processing from userspace deliberation. "
+        "Traditional open-source systems (Snort 3.x and Suricata 7.x) incur packet-copy penalties through DAQ and AF_PACKET interfaces, "
+        "bounding per-packet transit latencies between 180 us and 800 us under line-rate load. In contrast, the Autonomous Agent intercepts "
+        "and drops malicious packets directly within the kernel XDP driver callback at 0.33 us median latency (p90 = 0.92 us). While local "
+        "SLM semantic deliberation requires 148 ms to 2.8 s on commodity CPU hardware, its completely asynchronous execution via background "
+        "ring-buffer consumers ensures that wire-speed packet forwarding is never blocked or jitter-degraded during threat reasoning."
+    )
     make_table(
         headers=["System", "Data-Plane Latency", "Control-Plane Latency", "Max Throughput", "Architecture"],
         rows=[
@@ -681,6 +690,15 @@ def build_docx(out_path: str, anonymous: bool = False):
     add_caption("Table IV: Latency and throughput comparison.")
 
     add_heading("D. Sovereignty and Privacy Properties", level=2, size=11.5, color=C_DARK, space_before=6)
+    add_body(
+        "Table V contrasts data sovereignty, operational autonomy, and defensive deception capabilities. Commercial enterprise "
+        "firewalls (Palo Alto PAN-OS, Cisco Firepower) and cloud protection platforms (Cloudflare Magic Transit) fundamentally require "
+        "continuous uplink connectivity to vendor intelligence clouds (Wildfire, Talos) and third-party telemetry ingest, disqualifying them "
+        "from classified defense installations or air-gapped critical infrastructure. In contrast, the Autonomous Agent provides 100% "
+        "sovereign, air-gapped execution with zero telemetry leakage and zero subscription overhead. Furthermore, it incorporates native "
+        "post-quantum key encapsulation (NIST FIPS 203 ML-KEM-1024) and signatures (FIPS 204 ML-DSA-65), coupled with proactive HMAC-SHA256 "
+        "port hopping and canary-backed AI-tarpit deception to actively exhaust attacker reconnaissance resources."
+    )
     make_table(
         headers=["Property", "Snort / Suricata", "Palo Alto / Cisco", "Cloudflare", "Autonomous Agent (ours)"],
         rows=[
