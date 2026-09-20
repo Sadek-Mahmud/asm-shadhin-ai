@@ -442,13 +442,14 @@ def build_docx(out_path: str):
         "code stored in the block-entry hash map for observability."
     )
 
-    add_heading("B. Asynchronous Control-Plane: LLM Semantic Reasoning", level=2, size=11.5, color=C_DARK, space_before=6)
+    add_heading("B. Asynchronous Control-Plane: Custom LLM Semantic Reasoning", level=2, size=11.5, color=C_DARK, space_before=6)
     add_body(
-        "The LLM (asm-shadhin-ai, a 7B-parameter architecture quantised to GGUF Q4_K_M) operates on "
-        "the asynchronous control plane — deliberately isolated from the real-time data plane "
-        "so that inference latency (averaging 148 ms on an 8-core CPU) never introduces head-of-line blocking on "
-        "the packet path. The 4-bit quantisation provides an optimal operating point, requiring under 4.5 GB of "
-        "system RAM and eliminating the need for expensive, power-intensive GPU accelerators or external cloud APIs."
+        "To perform deep semantic evaluation without external cloud dependencies, the architecture integrates a "
+        "custom domain-adapted security model: asm-shadhin-ai (a specialized 7B-parameter architecture custom-quantized "
+        "to GGUF Q4_K_M). Operating strictly on the asynchronous control plane, it is physically and logically decoupled "
+        "from the real-time data path so that inference latency (averaging 148 ms on commodity CPU) never introduces head-of-line "
+        "blocking on packet forwarding. The 4-bit quantization provides an optimal operating point, requiring under 4.5 GB of "
+        "system RAM and eliminating any requirement for expensive GPU accelerators or third-party cloud APIs."
     )
     add_body(
         "To eliminate hallucination and ensure white-box determinism, the engine employs grammar-constrained "
