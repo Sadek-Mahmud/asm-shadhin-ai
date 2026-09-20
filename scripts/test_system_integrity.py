@@ -228,7 +228,7 @@ def test_sha512_audit_chain():
         logger = SHA512AuditLogger(temp_log)
         # Record three chained events
         logger.record_event("EBPF_DROP", {"src_ip": "198.51.100.42", "reason": "XDP_DROP SYN Flood"})
-        logger.record_event("THREAT_MITIGATION", {"threat_score": 98, "action": "ISOLATE", "llm": "qwen2.5-coder:3b"})
+        logger.record_event("THREAT_MITIGATION", {"threat_score": 98, "action": "ISOLATE", "llm": "asm-shadhin-ai"})
         logger.record_event("MTD_ROTATE", {"service": "SSH", "active_port": 34912})
 
         # Verify cryptographic chain integrity
