@@ -48,6 +48,13 @@ class EncryptedTrafficAnalyzer:
         Evaluates inter-arrival timing jitter for a flow.
         Returns: (is_beacon, avg_interval_sec, jitter_pct)
         """
+        # Bounded memory protection: prune inactive flows when capacity exceeds 5,000
+        if len(self.flow_history) >= 5000:
+            prune_time = arrival_time - 300.0  # 5 minutes idle
+            stale_keys = [k for k, v in self.flow_history.items() if v and v[-1] < prune_time]
+            for k in stale_keys[:1000]:
+                del self.flow_history[k]
+
         if flow_key not in self.flow_history:
             self.flow_history[flow_key] = [arrival_time]
             return (False, 0.0, 1.0)

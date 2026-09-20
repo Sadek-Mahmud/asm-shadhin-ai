@@ -5,7 +5,7 @@
 # Hardware Target: Headless Ubuntu Server (Intel Core i5 4th Gen, 16GB RAM)
 # ==============================================================================
 
-FROM asm-shadhin-ai
+FROM qwen2.5-coder:3b
 
 # --- CPU Inference Optimization Parameters ---
 PARAMETER num_thread 3

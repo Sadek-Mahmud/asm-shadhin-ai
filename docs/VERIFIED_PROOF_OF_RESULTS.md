@@ -43,21 +43,21 @@
 
 ```
 Total Flows Evaluated  : 10,000,000
-Total Malicious Flows  : 2,998,265
-Total Benign Flows     : 7,001,735
-True Positives  (TP)   : 2,971,838
-False Negatives (FN)   : 26,427
-False Positives (FP)   : 0
-True Negatives  (TN)   : 7,001,735
+Total Malicious Flows  : 2,999,739
+Total Benign Flows     : 7,000,261
+True Positives  (TP)   : 2,958,784
+False Negatives (FN)   : 40,955
+False Positives (FP)   : 8,385
+True Negatives  (TN)   : 6,991,876
 
-Zero-Day TPR (Recall)  : 99.12%  [95% CI: 99.11%, 99.13%]
-False Positive Rate    : 0.00%   [95% CI: 0.00%, 0.00%]
-Overall Accuracy       : 99.74%
-Precision (PPV)        : 100.00%
-F1-Score               : 99.56%
-Matthews Corr (MCC)    : 0.9937
+Evasion Recall (TPR)   : 98.63%  [95% CI: 98.62%, 98.65%]
+False Positive Rate    : 0.12%   [95% CI: 0.12%, 0.12%]
+Overall Accuracy       : 99.51%
+Precision (PPV)        : 99.72%
+F1-Score               : 99.17%
+Matthews Corr (MCC)    : 0.9882
 Latency p50            : 0.33 µs
-Throughput             : 626,335 flows/sec
+Throughput             : 671,443 flows/sec
 ```
 
 ---
@@ -67,31 +67,33 @@ Throughput             : 626,335 flows/sec
 ### TPR Calculation
 ```
 TPR = TP / (TP + FN)
-    = 2,971,838 / (2,971,838 + 26,427)
-    = 2,971,838 / 2,998,265
-    = 0.991183... → 99.12% ✅
+    = 2,958,784 / (2,958,784 + 40,955)
+    = 2,958,784 / 2,999,739
+    = 0.986347... → 98.63% ✅
 ```
 
 ### FPR Calculation
 ```
 FPR = FP / (FP + TN)
-    = 0 / (0 + 7,001,735)
-    = 0.0000% ✅
+    = 8,385 / (8,385 + 6,991,876)
+    = 8,385 / 7,000,261
+    = 0.001197... → 0.12% ✅
 ```
 
 ### Accuracy
 ```
 Accuracy = (TP + TN) / Total
-         = (2,971,838 + 7,001,735) / 10,000,000
-         = 9,973,573 / 10,000,000
-         = 99.74% ✅
+         = (2,958,784 + 6,991,876) / 10,000,000
+         = 9,950,660 / 10,000,000
+         = 99.51% ✅
 ```
 
 ### Wilson Score 95% Confidence Interval
 ```
-n = 2,998,265 | p = 0.99118 | z = 1.96
-95% CI for TPR: [99.11%, 99.13%]
-→ Extremely tight CI proves statistical stability across 3M samples
+n = 2,999,739 | p = 0.9863 | z = 1.96
+95% CI for TPR: [98.62%, 98.65%]
+95% CI for FPR: [0.12%, 0.12%]
+→ Extremely tight CI proves statistical stability across 10M samples
 ```
 
 ---

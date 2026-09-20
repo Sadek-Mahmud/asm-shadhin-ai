@@ -4,6 +4,7 @@ Dynamically mutates external service exposure ports periodically based on a
 cryptographic pseudo-random seed, rendering attacker port scans instantly obsolete.
 """
 
+import os
 import time
 import hmac
 import hashlib
@@ -20,11 +21,14 @@ class MovingTargetDefense:
     ever-changing target space.
     """
 
-    def __init__(self, secret_seed: bytes = b"ASM_SHADHIN_AI_QUANTUM_MTD_SEED_2026",
+    def __init__(self, secret_seed: bytes = None,
                  hop_interval_seconds: int = 60,
                  port_range_start: int = 10000,
                  port_range_end: int = 60000):
-        self.secret_seed = secret_seed
+        # If no seed provided, generate a fresh cryptographically random
+        # 32-byte seed at runtime. This seed NEVER appears in source code
+        # or on disk — it exists only in process memory for the appliance lifetime.
+        self.secret_seed = secret_seed if secret_seed is not None else os.urandom(32)
         self.hop_interval = hop_interval_seconds
         self.port_min = port_range_start
         self.port_max = port_range_end
@@ -81,6 +85,38 @@ class MovingTargetDefense:
             "services": mappings
         }
 
+    def sync_kernel_nat_rules(self) -> bool:
+        """
+        Applies Linux iptables/nftables PREROUTING REDIRECT rules to forward incoming traffic
+        from the active polymorphic ports to the actual internal service ports.
+        Grace window covers both current and previous epoch step.
+        """
+        import subprocess
+        current_step = self._get_time_epoch_step()
+        applied_count = 0
+
+        for srv, real_port in self.registered_services.items():
+            cur_port = self.calculate_polymorphic_port(srv, current_step)
+            prev_port = self.calculate_polymorphic_port(srv, current_step - 1)
+
+            # Attempt kernel iptables PREROUTING redirect if running as root on Linux
+            for hop_port in (cur_port, prev_port):
+                cmd_check = ["iptables", "-t", "nat", "-C", "PREROUTING", "-p", "tcp", "--dport", str(hop_port), "-j", "REDIRECT", "--to-ports", str(real_port)]
+                cmd_add   = ["iptables", "-t", "nat", "-A", "PREROUTING", "-p", "tcp", "--dport", str(hop_port), "-j", "REDIRECT", "--to-ports", str(real_port)]
+                try:
+                    res = subprocess.run(cmd_check, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=False)
+                    if res.returncode != 0:
+                        add_res = subprocess.run(cmd_add, capture_output=True, text=True, check=False)
+                        if add_res.returncode == 0:
+                            applied_count += 1
+                except Exception as e:
+                    # In non-root or macOS host testbed environments, log gracefully
+                    logger.debug("Kernel NAT sync skipped (%s): requires Linux CAP_NET_ADMIN.", e)
+                    break
+
+        logger.debug("[MTD] Synchronized %d kernel forwarding rules for epoch %d", applied_count, current_step)
+        return True
+
     def validate_incoming_packet(self, service_name: str, target_port: int) -> bool:
         """
         Validates if an incoming packet arrives on either the current or previous
@@ -91,3 +127,4 @@ class MovingTargetDefense:
         prev_port = self.calculate_polymorphic_port(service_name, current_step - 1)
 
         return target_port == cur_port or target_port == prev_port
+

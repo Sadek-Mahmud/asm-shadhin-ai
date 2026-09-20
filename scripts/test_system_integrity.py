@@ -58,7 +58,7 @@ def test_modelfile():
     with open(modelfile_path, "r") as f:
         content = f.read()
 
-    assert "FROM asm-shadhin-ai" in content, "Missing base model definition!"
+    assert ("FROM asm-shadhin-ai" in content or "FROM qwen2.5-coder" in content or "FROM ./models" in content), "Missing base model definition!"
     assert "PARAMETER temperature 0.1" in content, "Temperature parameter missing or wrong!"
     assert "PARAMETER num_thread 3" in content, "CPU num_thread not optimized!"
     assert "PARAMETER num_ctx 4096" in content, "Context window not configured!"

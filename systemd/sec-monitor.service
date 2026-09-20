@@ -1,6 +1,6 @@
 [Unit]
 Description=AI-Driven Inline Network Security Monitor & eBPF Defense Daemon
-Documentation=https://github.com/your-repo/ai-security-system
+Documentation=https://github.com/Sadek-Mahmud/asm-shadhin-ai
 After=network-online.target suricata.service ollama.service
 Wants=network-online.target
 Requires=ollama.service

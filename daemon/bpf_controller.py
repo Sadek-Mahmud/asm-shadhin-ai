@@ -89,9 +89,15 @@ class BPFController:
             logger.error("Invalid IPv4 address format: %s", ip_str)
             return False
 
+        # Fast-path idempotency check: avoid redundant bpftool forks for already actively blocked IPs
+        now_ts = time.time()
+        existing = self._active_blocks.get(ip_str)
+        if existing and existing[0] > (now_ts + 30):
+            return True
+
         if not self.is_map_available(self.blocked_map_path):
             logger.warning("BPF Map not pinned at %s. Simulating in-memory block for %s", self.blocked_map_path, ip_str)
-            self._active_blocks[ip_str] = (time.time() + ttl_seconds, reason_code)
+            self._active_blocks[ip_str] = (now_ts + ttl_seconds, reason_code)
             return True
 
         now_ns = int(time.time() * 1e9)

@@ -2,8 +2,8 @@
 """
 test_pqc_handshake.py - Post-Quantum Cryptography Handshake Test
 Validates:
-1. ML-KEM-768 (Kyber) Key Encapsulation & Decapsulation
-2. ML-DSA-65 (Dilithium) Signature & Verification
+1. ML-KEM-1024 (Kyber-1024, NIST Category 5) Key Encapsulation & Decapsulation
+2. ML-DSA-65 (Dilithium3) Signature & Verification
 3. Post-Quantum Authenticated AEAD Tunnel Encryption & Decryption
 """
 

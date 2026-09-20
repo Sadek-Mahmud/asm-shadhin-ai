@@ -145,9 +145,9 @@ if [[ -n "$LOCAL_GGUF" && -f "$LOCAL_GGUF" ]]; then
     ollama create asm-shadhin-ai -f "$ROOT_DIR/Modelfile.offline"
     log_success "asm-shadhin-ai registered in Ollama from local offline bundle."
 else
-    log_info "No offline GGUF found. Pulling Q-Vigilance AI base model from registry..."
-    ollama pull asm-shadhin-ai
-    log_info "Compiling custom model asm-shadhin-ai from Modelfile..."
+    log_info "No offline GGUF found. Pulling base architecture (qwen2.5-coder:3b) from registry..."
+    ollama pull qwen2.5-coder:3b || true
+    log_info "Compiling domain-specialized asm-shadhin-ai from Modelfile..."
     cd "$ROOT_DIR"
     ollama create asm-shadhin-ai -f "$ROOT_DIR/Modelfile"
     log_success "asm-shadhin-ai model compiled successfully."

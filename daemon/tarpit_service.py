@@ -76,7 +76,11 @@ class AITarpitService:
                     }
                 )
                 if resp.status_code == 200:
-                    return resp.json().get("response", "").strip()
+                    body = resp.json()
+                    if "error" in body:
+                        logger.warning("Ollama tarpit error: %s — using static fallback.", body["error"])
+                        return self.generate_infinite_linux_tree(3)
+                    return body.get("response", "").strip()
             else:
                 import urllib.request
                 url = f"{OLLAMA_HOST.rstrip('/')}/api/generate"
@@ -95,6 +99,9 @@ class AITarpitService:
                     with urllib.request.urlopen(req, timeout=10.0) as r:
                         return json.loads(r.read().decode("utf-8"))
                 res_data = await loop.run_in_executor(None, _do_req)
+                if "error" in res_data:
+                    logger.warning("Ollama urllib tarpit error: %s — using static fallback.", res_data["error"])
+                    return self.generate_infinite_linux_tree(3)
                 return res_data.get("response", "").strip()
         except Exception as e:
             logger.debug("Ollama deception generation fallback: %s", e)

@@ -40,6 +40,9 @@ from config import (
     LOG_LEVEL,
 )
 from bpf_controller import BPFController
+from entropy_analyzer import EncryptedTrafficAnalyzer
+from mtd_service import MovingTargetDefense
+from pqc_guard import PQCSigner
 
 logging.basicConfig(
     level=getattr(logging, LOG_LEVEL, logging.INFO),
@@ -53,15 +56,21 @@ logger = logging.getLogger("sec_daemon")
 
 
 class SecurityMonitorDaemon:
-    """Core intelligence daemon bridging Suricata IDS, asm-shadhin-ai LLM, and eBPF/XDP."""
+    """Core intelligence daemon bridging Suricata IDS, asm-shadhin-ai LLM, eBPF/XDP, MTD, and PQC."""
 
     def __init__(self):
         self.bpf = BPFController()
+        self.entropy_analyzer = EncryptedTrafficAnalyzer(min_entropy_threshold=7.1)
+        self.mtd = MovingTargetDefense(hop_interval_seconds=60)
+        self.pqc_signer = PQCSigner()
+        self.pqc_signer.generate_keypair()
         self.eve_path = Path(SURICATA_EVE_PATH)
         self.http_client = httpx.AsyncClient(base_url=OLLAMA_HOST, timeout=OLLAMA_TIMEOUT_SECONDS) if HTTPX_AVAILABLE else None
         self.is_running = True
         self._processed_ips_cache: Dict[str, float] = {}  # Deduplication cache: {ip: last_evaluated_time}
         self.cache_ttl = 300.0  # 5 minutes
+        # Initialize kernel NAT forwarding for active MTD ports
+        self.mtd.sync_kernel_nat_rules()
 
     async def query_ai_engine(self, alert_event: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         """
@@ -105,9 +114,15 @@ class SecurityMonitorDaemon:
                     }
                 )
                 if response.status_code == 200:
-                    raw_text = response.json().get("response", "").strip()
+                    body = response.json()
+                    # Detect Ollama-level model output errors (empty output / tool call conflict)
+                    if "error" in body:
+                        logger.warning("Ollama model error: %s — using heuristic fallback.", body["error"])
+                        return self._heuristic_fallback(alert_event)
+                    raw_text = body.get("response", "").strip()
                 else:
                     logger.error("Ollama query failed with HTTP %d: %s", response.status_code, response.text)
+                    return self._heuristic_fallback(alert_event)
             else:
                 # Built-in standard library urllib fallback (zero-dependency)
                 import urllib.request
@@ -130,9 +145,13 @@ class SecurityMonitorDaemon:
                     with urllib.request.urlopen(req, timeout=OLLAMA_TIMEOUT_SECONDS) as resp:
                         return json.loads(resp.read().decode("utf-8"))
                 res_data = await loop.run_in_executor(None, _do_req)
+                if "error" in res_data:
+                    logger.warning("Ollama urllib error: %s — using heuristic fallback.", res_data["error"])
+                    return self._heuristic_fallback(alert_event)
                 raw_text = res_data.get("response", "").strip()
 
             if not raw_text:
+                logger.warning("Ollama returned empty response for model '%s' — using heuristic fallback.", OLLAMA_MODEL)
                 return self._heuristic_fallback(alert_event)
 
             # Clean possible edge-case markdown wrapping
@@ -205,11 +224,17 @@ class SecurityMonitorDaemon:
         if src_ip.startswith("127.") or src_ip == "::1":
             return
 
-        # Deduplication check
+        # Deduplication check with bounded LRU memory protection (max 10,000 active entries)
         now = time.time()
         last_eval = self._processed_ips_cache.get(src_ip, 0)
         if (now - last_eval) < self.cache_ttl:
             return
+
+        # Memory leak safeguard: evict oldest entries if cache exceeds 10,000
+        if len(self._processed_ips_cache) >= 10000:
+            oldest_keys = sorted(self._processed_ips_cache, key=self._processed_ips_cache.get)[:2000]
+            for k in oldest_keys:
+                del self._processed_ips_cache[k]
 
         self._processed_ips_cache[src_ip] = now
         logger.info("[ALERT DETECTED] Suricata alert from %s (Severity: %d): %s", src_ip, severity, alert.get("signature"))
@@ -226,12 +251,17 @@ class SecurityMonitorDaemon:
 
         logger.info("[LLM VERDICT] IP: %s | Verdict: %s | Action: %s | Conf: %.2f", target_ip, verdict, action, confidence)
 
-        if verdict == "MALICIOUS" and confidence >= 0.70:
+        if verdict == "MALICIOUS" and confidence >= 0.80:
             if action == "BLOCK_IMMEDIATE":
                 ttl = decision.get("ebpf_rule", {}).get("ttl_seconds", DEFAULT_BLOCK_TTL_SECONDS)
                 self.bpf.block_ip(target_ip, ttl_seconds=ttl, reason_code=3)
+                # Create immutable PQC-signed audit telemetry record
+                audit_msg = f"BLOCK:{target_ip}:{ttl}:{time.time()}".encode("utf-8")
+                sig = self.pqc_signer.sign(audit_msg)
+                logger.debug("[PQC-AUDIT] Decision sealed with ML-DSA signature: %s...", sig[:16].hex())
             elif action == "TARPIT_REDIRECT":
                 self.bpf.divert_to_tarpit(target_ip, redirect_port=8088)
+
 
     async def tail_eve_log(self):
         """Asynchronous non-blocking file tailing supporting log rotation."""
@@ -247,6 +277,7 @@ class SecurityMonitorDaemon:
                 with open(self.eve_path, "r", encoding="utf-8", errors="replace") as f:
                     # Seek to end on startup to only process new alerts
                     f.seek(0, os.SEEK_END)
+                    init_ino = os.fstat(f.fileno()).st_ino
                     logger.info("[✓] Actively tailing %s from current EOF", self.eve_path)
 
                     while self.is_running:
@@ -254,11 +285,11 @@ class SecurityMonitorDaemon:
                         if line:
                             await self.process_eve_line(line)
                         else:
-                            # Check for log rotation (file truncated or recreated)
+                            # Check for log rotation (file truncated, renamed, or new inode)
                             try:
                                 curr_stat = os.stat(self.eve_path)
-                                if f.tell() > curr_stat.st_size:
-                                    logger.info("[*] Log rotation detected. Reopening %s", self.eve_path)
+                                if f.tell() > curr_stat.st_size or curr_stat.st_ino != init_ino:
+                                    logger.info("[*] Log rotation detected (size/inode shift). Reopening %s", self.eve_path)
                                     break
                             except FileNotFoundError:
                                 break

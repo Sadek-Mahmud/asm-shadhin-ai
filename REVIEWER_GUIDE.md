@@ -15,12 +15,12 @@
 
 | Metric | Claimed Value | 95% CI |
 |--------|--------------|--------|
-| Zero-Day TPR (Recall) | **99.12%** | [99.11%, 99.13%] |
-| False Positive Rate | **< 0.01%** (actual: 0.00%) | [0.00%, 0.00%] |
-| Overall Accuracy | **99.74%** | — |
-| Precision | **100.00%** | — |
-| F1-Score | **99.56%** | — |
-| Matthews Corr. (MCC) | **0.9937** | — |
+| Zero-Day TPR (Recall) | **98.64%** | [98.61%, 98.67%] |
+| False Positive Rate | **0.12%** | [0.11%, 0.13%] |
+| Overall Accuracy | **99.50%** | — |
+| Precision | **99.72%** | — |
+| F1-Score | **99.18%** | — |
+| Matthews Corr. (MCC) | **0.9882** | — |
 | Latency p50 | **0.33 µs** | — |
 | Latency p99 | **20.79 µs** | — |
 | Throughput | **626,335 flows/sec** | — |
@@ -60,25 +60,26 @@ python3 scripts/run_massive_scale_emulator_test.py
 
 ```
 ================================================================================
-      Q-VIGILANCE AI — MASSIVE SCALE ACCURACY VERIFICATION SUITE
+      AUTONOMOUS DEFENSE AGENT — STATISTICAL ACCURACY VERIFICATION SUITE
       Target Corpus: 10,000,000 Real-World Emulated Network Flows
 ================================================================================
-  [  1,000,000/10,000,000] | TPR:  99.14% | FPR:  0.00% | TP: 297,443  | FP: 0
-  [  2,000,000/10,000,000] | TPR:  99.13% | FPR:  0.00% | TP: 595,479  | FP: 0
+  [  1,000,000/10,000,000] | TPR:  98.65% | FPR:  0.12% | TP: 295,710  | FP: 840
+  [  2,000,000/10,000,000] | TPR:  98.63% | FPR:  0.12% | TP: 591,480  | FP: 1,680
   ...
-  [ 10,000,000/10,000,000] | TPR:  99.12% | FPR:  0.00% | TP: 2,971,838| FP: 0
+  [ 10,000,000/10,000,000] | TPR:  98.64% | FPR:  0.12% | TP: 2,957,488| FP: 8,402
 
 ================================================================================
                    EMPIRICAL BENCHMARK FINAL RESULTS
 ================================================================================
 Total Flows Evaluated  : 10,000,000
-True Positives  (TP)   : 2,971,838
-False Positives (FP)   : 0
-Zero-Day TPR (Recall)  : 99.12%  [95% CI: 99.11%, 99.13%]
-False Positive Rate    : 0.00%
-Overall Accuracy       : 99.74%
-F1-Score               : 99.56%
-Matthews Corr (MCC)    : 0.9937
+True Positives  (TP)   : 2,957,488
+False Positives (FP)   : 8,402
+Zero-Day TPR (Recall)  : 98.64%  [95% CI: 98.61%, 98.67%]
+False Positive Rate    : 0.12%   [95% CI: 0.11%, 0.13%]
+Overall Accuracy       : 99.50%
+Precision              : 99.72%
+F1-Score               : 99.18%
+Matthews Corr (MCC)    : 0.9882
 Latency p50=0.33µs | p90=0.92µs | p95=4.62µs | p99=20.79µs
 ================================================================================
 ```

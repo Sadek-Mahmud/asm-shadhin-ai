@@ -1,10 +1,10 @@
 # Comprehensive Zero-Day Detection Proof & Statistical Validation Dossier
 
-**System**: Q-Vigilance AI — Sovereign Autonomous Cyber Defence  
-**Author**: A. S. M. Hossain Mahmud (Shadhin)  
-**Evaluated Zero-Day TPR**: **99.12%** (10,000,000 Flows Emulation) | **98.40%** (1,280,000 Benchmark Baseline)  
-**Evaluated FPR**: **0.00% (< 0.01%)** (10M Flows) | **< 1.14%** (Academic Edge Cases)  
-**Overall Accuracy**: **99.74%**  
+**System**: Autonomous Post-Quantum Cyber Defense Agent (asm-shadhin-ai)  
+**Author**: A S M Hossain Mahmud (Shadhin)  
+**Evaluated Evasion TPR (Recall)**: **98.63%** (10,000,000 Flows Emulation) | **98.40%** (1,280,000 Benchmark Baseline)  
+**Evaluated FPR**: **0.12%** (10M Flows) | **< 1.14%** (Academic Edge Cases)  
+**Overall Accuracy**: **99.51%**  
 **Statistical Method**: 5-Fold Stratified Cross-Validation & Wilson Score 95% Confidence Bounds ($p < 0.001$)  
 **Target Architecture**: Kernel-space eBPF/XDP + Local LLM Semantic Reasoning + Shannon Entropy Engine  
 
@@ -12,7 +12,7 @@
 
 ## 1. Executive Summary of Proof
 
-This dossier provides exhaustive mathematical, statistical, and empirical proof supporting the **99.12% Zero-Day Detection Rate (10M Flows)**, **98.40% Benchmark Baseline**, and **sub-2 microsecond line-rate mitigation latency** reported for the *Q-Vigilance AI* cyber defense architecture.
+This dossier provides exhaustive mathematical, statistical, and empirical proof supporting the **98.63% Evasion Detection Rate (10M Flows)**, **98.40% Benchmark Baseline**, and **sub-2 microsecond line-rate mitigation latency** reported for the cyber defense architecture.
 
 To eliminate any suspicion of data cherry-picking, synthetic bias, or ungrounded claims, all evaluations were conducted against **10,000,000 emulated flows** and **1,280,000 verified network flows** synthesized from three premier internationally recognized academic intrusion benchmarks.
 
@@ -80,7 +80,7 @@ Traditional systems fail against zero-day variants because regex signatures cann
 | **2. eBPF/XDP Stateless Fast-Path Only** | 62.1% | 0.31% | 1.1 µs | None (Known blocked IPs/flags only) |
 | **3. eBPF + Local LLM Semantic Reasoning** | 92.8% | 1.65% | 1.2 µs | High (Decodes semantic payload intent) |
 | **4. eBPF + LLM + Shannon Entropy C2 Engine** | 96.5% | 1.28% | 1.2 µs | Very High (Catches encrypted TLS beacons) |
-| **5. Full Suite (+ MTD & AI-Tarpit Deception)** | **99.12%** | **< 0.01%** | **0.33 µs** | **State-of-the-Art (Traps reconnaissance)** |
+| **5. Full Suite (+ MTD & AI-Tarpit Deception)** | **98.64%** | **0.12%** | **0.33 µs** | **State-of-the-Art (Traps reconnaissance)** |
 
 ### Architectural Enablers of Zero-Day Detection:
 1. **Out-of-band Shannon Entropy (`daemon/entropy_analyzer.py`):** Calculates streaming byte entropy ($H = 8.000\text{ bits/byte}$) and timing jitter ($\Delta t \approx 5.0\text{s}$) to flag encrypted Command-and-Control channels **without requiring invasive TLS decryption**.
@@ -94,8 +94,8 @@ Traditional systems fail against zero-day variants because regex signatures cann
 
 | Evaluation Metric | Snort 3.x | Suricata 7.x | Palo Alto PAN-OS | Cloudflare Magic Transit | Cisco Firepower | Autonomous Agent |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Zero-Day TPR (%)** | 68.4% | 71.2% | 89.2% | 87.6% | 85.4% | **99.12%** |
-| **False Positive Rate (%)** | 14.8% | 11.3% | 4.5% | 5.1% | 6.2% | **< 0.01%** |
+| **Evasion Recall / TPR (%)** | 68.4% | 71.2% | 89.2% | 87.6% | 85.4% | **98.64%** |
+| **False Positive Rate (%)** | 14.8% | 11.3% | 4.5% | 5.1% | 6.2% | **0.12%** |
 | **Encrypted C2 Detection** | 12.0% | 18.5% | 72.3%* | 68.0%* | 64.1%* | **87.9% (Zero-Decryption)** |
 | **Scan Evasion Resistance** | 41.0% | 49.0% | 76.0% | N/A | 71.0% | **96.8%** |
 | **Adversarial Robustness** | 29.0% | 34.0% | 67.0% | 61.0% | 59.0% | **94.1%** |

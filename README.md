@@ -98,8 +98,8 @@ sudo bpftool map dump pinned /sys/fs/bpf/blocked_ips_map
 ## 🔐 Post-Quantum Cryptography (PQC) Guard
 
 Defends against quantum computers attempting **Harvest Now, Decrypt Later (HNDL)** attacks on telemetry or administrative traffic:
-- **Key Encapsulation (KEM)**: **NIST FIPS 203 (ML-KEM / Kyber-768)**
-- **Digital Signatures**: **NIST FIPS 204 (ML-DSA / Dilithium3)**
+- **Key Encapsulation (KEM)**: **NIST FIPS 203 (ML-KEM-1024 / Kyber-1024, NIST Category 5)**
+- **Digital Signatures**: **NIST FIPS 204 (ML-DSA-65 / Dilithium3)**
 - **Symmetric Transport**: Derived 256-bit AES-GCM AEAD tunnel.
 
 To test the PQC handshake and benchmark latency on your hardware:
@@ -177,4 +177,4 @@ If you use this system or research in your academic work, please cite:
 ---
 
 ## 📜 License
-GPL-2.0 / MIT - Engineered for High-Throughput Autonomous Cybersecurity Operations.
+MIT — Engineered for High-Throughput Autonomous Cybersecurity Operations.
