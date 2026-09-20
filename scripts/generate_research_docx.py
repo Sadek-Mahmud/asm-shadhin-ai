@@ -424,9 +424,9 @@ def build_docx(out_path: str):
     make_table(
         headers=["Stage", "Operation", "BPF Map Type", "Outcome"],
         rows=[
-            ["1", "IP Blocklist Lookup (O(1) hash)",       "BPF_MAP_TYPE_HASH",    "XDP_DROP"],
-            ["2", "TCP Flag Anomaly: Null/Xmas/SYN+FIN",   "Inline classifier",    "XDP_DROP"],
-            ["3", "Tarpit Redirect (Deception Port)",       "BPF_MAP_TYPE_HASH",    "XDP_PASS -> nftables"],
+            ["1", "IP Blocklist Lookup (O(1) fast-path)",   "BPF_MAP_TYPE_HASH",    "XDP_DROP"],
+            ["2", "Tarpit Redirect (Deception Port)",       "BPF_MAP_TYPE_HASH",    "XDP_PASS -> nftables"],
+            ["3", "TCP Flag Anomaly: Null/Xmas/SYN+FIN",   "Inline classifier",    "XDP_DROP"],
             ["4", "Telemetry Export to Userspace Daemon",   "BPF_MAP_TYPE_RINGBUF", "XDP_PASS (clean)"],
         ],
         col_widths_cm=[1.8, 5.5, 4.5, 4.0]
@@ -434,7 +434,7 @@ def build_docx(out_path: str):
     add_caption("Table I: XDP programme pipeline stages.")
 
     add_body(
-        "Stage 2 — the novel in-kernel contribution — tests the TCP flags byte at header offset "
+        "Stage 3 — the novel in-kernel contribution — tests the TCP flags byte at header offset "
         "13 against three pathological patterns: flags == 0x00 (Null scan, RFC 793 violation "
         "exploited by Nmap -sN); (flags & 0x29) == 0x29 (Xmas scan, FIN+PSH+URG simultaneously "
         "asserted); and (flags & 0x03) == 0x03 (SYN+FIN co-asserted, an impossible combination "
