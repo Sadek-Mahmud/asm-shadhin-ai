@@ -252,7 +252,7 @@ def build_docx(out_path: str):
     r.font.color.rgb = C_DARK
     r.font.name = "Calibri"
 
-    add_center("A. S. M. Hossain Mahmud (Shadhin), Member, IEEE", size=11.5, bold=True, color=C_PRIMARY, space_after=2)
+    add_center("A S M Hossain Mahmud (Shadhin), Member, IEEE", size=11.5, bold=True, color=C_PRIMARY, space_after=2)
     add_center(
         "Department of Computer Science and Engineering, Bangladesh Army University of Science and Technology (BAUST)",
         size=9.5, bold=False, color=C_DARK, space_after=1)
