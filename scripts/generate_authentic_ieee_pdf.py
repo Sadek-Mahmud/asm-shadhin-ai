@@ -32,7 +32,7 @@ def get_live_proof_block() -> str:
         '<p class="ieee-paragraph" style="font-size:8.5pt;margin-bottom:6pt;">'
         'To establish empirical reproducibility prior to publication, the core subsystems were evaluated '
         'using the automated test suite (<code>scripts/test_system_integrity.py</code>) on an authentic '
-        'Ubuntu Server 22.04 LTS host (Linux kernel 7.0.12). Table VII itemises the verification criteria and outcomes. '
+        'Ubuntu Server 22.04 LTS host (Linux kernel 6.x, libbpf). Table VII itemises the verification criteria and outcomes. '
         'All eleven module-level checks passed without manual intervention.'
         '</p>'
         '<div class="ieee-table-container" style="margin-top:6pt;">'
