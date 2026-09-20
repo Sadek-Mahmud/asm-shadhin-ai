@@ -62,9 +62,25 @@ class AITarpitService:
             f"designed to confuse an automated AI penetration testing agent."
         )
         try:
-            resp = await self.http_client.post(
-                "/api/generate",
-                json={
+            if HTTPX_AVAILABLE and self.http_client:
+                resp = await self.http_client.post(
+                    "/api/generate",
+                    json={
+                        "model": OLLAMA_MODEL,
+                        "prompt": prompt,
+                        "stream": False,
+                        "options": {
+                            "temperature": 0.3,
+                            "num_predict": 256
+                        }
+                    }
+                )
+                if resp.status_code == 200:
+                    return resp.json().get("response", "").strip()
+            else:
+                import urllib.request
+                url = f"{OLLAMA_HOST.rstrip('/')}/api/generate"
+                payload = json.dumps({
                     "model": OLLAMA_MODEL,
                     "prompt": prompt,
                     "stream": False,
@@ -72,10 +88,14 @@ class AITarpitService:
                         "temperature": 0.3,
                         "num_predict": 256
                     }
-                }
-            )
-            if resp.status_code == 200:
-                return resp.json().get("response", "").strip()
+                }).encode("utf-8")
+                req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"})
+                loop = asyncio.get_event_loop()
+                def _do_req():
+                    with urllib.request.urlopen(req, timeout=10.0) as r:
+                        return json.loads(r.read().decode("utf-8"))
+                res_data = await loop.run_in_executor(None, _do_req)
+                return res_data.get("response", "").strip()
         except Exception as e:
             logger.debug("Ollama deception generation fallback: %s", e)
 

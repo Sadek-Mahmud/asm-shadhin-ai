@@ -88,9 +88,32 @@ class SecurityMonitorDaemon:
         )
 
         try:
-            response = await self.http_client.post(
-                "/api/generate",
-                json={
+            raw_text = None
+            if HTTPX_AVAILABLE and self.http_client:
+                response = await self.http_client.post(
+                    "/api/generate",
+                    json={
+                        "model": OLLAMA_MODEL,
+                        "prompt": prompt,
+                        "stream": False,
+                        "format": "json",
+                        "options": {
+                            "temperature": 0.1,
+                            "top_p": 0.85,
+                            "num_predict": 256
+                        }
+                    }
+                )
+                if response.status_code == 200:
+                    raw_text = response.json().get("response", "").strip()
+                else:
+                    logger.error("Ollama query failed with HTTP %d: %s", response.status_code, response.text)
+            else:
+                # Built-in standard library urllib fallback (zero-dependency)
+                import urllib.request
+                import urllib.error
+                url = f"{OLLAMA_HOST.rstrip('/')}/api/generate"
+                payload = json.dumps({
                     "model": OLLAMA_MODEL,
                     "prompt": prompt,
                     "stream": False,
@@ -100,14 +123,18 @@ class SecurityMonitorDaemon:
                         "top_p": 0.85,
                         "num_predict": 256
                     }
-                }
-            )
+                }).encode("utf-8")
+                req = urllib.request.Request(url, data=payload, headers={"Content-Type": "application/json"})
+                loop = asyncio.get_event_loop()
+                def _do_req():
+                    with urllib.request.urlopen(req, timeout=OLLAMA_TIMEOUT_SECONDS) as resp:
+                        return json.loads(resp.read().decode("utf-8"))
+                res_data = await loop.run_in_executor(None, _do_req)
+                raw_text = res_data.get("response", "").strip()
 
-            if response.status_code != 200:
-                logger.error("Ollama query failed with HTTP %d: %s", response.status_code, response.text)
-                return None
+            if not raw_text:
+                return self._heuristic_fallback(alert_event)
 
-            raw_text = response.json().get("response", "").strip()
             # Clean possible edge-case markdown wrapping
             if raw_text.startswith("```"):
                 raw_text = raw_text.strip("`").replace("json\n", "", 1)
@@ -115,15 +142,16 @@ class SecurityMonitorDaemon:
             parsed = json.loads(raw_text)
             return parsed
 
-        except httpx.ConnectError:
-            logger.warning("Could not connect to Ollama at %s. Falling back to deterministic heuristic.", OLLAMA_HOST)
-            return self._heuristic_fallback(alert_event)
-        except json.JSONDecodeError as jde:
-            logger.error("Failed to parse JSON from asm-shadhin-ai: %s | Raw: %s", jde, raw_text)
-            return self._heuristic_fallback(alert_event)
         except Exception as e:
-            logger.exception("Unexpected error querying LLM: %s", e)
-            return None
+            # Check for connection error
+            err_msg = str(e).lower()
+            if "connection" in err_msg or "refused" in err_msg or "connecterror" in err_msg:
+                logger.warning("Could not connect to Ollama at %s. Falling back to deterministic heuristic.", OLLAMA_HOST)
+            elif isinstance(e, json.JSONDecodeError):
+                logger.error("Failed to parse JSON from asm-shadhin-ai: %s", e)
+            else:
+                logger.warning("Error querying LLM (%s). Using heuristic fallback.", e)
+            return self._heuristic_fallback(alert_event)
 
     def _heuristic_fallback(self, alert_event: Dict[str, Any]) -> Dict[str, Any]:
         """Deterministic safety fallback when Ollama is busy or initializing."""
