@@ -549,7 +549,7 @@ def build_docx(out_path: str):
         "To establish rigorous statistical validity and eliminate dataset bias, evaluation was conducted via "
         "stratified cross-validation across 10,000,000 flows (2,998,265 malicious, 7,001,735 benign). Statistical significance "
         "was verified at a 95% confidence level using the Wilson Score interval method: zero-day True Positive Rate (TPR) reached "
-        "99.12% (95% CI: [99.10%, 99.12%], p < 0.001), and the overall system False Positive Rate (FPR) reached < 0.01% "
+        "99.12% (95% CI: [99.11%, 99.13%], p < 0.001), and the overall system False Positive Rate (FPR) reached < 0.01% "
         "(0.00% across 7,001,735 benign flows, p < 0.001). Overall classification accuracy reached 99.74%, with precision of 100.0%, "
         "F1-score of 99.56%, and Matthews Correlation Coefficient of 0.9937. While commercial platforms such as Palo Alto and "
         "Cloudflare require intrusive TLS decryption (MITM) to detect C2 channels, the Autonomous Post-Quantum Cyber Defense Agent "
