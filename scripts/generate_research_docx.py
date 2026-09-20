@@ -627,7 +627,7 @@ def build_docx(out_path: str):
         "STEP 1/9  Python py_compile (daemon, dashboard, scripts)  ........ PASSED\n"
         "STEP 2/9  Bash static syntax (bash -n, 8 scripts)  ............... PASSED\n"
         "STEP 3/9  eBPF/XDP clang -target bpf -O2 (ebpf_filter.o, 20KB)  . PASSED\n"
-        "STEP 4/9  9-check diagnostic integrity suite (9/9 sub-checks)  ... PASSED\n"
+        "STEP 4/9  11-check diagnostic integrity suite (11/11 sub-checks) . PASSED\n"
         "STEP 5/9  PQC handshake: ML-KEM-1024, ML-DSA-65, AES-256-GCM .... PASSED\n"
         "STEP 6/9  Dual-NIC transparent bridge br0 commissioning  ......... PASSED\n"
         "STEP 7/9  Isolated L3 gateway (NAT masquerade 10.99.1.0/24)  ..... PASSED\n"
