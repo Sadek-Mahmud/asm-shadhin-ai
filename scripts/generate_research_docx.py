@@ -504,8 +504,8 @@ def build_docx(out_path: str):
     add_heading("F. Post-Quantum Cryptographic Guard", level=2, size=11.5, color=C_DARK, space_before=6)
     add_body(
         "All inter-component communications are protected by a bespoke tunnel built on "
-        "NIST FIPS 203 ML-KEM-1024 (Kyber-1024, NIST Category 5 key encapsulation) and FIPS 204 ML-DSA-65 (digital "
-        "signatures), with AES-256-GCM AEAD for symmetric session encryption. This ensures "
+        "NIST FIPS 203 ML-KEM-1024 (Kyber-1024, NIST Category 5 key encapsulation) [21] and FIPS 204 ML-DSA-65 (digital "
+        "signatures) [22], with AES-256-GCM AEAD for symmetric session encryption. This ensures "
         "that a future cryptographically relevant quantum computer cannot retroactively decrypt "
         "captured management-plane traffic."
     )
@@ -749,6 +749,8 @@ def build_docx(out_path: str):
         "[18] N. Moustafa and J. Slay, \"UNSW-NB15: A Comprehensive Data Set for Network Intrusion Detection Systems,\" in Proc. MilCIS, 2015.",
         "[19] I. Sharafaldin et al., \"Toward Generating a New Intrusion Detection Dataset and Intrusion Traffic Characterization,\" in Proc. ICISSP, 2018.",
         "[20] S. Garcia et al., \"An Empirical Analysis of Botnet Detection Using Flow-Based Features (CTU-13 Dataset),\" Computers & Security, vol. 45, pp. 100-124, 2014.",
+        "[21] National Institute of Standards and Technology (NIST), \"Module-Lattice-Based Key-Encapsulation Mechanism Standard (ML-KEM),\" FIPS PUB 203, Aug. 2024.",
+        "[22] National Institute of Standards and Technology (NIST), \"Module-Lattice-Based Digital Signature Standard (ML-DSA),\" FIPS PUB 204, Aug. 2024.",
     ]
     for r in refs:
         add_ref(r)
