@@ -38,8 +38,8 @@ fi
 
 echo -e "${CYAN}"
 echo "=========================================================================="
-echo "    AI-Driven Automated Network Security Monitoring & Defense System      "
-echo "      eBPF/XDP Fast-Path | A S M Shadhin AI (asm-shadhin-ai) | PQC | AI-Tarpit         "
+echo "         Q-Vigilance AI: Autonomous Post-Quantum Cyber Defense Agent      "
+echo "      eBPF/XDP Fast-Path | Q-Vigilance AI | NIST PQC | AI-Tarpit          "
 echo "=========================================================================="
 echo -e "${NC}"
 
@@ -145,7 +145,7 @@ if [[ -n "$LOCAL_GGUF" && -f "$LOCAL_GGUF" ]]; then
     ollama create asm-shadhin-ai -f "$ROOT_DIR/Modelfile.offline"
     log_success "asm-shadhin-ai registered in Ollama from local offline bundle."
 else
-    log_info "No offline GGUF found. Pulling A S M Shadhin AI base model from registry..."
+    log_info "No offline GGUF found. Pulling Q-Vigilance AI base model from registry..."
     ollama pull asm-shadhin-ai
     log_info "Compiling custom model asm-shadhin-ai from Modelfile..."
     cd "$ROOT_DIR"
@@ -276,7 +276,7 @@ else
     echo -e "Security Topology       : ${YELLOW}SINGLE-NIC HOST SENSOR MODE${NC}"
 fi
 echo -e "eBPF Filter Status      : ${GREEN}ACTIVE (XDP on ${WAN_IF})${NC}"
-echo -e "Local LLM Model         : ${CYAN}A S M Shadhin AI (asm-shadhin-ai)${NC}"
+echo -e "Local LLM Model         : ${CYAN}Q-Vigilance AI (Autonomous Defense Agent)${NC}"
 echo -e "Post-Quantum Cryptography: ${GREEN}NIST ML-KEM-768 / ML-DSA-65 ONLINE${NC}"
 echo -e "AI-Tarpit Deception     : ${GREEN}HTTP: 8088 | SSH: 2222 ACTIVE${NC}"
 echo -e "Suricata Monitor Daemon : ${GREEN}ACTIVE (sec-monitor.service)${NC}"

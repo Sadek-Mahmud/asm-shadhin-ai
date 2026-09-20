@@ -226,7 +226,7 @@ def generate_pdf_via_chrome():
                     css_class = ""
                     if c_idx > 0:
                         css_class += " center"
-                    if "A S M Shadhin AI" in rows[0][c_idx] or "**" in cell or c_idx == len(r)-1 and ("State-of-the-Art" in cell or "Wire Speed" in cell or "100% Air-Gapped" in cell):
+                    if "Q-Vigilance AI" in rows[0][c_idx] or "**" in cell or c_idx == len(r)-1 and ("State-of-the-Art" in cell or "Wire Speed" in cell or "100% Air-Gapped" in cell):
                         css_class += " highlight"
                     
                     bold_tag = f"<strong>{escape_html(clean)}</strong>" if is_bold else escape_html(clean)

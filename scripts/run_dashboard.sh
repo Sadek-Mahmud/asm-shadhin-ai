@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Quick launcher for A S M Shadhin AI Cyber Defense Dashboard
+# Quick launcher for Q-Vigilance AI Cyber Defense Dashboard
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR/dashboard"
 
 echo "=================================================================="
-echo "  Starting A S M Shadhin AI Cyber Defense SOC Dashboard..."
+echo "  Starting Q-Vigilance AI — Autonomous Defense Operations Center..."
 echo "  Access URL: http://localhost:9090  (or http://$(hostname -I 2>/dev/null | awk '{print $1}' || echo '127.0.0.1'):9090)"
 echo "=================================================================="
 

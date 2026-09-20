@@ -1,5 +1,5 @@
 /**
- * dashboard.js — A S M Shadhin AI Defense Dashboard Controller
+ * dashboard.js — Q-Vigilance AI Defense Dashboard Controller
  * Clean enterprise polling, chart animation, navigation, and form handling.
  */
 

@@ -36,7 +36,7 @@ cd "$MODELS_DIR"
 if [[ -f "$GGUF_FILENAME" && -s "$GGUF_FILENAME" ]]; then
     echo -e "${GREEN}[✓] Local GGUF AI Model found: ${GGUF_FILENAME} ($(du -h "$GGUF_FILENAME" | cut -f1))${NC}"
 else
-    echo -e "${BLUE}[*] Downloading A S M Shadhin AI Q4_K_M GGUF model (~1.9 GB)...${NC}"
+    echo -e "${BLUE}[*] Downloading Q-Vigilance AI Q4_K_M GGUF model (~1.9 GB)...${NC}"
     echo -e "${YELLOW}    URL: ${GGUF_URL}${NC}"
     if command -v curl &>/dev/null; then
         curl -L -C - --progress-bar -o "$GGUF_FILENAME" "$GGUF_URL"

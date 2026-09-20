@@ -1,6 +1,6 @@
 """
 app.py - Cyber Defense Operations Dashboard Backend
-Lightweight, enterprise-grade Web & REST API server for A S M Shadhin AI.
+Lightweight, enterprise-grade Web & REST API server for Q-Vigilance AI.
 Provides live telemetry, kernel eBPF sync, and real-time live terminal log streaming.
 """
 
@@ -216,7 +216,7 @@ class DashboardHandler(SimpleHTTPRequestHandler):
         total_drops = 142 + len(bpf._active_blocks) * 23
 
         data = {
-            "system_name": "A S M Shadhin AI - Inline Defense System",
+            "system_name": "Q-Vigilance AI - Autonomous Post-Quantum Cyber Defense Agent",
             "uptime_seconds": uptime_sec,
             "interface": INTERFACE_NAME,
             "status": "ARMED_AND_ACTIVE",
@@ -262,7 +262,7 @@ class DashboardHandler(SimpleHTTPRequestHandler):
                 "ip": ip,
                 "ttl_remaining": max(0, int(exp - time.time())),
                 "reason_code": r,
-                "reason_text": "A S M Shadhin AI Auto-Drop",
+                "reason_text": "Q-Vigilance AI Auto-Drop",
                 "drop_count": 84
             })
 
@@ -307,7 +307,7 @@ class DashboardHandler(SimpleHTTPRequestHandler):
 
 def run_dashboard():
     server = HTTPServer(("0.0.0.0", DASHBOARD_PORT), DashboardHandler)
-    logger.info("A S M Shadhin AI Operations Dashboard running on http://0.0.0.0:%d", DASHBOARD_PORT)
+    logger.info("Q-Vigilance AI Autonomous Defense Operations Dashboard running on http://0.0.0.0:%d", DASHBOARD_PORT)
     try:
         server.serve_forever()
     except KeyboardInterrupt:

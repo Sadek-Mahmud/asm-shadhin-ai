@@ -5,7 +5,7 @@ run_massive_scale_emulator_test.py
 MASSIVE SCALE ACCURACY & LATENCY VERIFICATION ENGINE (UBUNTU SERVER EMULATION)
 Simulates millions of network security events and evaluates detection accuracy,
 false-positive rate, latency percentiles, and statistical confidence intervals
-across the authentic A S M Shadhin AI defensive subsystems.
+across the authentic Q-Vigilance AI defensive subsystems.
 ================================================================================
 """
 
@@ -48,7 +48,7 @@ def wilson_score_interval(p: float, n: int, z: float = 1.96) -> tuple:
 
 def run_simulation():
     print("=" * 80)
-    print("      A S M SHADHIN AI — MASSIVE SCALE ACCURACY VERIFICATION SUITE")
+    print("      Q-VIGILANCE AI — MASSIVE SCALE ACCURACY VERIFICATION SUITE")
     print(f"      Target Corpus: {TOTAL_TARGET_FLOWS:,} Real-World Emulated Network Flows")
     print("=" * 80)
 
@@ -298,7 +298,7 @@ def generate_markdown_datasheet(d: dict, md_path: Path):
     lat = d["latency_us"]
 
     md_content = f"""# Massive-Scale Empirical Verification Datasheet
-**System**: A S M Shadhin AI — Sovereign Autonomous Cyber Defence  
+**System**: Q-Vigilance AI — Sovereign Autonomous Cyber Defence  
 **Evaluator**: High-Throughput Linux Kernel & Ubuntu Server Emulation Harness  
 **Execution Timestamp**: `{d["timestamp_utc"]}`  
 **Evaluated Scope**: **{d["total_flows_evaluated"]:,} Verifiable Traffic Flows**  

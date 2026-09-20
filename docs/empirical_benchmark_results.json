@@ -1,11 +1,11 @@
 {
-  "timestamp_utc": "2026-09-19 19:00:57 UTC",
+  "timestamp_utc": "2026-09-20 11:13:51 UTC",
   "total_flows_evaluated": 10000000,
   "total_malicious": 2998265,
   "total_benign": 7001735,
   "confusion_matrix": {
-    "true_positives": 2971972,
-    "false_negatives": 26293,
+    "true_positives": 2971838,
+    "false_negatives": 26427,
     "false_positives": 0,
     "true_negatives": 7001735
   },
@@ -28,8 +28,8 @@
   "latency_us": {
     "p50": 0.33,
     "p90": 0.92,
-    "p95": 4.67,
-    "p99": 20.21
+    "p95": 4.62,
+    "p99": 20.79
   },
-  "execution_seconds": 15.81
+  "execution_seconds": 15.97
 }

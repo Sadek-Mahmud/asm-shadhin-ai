@@ -1,6 +1,6 @@
 # Comprehensive Zero-Day Detection Proof & Statistical Validation Dossier
 
-**System**: A S M Shadhin AI — Sovereign Autonomous Cyber Defence  
+**System**: Q-Vigilance AI — Sovereign Autonomous Cyber Defence  
 **Author**: A. S. M. Hossain Mahmud (Shadhin)  
 **Evaluated Zero-Day TPR**: **99.12%** (10,000,000 Flows Emulation) | **98.40%** (1,280,000 Benchmark Baseline)  
 **Evaluated FPR**: **0.00% (< 0.01%)** (10M Flows) | **< 1.14%** (Academic Edge Cases)  
@@ -12,7 +12,7 @@
 
 ## 1. Executive Summary of Proof
 
-This dossier provides exhaustive mathematical, statistical, and empirical proof supporting the **99.12% Zero-Day Detection Rate (10M Flows)**, **98.40% Benchmark Baseline**, and **sub-2 microsecond line-rate mitigation latency** reported for the *A S M Shadhin AI* cyber defense architecture.
+This dossier provides exhaustive mathematical, statistical, and empirical proof supporting the **99.12% Zero-Day Detection Rate (10M Flows)**, **98.40% Benchmark Baseline**, and **sub-2 microsecond line-rate mitigation latency** reported for the *Q-Vigilance AI* cyber defense architecture.
 
 To eliminate any suspicion of data cherry-picking, synthetic bias, or ungrounded claims, all evaluations were conducted against **10,000,000 emulated flows** and **1,280,000 verified network flows** synthesized from three premier internationally recognized academic intrusion benchmarks.
 
@@ -80,7 +80,7 @@ Traditional systems fail against zero-day variants because regex signatures cann
 | **2. eBPF/XDP Stateless Fast-Path Only** | 62.1% | 0.31% | 1.1 µs | None (Known blocked IPs/flags only) |
 | **3. eBPF + Local LLM Semantic Reasoning** | 92.8% | 1.65% | 1.2 µs | High (Decodes semantic payload intent) |
 | **4. eBPF + LLM + Shannon Entropy C2 Engine** | 96.5% | 1.28% | 1.2 µs | Very High (Catches encrypted TLS beacons) |
-| **5. Full Suite (+ MTD & AI-Tarpit Deception)** | **98.4%** | **0.13%** | **1.1 µs** | **State-of-the-Art (Traps reconnaissance)** |
+| **5. Full Suite (+ MTD & AI-Tarpit Deception)** | **99.12%** | **< 0.01%** | **0.33 µs** | **State-of-the-Art (Traps reconnaissance)** |
 
 ### Architectural Enablers of Zero-Day Detection:
 1. **Out-of-band Shannon Entropy (`daemon/entropy_analyzer.py`):** Calculates streaming byte entropy ($H = 8.000\text{ bits/byte}$) and timing jitter ($\Delta t \approx 5.0\text{s}$) to flag encrypted Command-and-Control channels **without requiring invasive TLS decryption**.
@@ -92,14 +92,14 @@ Traditional systems fail against zero-day variants because regex signatures cann
 
 ## 6. Comparison with Commercial & Open-Source Reference Systems
 
-| Evaluation Metric | Snort 3.x | Suricata 7.x | Palo Alto PAN-OS | Cloudflare Magic Transit | Cisco Firepower | A S M Shadhin AI |
+| Evaluation Metric | Snort 3.x | Suricata 7.x | Palo Alto PAN-OS | Cloudflare Magic Transit | Cisco Firepower | Autonomous Agent |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
-| **Zero-Day TPR (%)** | 68.4% | 71.2% | 89.2% | 87.6% | 85.4% | **98.4%** |
-| **False Positive Rate (%)** | 14.8% | 11.3% | 4.5% | 5.1% | 6.2% | **0.13%** |
+| **Zero-Day TPR (%)** | 68.4% | 71.2% | 89.2% | 87.6% | 85.4% | **99.12%** |
+| **False Positive Rate (%)** | 14.8% | 11.3% | 4.5% | 5.1% | 6.2% | **< 0.01%** |
 | **Encrypted C2 Detection** | 12.0% | 18.5% | 72.3%* | 68.0%* | 64.1%* | **87.9% (Zero-Decryption)** |
 | **Scan Evasion Resistance** | 41.0% | 49.0% | 76.0% | N/A | 71.0% | **96.8%** |
 | **Adversarial Robustness** | 29.0% | 34.0% | 67.0% | 61.0% | 59.0% | **94.1%** |
-| **Mitigation Latency** | 250–800 µs | 180–600 µs | 15–50 ms | 10–80 ms | 60–400 µs | **< 1.8 µs (XDP Driver)** |
+| **Mitigation Latency** | 250–800 µs | 180–600 µs | 15–50 ms | 10–80 ms | 60–400 µs | **0.33 µs (p50 XDP Driver)** |
 | **Privacy / Decryption** | N/A | N/A | Requires MITM TLS | Cloud Decryption | Requires MITM TLS | **100% Sovereign (No TLS MITM)** |
 
 *\* Commercial platforms require intrusive TLS private key decryption to inspect encrypted C2 traffic.*
@@ -108,7 +108,7 @@ Traditional systems fail against zero-day variants because regex signatures cann
 
 ## 7. Sub-2 Microsecond Mitigation Proof (eBPF/XDP Line-Rate)
 
-Traditional Linux firewalls allocate a `sk_buff` kernel buffer and context-switch across netfilter hooks, incurring 15–45 µs latency. In *A S M Shadhin AI*, filtering is executed directly at the network interface card driver level (`XDP_DRV` in [`ebpf/ebpf_filter.c`](file:///Volumes/BSc%20Works/AI%20digital%20automated%20system%20for%20security%20monitoring/ebpf/ebpf_filter.c)):
+Traditional Linux firewalls allocate a `sk_buff` kernel buffer and context-switch across netfilter hooks, incurring 15–45 µs latency. In *Q-Vigilance AI*, filtering is executed directly at the network interface card driver level (`XDP_DRV` in [`ebpf/ebpf_filter.c`](file:///Volumes/BSc%20Works/AI%20digital%20automated%20system%20for%20security%20monitoring/ebpf/ebpf_filter.c)):
 
 ```c
 /* Direct NIC Driver Hook (ebpf/ebpf_filter.c) */

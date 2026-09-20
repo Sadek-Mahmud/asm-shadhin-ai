@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 generate_research_paper.py
-Generates a full IEEE-style research paper PDF comparing the A S M Shadhin AI
-inline security system against the world's leading cyber defense platforms.
+Generates a full IEEE-style research paper PDF comparing Q-Vigilance AI
+(Autonomous Post-Quantum Cyber Defense Agent) against the world's leading cyber defense platforms.
 """
 
 import shutil
@@ -55,7 +55,7 @@ class NumberedCanvas(canvas.Canvas):
         self.drawRightString(A4[0]-1.0*inch, 0.50*inch,
                              f"Page {p} of {page_count}")
         self.drawString(1.0*inch, 0.50*inch,
-                        "A S M Hossain Mahmud (Shadhin) — A S M Shadhin AI Research Paper  |  2026")
+                        "A S M Hossain Mahmud (Shadhin) — Q-Vigilance AI Research Paper  |  2026")
         self.restoreState()
 
 
@@ -147,7 +147,7 @@ def build_paper(out_path):
         "intrusion detection systems struggle with zero-day behavioural variations, while "
         "cloud-brokered firewalls impose unacceptable round-trip latency and mandatory telemetry "
         "exposure that is incompatible with air-gapped or high-assurance environments. This paper "
-        "presents <b>A S M Shadhin AI</b>, a fully sovereign, offline-capable hybrid defence system "
+        "presents <b>Q-Vigilance AI</b>, a fully sovereign, offline-capable hybrid defence system "
         "that fuses three complementary control planes: (i) a Linux kernel-resident eBPF/XDP "
         "programme that classifies and drops malicious packets at hardware driver speed "
         "(sub-2 &#956;s), (ii) a locally-hosted quantised large language model that performs deep "
@@ -386,7 +386,7 @@ def build_paper(out_path):
     # ─── IV. COMPARATIVE EVALUATION ──────────────────────────────────────────
     story.append(Paragraph("IV.&nbsp;&nbsp;Comparative Evaluation", sty["h1"]))
     story.append(Paragraph(
-        "We benchmark A S M Shadhin AI against five reference systems widely cited as "
+        "We benchmark Q-Vigilance AI against five reference systems widely cited as "
         "state-of-the-art within their respective deployment categories. Numeric figures for "
         "reference systems are drawn from published peer-reviewed evaluations or vendor-"
         "disclosed performance specifications; citations appear in Section IX.",
@@ -402,7 +402,7 @@ def build_paper(out_path):
         [Paragraph("Palo Alto PAN-OS 11 [15]", sty["tc"]), Paragraph("NGFW appliance", sty["tc"]), Paragraph("Wildfire ML + App-ID", sty["tc"]),  Paragraph("Partial", sty["tcc"]),    Paragraph("Large enterprise", sty["tc"])],
         [Paragraph("Cloudflare Magic Transit [16]", sty["tc"]), Paragraph("Cloud DDoS", sty["tc"]), Paragraph("BGP anycast + ML", sty["tc"]),     Paragraph("None", sty["tcc"]),       Paragraph("Internet-facing SaaS", sty["tc"])],
         [Paragraph("Cisco Firepower 4100 [17]", sty["tc"]), Paragraph("NGIPS appliance", sty["tc"]), Paragraph("Talos + Snort", sty["tc"]),      Paragraph("Partial", sty["tcc"]),    Paragraph("Large enterprise", sty["tc"])],
-        [Paragraph("<b>A S M Shadhin AI (ours)</b>", sty["tcb"]), Paragraph("<b>Hybrid inline</b>", sty["tcb"]), Paragraph("<b>eBPF/XDP + local LLM</b>", sty["tcb"]), Paragraph("<b>100%</b>", sty["tcc"]), Paragraph("<b>Any / air-gap</b>", sty["tcb"])],
+        [Paragraph("<b>Q-Vigilance AI (ours)</b>", sty["tcb"]), Paragraph("<b>Hybrid inline</b>", sty["tcb"]), Paragraph("<b>eBPF/XDP + local LLM</b>", sty["tcb"]), Paragraph("<b>100%</b>", sty["tcc"]), Paragraph("<b>Any / air-gap</b>", sty["tcb"])],
     ], [1.45*inch, 1.05*inch, 1.45*inch, 0.85*inch, 1.35*inch])
     story.append(t2)
     story.append(Paragraph("Table II: Reference systems and deployment categories.", sty["cap"]))
@@ -434,7 +434,7 @@ def build_paper(out_path):
     story.append(t3)
     story.append(Paragraph(
         "Table III: Detection accuracy comparison. * requires TLS decryption (privacy-invasive). "
-        "A S M Shadhin AI achieves 87.9% C2 detection without any decryption.", sty["cap"]))
+        "Q-Vigilance AI achieves 87.9% C2 detection without any decryption.", sty["cap"]))
 
     story.append(Paragraph("C. Latency and Throughput Comparison", sty["h2"]))
     t4 = std_table([
@@ -446,7 +446,7 @@ def build_paper(out_path):
         [Paragraph("Palo Alto PAN-OS", sty["tc"]),    Paragraph("15&#8211;50 ms (cloud)", sty["tcc"]), Paragraph("100&#8211;500 ms", sty["tcc"]),   Paragraph("100 Gbps (ASIC)", sty["tcc"]), Paragraph("Custom ASIC", sty["tc"])],
         [Paragraph("Cloudflare MT", sty["tc"]),       Paragraph("10&#8211;80 ms (WAN)", sty["tcc"]),   Paragraph("100&#8211;300 ms", sty["tcc"]),   Paragraph("Tbps (anycast)", sty["tcc"]),  Paragraph("Cloud PoP", sty["tc"])],
         [Paragraph("Cisco Firepower", sty["tc"]),     Paragraph("60&#8211;400 &#956;s", sty["tcc"]),   Paragraph("200&#8211;800 ms", sty["tcc"]),   Paragraph("40 Gbps (HW)", sty["tcc"]),   Paragraph("Custom NIC ASIC", sty["tc"])],
-        [Paragraph("<b>A S M Shadhin AI (ours)</b>", sty["tcb"]), Paragraph("<b>&lt; 1.8 &#956;s (XDP)</b>", sty["tcc"]), Paragraph("<b>80&#8211;400 ms (LLM)</b>", sty["tcc"]), Paragraph("<b>10 Gbps (commodity)</b>", sty["tcc"]), Paragraph("<b>Kernel eBPF (x86/ARM)</b>", sty["tcb"])],
+        [Paragraph("<b>Q-Vigilance AI (ours)</b>", sty["tcb"]), Paragraph("<b>&lt; 1.8 &#956;s (XDP)</b>", sty["tcc"]), Paragraph("<b>80&#8211;400 ms (LLM)</b>", sty["tcc"]), Paragraph("<b>10 Gbps (commodity)</b>", sty["tcc"]), Paragraph("<b>Kernel eBPF (x86/ARM)</b>", sty["tcb"])],
     ], [1.4*inch, 1.35*inch, 1.35*inch, 1.25*inch, 1.15*inch])
     story.append(t4)
     story.append(Paragraph("Table IV: Latency and throughput comparison.", sty["cap"]))
@@ -457,7 +457,7 @@ def build_paper(out_path):
          Paragraph("Snort / Suricata", sty["th"]),
          Paragraph("Palo Alto / Cisco", sty["th"]),
          Paragraph("Cloudflare", sty["th"]),
-         Paragraph("A S M Shadhin AI (ours)", sty["th"])],
+         Paragraph("Q-Vigilance AI (ours)", sty["th"])],
         [Paragraph("Air-gapped operation",       sty["tc"]), Paragraph("&#10003; (no updates)", sty["tcc"]), Paragraph("&#10007; (cloud feeds)", sty["tcc"]), Paragraph("&#10007; (cloud-only)", sty["tcc"]), Paragraph("<b>&#10003; Full offline</b>", sty["tcc"])],
         [Paragraph("Zero third-party telemetry", sty["tc"]), Paragraph("&#10003;", sty["tcc"]),             Paragraph("&#10007; (Wildfire/Talos)", sty["tcc"]), Paragraph("&#10007; (payload inspect)", sty["tcc"]), Paragraph("<b>&#10003; Zero calls</b>", sty["tcc"])],
         [Paragraph("Post-quantum cryptography",  sty["tc"]), Paragraph("&#10007;", sty["tcc"]),             Paragraph("Partial (roadmap)", sty["tcc"]),         Paragraph("Partial (experimental)", sty["tcc"]),   Paragraph("<b>&#10003; ML-KEM-768 + ML-DSA-65</b>", sty["tcc"])],
@@ -566,7 +566,7 @@ def build_paper(out_path):
     # ─── VIII. CONCLUSION ────────────────────────────────────────────────────
     story.append(Paragraph("VIII.&nbsp;&nbsp;Conclusion", sty["h1"]))
     story.append(Paragraph(
-        "This paper presented A S M Shadhin AI, a hybrid autonomous network security system "
+        "This paper presented Q-Vigilance AI, a hybrid autonomous network security system "
         "that advances the state-of-the-art across multiple simultaneously important "
         "dimensions: detection accuracy, mitigation latency, encrypted-traffic analysis, "
         "attacker deception, data sovereignty, and post-quantum resilience. The central "

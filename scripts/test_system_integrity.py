@@ -62,8 +62,8 @@ def test_modelfile():
     assert "PARAMETER temperature 0.1" in content, "Temperature parameter missing or wrong!"
     assert "PARAMETER num_thread 3" in content, "CPU num_thread not optimized!"
     assert "PARAMETER num_ctx 4096" in content, "Context window not configured!"
-    assert "A S M Shadhin AI" in content or "asm-shadhin-ai" in content, "Brand identity missing!"
-    print("  [✓] Modelfile: A S M Shadhin AI parameters and strict JSON directives VERIFIED")
+    assert "Q-Vigilance AI" in content or "asm-shadhin-ai" in content, "Brand identity missing!"
+    print("  [✓] Modelfile: Q-Vigilance AI parameters and strict JSON directives VERIFIED")
 
 
 

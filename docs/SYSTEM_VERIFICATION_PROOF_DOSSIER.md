@@ -1,5 +1,5 @@
 # System End-to-End Verification Proof & Operational Dossier
-**Project**: Sovereign Autonomous Cyber Defence (A S M Shadhin AI)  
+**Project**: Sovereign Autonomous Cyber Defence (Q-Vigilance AI)  
 **Author**: A. S. M. Hossain Mahmud (Shadhin)  
 **Verification Environment**: Ubuntu Server 22.04.5 LTS (Linux Kernel 7.0.12 aarch64)  
 **Verification Date**: September 19, 2026  
@@ -73,7 +73,7 @@ clang -O2 -g -Wall -Werror -target bpf -D__TARGET_ARCH_arm64 -I/usr/include/aarc
   [✓] scripts/run_dashboard.sh: Syntax OK
 
 [CHECK 2/11] Validating Modelfile Configuration...
-  [✓] Modelfile: A S M Shadhin AI parameters and strict JSON directives VERIFIED
+  [✓] Modelfile: Q-Vigilance AI parameters and strict JSON directives VERIFIED
 
 [CHECK 3/11] Validating Post-Quantum Cryptography (ML-KEM-1024, ML-KEM-768, ML-DSA-65)...
   [✓] ML-KEM-1024 (Cat. 5) & ML-KEM-768 & ML-DSA-65: Encryption, Decryption, Signing PASSED

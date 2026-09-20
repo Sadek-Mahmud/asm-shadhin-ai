@@ -68,7 +68,7 @@ def build_rebuttal_docx(out_path: str):
         footer = section.footer
         p_foot = footer.paragraphs[0]
         p_foot.alignment = WD_ALIGN_PARAGRAPH.RIGHT
-        r_f = p_foot.add_run("A S M Shadhin AI — Author Rebuttal & Technical Proof Dossier (IEEE Peer Review) | 2026")
+        r_f = p_foot.add_run("Q-Vigilance AI — Author Rebuttal & Technical Proof Dossier (IEEE Peer Review) | 2026")
         r_f.font.name = "Calibri"
         r_f.font.size = Pt(8.5)
         r_f.font.color.rgb = C_GRAY
@@ -295,7 +295,7 @@ def build_rebuttal_docx(out_path: str):
     add_body(
         "In traditional Linux iptables or user-space firewalls, packet inspection requires allocating a kernel socket buffer "
         "(struct sk_buff), parsing through netfilter hooks, and context-switching into user space, incurring 15-45 microseconds of latency. "
-        "In A S M Shadhin AI, the fast-path is implemented in ebpf/ebpf_filter.c and attached at the XDP driver hook:"
+        "In Q-Vigilance AI, the fast-path is implemented in ebpf/ebpf_filter.c and attached at the XDP driver hook:"
     )
     add_code(
         "/* Production Code: ebpf/ebpf_filter.c - Lines 62-84 */\n"
@@ -315,7 +315,7 @@ def build_rebuttal_docx(out_path: str):
         "}"
     )
 
-    headers_lat = ["Percentile Metric", "Linux iptables / nftables", "Suricata (AF_PACKET)", "Snort 3 (DAQ)", "A S M Shadhin AI (eBPF/XDP)"]
+    headers_lat = ["Percentile Metric", "Linux iptables / nftables", "Suricata (AF_PACKET)", "Snort 3 (DAQ)", "Q-Vigilance AI (eBPF/XDP)"]
     rows_lat = [
         ["p50 (Median Latency)", "14.8 us", "22.4 us", "18.6 us", "**1.1 us** (< 2 us target)"],
         ["p90 Latency", "26.2 us", "38.1 us", "31.5 us", "**1.5 us**"],
@@ -341,7 +341,7 @@ def build_rebuttal_docx(out_path: str):
     add_body(
         "1. Mandatory Cloud Telemetry vs. True Sovereignty: Commercial threat clouds (Palo Alto WildFire, Cisco Talos, Cloudflare Magic Transit) "
         "mandate exporting customer telemetry and payload metadata to public cloud servers. This violates sovereign air-gapped compliance "
-        "(e.g., defense installations, classified government enclaves). A S M Shadhin AI executes 100% on-premises without WAN uplink.\n\n"
+        "(e.g., defense installations, classified government enclaves). Q-Vigilance AI executes 100% on-premises without WAN uplink.\n\n"
         "2. TLS MITM Decryption vs. Privacy-Preserving Shannon Entropy: Palo Alto and Cisco inspect encrypted traffic by deploying enterprise root CA "
         "certificates and breaking TLS end-to-end encryption. Our Shannon entropy detector classifies C2 beaconing inside TLS 1.3 / QUIC "
         "purely through byte-frequency randomness (H >= 7.1 bits/byte) with ZERO decryption and ZERO key escrow.\n\n"
@@ -349,7 +349,7 @@ def build_rebuttal_docx(out_path: str):
         "Our system dynamically mutates active service ports via HMAC-SHA256, mathematically defeating persistent attacker reconnaissance."
     )
 
-    headers_comp = ["Evaluation Feature", "Palo Alto (PAN-OS 11)", "Cisco Firepower 4100", "Cloudflare Magic Transit", "A S M Shadhin AI"]
+    headers_comp = ["Evaluation Feature", "Palo Alto (PAN-OS 11)", "Cisco Firepower 4100", "Cloudflare Magic Transit", "Q-Vigilance AI"]
     rows_comp = [
         ["Deployment Model", "Cloud-Tethered HW", "On-Premises / Cloud", "Pure Cloud Anycast", "**100% Air-Gapped / Sovereign**"],
         ["Mitigation Speed", "15 - 35 us", "12 - 28 us", "25 - 60 ms (Edge RTT)", "**< 2.0 us (In-Kernel XDP)**"],
@@ -487,7 +487,7 @@ def build_rebuttal_docx(out_path: str):
     # ──────────────────────────────────────────────────────────────────────────
     add_h1("IX.  Conclusion & Reviewer Assurance")
     add_body(
-        "In summary, A S M Shadhin AI is not a theoretical proposal or conceptual draft. It is a complete, "
+        "In summary, Q-Vigilance AI is not a theoretical proposal or conceptual draft. It is a complete, "
         "empirically benchmarked, open-source sovereign defense system. With Wilson score statistical validation "
         "across 1.28 million flows, driver-level eBPF micro-benchmarking, grammar-constrained local LLM reasoning, "
         "and a fully automated 9/9 verification suite, all reviewer concerns have been thoroughly addressed and conclusively resolved."

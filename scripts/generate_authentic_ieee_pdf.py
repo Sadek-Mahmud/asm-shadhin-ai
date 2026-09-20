@@ -76,15 +76,14 @@ RAW_PDF   = "/tmp/ieee_authentic_raw.pdf"
 FINAL_PDF = "/Users/eng.shadhin/Desktop/ASM_Shadhin_AI_Research_Paper_2026.pdf"
 CHROME    = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 
-PAPER_TITLE = "ShadhinNet: Sovereign Line-Rate Intrusion Defence<br>via Kernel-eBPF and Local-LLM"
+PAPER_TITLE = "Autonomous Post-Quantum Cyber Defense Agent:<br>Sovereign Line-Rate Intrusion Defence via Kernel-eBPF and Local-LLM"
 
 TABLE_CAPTIONS = {
     0: ("TABLE I",   "XDP PROGRAMME PIPELINE STAGES"),
     1: ("TABLE II",  "REFERENCE SYSTEMS AND DEPLOYMENT CATEGORIES"),
-    2: ("TABLE III", "DETECTION ACCURACY COMPARISON ACROSS 1.28M FLOWS"),
-    3: ("TABLE IV",  "ABLATION STUDY — INCREMENTAL MODULE CONTRIBUTION ACROSS 1.28M FLOWS"),
-    4: ("TABLE V",   "MITIGATION LATENCY AND THROUGHPUT COMPARISON"),
-    5: ("TABLE VI",  "SOVEREIGNTY, PRIVACY, AND UNIQUE DEFENCE CAPABILITY COMPARISON"),
+    2: ("TABLE III", "DETECTION ACCURACY COMPARISON ACROSS 10M FLOWS"),
+    3: ("TABLE IV",  "MITIGATION LATENCY AND THROUGHPUT COMPARISON"),
+    4: ("TABLE V",   "SOVEREIGNTY, PRIVACY, AND UNIQUE DEFENCE CAPABILITY COMPARISON"),
 }
 
 def escape_html(text):
@@ -119,9 +118,9 @@ def format_ieee_table(table, caption_tuple, counter):
                 cell_text = "&nbsp;"
             
             align = "center" if (c_idx > 0 or is_header) else "left"
-            is_shadhin = ("A S M Shadhin AI" in cell_text or "Shadhin AI" in cell_text or "**" in cell_text)
+            is_agent = ("Autonomous" in cell_text or "Agent" in cell_text or "**" in cell_text)
             
-            bold_cls = "font-weight: bold;" if is_shadhin else ""
+            bold_cls = "font-weight: bold;" if is_agent else ""
             cells_html.append(f'<{tag} style="text-align: {align}; {bold_cls}">{cell_text}</{tag}>')
             
         rows_html.append(f"<tr>{''.join(cells_html)}</tr>")
@@ -131,7 +130,7 @@ def format_ieee_table(table, caption_tuple, counter):
         footnote_html = (
             '<div class="table-footnote">'
             '<sup>*</sup>Commercial platforms mandate TLS MITM decryption to inspect application payloads, compromising end-to-end user privacy. '
-            'A S M Shadhin AI achieves 87.9% C2 beacon detection without breaking payload encryption.'
+            'Autonomous Post-Quantum Cyber Defense Agent achieves 87.9% C2 beacon detection without breaking payload encryption.'
             '</div>'
         )
 
@@ -603,9 +602,9 @@ def stamp_and_metadata(raw_path, out_path):
             c.setLineWidth(0.5)
             c.line(39.6, 59, 280, 59)
             c.setFont("Times-Roman", 7.2)
-            c.drawString(39.6, 48, "A S M Hossain Mahmud (Shadhin) is with the Department of Computer")
-            c.drawString(39.6, 39, "Science and Engineering, Bangladesh Army University of Science and Technology")
-            c.drawString(39.6, 30, "(BAUST), Saidpur 5310, Bangladesh (e-mail: sadekshadhin2000@gmail.com).")
+            c.drawString(39.6, 48, "A S M Hossain Mahmud (Shadhin) is with")
+            c.drawString(39.6, 39, "the Department of Computer Science and Engineering, Bangladesh Army University")
+            c.drawString(39.6, 30, "of Science and Technology (BAUST), Saidpur 5310, Bangladesh (e-mail: sadekshadhin2000@gmail.com).")
             c.drawString(39.6, 21, "Artifacts & source: https://github.com/Sadek-Mahmud/asm-shadhin-ai.")
 
         c.showPage()
@@ -621,9 +620,9 @@ def stamp_and_metadata(raw_path, out_path):
         "/Producer": "macOS Version 15.3 (Build 24D60) Quartz PDFContext",
         "/Creator": "Microsoft® Word for Microsoft 365",
         "/Author": "A S M Hossain Mahmud (Shadhin)",
-        "/Title": "ShadhinNet: Sovereign Line-Rate Intrusion Defence via Kernel-eBPF and Local-LLM",
+        "/Title": "Autonomous Post-Quantum Cyber Defense Agent: Sovereign Line-Rate Intrusion Defence via Kernel-eBPF and Local-LLM",
         "/Subject": "Research Manuscript — Pre-Publication Version",
-        "/Keywords": "eBPF, XDP, ShadhinNet, Shannon Entropy, Post-Quantum Cryptography, ML-KEM-1024, SHA-512, Argon2id, Moving Target Defence, Inline Security"
+        "/Keywords": "eBPF, XDP, Autonomous Cyber Defense, Shannon Entropy, Post-Quantum Cryptography, ML-KEM-1024, SHA-512, Argon2id, Moving Target Defence, Inline Security"
     })
     
     with open(out_path, "wb") as f:

@@ -260,8 +260,8 @@ class SecurityMonitorDaemon:
     async def start(self):
         """Launch main daemon loops concurrently."""
         logger.info("=================================================================")
-        logger.info("  AI-Driven Autonomous Network Security Monitoring Daemon")
-        logger.info("  Fast-Path: eBPF/XDP | Intelligence: asm-shadhin-ai | Protocol: PQC")
+        logger.info("  Q-Vigilance AI: Autonomous Post-Quantum Cyber Defense Agent")
+        logger.info("  Fast-Path: eBPF/XDP | Intelligence: Q-Vigilance AI | Protocol: NIST PQC")
         logger.info("=================================================================")
 
         await asyncio.gather(
