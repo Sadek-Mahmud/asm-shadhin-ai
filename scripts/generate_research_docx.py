@@ -504,7 +504,7 @@ def build_docx(out_path: str):
     add_heading("F. Post-Quantum Cryptographic Guard", level=2, size=11.5, color=C_DARK, space_before=6)
     add_body(
         "All inter-component communications are protected by a bespoke tunnel built on "
-        "NIST FIPS 203 ML-KEM-768 (key encapsulation) and FIPS 204 ML-DSA-65 (digital "
+        "NIST FIPS 203 ML-KEM-1024 (Kyber-1024, NIST Category 5 key encapsulation) and FIPS 204 ML-DSA-65 (digital "
         "signatures), with AES-256-GCM AEAD for symmetric session encryption. This ensures "
         "that a future cryptographically relevant quantum computer cannot retroactively decrypt "
         "captured management-plane traffic."
@@ -628,7 +628,7 @@ def build_docx(out_path: str):
         "STEP 2/9  Bash static syntax (bash -n, 8 scripts)  ............... PASSED\n"
         "STEP 3/9  eBPF/XDP clang -target bpf -O2 (ebpf_filter.o, 20KB)  . PASSED\n"
         "STEP 4/9  9-check diagnostic integrity suite (9/9 sub-checks)  ... PASSED\n"
-        "STEP 5/9  PQC handshake: ML-KEM-768, ML-DSA-65, AES-256-GCM  .... PASSED\n"
+        "STEP 5/9  PQC handshake: ML-KEM-1024, ML-DSA-65, AES-256-GCM .... PASSED\n"
         "STEP 6/9  Dual-NIC transparent bridge br0 commissioning  ......... PASSED\n"
         "STEP 7/9  Isolated L3 gateway (NAT masquerade 10.99.1.0/24)  ..... PASSED\n"
         "STEP 8/9  Daemons: LLM verdict, eBPF ctrl, MTD, entropy, tarpit . PASSED\n"
