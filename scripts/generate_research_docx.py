@@ -442,14 +442,16 @@ def build_docx(out_path: str):
         "code stored in the block-entry hash map for observability."
     )
 
-    add_heading("B. Asynchronous Control-Plane: Custom LLM Semantic Reasoning", level=2, size=11.5, color=C_DARK, space_before=6)
+    add_heading("B. Asynchronous Control-Plane: Custom Autonomous AI Agent Reasoning", level=2, size=11.5, color=C_DARK, space_before=6)
     add_body(
         "To perform deep semantic evaluation without external cloud dependencies, the architecture integrates a "
-        "custom domain-adapted security model: asm-shadhin-ai (a specialized 7B-parameter architecture custom-quantized "
-        "to GGUF Q4_K_M). Operating strictly on the asynchronous control plane, it is physically and logically decoupled "
-        "from the real-time data path so that inference latency (averaging 148 ms on commodity CPU) never introduces head-of-line "
-        "blocking on packet forwarding. The 4-bit quantization provides an optimal operating point, requiring under 4.5 GB of "
-        "system RAM and eliminating any requirement for expensive GPU accelerators or third-party cloud APIs."
+        "custom domain-specialized autonomous cyber defense agent: asm-shadhin-ai. Built upon the Qwen2.5-Coder-3B "
+        "foundation architecture and adapted with cyber-defense operational prompt directives, strict JSON grammar constraints, "
+        "and custom 4-bit quantization (GGUF Q4_K_M), the autonomous agent operates strictly on the asynchronous control plane. "
+        "It is physically and logically decoupled from the real-time packet data path so that inference latency (averaging 148 ms on "
+        "commodity CPU) never introduces head-of-line blocking on packet forwarding. The 4-bit quantization provides an optimal "
+        "operating envelope, requiring under 2.0 GB of memory (fitting well within 4.5 GB total system budget) and eliminating "
+        "any reliance on costly GPU accelerators or third-party cloud telemetry."
     )
     add_body(
         "To eliminate hallucination and ensure white-box determinism, the engine employs grammar-constrained "
