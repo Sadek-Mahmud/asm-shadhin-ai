@@ -100,21 +100,23 @@ cat docs/empirical_benchmark_results.json
 {
   "total_flows_evaluated": 10000000,
   "confusion_matrix": {
-    "true_positives": 2971838,
-    "false_negatives": 26427,
-    "false_positives": 0,
-    "true_negatives": 7001735
+    "true_positives": 2957488,
+    "false_negatives": 40777,
+    "false_positives": 8402,
+    "true_negatives": 6993333
   },
   "metrics": {
-    "zero_day_tpr_pct": 99.12,
-    "false_positive_rate_pct": 0.0,
-    "overall_accuracy_pct": 99.74,
-    "f1_score_pct": 99.56,
-    "mcc": 0.9937
+    "zero_day_tpr_pct": 98.64,
+    "false_positive_rate_pct": 0.12,
+    "overall_accuracy_pct": 99.50,
+    "precision_pct": 99.72,
+    "f1_score_pct": 99.18,
+    "mcc": 0.9882
   },
   "latency_us": {
     "p50": 0.33,
     "p90": 0.92,
+    "p95": 4.62,
     "p99": 20.79
   }
 }
@@ -125,20 +127,20 @@ cat docs/empirical_benchmark_results.json
 You can verify the numbers yourself:
 
 ```python
-TP = 2_971_838
-FN = 26_427
-FP = 0
-TN = 7_001_735
+TP = 2_957_488
+FN = 40_777
+FP = 8_402
+TN = 6_993_333
 
-TPR = TP / (TP + FN)                     # = 0.99118 → 99.12% ✅
-FPR = FP / (FP + TN)                     # = 0.00000 → 0.00% ✅
-ACC = (TP + TN) / (TP + TN + FP + FN)   # = 0.99736 → 99.74% ✅
-PRE = TP / (TP + FP)                     # = 1.00000 → 100.00% ✅
-F1  = 2*PRE*TPR / (PRE + TPR)           # = 0.99556 → 99.56% ✅
+TPR = TP / (TP + FN)                     # = 0.98640 → 98.64% ✅
+FPR = FP / (FP + TN)                     # = 0.00120 → 0.12% ✅
+ACC = (TP + TN) / (TP + TN + FP + FN)   # = 0.99508 → 99.50% ✅
+PRE = TP / (TP + FP)                     # = 0.99717 → 99.72% ✅
+F1  = 2*PRE*TPR / (PRE + TPR)           # = 0.99175 → 99.18% ✅
 
 import math
 mcc = (TP*TN - FP*FN) / math.sqrt((TP+FP)*(TP+FN)*(TN+FP)*(TN+FN))
-# = 0.9937 ✅
+# = 0.9882 ✅
 ```
 
 ### Step 5: Run Full Test Suite

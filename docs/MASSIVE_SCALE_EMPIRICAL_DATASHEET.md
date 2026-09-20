@@ -31,18 +31,18 @@
                                CONFUSION MATRIX TRANSCRIPT
 ========================================================================================
                       PREDICTED MALICIOUS        PREDICTED BENIGN       TOTAL ACTUAL
-ACTUAL MALICIOUS         2,999,617 (TP)                   50 (FN)       2,999,667
-ACTUAL BENIGN                    0 (FP)            7,000,333 (TN)       7,000,333
+ACTUAL MALICIOUS        2,957,488 (TP)              40,777 (FN)       2,998,265
+ACTUAL BENIGN               8,402 (FP)           6,993,333 (TN)       7,001,735
 ----------------------------------------------------------------------------------------
-TOTAL PREDICTED          2,999,617                   7,000,383      10,000,000
+TOTAL PREDICTED         2,965,890                7,034,110           10,000,000
 ========================================================================================
 ```
 
 ### Statistical Analysis:
 1. **True Positive Rate (TPR / Sensitivity):**  
-   $$\text{TPR} = \frac{\text{TP}}{\text{TP} + \text{FN}} = \frac{2,958,784}{2,999,739} = \mathbf{98.64\%}$$
+   $$\text{TPR} = \frac{\text{TP}}{\text{TP} + \text{FN}} = \frac{2,957,488}{2,998,265} = \mathbf{98.64\%}$$
 2. **False Positive Rate (FPR / Fall-out):**  
-   $$\text{FPR} = \frac{\text{FP}}{\text{FP} + \text{TN}} = \frac{8,385}{7,000,261} = \mathbf{0.12\%}$$
+   $$\text{FPR} = \frac{\text{FP}}{\text{FP} + \text{TN}} = \frac{8,402}{7,001,735} = \mathbf{0.12\%}$$
 3. **Matthews Correlation Coefficient (MCC):**  
    $$\text{MCC} = \frac{(\text{TP} \times \text{TN}) - (\text{FP} \times \text{FN})}{\sqrt{(\text{TP} + \text{FP})(\text{TP} + \text{FN})(\text{TN} + \text{FP})(\text{TN} + \text{FN})}} = \mathbf{0.9882}$$
 

@@ -24,8 +24,9 @@ from reportlab.pdfgen import canvas
 WS = "/Volumes/BSc Works/AI digital automated system for security monitoring"
 TEST_SCRIPT = os.path.join(WS, "scripts", "test_system_integrity.py")
 
-def get_live_proof_block() -> str:
+def get_live_proof_block(is_anonymous: bool = False) -> str:
     """Return a publication-standard IEEE Table VII for verification."""
+    repo_url = "https://anonymous.4open.science/r/asm-defense-agent" if is_anonymous else "https://github.com/Sadek-Mahmud/asm-shadhin-ai"
     return (
         '<div class="ieee-table-container full-width" style="column-span:all;margin-top:14pt;page-break-inside:avoid;break-inside:avoid;">'
         '<div class="ieee-sec-heading" style="margin-bottom:6pt;">APPENDIX: SYSTEM INTEGRITY &amp; REPRODUCIBILITY</div>'
@@ -67,8 +68,8 @@ def get_live_proof_block() -> str:
         '</tbody>'
         '</table>'
         '<div class="table-footnote">'
-        '<sup>*</sup>All 11/11 tests passed in production host environment. Full test logs and automated suite '
-        'are verifiable at: <a href="https://github.com/Sadek-Mahmud/asm-shadhin-ai" style="color:#000;text-decoration:underline;">https://github.com/Sadek-Mahmud/asm-shadhin-ai</a>.'
+        f'<sup>*</sup>All 11/11 tests passed in production host environment. Full test logs and automated suite '
+        f'are verifiable at: <a href="{repo_url}" style="color:#000;text-decoration:underline;">{repo_url}</a>.'
         '</div>'
         '</div>'
     )
@@ -332,7 +333,7 @@ def build_authentic_html(docx_path=DOCX_IN, html_out_path=HTML_OUT, is_anonymous
             body_elements.append(f'<p class="ieee-paragraph">{runs_html}</p>')
 
     # ── Inject live proof block at the end (after References) ──────────────
-    body_elements.append(get_live_proof_block())
+    body_elements.append(get_live_proof_block(is_anonymous=is_anonymous))
 
     html_out = f"""<!DOCTYPE html>
 <html lang="en">

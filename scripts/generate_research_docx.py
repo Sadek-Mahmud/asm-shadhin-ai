@@ -507,12 +507,13 @@ def build_docx(out_path: str, anonymous: bool = False):
     )
 
     add_heading("C. Asynchronous Control-Plane: Custom Autonomous AI Agent Reasoning & Prompt-Injection Hardening", level=2, size=11.5, color=C_DARK, space_before=6)
+    agent_id = "an autonomous cyber defense model [anonymized-agent]" if anonymous else "a custom domain-specialized autonomous cyber defense agent: asm-shadhin-ai"
     add_body(
-        "To perform deep semantic evaluation without external cloud dependencies, the architecture integrates a "
-        "custom domain-specialized autonomous cyber defense agent: asm-shadhin-ai. Built upon the Qwen2.5-Coder-3B "
-        "foundation architecture and adapted with cyber-defense operational prompt directives, strict JSON grammar constraints, "
-        "and custom 4-bit quantization (GGUF Q4_K_M), the autonomous agent operates strictly on the asynchronous control plane. "
-        "A foundational design principle of this architecture is the complete decoupling of the sub-microsecond in-kernel data plane "
+        f"To perform deep semantic evaluation without external cloud dependencies, the architecture integrates {agent_id}. "
+        "Built upon the Qwen2.5-Coder-3B foundation architecture and adapted with cyber-defense operational prompt directives, "
+        "strict JSON grammar constraints, and custom 4-bit quantization (GGUF Q4_K_M), the autonomous agent operates strictly on "
+        "the asynchronous control plane. A foundational design principle of this architecture is the complete decoupling of the "
+        "sub-microsecond in-kernel data plane "
         "(0.33 us median drop latency) from the multi-second control-plane reasoning loop (148 ms heuristic triage, 1.8–2.8 s complete "
         "SLM JSON generation on commodity CPU). If live packets were held synchronously in memory awaiting LLM inference, line-rate "
         "gigabit throughput would instantly collapse and packet buffers would overflow within microseconds. Instead, the architecture "
@@ -526,12 +527,12 @@ def build_docx(out_path: str, anonymous: bool = False):
         "achieving proactive autonomous containment without head-of-line blocking."
     )
     add_body(
-        "To eliminate hallucination and guarantee prompt-injection immunity, the inference pipeline enforces three layers of defense: "
+        "To strictly mitigate hallucination and defend against adversarial prompt-injection vectors, the inference pipeline enforces three complementary layers of defense: "
         "(1) Payload Isolation: Raw packet payloads are never injected directly into LLM prompts; instead, deterministic parsers extract "
         "sanitized flow tuples, port destinations, entropy metrics, and Suricata alert metadata; (2) Logit-Level Grammar Decoding: Ollama's "
         "formal JSON grammar enforcement (GBNF grammar decoding) restricts token generation strictly to valid JSON tokens conforming to "
         "the 7-field operational schema ('verdict', 'threat_type', 'confidence', 'action', 'source_ip', 'reason', 'ebpf_rule'), rendering conversational "
-        "jailbreaks or markdown injection structurally impossible; and (3) Deterministic Fallback Precedence: Known high-severity rule triggers "
+        "jailbreaks or markdown injection structurally constrained; and (3) Deterministic Fallback Precedence: Known high-severity rule triggers "
         "and kernel flag anomalies automatically enforce immediate XDP drops via deterministic heuristics if inference encounters timeouts "
         "or anomalous responses, ensuring fail-safe containment."
     )
@@ -549,7 +550,7 @@ def build_docx(out_path: str, anonymous: bool = False):
     add_equation("P(s, e) = P_min + [ HMAC-SHA256(K, s || e) mod (P_max - P_min) ]", "1")
     add_body(
         "Client Synchronization: Authorized endpoints synchronize with the active port through a shared HMAC seed derived via our "
-        "authenticated PQC control tunnel or via time-synchronized Single-Packet Authorization (SPA). To guarantee zero connection drop "
+        "authenticated PQC control tunnel or via time-synchronized Single-Packet Authorization (SPA). To prevent connection drops "
         "during epoch transitions, the daemon maintains a dual-epoch grace window permitting connections matching both e and e-1. "
         "Linux iptables / nftables NAT PREROUTING redirect rules dynamically map incoming packets on active and grace ports directly to the static "
         "internal daemon socket transparently. An adversary observing P(s, e) cannot predict future ports without inverting HMAC-SHA256."
@@ -583,12 +584,12 @@ def build_docx(out_path: str, anonymous: bool = False):
         "All inter-component communications are protected by a bespoke tunnel built on "
         "NIST FIPS 203 ML-KEM-1024 (Kyber-1024, NIST Category 5 key encapsulation) [21] combined with an RFC 7748 X25519 "
         "Montgomery ladder hybrid fallback and FIPS 204 ML-DSA-65 (digital signatures) [22], with AES-256-GCM AEAD for symmetric session "
-        "encryption. This guarantees post-quantum confidentiality and forward secrecy against future quantum adversaries."
+        "encryption. This provides robust post-quantum confidentiality and forward secrecy against future quantum adversaries based on NIST standards."
     )
 
     add_heading("H. Immutable Cryptographic Audit Chain", level=2, size=11.5, color=C_DARK, space_before=6)
     add_body(
-        "To guarantee forensic integrity and prevent post-incident evidence tampering, every mitigation verdict, rule insertion, "
+        "To enforce forensic integrity and prevent post-incident evidence tampering, every mitigation verdict, rule insertion, "
         "and security alert is recorded into an append-only cryptographic ledger. Each audit record r_i computes a chained hash: "
         "H_i = SHA-512(H_{i-1} || r_i || timestamp), anchored by the appliance's root signing key. Any retrospective modification or "
         "truncation of logs immediately breaks the cryptographic hash chain, providing verifiable non-repudiation during formal investigations."
@@ -627,7 +628,7 @@ def build_docx(out_path: str, anonymous: bool = False):
         "Table III presents detection-accuracy metrics evaluated against a comprehensive 10,000,000-event flow "
         "corpus. The emulation harness (scripts/run_massive_scale_emulator_test.py) uses a Monte Carlo trace "
         "generator calibrated against published flow-level statistical distributions — including entropy profiles, "
-        "inter-arrival timing, and class-imbalance ratios — extracted from the CSE-CIC-IDS2018 [19], UNSW-NB15 [18], "
+        "inter-arrival timing, and class-imbalance ratios — derived from published statistical characterisations of the CSE-CIC-IDS2018 [19], UNSW-NB15 [18], "
         "and CTU-13 [20] academic benchmarks. The evaluation corpus spans 18 distinct attack vectors, including "
         "multi-stage reconnaissance, protocol manipulation, SQL injection, RCE exploits, high-rate DDoS floods, "
         "encrypted command-and-control (C2), ransomware beaconing, and adversarial evasion payloads."
@@ -669,7 +670,7 @@ def build_docx(out_path: str, anonymous: bool = False):
         rows=[
             ["Snort 3.x",           "250-800 us",       "80-200 ms",     "~2 Gbps",          "User-space DAQ"],
             ["Suricata 7.x",        "180-600 us",       "50-150 ms",     "~4 Gbps",          "User-space AF_PACKET"],
-            ["Palo Alto PAN-OS",    "15-50 ms (cloud)", "100-500 ms",    "100 Gbps (ASIC)",  "Custom ASIC"],
+            ["Palo Alto PAN-OS",    "25-120 us (local)", "100-500 ms",   "100 Gbps (ASIC)",  "Custom ASIC"],
             ["Cloudflare MT",       "10-80 ms (WAN)",   "100-300 ms",    "Tbps (anycast)",   "Cloud PoP"],
             ["Cisco Firepower",     "60-400 us",        "200-800 ms",    "40 Gbps (HW)",     "Custom NIC ASIC"],
             ["**Autonomous Agent (ours)","**0.33 us (p50)", "**148 ms - 2.8 s (Async)**",  "**1 Gbps (PCIe NIC)",  "**Kernel eBPF (x86/ARM)"],
@@ -720,9 +721,10 @@ def build_docx(out_path: str, anonymous: bool = False):
     )
 
     add_heading("B. End-to-End Verification Suite & Reproducibility Package", level=2, size=11.5, color=C_DARK, space_before=6)
+    repo_url = "https://anonymous.4open.science/r/asm-defense-agent" if anonymous else "https://github.com/Sadek-Mahmud/asm-shadhin-ai"
     add_body(
-        "To ensure full experimental reproducibility, the complete open-source implementation is made publicly "
-        "available at https://github.com/Sadek-Mahmud/asm-shadhin-ai under the MIT licence. The release package "
+        f"To ensure full experimental reproducibility, the complete open-source implementation is made publicly "
+        f"available at {repo_url} under the MIT licence. The release package "
         "includes the automated test harness (scripts/test_master_suite.sh and scripts/test_ubuntu_full.py), self-contained systemd "
         "service unit files (sec-inline-bridge, sec-monitor, sec-tarpit), and offline release packaging. "
         "The automated validation suite achieves a 9/9 (100%) pass rate across all verification phases:"
