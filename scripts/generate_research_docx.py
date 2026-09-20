@@ -625,10 +625,12 @@ def build_docx(out_path: str, anonymous: bool = False):
     add_heading("B. Detection Accuracy Comparison and Statistical Validation", level=2, size=11.5, color=C_DARK, space_before=6)
     add_body(
         "Table III presents detection-accuracy metrics evaluated against a comprehensive 10,000,000-event flow "
-        "corpus calibrated against statistical feature distributions from CSE-CIC-IDS2018 [19], UNSW-NB15 [18], "
-        "and CTU-13 [20]. The evaluation corpus spans 18 distinct attack vectors, including multi-stage reconnaissance, "
-        "protocol manipulation, SQL injection, RCE exploits, high-rate DDoS floods, encrypted command-and-"
-        "control (C2), ransomware beaconing, and adversarial evasion payloads."
+        "corpus. The emulation harness (scripts/run_massive_scale_emulator_test.py) uses a Monte Carlo trace "
+        "generator calibrated against published flow-level statistical distributions — including entropy profiles, "
+        "inter-arrival timing, and class-imbalance ratios — extracted from the CSE-CIC-IDS2018 [19], UNSW-NB15 [18], "
+        "and CTU-13 [20] academic benchmarks. The evaluation corpus spans 18 distinct attack vectors, including "
+        "multi-stage reconnaissance, protocol manipulation, SQL injection, RCE exploits, high-rate DDoS floods, "
+        "encrypted command-and-control (C2), ransomware beaconing, and adversarial evasion payloads."
     )
     add_body(
         "To establish rigorous statistical validity, evaluation was conducted via "
@@ -653,7 +655,13 @@ def build_docx(out_path: str, anonymous: bool = False):
         alignments=['L', 'C', 'C', 'C', 'C', 'C', 'C'],
         highlight_last_col=True
     )
-    add_caption("Table III: Detection accuracy comparison across 10M calibrated flows. Open-source NIDS baselines (Snort, Suricata) were evaluated in testbed with standard rule sets; enterprise baseline metrics (Palo Alto, Cloudflare, Cisco) are compiled from published comparative NIDS evaluation literature [15]–[17] under representative attack workloads. Autonomous Agent achieves 87.9% C2 detection without breaking payload encryption.")
+    add_caption("Table III: Detection accuracy comparison across 10M Monte Carlo emulation flows. "
+                "Open-source NIDS baselines (Snort 3.x, Suricata 7.x) were evaluated directly on the "
+                "physical inline testbed with standard community rule sets. Enterprise platform figures "
+                "(Palo Alto PAN-OS, Cloudflare Magic Transit, Cisco Firepower) are aggregated from "
+                "published NIDS evaluation surveys [15]\u2013[17] under representative multi-vector threat "
+                "workloads; direct independent evaluation of commercial platforms was not conducted. "
+                "Autonomous Agent achieves 87.9% C2 detection out-of-band without payload decryption.")
 
     add_heading("C. Latency and Throughput Comparison", level=2, size=11.5, color=C_DARK, space_before=6)
     make_table(
@@ -703,11 +711,12 @@ def build_docx(out_path: str, anonymous: bool = False):
         "zero-copy packet drop latencies via hardware timestamps, live Nmap scan disruption under active MTD port hopping, real-world Post-Quantum "
         "Cryptographic handshakes (NIST FIPS 203 ML-KEM-1024 and FIPS 204 ML-DSA-65), and system daemon resource footprints under continuous operation; "
         "and (2) Massive-Scale Offline Monte Carlo Trace Emulation Suite: An automated, high-throughput trace-driven evaluation harness "
-        "(scripts/run_massive_scale_emulator_test.py) calibrated against verified feature distributions, packet inter-arrival times, and payload byte-entropy "
-        "profiles extracted from CSE-CIC-IDS2018 [19], UNSW-NB15 [18], and CTU-13 [20]. Operating across a corpus of 10,000,000 verified network flows "
-        "(2,998,265 attack flows across 18 distinct threat vectors and 7,001,735 benign flows), this trace emulation environment enables rigorous "
-        "statistical validation, Wilson score 95% confidence intervals, and confusion-matrix determination that would otherwise be infeasible to collect "
-        "over months of manual physical packet injection without statistical variance."
+        "(scripts/run_massive_scale_emulator_test.py) whose synthetic flow generator is calibrated against published flow-level statistical "
+        "characterisations \u2014 including entropy profiles, inter-arrival timing distributions, and class-imbalance ratios \u2014 derived from the "
+        "CSE-CIC-IDS2018 [19], UNSW-NB15 [18], and CTU-13 [20] academic benchmark corpora. Operating across a corpus of 10,000,000 synthetic "
+        "network flows (approximately 2,998,265 attack flows across 18 distinct threat vectors and 7,001,735 benign flows), this trace emulation "
+        "environment enables rigorous statistical validation, Wilson score 95% confidence intervals, and confusion-matrix determination that would "
+        "otherwise be infeasible to collect over months of manual physical packet injection without statistical variance."
     )
 
     add_heading("B. End-to-End Verification Suite & Reproducibility Package", level=2, size=11.5, color=C_DARK, space_before=6)

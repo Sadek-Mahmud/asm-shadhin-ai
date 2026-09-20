@@ -1,35 +1,35 @@
 {
-  "timestamp_utc": "2026-09-20 13:27:43 UTC",
+  "timestamp_utc": "2026-09-20 15:04:32 UTC",
   "total_flows_evaluated": 10000000,
-  "total_malicious": 2999739,
-  "total_benign": 7000261,
+  "total_malicious": 2999667,
+  "total_benign": 7000333,
   "confusion_matrix": {
-    "true_positives": 2958784,
-    "false_negatives": 40955,
-    "false_positives": 8385,
-    "true_negatives": 6991876
+    "true_positives": 2999617,
+    "false_negatives": 50,
+    "false_positives": 0,
+    "true_negatives": 7000333
   },
   "metrics": {
-    "zero_day_tpr_pct": 98.63,
-    "false_positive_rate_pct": 0.12,
-    "overall_accuracy_pct": 99.51,
-    "precision_pct": 99.72,
-    "f1_score_pct": 99.17,
-    "mcc": 0.9882,
+    "zero_day_tpr_pct": 100.0,
+    "false_positive_rate_pct": 0.0,
+    "overall_accuracy_pct": 100.0,
+    "precision_pct": 100.0,
+    "f1_score_pct": 100.0,
+    "mcc": 1.0,
     "wilson_ci_95_tpr": [
-      98.62,
-      98.65
+      100.0,
+      100.0
     ],
     "wilson_ci_95_fpr": [
-      0.12,
-      0.12
+      0.0,
+      0.0
     ]
   },
   "latency_us": {
-    "p50": 0.33,
-    "p90": 0.96,
-    "p95": 4.42,
-    "p99": 20.38
+    "p50": 0.12,
+    "p90": 0.12,
+    "p95": 0.17,
+    "p99": 61.79
   },
-  "execution_seconds": 14.89
+  "execution_seconds": 13.04
 }
