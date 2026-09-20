@@ -161,8 +161,8 @@ Detailed confusion matrices, Wilson score derivations, ablation studies, and exe
 If you use this system or research in your academic work, please cite:
 
 ```bibtex
-@article{shadhin2026sovereign,
-  title={Sovereign Autonomous Cyber Defence: A Hybrid eBPF/XDP and Local LLM Architecture with Encrypted Traffic Entropy Analysis and Polymorphic Moving Target Defence},
+@article{shadhin2026autonomous,
+  title={Autonomous Post-Quantum Cyber Defense Agent: Sovereign Line-Rate Intrusion Defence via Kernel-eBPF and Local-LLM},
   author={Mahmud (Shadhin), A S M Hossain},
   journal={Department of Computer Science and Engineering, Bangladesh Army University of Science and Technology (BAUST)},
   year={2026},
