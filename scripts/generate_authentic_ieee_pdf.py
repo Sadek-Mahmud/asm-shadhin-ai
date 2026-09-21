@@ -17,12 +17,19 @@ import re
 import io
 import shutil
 import subprocess
+import base64
 from docx import Document
 import pypdf
 from reportlab.pdfgen import canvas
 
 WS = "/Volumes/BSc Works/AI digital automated system for security monitoring"
 TEST_SCRIPT = os.path.join(WS, "scripts", "test_system_integrity.py")
+
+def get_image_base64(path: str) -> str:
+    if os.path.exists(path):
+        with open(path, "rb") as f:
+            return f"data:image/png;base64,{base64.b64encode(f.read()).decode('utf-8')}"
+    return ""
 
 def get_live_proof_block(is_anonymous: bool = False) -> str:
     """Return a publication-standard IEEE Table VII for verification."""
@@ -67,6 +74,10 @@ def get_live_proof_block(is_anonymous: bool = False) -> str:
         '<tr><td style="text-align:center;">11</td><td>Memory-Hard Auth Guard</td><td>RFC 9106 Argon2id (64 MiB) &amp; HMAC-SHA512</td><td style="text-align:center;font-weight:bold;">PASSED [✓]</td></tr>'
         '</tbody>'
         '</table>'
+        f'<div class="ieee-figure-container full-width" style="margin-top:8pt;margin-bottom:6pt;">'
+        f'<img src="{get_image_base64(os.path.join(WS, "docs", "figures", "fig6_diagnostic_verification.png"))}" alt="Fig. 6" style="width:85%;">'
+        f'<div class="ieee-figure-caption"><span class="fig-label">Fig. 6.</span> Subsystem diagnostic and logical integrity suite verification pass rates across 11 core components (100% passed).</div>'
+        f'</div>'
         '<div class="table-footnote">'
         f'<sup>*</sup>All 11/11 tests passed in production host environment. Full test logs and automated suite '
         f'are verifiable at: <a href="{repo_url}" style="color:#000;text-decoration:underline;">{repo_url}</a>.'
@@ -290,6 +301,33 @@ def build_authentic_html(docx_path=DOCX_IN, html_out_path=HTML_OUT, is_anonymous
                 body_elements.append(f'<div class="ieee-subsec-heading">{runs_html}</div>')
                 continue
                 
+            # Figure block
+            fig_match = re.match(r'^Fig\.\s+(\d+):\s+(.*)$', raw)
+            if fig_match:
+                fig_num = int(fig_match.group(1))
+                fig_cap = fig_match.group(2)
+                fig_files = {
+                    1: "fig1_xdp_pipeline.png",
+                    2: "fig2_architecture_comparison.png",
+                    3: "fig3_detection_accuracy.png",
+                    4: "fig4_latency_comparison.png",
+                    5: "fig5_capability_matrix.png",
+                    6: "fig6_diagnostic_verification.png",
+                }
+                fn = fig_files.get(fig_num)
+                if fn:
+                    fpath = os.path.join(WS, "docs", "figures", fn)
+                    data_uri = get_image_base64(fpath)
+                    is_wide = (fig_num in [1, 2, 3, 4, 5])
+                    wide_cls = " full-width" if is_wide else ""
+                    body_elements.append(
+                        f'<div class="ieee-figure-container{wide_cls}">'
+                        f'<img src="{data_uri}" alt="Fig. {fig_num}">'
+                        f'<div class="ieee-figure-caption"><span class="fig-label">Fig. {fig_num}.</span> {escape_html(fig_cap)}</div>'
+                        f'</div>'
+                    )
+                continue
+                
             # Verification block
             if "STEP 1/9" in raw and "PASSED" in raw:
                 body_elements.append(f'<pre class="ieee-code-block">{escape_html(raw)}</pre>')
@@ -495,6 +533,44 @@ body {{
 }}
 
 .ieee-smallcaps {{
+  font-variant: small-caps;
+  font-weight: bold;
+}}
+
+/* Authentic IEEE Figures */
+.ieee-figure-container {{
+  width: 100%;
+  margin: 6pt auto 8pt auto;
+  text-align: center;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}}
+
+.ieee-figure-container.full-width {{
+  column-span: all;
+  width: 100%;
+  margin: 8pt auto 10pt auto;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}}
+
+.ieee-figure-container img {{
+  width: 95%;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto 3pt auto;
+}}
+
+.ieee-figure-caption {{
+  font-size: 8pt;
+  line-height: 1.25;
+  text-align: center;
+  margin: 2pt 4pt 6pt 4pt;
+  font-family: "Times New Roman", Times, serif;
+}}
+
+.ieee-figure-caption .fig-label {{
   font-variant: small-caps;
   font-weight: bold;
 }}
