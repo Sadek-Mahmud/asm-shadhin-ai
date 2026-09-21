@@ -84,17 +84,17 @@ def build_docx(out_path: str, anonymous: bool = False):
         p_foot.alignment = WD_ALIGN_PARAGRAPH.RIGHT
         footer_text = "Autonomous Post-Quantum Cyber Defense Agent | Peer-Review Manuscript" if anonymous else "Autonomous Post-Quantum Cyber Defense Agent | Research Paper | 2026"
         r_f = p_foot.add_run(footer_text)
-        r_f.font.name = "Calibri"
+        r_f.font.name = "Times New Roman"
         r_f.font.size = Pt(8.5)
         r_f.font.color.rgb = C_GRAY
 
     # Default body font
     style = doc.styles["Normal"]
-    style.font.name = "Calibri"
-    style.font.size = Pt(11)
+    style.font.name = "Times New Roman"
+    style.font.size = Pt(10)
 
     # ── Helper lambdas ────────────────────────────────────────────────────────
-    def add_heading(text, level=1, color=C_PRIMARY, size=14, bold=True, space_before=12, space_after=4):
+    def add_heading(text, level=1, color=C_PRIMARY, size=12, bold=True, space_before=12, space_after=4):
         p = doc.add_paragraph()
         p.alignment = WD_ALIGN_PARAGRAPH.LEFT
         p.paragraph_format.space_before = Pt(space_before)
@@ -103,7 +103,7 @@ def build_docx(out_path: str, anonymous: bool = False):
         run.bold = bold
         run.font.size = Pt(size)
         run.font.color.rgb = color
-        run.font.name = "Calibri"
+        run.font.name = "Times New Roman"
         return p
 
     def add_body(text, italic=False, justify=True, space_after=5):
@@ -112,9 +112,9 @@ def build_docx(out_path: str, anonymous: bool = False):
         p.paragraph_format.space_after = Pt(space_after)
         run = p.add_run(text)
         run.italic = italic
-        run.font.size = Pt(10.5)
+        run.font.size = Pt(10)
         run.font.color.rgb = C_DARK
-        run.font.name = "Calibri"
+        run.font.name = "Times New Roman"
         return p
 
     def add_code(text):
@@ -125,7 +125,7 @@ def build_docx(out_path: str, anonymous: bool = False):
         p.style = doc.styles["Normal"]
         run = p.add_run(text)
         run.font.name = "Courier New"
-        run.font.size = Pt(9)
+        run.font.size = Pt(8.5)
         run.font.color.rgb = C_DARK
         # light gray background via paragraph shading
         pPr = p._p.get_or_add_pPr()
@@ -145,11 +145,11 @@ def build_docx(out_path: str, anonymous: bool = False):
         p.paragraph_format.right_indent = Cm(0.5)
         r_math = p.add_run(math_text)
         r_math.font.name = "Times New Roman"
-        r_math.font.size = Pt(10.5)
+        r_math.font.size = Pt(10)
         r_math.italic = True
         r_tag = p.add_run(f"    ({eq_number})")
         r_tag.font.name = "Times New Roman"
-        r_tag.font.size = Pt(10.5)
+        r_tag.font.size = Pt(10)
         r_tag.bold = False
         r_tag.italic = False
         return p
@@ -161,9 +161,9 @@ def build_docx(out_path: str, anonymous: bool = False):
         p.paragraph_format.space_after  = Pt(8)
         run = p.add_run(text)
         run.italic = True
-        run.font.size  = Pt(9)
+        run.font.size  = Pt(8.5)
         run.font.color.rgb = C_GRAY
-        run.font.name  = "Calibri"
+        run.font.name  = "Times New Roman"
         return p
 
     def add_center(text, size=11, bold=False, color=C_DARK, space_after=3):
@@ -174,7 +174,7 @@ def build_docx(out_path: str, anonymous: bool = False):
         run.bold = bold
         run.font.size  = Pt(size)
         run.font.color.rgb = color
-        run.font.name  = "Calibri"
+        run.font.name  = "Times New Roman"
         return p
 
     def add_bullet(text, indent_cm=1.2):
@@ -182,9 +182,9 @@ def build_docx(out_path: str, anonymous: bool = False):
         p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
         p.paragraph_format.space_after = Pt(3)
         run = p.add_run(text)
-        run.font.size  = Pt(10.5)
+        run.font.size  = Pt(10)
         run.font.color.rgb = C_DARK
-        run.font.name  = "Calibri"
+        run.font.name  = "Times New Roman"
         return p
 
     def make_table(headers, rows, col_widths_cm, highlight_last_col=False, alignments=None):
@@ -208,7 +208,7 @@ def build_docx(out_path: str, anonymous: bool = False):
             run.bold  = True
             run.font.size  = Pt(8.5)
             run.font.color.rgb = C_WHITE
-            run.font.name  = "Calibri"
+            run.font.name  = "Times New Roman"
 
         # Data rows
         for i, row_data in enumerate(rows):
@@ -237,7 +237,7 @@ def build_docx(out_path: str, anonymous: bool = False):
                 run = p.add_run(clean_text)
                 run.font.size  = Pt(8.5)
                 run.font.color.rgb = C_DARK
-                run.font.name  = "Calibri"
+                run.font.name  = "Times New Roman"
                 run.bold = is_bold
 
         # Column widths
@@ -254,9 +254,9 @@ def build_docx(out_path: str, anonymous: bool = False):
         p.paragraph_format.first_line_indent = Cm(-1.0)
         p.paragraph_format.space_after       = Pt(3)
         run = p.add_run(text)
-        run.font.size  = Pt(9.5)
+        run.font.size  = Pt(8.5)
         run.font.color.rgb = C_DARK
-        run.font.name  = "Calibri"
+        run.font.name  = "Times New Roman"
         return p
 
     def add_figure(img_rel_path, caption_text, width_cm=14.5):
@@ -276,7 +276,7 @@ def build_docx(out_path: str, anonymous: bool = False):
             p_cap.paragraph_format.space_after = Pt(8)
             r_cap = p_cap.add_run(caption_text)
             r_cap.font.size = Pt(8.5)
-            r_cap.font.name = "Calibri"
+            r_cap.font.name = "Times New Roman"
             r_cap.font.color.rgb = C_DARK
             r_cap.italic = True
 
@@ -301,7 +301,7 @@ def build_docx(out_path: str, anonymous: bool = False):
     r.bold = True
     r.font.size = Pt(16)
     r.font.color.rgb = C_DARK
-    r.font.name = "Calibri"
+    r.font.name = "Times New Roman"
 
     if anonymous:
         add_center("Anonymous Author(s)", size=11.5, bold=True, color=C_PRIMARY, space_after=2)
@@ -326,7 +326,7 @@ def build_docx(out_path: str, anonymous: bool = False):
     p_ab_lbl.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_ab_lbl.paragraph_format.space_after = Pt(2)
     r = p_ab_lbl.add_run("Abstract")
-    r.bold = True; r.font.size = Pt(10.5); r.font.color.rgb = C_DARK; r.font.name = "Calibri"
+    r.bold = True; r.font.size = Pt(10); r.font.color.rgb = C_DARK; r.font.name = "Times New Roman"
 
     p_ab = doc.add_paragraph()
     p_ab.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
@@ -352,7 +352,7 @@ def build_docx(out_path: str, anonymous: bool = False):
         "a 37.5x to 123.3x reduction in false alarm rates, and a 545x to 2,424x reduction in inline packet mitigation latency, delivering "
         "verifiable line-rate defense with zero cloud telemetry exposure."
     )
-    r.font.size = Pt(9.5); r.font.color.rgb = C_DARK; r.font.name = "Calibri"
+    r.font.size = Pt(9); r.font.color.rgb = C_DARK; r.font.name = "Times New Roman"
 
     p_kw = doc.add_paragraph()
     p_kw.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
@@ -365,7 +365,7 @@ def build_docx(out_path: str, anonymous: bool = False):
         "analysis, command-and-control detection, post-quantum cryptography, air-gapped "
         "security, tarpit deception."
     )
-    r_kw.italic = True; r_kw.font.size = Pt(9); r_kw.font.color.rgb = C_GRAY; r_kw.font.name = "Calibri"
+    r_kw.italic = True; r_kw.font.size = Pt(9); r_kw.font.color.rgb = C_GRAY; r_kw.font.name = "Times New Roman"
 
     hr()
 

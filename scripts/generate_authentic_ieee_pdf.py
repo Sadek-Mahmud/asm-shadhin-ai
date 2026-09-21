@@ -74,10 +74,6 @@ def get_live_proof_block(is_anonymous: bool = False) -> str:
         '<tr><td style="text-align:center;">11</td><td>Memory-Hard Auth Guard</td><td>RFC 9106 Argon2id (64 MiB) &amp; HMAC-SHA512</td><td style="text-align:center;font-weight:bold;">PASSED [✓]</td></tr>'
         '</tbody>'
         '</table>'
-        f'<div class="ieee-figure-container full-width" style="margin-top:8pt;margin-bottom:6pt;">'
-        f'<img src="{get_image_base64(os.path.join(WS, "docs", "figures", "fig6_diagnostic_verification.png"))}" alt="Fig. 6" style="width:85%;">'
-        f'<div class="ieee-figure-caption"><span class="fig-label">Fig. 6.</span> Subsystem diagnostic and logical integrity suite verification pass rates across 11 core components (100% passed).</div>'
-        f'</div>'
         '<div class="table-footnote">'
         f'<sup>*</sup>All 11/11 tests passed in production host environment. Full test logs and automated suite '
         f'are verifiable at: <a href="{repo_url}" style="color:#000;text-decoration:underline;">{repo_url}</a>.'
@@ -717,6 +713,7 @@ body {{
   width: 48%;
   font-size: 7pt;
   line-height: 1.25;
+}}
 </style>
 </head>
 <body>
