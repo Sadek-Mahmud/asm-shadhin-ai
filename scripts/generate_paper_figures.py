@@ -88,7 +88,7 @@ def generate_fig1_xdp_pipeline():
 
 
 # ==============================================================================
-# FIG 2: Architectural Sovereignty & Autonomy Comparison (Table II)
+# FIG 2: Architectural Sovereignty & Autonomy Comparison Curves (Table II)
 # ==============================================================================
 def generate_fig2_architecture_comparison():
     categories = [
@@ -98,40 +98,77 @@ def generate_fig2_architecture_comparison():
         'In-Kernel\nLine-Rate',
         'Active Attacker\nDeception'
     ]
-    
+
     ours =       [100, 100, 100, 100, 100]
+    snort_suri = [ 85,  75,  90,  30,   0]
     palo_cisco = [ 40,   0,   0,  90,  15]
     cloudflare = [  0,   0,   0,  75,  20]
-    snort_suri = [ 85,  75,  90,  30,   0]
-    
-    angles = np.linspace(0, 2 * np.pi, len(categories), endpoint=False).tolist()
-    angles += angles[:1]
-    
-    fig, ax = plt.subplots(figsize=(6.0, 4.6), subplot_kw=dict(polar=True))
-    
-    def plot_poly(data, color, label, lw=1.8, alpha=0.12):
-        vals = data + data[:1]
-        ax.plot(angles, vals, color=color, linewidth=lw, label=label, marker='o', markersize=3.5)
-        ax.fill(angles, vals, color=color, alpha=alpha)
 
-    plot_poly(ours, COLOR_OURS, "Autonomous Agent (Ours)", lw=2.4, alpha=0.22)
-    plot_poly(snort_suri, COLOR_SNORT, "Snort 3.x / Suricata 7.x", lw=1.5, alpha=0.08)
-    plot_poly(palo_cisco, COLOR_PALO, "Palo Alto / Cisco Firepower", lw=1.5, alpha=0.08)
-    plot_poly(cloudflare, COLOR_CF, "Cloudflare Magic Transit", lw=1.5, alpha=0.08)
-    
-    ax.set_theta_offset(np.pi / 2)
-    ax.set_theta_direction(-1)
-    ax.set_thetagrids(np.degrees(angles[:-1]), categories, fontsize=8.5, fontweight='bold')
-    ax.set_ylim(0, 110)
-    ax.set_yticks([25, 50, 75, 100])
-    ax.set_yticklabels(["25%", "50%", "75%", "100%"], fontsize=7.5, color="#64748b")
-    ax.grid(True, linestyle="--", alpha=0.6)
-    
-    # Position legend cleanly at bottom to prevent any overlap
-    plt.legend(loc="upper center", bbox_to_anchor=(0.5, -0.08), ncol=2, frameon=True, edgecolor="#cbd5e1", fontsize=8.0)
-    plt.title("Architectural Sovereignty & Autonomy Comparison (Table II)", fontweight="bold", pad=16)
+    x = np.arange(len(categories))
+    x_smooth = np.linspace(0, len(categories) - 1, 300)
+
+    def smooth_curve(x_pts, y_pts, x_new):
+        n = len(x_pts)
+        dx = np.diff(x_pts)
+        dy = np.diff(y_pts)
+        m = dy / dx
+        d = np.zeros(n)
+        d[0] = m[0]
+        d[-1] = m[-1]
+        for i in range(1, n - 1):
+            if m[i-1] * m[i] <= 0:
+                d[i] = 0
+            else:
+                d[i] = 2.0 / (1.0/m[i-1] + 1.0/m[i])
+        
+        y_new = np.zeros_like(x_new)
+        for idx, xi in enumerate(x_new):
+            i = min(int(np.floor(xi)), n - 2)
+            i = max(i, 0)
+            h = dx[i]
+            t = (xi - x_pts[i]) / h
+            h00 = 2*t**3 - 3*t**2 + 1
+            h10 = t**3 - 2*t**2 + t
+            h01 = -2*t**3 + 3*t**2
+            h11 = t**3 - t**2
+            y_val = h00 * y_pts[i] + h10 * h * d[i] + h01 * y_pts[i+1] + h11 * h * d[i+1]
+            y_new[idx] = np.clip(y_val, 0, 100)
+        return y_new
+
+    fig, ax = plt.subplots(figsize=(7.2, 3.6))
+
+    series = [
+        ("Autonomous Agent (Ours)", ours, COLOR_OURS, "-", "o", 2.6, 7),
+        ("Snort 3.x / Suricata 7.x", snort_suri, COLOR_SURI, "--", "s", 1.8, 6),
+        ("Palo Alto / Cisco Firepower", palo_cisco, COLOR_PALO, "-.", "^", 1.8, 6),
+        ("Cloudflare Magic Transit", cloudflare, COLOR_CF, ":", "D", 1.8, 5)
+    ]
+
+    for label, data, color, ls, marker, lw, ms in series:
+        y_smooth = smooth_curve(x, data, x_smooth)
+        ax.plot(x_smooth, y_smooth, color=color, linestyle=ls, linewidth=lw, label=label, zorder=4)
+        ax.plot(x, data, color=color, linestyle="none", marker=marker, markersize=ms,
+                markeredgewidth=1.2, markeredgecolor="white" if label.startswith("Auto") else color,
+                markerfacecolor=color, zorder=5)
+
+    y_ours_smooth = smooth_curve(x, ours, x_smooth)
+    ax.fill_between(x_smooth, 0, y_ours_smooth, color=COLOR_OURS, alpha=0.08, zorder=2)
+
+    ax.set_xticks(x)
+    ax.set_xticklabels(categories, fontweight="bold", fontsize=8.5)
+    ax.set_ylabel("Autonomy & Compliance Score (%)", fontweight="bold", fontsize=9.0)
+    ax.set_ylim(-2, 108)
+    ax.set_yticks([0, 25, 50, 75, 100])
+    ax.set_yticklabels(["0%", "25%", "50%", "75%", "100%"], fontsize=8.5)
+    ax.grid(True, linestyle="--", alpha=0.5, zorder=1)
+
+    ax.legend(loc="lower left", bbox_to_anchor=(0.0, 1.02, 1.0, 0.102),
+              ncol=4, mode="expand", borderaxespad=0., frameon=True,
+              edgecolor="#cbd5e1", fontsize=7.8)
+
+    plt.title("Architectural Sovereignty & Autonomy Comparison Curves (Table II)", fontweight="bold", pad=28, fontsize=9.8)
     plt.tight_layout()
-    
+
     out_path = os.path.join(OUT_DIR, "fig2_architecture_comparison.png")
     plt.savefig(out_path)
     plt.close()
@@ -269,40 +306,48 @@ def generate_fig5_capability_matrix():
         [0, 0, 0, 2]   # MTD Port Hopping
     ])
     
-    fig, ax = plt.subplots(figsize=(7.0, 3.8))
+    fig, ax = plt.subplots(figsize=(7.2, 3.4), dpi=300)
+    fig.patch.set_facecolor('#ffffff')
+    ax.set_facecolor('#ffffff')
     
-    # Custom discrete colormap
+    # Pure white background for all cells (IEEE monochrome publication style)
     from matplotlib.colors import ListedColormap
-    cmap = ListedColormap(["#f1f5f9", "#fed7aa", "#0f766e"])
+    cmap = ListedColormap(["#ffffff"])
     
-    cax = ax.imshow(matrix, cmap=cmap, aspect="auto", vmin=0, vmax=2)
+    cax = ax.imshow(np.zeros_like(matrix), cmap=cmap, aspect="auto", vmin=0, vmax=1)
     
     ax.set_xticks(np.arange(len(systems)))
     ax.set_yticks(np.arange(len(capabilities)))
-    ax.set_xticklabels(systems, fontweight="bold", fontsize=8.5)
-    ax.set_yticklabels(capabilities, fontweight="normal", fontsize=8.5)
+    ax.set_xticklabels(systems, fontweight="bold", fontsize=8.5, color="#000000")
+    ax.set_yticklabels(capabilities, fontweight="normal", fontsize=8.5, color="#000000")
     
-    # Text annotations in each cell
+    # Text annotations in each cell: high-contrast dark text on pure white
     labels = {0: "None (0%)", 1: "Partial", 2: "Native (100%)"}
-    text_colors = {0: "#64748b", 1: "#9a3412", 2: "#ffffff"}
+    text_colors = {0: "#64748b", 1: "#0f172a", 2: "#000000"}
+    font_weights = {0: "normal", 1: "bold", 2: "bold"}
     
     for i in range(len(capabilities)):
         for j in range(len(systems)):
             val = matrix[i, j]
             ax.text(j, i, labels[val], ha="center", va="center",
-                    color=text_colors[val], fontsize=8.0, fontweight="bold")
+                    color=text_colors[val], fontsize=8.0, fontweight=font_weights[val])
                     
     # Draw clean grid lines
     ax.set_xticks(np.arange(-.5, len(systems), 1), minor=True)
     ax.set_yticks(np.arange(-.5, len(capabilities), 1), minor=True)
-    ax.grid(which="minor", color="#94a3b8", linestyle='-', linewidth=0.6)
+    ax.grid(which="minor", color="#94a3b8", linestyle='-', linewidth=0.75)
     ax.tick_params(which="minor", bottom=False, left=False)
+    ax.tick_params(which="major", bottom=False, left=False)
     
-    plt.title("Sovereignty, Privacy & Security Defense Capability Matrix (Table V)", fontweight="bold", pad=12)
-    plt.tight_layout()
+    # Outer border
+    for spine in ax.spines.values():
+        spine.set_edgecolor('#475569')
+        spine.set_linewidth(0.8)
+    
+    plt.title("Sovereignty, Privacy & Security Defense Capability Matrix (Table V)", fontweight="bold", fontsize=9.0, pad=10, color="#000000")
     
     out_path = os.path.join(OUT_DIR, "fig5_capability_matrix.png")
-    plt.savefig(out_path)
+    plt.savefig(out_path, facecolor='#ffffff', edgecolor='none', bbox_inches='tight')
     plt.close()
     print(f"[✓] Fig 5 saved: {out_path}")
 

@@ -34,7 +34,7 @@ def get_image_base64(path: str) -> str:
 def get_live_proof_block(is_anonymous: bool = False) -> str:
     """Return a publication-standard IEEE Table VII for verification."""
     repo_url = "https://anonymous.4open.science/r/asm-defense-agent" if is_anonymous else "https://github.com/Sadek-Mahmud/asm-shadhin-ai"
-    return (
+    block = (
         '<div class="ieee-table-container full-width" style="column-span:all;margin-top:14pt;page-break-inside:avoid;break-inside:avoid;">'
         '<div class="ieee-sec-heading" style="margin-bottom:6pt;">APPENDIX: SYSTEM INTEGRITY &amp; REPRODUCIBILITY</div>'
         '<p class="ieee-paragraph" style="font-size:8.5pt;margin-bottom:6pt;text-indent:0;text-align:justify;">'
@@ -88,7 +88,7 @@ RAW_PDF   = "/tmp/ieee_authentic_raw.pdf"
 FINAL_PDF = "/Users/eng.shadhin/Desktop/ASM_Shadhin_AI_Research_Paper_2026.pdf"
 CHROME    = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 
-PAPER_TITLE = "Autonomous Post-Quantum Cyber Defense Agent:<br>Sovereign Line-Rate Intrusion Defence via Kernel-eBPF and Local-LLM"
+PAPER_TITLE = "Autonomous Post-Quantum Cyber Defense Agent: Sovereign Line-Rate Intrusion Defence via Kernel-eBPF and Local-LLM"
 
 TABLE_CAPTIONS = {
     0: ("TABLE I",   "XDP PROGRAMME PIPELINE STAGES"),
@@ -96,6 +96,7 @@ TABLE_CAPTIONS = {
     2: ("TABLE III", "DETECTION ACCURACY COMPARISON ACROSS 10M FLOWS"),
     3: ("TABLE IV",  "MITIGATION LATENCY AND THROUGHPUT COMPARISON"),
     4: ("TABLE V",   "SOVEREIGNTY, PRIVACY, AND UNIQUE DEFENCE CAPABILITY COMPARISON"),
+    5: ("TABLE VII", "SYSTEM DIAGNOSTIC AND LOGICAL INTEGRITY VERIFICATION"),
 }
 
 def escape_html(text):
@@ -113,7 +114,7 @@ def run_to_html(run):
         return f"<em>{t}</em>"
     return t
 
-def format_ieee_table(table, caption_tuple, counter):
+def format_ieee_table(table, caption_tuple, counter, is_anonymous=False):
     cap_num, cap_title = caption_tuple if caption_tuple else (f"TABLE {counter+1}", "SYSTEM EVALUATION")
     
     rows_html = []
@@ -130,6 +131,8 @@ def format_ieee_table(table, caption_tuple, counter):
         col_widths = ["22%", "20%", "20%", "18%", "20%"]
     elif counter == 4: # TABLE V: 5 columns
         col_widths = ["24%", "18%", "20%", "18%", "20%"]
+    elif counter == 5: # TABLE VII: 4 columns
+        col_widths = ["6%", "26%", "50%", "18%"]
 
     colgroup_html = ""
     if col_widths and len(col_widths) == num_cols:
@@ -159,10 +162,12 @@ def format_ieee_table(table, caption_tuple, counter):
                     align = "left" if c_idx in [0, 4] else "center"
                 elif counter == 4: # Table V: Property (L), others (C)
                     align = "left" if c_idx == 0 else "center"
+                elif counter == 5: # Table VII: # (C), Subsystem (L), Standard (L), Verdict (C)
+                    align = "center" if c_idx in [0, 3] else "left"
                 else:
                     align = "left" if c_idx == 0 else "center"
 
-            is_agent = ("Autonomous" in cell_text or "Agent" in cell_text or "**" in cell_text)
+            is_agent = ("Autonomous" in cell_text or "Agent" in cell_text or "**" in cell_text or "PASSED" in cell_text)
             
             bold_cls = "font-weight: bold;" if is_agent else ""
             cells_html.append(f'<{tag} style="text-align: {align}; {bold_cls}">{cell_text}</{tag}>')
@@ -178,9 +183,17 @@ def format_ieee_table(table, caption_tuple, counter):
             'achieves 87.9% C2 detection entirely out-of-band via zero-decryption Shannon entropy windowing and timing jitter analysis.'
             '</div>'
         )
+    elif counter == 5:
+        repo_url = "https://anonymous.4open.science/r/asm-defense-agent" if is_anonymous else "https://github.com/Sadek-Mahmud/asm-shadhin-ai"
+        footnote_html = (
+            '<div class="table-footnote">'
+            f'<sup>*</sup>All 11/11 tests passed in production host environment. Full test logs and automated suite '
+            f'are verifiable at: <a href="{repo_url}" style="color:#000;text-decoration:underline;">{repo_url}</a>.'
+            '</div>'
+        )
 
     # All major tables span both columns cleanly
-    is_wide = (counter in [0, 1, 2, 3, 4])
+    is_wide = (counter in [0, 1, 2, 3, 4, 5])
     container_cls = "ieee-table-container full-width" if is_wide else "ieee-table-container"
 
     return (
@@ -206,15 +219,24 @@ def build_authentic_html(docx_path=DOCX_IN, html_out_path=HTML_OUT, is_anonymous
     body_elements = []
     table_counter = 0
     in_abstract = False
+    in_appendix = False
     
     for block in doc.element.body:
         tag = block.tag.split("}")[-1]
         
         if tag == "tbl":
+            if in_appendix:
+                continue
             from docx.table import Table as T
             table = T(block, doc)
+            # Skip table counter=5 (TABLE VII from DOCX) — it is rendered by
+            # get_live_proof_block() at the end of the document with its Appendix
+            # heading, so rendering it here would produce a duplicate.
+            if table_counter == 5:
+                table_counter += 1
+                continue
             cap = TABLE_CAPTIONS.get(table_counter, (f"TABLE {table_counter+1}", "SYSTEM METRICS"))
-            body_elements.append(format_ieee_table(table, cap, table_counter))
+            body_elements.append(format_ieee_table(table, cap, table_counter, is_anonymous=is_anonymous))
             table_counter += 1
             continue
             
@@ -225,7 +247,29 @@ def build_authentic_html(docx_path=DOCX_IN, html_out_path=HTML_OUT, is_anonymous
             if not raw:
                 continue
                 
-            if re.match(r'^Table\s+(I|II|III|IV|V):\s+', raw, re.IGNORECASE):
+            # Skip Appendix section from DOCX — get_live_proof_block() renders the
+            # authoritative full-width Appendix block and Table VII at the end.
+            if "APPENDIX" in raw.upper() or "SYSTEM INTEGRITY & REPRODUCIBILITY" in raw.upper() or "SYSTEM DIAGNOSTIC AND LOGICAL INTEGRITY VERIFICATION" in raw.upper():
+                in_appendix = True
+                continue
+            if in_appendix:
+                continue
+                
+            # Skip standalone table title/caption paragraphs and table footnote paragraphs from DOCX
+            is_caption_heading = (
+                re.match(r'^TABLE\s+(I|II|III|IV|V|VI|VII)\s*$', raw, re.IGNORECASE) or
+                raw.startswith("*Commercial platform figures") or
+                raw.startswith("*All 11/11 tests") or
+                raw in [
+                    "XDP PROGRAMME PIPELINE STAGES",
+                    "REFERENCE SYSTEMS AND DEPLOYMENT CATEGORIES",
+                    "DETECTION ACCURACY COMPARISON ACROSS 10M FLOWS",
+                    "MITIGATION LATENCY AND THROUGHPUT COMPARISON",
+                    "SOVEREIGNTY, PRIVACY, AND UNIQUE DEFENCE CAPABILITY COMPARISON",
+                    "SYSTEM DIAGNOSTIC AND LOGICAL INTEGRITY VERIFICATION"
+                ]
+            )
+            if is_caption_heading:
                 continue
                 
             runs_html = "".join(run_to_html(r) for r in p.runs)
@@ -241,8 +285,7 @@ def build_authentic_html(docx_path=DOCX_IN, html_out_path=HTML_OUT, is_anonymous
                     '<div class="ieee-authors">'
                     '<div class="author-name">Anonymous Author(s)</div>'
                     '<div class="author-affil">Affiliation and Contact Details Suppressed for Double-Blind Review</div>'
-                    '<div class="author-inst">Track: Systems and Network Security / Autonomous Cyber Defense</div>'
-                    '<div class="author-contact">Anonymized Repository: https://anonymous.4open.science/r/asm-defense-agent</div>'
+                    '<div class="author-contact">Anonymized Code &amp; Artifacts: https://anonymous.4open.science/r/asm-defense-agent</div>'
                     '</div>'
                 )
                 continue
@@ -267,22 +310,25 @@ def build_authentic_html(docx_path=DOCX_IN, html_out_path=HTML_OUT, is_anonymous
                 continue
                 
             # Abstract
-            if raw.lower() == "abstract":
-                in_abstract = True
-                continue
-            if in_abstract:
-                abstract_html = runs_html
-                in_abstract = False
+            if raw.lower().startswith("abstract"):
+                for sep in ["—", "-", ":"]:
+                    if sep in raw:
+                        content_part = raw.split(sep, 1)[1].strip()
+                        break
+                else:
+                    content_part = raw
+                abstract_html = f"<strong>{escape_html(content_part)}</strong>"
                 continue
                 
             # Index Terms
             if raw.lower().startswith("index terms"):
-                terms_part = runs_html
                 for sep in ["—", "-", ":"]:
-                    if sep in runs_html:
-                        terms_part = runs_html.split(sep, 1)[1].strip()
+                    if sep in raw:
+                        content_part = raw.split(sep, 1)[1].strip()
                         break
-                index_terms_html = terms_part
+                else:
+                    content_part = raw
+                index_terms_html = escape_html(content_part)
                 continue
                 
             # Level 1 Heading
@@ -298,7 +344,7 @@ def build_authentic_html(docx_path=DOCX_IN, html_out_path=HTML_OUT, is_anonymous
                 continue
                 
             # Figure block
-            fig_match = re.match(r'^Fig\.\s+(\d+):\s+(.*)$', raw)
+            fig_match = re.match(r'^Fig\.\s+(\d+)[:.]\s+(.*)$', raw)
             if fig_match:
                 fig_num = int(fig_match.group(1))
                 fig_cap = fig_match.group(2)
@@ -355,15 +401,6 @@ def build_authentic_html(docx_path=DOCX_IN, html_out_path=HTML_OUT, is_anonymous
                 body_elements.append(f'<div class="ieee-ref-item">{runs_html}</div>')
                 continue
                 
-            # First body paragraph drop cap
-            if raw.startswith("Modern network perimeters face"):
-                first_letter = runs_html[0]
-                rest_words = runs_html[1:]
-                body_elements.append(
-                    f'<p class="ieee-paragraph"><span class="ieee-dropcap">{first_letter}</span><span class="ieee-smallcaps">odern</span>{rest_words[5:]}</p>'
-                )
-                continue
-                
             body_elements.append(f'<p class="ieee-paragraph">{runs_html}</p>')
 
     # ── Inject live proof block at the end (after References) ──────────────
@@ -398,21 +435,21 @@ body {{
 .header-wrapper {{
   width: 100%;
   text-align: center;
-  margin-bottom: 12pt;
+  margin-bottom: 8pt;
 }}
 
 .paper-title {{
-  font-size: 18pt;
+  font-size: 17pt;
   font-weight: bold;
   line-height: 1.22;
   color: #000000;
-  margin-bottom: 10pt;
-  padding: 0 18pt;
+  margin-bottom: 6pt;
+  padding: 0;
   text-align: center;
 }}
 
 .ieee-authors {{
-  margin-bottom: 12pt;
+  margin-bottom: 6pt;
   text-align: center;
 }}
 
@@ -420,7 +457,7 @@ body {{
   font-size: 11.5pt;
   font-weight: bold;
   color: #000000;
-  margin-bottom: 2.5pt;
+  margin-bottom: 2pt;
   text-align: center;
 }}
 
@@ -446,42 +483,46 @@ body {{
   text-align: center;
 }}
 
+.front-matter-hr {{
+  border-bottom: 0.6pt solid #000000;
+  margin: 5pt 0;
+  width: 100%;
+}}
+
 /* Abstract and Index Terms */
 .front-matter {{
   width: 100%;
-  margin: 0 auto 12pt auto;
-  padding: 0 4pt;
+  margin: 2pt 0;
+  padding: 0;
 }}
 
 .abstract-para {{
   font-size: 9pt;
-  font-weight: bold;
-  line-height: 1.3;
+  line-height: 1.25;
   text-align: justify;
-  margin-bottom: 4pt;
+  margin: 3pt 28pt;
 }}
 
 .abstract-lead {{
-  font-style: italic;
-  font-weight: bold;
+  font-size: 9pt;
 }}
 
 .index-terms-para {{
   font-size: 9pt;
-  line-height: 1.3;
+  line-height: 1.25;
   text-align: justify;
-  margin-bottom: 8pt;
+  margin: 3pt 28pt;
 }}
 
 .index-lead {{
-  font-style: italic;
-  font-weight: bold;
+  font-size: 9pt;
 }}
 
 /* Two-Column Body Layout */
 .two-column-body {{
   column-count: 2;
   column-gap: 16pt;
+  column-fill: auto;
   text-align: justify;
 }}
 
@@ -609,40 +650,41 @@ body {{
   font-size: 7.6pt;
   line-height: 1.25;
   margin: 0 auto;
-  border-top: 1.4pt solid #000000;
-  border-bottom: 1.4pt solid #000000;
+  border-top: 1.2pt solid #000000;
+  border-bottom: 1.2pt solid #000000;
+  border-left: none !important;
+  border-right: none !important;
+  background: #ffffff !important;
 }}
 
 .ieee-booktabs-table th {{
   font-weight: bold;
-  padding: 4.5pt 3.5pt;
-  border-top: 1.4pt solid #000000;
-  border-bottom: 0.8pt solid #000000;
-  border-right: 0.4pt solid #cbd5e1;
+  padding: 4.5pt 4pt;
+  border-top: 1.2pt solid #000000;
+  border-bottom: 0.6pt solid #000000;
+  border-left: none !important;
+  border-right: none !important;
   text-align: center;
-  background: #f8fafc;
+  background: #ffffff !important;
   color: #000000;
   vertical-align: middle;
-}}
-
-.ieee-booktabs-table th:last-child {{
-  border-right: none;
 }}
 
 .ieee-booktabs-table td {{
-  padding: 4pt 3.5pt;
-  border-bottom: 0.4pt solid #e2e8f0;
-  border-right: 0.4pt solid #e2e8f0;
+  padding: 3.8pt 4pt;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-bottom: 0.35pt solid #e2e8f0;
+  background: #ffffff !important;
   color: #000000;
   vertical-align: middle;
 }}
 
-.ieee-booktabs-table td:last-child {{
-  border-right: none;
-}}
-
 .ieee-booktabs-table tr:last-child td {{
-  border-bottom: 1.4pt solid #000000;
+  border-bottom: 1.2pt solid #000000 !important;
+  border-left: none !important;
+  border-right: none !important;
 }}
 
 .table-footnote {{
@@ -722,10 +764,12 @@ body {{
   <div class="paper-title">{title_text}</div>
   {author_block_html}
   
+  <div class="front-matter-hr"></div>
   <div class="front-matter">
-    <div class="abstract-para"><span class="abstract-lead">Abstract</span>—{abstract_html}</div>
-    <div class="index-terms-para"><span class="index-lead">Index Terms</span>—{index_terms_html}</div>
+    <div class="abstract-para"><span class="abstract-lead"><em><strong>Abstract</strong></em><strong>—</strong></span>{abstract_html}</div>
+    <div class="index-terms-para"><span class="index-lead"><em><strong>Index Terms</strong></em><strong>—</strong></span>{index_terms_html}</div>
   </div>
+  <div class="front-matter-hr"></div>
 </div>
 
 <div class="two-column-body">
