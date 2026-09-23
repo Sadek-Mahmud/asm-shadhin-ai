@@ -141,7 +141,7 @@ def build_docx(out_path: str, anonymous: bool = False):
     if "Normal" in doc.styles:
         style = doc.styles["Normal"]
         style.font.name = "Times New Roman"
-        style.font.size = Pt(10)
+        style.font.size = Pt(9.5)
 
     # ── Helper functions ──────────────────────────────────────────────────────
     def add_sec_heading(text):
@@ -149,12 +149,12 @@ def build_docx(out_path: str, anonymous: bool = False):
         if "Heading 1" in doc.styles:
             p.style = doc.styles["Heading 1"]
         p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        p.paragraph_format.space_before = Pt(12)
-        p.paragraph_format.space_after  = Pt(4)
+        p.paragraph_format.space_before = Pt(8)
+        p.paragraph_format.space_after  = Pt(2)
         p.paragraph_format.keep_with_next = True
         run = p.add_run(text.upper())
         run.bold = True
-        run.font.size = Pt(10)
+        run.font.size = Pt(9.5)
         run.font.color.rgb = C_DARK
         run.font.name = "Times New Roman"
         return p
@@ -164,39 +164,39 @@ def build_docx(out_path: str, anonymous: bool = False):
         if "Heading 2" in doc.styles:
             p.style = doc.styles["Heading 2"]
         p.alignment = WD_ALIGN_PARAGRAPH.LEFT
-        p.paragraph_format.space_before = Pt(8)
-        p.paragraph_format.space_after  = Pt(2)
+        p.paragraph_format.space_before = Pt(6)
+        p.paragraph_format.space_after  = Pt(1.5)
         p.paragraph_format.keep_with_next = True
         run = p.add_run(text)
         run.bold = True
         run.font.italic = True
-        run.font.size = Pt(10)
+        run.font.size = Pt(9.0)
         run.font.color.rgb = C_DARK
         run.font.name = "Times New Roman"
         return p
 
-    def add_body(text, italic=False, justify=True, space_after=3):
+    def add_body(text, italic=False, justify=True, space_after=2.5):
         p = doc.add_paragraph()
         p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY if justify else WD_ALIGN_PARAGRAPH.LEFT
-        p.paragraph_format.first_line_indent = Cm(0.45)
+        p.paragraph_format.first_line_indent = Cm(0.4)
         p.paragraph_format.space_after = Pt(space_after)
-        p.paragraph_format.line_spacing = 1.15
+        p.paragraph_format.line_spacing = 1.08
         run = p.add_run(text)
         run.italic = italic
-        run.font.size = Pt(10)
+        run.font.size = Pt(9.5)
         run.font.color.rgb = C_DARK
         run.font.name = "Times New Roman"
         return p
 
     def add_code(text):
         p = doc.add_paragraph()
-        p.paragraph_format.left_indent  = Cm(0.5)
-        p.paragraph_format.right_indent = Cm(0.5)
-        p.paragraph_format.space_after  = Pt(4)
+        p.paragraph_format.left_indent  = Cm(0.3)
+        p.paragraph_format.right_indent = Cm(0.3)
+        p.paragraph_format.space_after  = Pt(3)
         p.style = doc.styles["Normal"]
         run = p.add_run(text)
         run.font.name = "Courier New"
-        run.font.size = Pt(7.5)
+        run.font.size = Pt(7.0)
         run.font.color.rgb = C_DARK
         pPr = p._p.get_or_add_pPr()
         shd = OxmlElement("w:shd")
@@ -209,18 +209,18 @@ def build_docx(out_path: str, anonymous: bool = False):
     def add_equation(math_text, eq_number):
         p = doc.add_paragraph()
         p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-        p.paragraph_format.space_before = Pt(5)
-        p.paragraph_format.space_after  = Pt(5)
+        p.paragraph_format.space_before = Pt(4)
+        p.paragraph_format.space_after  = Pt(4)
         r_math = p.add_run(math_text)
         r_math.font.name = "Times New Roman"
-        r_math.font.size = Pt(9.5)
+        r_math.font.size = Pt(9.0)
         r_math.italic = True
         r_tag = p.add_run(f"    ({eq_number})")
         r_tag.font.name = "Times New Roman"
-        r_tag.font.size = Pt(9.5)
+        r_tag.font.size = Pt(9.0)
         return p
 
-    def add_center(text, size=11, bold=False, color=C_DARK, space_after=2):
+    def add_center(text, size=10, bold=False, color=C_DARK, space_after=1.5):
         p = doc.add_paragraph()
         p.alignment = WD_ALIGN_PARAGRAPH.CENTER
         p.paragraph_format.space_after = Pt(space_after)
@@ -249,22 +249,22 @@ def build_docx(out_path: str, anonymous: bool = False):
         if cap_num and cap_title:
             p_num = doc.add_paragraph()
             p_num.alignment = WD_ALIGN_PARAGRAPH.CENTER
-            p_num.paragraph_format.space_before = Pt(8)
+            p_num.paragraph_format.space_before = Pt(6)
             p_num.paragraph_format.space_after = Pt(1)
             p_num.paragraph_format.keep_with_next = True
             r1 = p_num.add_run(cap_num)
             r1.bold = True
-            r1.font.size = Pt(8.5)
+            r1.font.size = Pt(8.0)
             r1.font.name = "Times New Roman"
             r1.font.color.rgb = C_DARK
             
             p_title = doc.add_paragraph()
             p_title.alignment = WD_ALIGN_PARAGRAPH.CENTER
             p_title.paragraph_format.space_before = Pt(0)
-            p_title.paragraph_format.space_after = Pt(4)
+            p_title.paragraph_format.space_after = Pt(3)
             p_title.paragraph_format.keep_with_next = True
             r2 = p_title.add_run(cap_title)
-            r2.font.size = Pt(8.0)
+            r2.font.size = Pt(7.5)
             r2.font.name = "Times New Roman"
             r2.font.color.rgb = C_DARK
 
@@ -272,6 +272,7 @@ def build_docx(out_path: str, anonymous: bool = False):
         nrows = len(rows)
         tbl = doc.add_table(rows=1 + nrows, cols=ncols)
         tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
+        tbl.autofit = False
         
         # Apply authentic Booktabs borders
         set_table_booktabs_borders(tbl)
@@ -280,17 +281,16 @@ def build_docx(out_path: str, anonymous: bool = False):
         hdr_row = tbl.rows[0]
         for j, h in enumerate(headers):
             cell = hdr_row.cells[j]
-            # Authentic IEEE tables have pure white background across all tables
             bg_color = "FFFFFF"
             set_cell_bg(cell, bg_color)
             cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
             p = cell.paragraphs[0]
             p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-            p.paragraph_format.space_before = Pt(3)
-            p.paragraph_format.space_after  = Pt(3)
+            p.paragraph_format.space_before = Pt(2)
+            p.paragraph_format.space_after  = Pt(2)
             run = p.add_run(h)
             run.bold  = True
-            run.font.size  = Pt(7.8)
+            run.font.size  = Pt(7.2)
             run.font.color.rgb = C_DARK
             run.font.name  = "Times New Roman"
 
@@ -302,8 +302,8 @@ def build_docx(out_path: str, anonymous: bool = False):
                 cell.vertical_alignment = WD_ALIGN_VERTICAL.CENTER
                 set_cell_bg(cell, "FFFFFF")
                 p = cell.paragraphs[0]
-                p.paragraph_format.space_before = Pt(2)
-                p.paragraph_format.space_after  = Pt(2)
+                p.paragraph_format.space_before = Pt(1.5)
+                p.paragraph_format.space_after  = Pt(1.5)
 
                 if alignments and j < len(alignments):
                     align_char = alignments[j]
@@ -315,7 +315,7 @@ def build_docx(out_path: str, anonymous: bool = False):
                 is_bold = str(cell_text).startswith("**") or "Autonomous" in str(cell_text) or "(ours)" in str(cell_text).lower() or "PASSED" in str(cell_text)
                 clean_text = str(cell_text).strip("*")
                 run = p.add_run(clean_text)
-                run.font.size  = Pt(7.5)
+                run.font.size  = Pt(7.0)
                 run.font.color.rgb = C_DARK
                 run.font.name  = "Times New Roman"
                 run.bold = is_bold
@@ -328,10 +328,10 @@ def build_docx(out_path: str, anonymous: bool = False):
         if footnote:
             p_fn = doc.add_paragraph()
             p_fn.alignment = WD_ALIGN_PARAGRAPH.LEFT
-            p_fn.paragraph_format.space_before = Pt(2)
-            p_fn.paragraph_format.space_after = Pt(6)
+            p_fn.paragraph_format.space_before = Pt(1.5)
+            p_fn.paragraph_format.space_after = Pt(4)
             r_fn = p_fn.add_run(footnote)
-            r_fn.font.size = Pt(7.2)
+            r_fn.font.size = Pt(6.8)
             r_fn.font.italic = True
             r_fn.font.name = "Times New Roman"
             r_fn.font.color.rgb = C_MUTED
@@ -341,57 +341,59 @@ def build_docx(out_path: str, anonymous: bool = False):
     def add_ref(text):
         p = doc.add_paragraph()
         p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-        p.paragraph_format.left_indent       = Cm(0.7)
-        p.paragraph_format.first_line_indent = Cm(-0.7)
-        p.paragraph_format.space_after       = Pt(2.5)
-        p.paragraph_format.line_spacing      = 1.12
+        p.paragraph_format.left_indent       = Cm(0.6)
+        p.paragraph_format.first_line_indent = Cm(-0.6)
+        p.paragraph_format.space_after       = Pt(2)
+        p.paragraph_format.line_spacing      = 1.08
         run = p.add_run(text)
-        run.font.size  = Pt(8.0)
+        run.font.size  = Pt(7.8)
         run.font.color.rgb = C_DARK
         run.font.name  = "Times New Roman"
         return p
 
-    def add_figure(img_rel_path, caption_text, width_cm=16.5):
+    def add_figure(img_rel_path, caption_text, width_cm=15.5):
         ws_root = "/Volumes/BSc Works/AI digital automated system for security monitoring"
         img_path = os.path.join(ws_root, img_rel_path) if not os.path.isabs(img_rel_path) else img_rel_path
         if os.path.exists(img_path):
             p_img = doc.add_paragraph()
             p_img.alignment = WD_ALIGN_PARAGRAPH.CENTER
-            p_img.paragraph_format.space_before = Pt(6)
-            p_img.paragraph_format.space_after = Pt(2)
+            p_img.paragraph_format.space_before = Pt(4)
+            p_img.paragraph_format.space_after = Pt(1)
             p_img.paragraph_format.keep_with_next = True
             run = p_img.add_run()
             run.add_picture(img_path, width=Cm(width_cm))
             
             p_cap = doc.add_paragraph()
             p_cap.alignment = WD_ALIGN_PARAGRAPH.CENTER
-            p_cap.paragraph_format.space_before = Pt(2)
-            p_cap.paragraph_format.space_after = Pt(8)
+            p_cap.paragraph_format.space_before = Pt(1)
+            p_cap.paragraph_format.space_after = Pt(6)
             r_cap = p_cap.add_run(caption_text)
-            r_cap.font.size = Pt(8.0)
+            r_cap.font.size = Pt(7.5)
             r_cap.font.name = "Times New Roman"
             r_cap.font.color.rgb = C_DARK
 
     def hr():
         p = doc.add_paragraph()
         p.paragraph_format.space_before = Pt(0)
-        p.paragraph_format.space_after  = Pt(6)
+        p.paragraph_format.space_after  = Pt(4)
         add_para_border_bottom(p)
         return p
 
     # ══════════════════════════════════════════════════════════════════════════
-    # TITLE BLOCK (Single Column)
+    # TITLE BLOCK (Single Column - Full Page Width)
     # ══════════════════════════════════════════════════════════════════════════
     p_title = doc.add_paragraph()
+    if "Title" in doc.styles:
+        p_title.style = doc.styles["Title"]
     p_title.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p_title.paragraph_format.space_before = Pt(0)
-    p_title.paragraph_format.space_after  = Pt(6)
+    p_title.paragraph_format.space_after  = Pt(4)
     r = p_title.add_run(
         "Autonomous Post-Quantum Cyber Defense Agent: "
         "Sovereign Line-Rate Intrusion Defence via Kernel-eBPF and Local-LLM"
     )
     r.bold = True
-    r.font.size = Pt(18)
+    r.font.size = Pt(20)
     r.font.color.rgb = C_DARK
     r.font.name = "Times New Roman"
 
@@ -573,12 +575,11 @@ def build_docx(out_path: str, anonymous: bool = False):
             ["3", "TCP Flag Anomaly: Null/Xmas/SYN+FIN",   "Inline classifier",    "XDP_DROP"],
             ["4", "Telemetry Export to Userspace Daemon",   "BPF_MAP_TYPE_RINGBUF", "XDP_PASS (clean)"],
         ],
-        col_widths_cm=[1.6, 7.2, 5.0, 3.8],
+        col_widths_cm=[1.4, 6.2, 4.8, 3.6],
         alignments=['C', 'L', 'L', 'C'],
         cap_num="TABLE I",
         cap_title="XDP PROGRAMME PIPELINE STAGES"
     )
-    # Fig. 1 removed per revision — graph not included for Table I section
     end_wide_block()
 
     add_body(
@@ -648,12 +649,11 @@ def build_docx(out_path: str, anonymous: bool = False):
             ["Cisco Firepower 4100 [17]",    "NGIPS appliance",  "Talos + Snort",           "Partial", "Large enterprise"],
             ["Autonomous Agent (ours)",    "Hybrid inline",  "eBPF/XDP + local LLM", "100%",  "Any / air-gap"],
         ],
-        col_widths_cm=[3.8, 3.2, 4.2, 2.6, 3.8],
+        col_widths_cm=[3.4, 2.8, 4.0, 2.4, 3.4],
         alignments=['L', 'L', 'L', 'C', 'L'],
         cap_num="TABLE II",
         cap_title="REFERENCE SYSTEMS AND DEPLOYMENT CATEGORIES"
     )
-    # Fig. 2 removed per revision — graph not included for Table II section
     end_wide_block()
 
     add_subsec_heading("B. Detection Accuracy Comparison and Statistical Validation")
@@ -688,14 +688,14 @@ def build_docx(out_path: str, anonymous: bool = False):
             ["Scan Evasion Resist. (%)","41.0",  "49.0", "76.0",  "63.0",    "71.0",  "**96.8"],
             ["Adversarial Robust. (%)","29.0",   "34.0", "67.0",  "61.0",   "59.0",  "**94.1"],
         ],
-        col_widths_cm=[4.4, 2.0, 2.0, 2.0, 2.2, 2.0, 3.0],
+        col_widths_cm=[3.8, 1.9, 1.9, 1.9, 2.1, 1.9, 3.0],
         alignments=['L', 'C', 'C', 'C', 'C', 'C', 'C'],
         highlight_last_col=True,
         cap_num="TABLE III",
         cap_title="DETECTION ACCURACY COMPARISON ACROSS 10M FLOWS",
         footnote="*Commercial platform figures (Palo Alto, Cloudflare, Cisco) are compiled from published third-party vendor benchmarks and technical literature [15]–[17] under comparable threat workloads. Autonomous Agent achieves 87.9% C2 detection entirely out-of-band via zero-decryption Shannon entropy windowing and timing jitter analysis."
     )
-    add_figure("docs/figures/fig3_detection_accuracy.png", "Fig. 3.  Detection accuracy and evasion resistance comparison across 10M flows (Table III).", width_cm=16.5)
+    add_figure("docs/figures/fig3_detection_accuracy.png", "Fig. 3.  Detection accuracy and evasion resistance comparison across 10M flows (Table III).", width_cm=15.5)
     end_wide_block()
 
     add_subsec_heading("C. Latency and Throughput Comparison")
@@ -721,12 +721,12 @@ def build_docx(out_path: str, anonymous: bool = False):
             ["Cisco Firepower",     "60-400 us",        "200-800 ms",    "40 Gbps (HW)",     "Custom NIC ASIC"],
             ["Autonomous Agent (ours)","0.33 us (p50)", "148 ms - 2.8 s (Async)",  "1 Gbps (PCIe NIC)",  "Kernel eBPF (x86/ARM)"],
         ],
-        col_widths_cm=[3.6, 3.6, 3.6, 3.2, 3.6],
+        col_widths_cm=[3.2, 3.2, 3.4, 3.0, 3.4],
         alignments=['L', 'C', 'C', 'C', 'L'],
         cap_num="TABLE IV",
         cap_title="MITIGATION LATENCY AND THROUGHPUT COMPARISON"
     )
-    add_figure("docs/figures/fig4_latency_comparison.png", "Fig. 4.  Log-scale latency spectrum comparing data-plane mitigation and control-plane triage (Table IV).", width_cm=16.5)
+    add_figure("docs/figures/fig4_latency_comparison.png", "Fig. 4.  Log-scale latency spectrum comparing data-plane mitigation and control-plane triage (Table IV).", width_cm=15.5)
     end_wide_block()
 
     add_subsec_heading("D. Sovereignty and Privacy Properties")
@@ -752,13 +752,13 @@ def build_docx(out_path: str, anonymous: bool = False):
             ["Attacker deception/tarpit",  "No",                   "No (RST only)",          "No (blackhole only)",  "**AI tarpit + honey-token"],
             ["Moving Target Defence",      "No",                   "No",                     "No",                   "**HMAC-SHA256 port hopping"],
         ],
-        col_widths_cm=[4.2, 3.2, 3.4, 3.2, 3.6],
+        col_widths_cm=[3.8, 3.0, 3.2, 3.0, 3.2],
         alignments=['L', 'C', 'C', 'C', 'C'],
         highlight_last_col=True,
         cap_num="TABLE V",
         cap_title="SOVEREIGNTY, PRIVACY, AND UNIQUE DEFENCE CAPABILITY COMPARISON"
     )
-    add_figure("docs/figures/fig5_capability_matrix.png", "Fig. 5.  Defense capability, air-gapped readiness, and sovereignty compliance matrix (Table V).", width_cm=16.5)
+    add_figure("docs/figures/fig5_capability_matrix.png", "Fig. 5.  Defense capability, air-gapped readiness, and sovereignty compliance matrix (Table V).", width_cm=15.5)
     end_wide_block()
 
     add_sec_heading("V.  Experimental Setup and Results")
@@ -918,14 +918,14 @@ def build_docx(out_path: str, anonymous: bool = False):
     add_sec_heading("APPENDIX: SYSTEM INTEGRITY & REPRODUCIBILITY")
     p_app = doc.add_paragraph()
     p_app.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-    p_app.paragraph_format.space_after = Pt(4)
+    p_app.paragraph_format.space_after = Pt(3)
     r_app = p_app.add_run(
         "To establish empirical reproducibility prior to publication, the core subsystems were evaluated "
         "using the automated test suite (scripts/test_system_integrity.py) on an authentic "
         "Ubuntu Server 22.04 LTS host (Linux kernel 6.x, libbpf). Table VII itemises the verification criteria and outcomes. "
         "All eleven module-level checks passed without manual intervention."
     )
-    r_app.font.size = Pt(8.5)
+    r_app.font.size = Pt(8.0)
     r_app.font.name = "Times New Roman"
 
     make_table(
@@ -943,7 +943,7 @@ def build_docx(out_path: str, anonymous: bool = False):
             ["10", "Forensic Audit Chain",   "NIST FIPS 180-4 SHA-512 immutable tamper detection",         "PASSED [✓]"],
             ["11", "Memory-Hard Auth Guard", "RFC 9106 Argon2id (64 MiB) & HMAC-SHA512",                   "PASSED [✓]"],
         ],
-        col_widths_cm=[1.2, 4.5, 8.5, 3.4],
+        col_widths_cm=[1.0, 4.2, 8.0, 3.0],
         alignments=['C', 'L', 'L', 'C'],
         cap_num="TABLE VII",
         cap_title="SYSTEM DIAGNOSTIC AND LOGICAL INTEGRITY VERIFICATION",
@@ -970,21 +970,21 @@ def build_docx(out_path: str, anonymous: bool = False):
         tblPr.append(tblBorders)
         
         cell_img = bio_tbl.rows[0].cells[0]
-        cell_img.width = Cm(3.2)
+        cell_img.width = Cm(2.8)
         p_img = cell_img.paragraphs[0]
         p_img.alignment = WD_ALIGN_PARAGRAPH.CENTER
         if os.path.exists(photo_path):
             r_img = p_img.add_run()
-            r_img.add_picture(photo_path, width=Cm(2.7))
+            r_img.add_picture(photo_path, width=Cm(2.4))
             
         cell_txt = bio_tbl.rows[0].cells[1]
-        cell_txt.width = Cm(13.8)
+        cell_txt.width = Cm(13.4)
         p_txt = cell_txt.paragraphs[0]
         p_txt.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
         
         r_bname = p_txt.add_run("A S M Hossain Mahmud (Shadhin) ")
         r_bname.bold = True
-        r_bname.font.size = Pt(9.0)
+        r_bname.font.size = Pt(8.5)
         r_bname.font.name = "Times New Roman"
         
         r_btxt = p_txt.add_run(
@@ -995,7 +995,7 @@ def build_docx(out_path: str, anonymous: bool = False):
             "proactive moving target defense (HMAC-SHA256 port hopping), and active cyber deception. "
             "He is the lead architect and developer of the Autonomous Post-Quantum Cyber Defense Agent (asm-shadhin-ai) framework."
         )
-        r_btxt.font.size = Pt(8.5)
+        r_btxt.font.size = Pt(8.0)
         r_btxt.font.name = "Times New Roman"
 
     end_wide_block()
