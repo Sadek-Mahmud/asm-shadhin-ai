@@ -234,15 +234,15 @@ def build_docx(out_path: str, anonymous: bool = False):
     def start_wide_block():
         """Creates a full-width 1-column section for wide tables and figures."""
         s = doc.add_section(WD_SECTION_START.CONTINUOUS)
-        s.top_margin = Cm(1.8); s.bottom_margin = Cm(2.0); s.left_margin = Cm(1.4); s.right_margin = Cm(1.4)
-        cols = OxmlElement('w:cols'); cols.set(qn('w:num'), '1')
+        s.top_margin = Pt(50.4); s.bottom_margin = Pt(50.4); s.left_margin = Pt(46.8); s.right_margin = Pt(46.8)
+        cols = OxmlElement('w:cols'); cols.set(qn('w:space'), '288')
         s._sectPr.append(cols)
 
     def end_wide_block():
         """Resumes two-column layout for body text."""
         s = doc.add_section(WD_SECTION_START.CONTINUOUS)
-        s.top_margin = Cm(1.8); s.bottom_margin = Cm(2.0); s.left_margin = Cm(1.4); s.right_margin = Cm(1.4)
-        cols = OxmlElement('w:cols'); cols.set(qn('w:num'), '2'); cols.set(qn('w:space'), '540')
+        s.top_margin = Pt(50.4); s.bottom_margin = Pt(50.4); s.left_margin = Pt(46.8); s.right_margin = Pt(46.8)
+        cols = OxmlElement('w:cols'); cols.set(qn('w:num'), '2'); cols.set(qn('w:space'), '720'); cols.set(qn('w:equalWidth'), '0')
         s._sectPr.append(cols)
 
     def make_table(headers, rows, col_widths_cm, highlight_last_col=False, alignments=None, cap_num=None, cap_title=None, footnote=None):
