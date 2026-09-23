@@ -82,6 +82,33 @@ def get_live_proof_block(is_anonymous: bool = False) -> str:
     )
     return block
 
+def get_author_bio_block(is_anonymous: bool = False) -> str:
+    """Return publication-standard IEEE Author Biography with picture."""
+    if is_anonymous:
+        return ""
+    photo_path = os.path.join(WS, "docs", "ref_photo.jpg")
+    if not os.path.exists(photo_path):
+        return ""
+    with open(photo_path, "rb") as f:
+        photo_b64 = f"data:image/jpeg;base64,{base64.b64encode(f.read()).decode('utf-8')}"
+    return f"""
+    <div class="ieee-table-container full-width" style="column-span:all;margin-top:14pt;page-break-inside:avoid;break-inside:avoid;">
+      <div class="ieee-sec-heading" style="margin-bottom:6pt;">AUTHOR BIOGRAPHY</div>
+      <div style="display:flex;gap:14pt;align-items:flex-start;">
+        <div style="flex-shrink:0;width:82pt;border:0.75pt solid #000000;padding:2pt;background:#ffffff;">
+          <img src="{photo_b64}" style="width:100%;height:auto;display:block;" alt="A S M Hossain Mahmud (Shadhin)"/>
+        </div>
+        <div style="font-size:8.5pt;line-height:1.28;text-align:justify;color:#000000;flex-grow:1;">
+          <strong>A S M Hossain Mahmud (Shadhin)</strong> received the B.Sc. degree in Computer Science and Engineering. 
+          His primary research interests include kernel-space high-throughput packet processing using eBPF/XDP, 
+          post-quantum cryptographic implementations (NIST FIPS 203 ML-KEM-1024 and FIPS 204 ML-DSA-65), sovereign local artificial intelligence 
+          architectures for automated threat reasoning, proactive moving target defense (HMAC-SHA256 port hopping), and active cyber deception. 
+          He is the lead architect and developer of the Autonomous Post-Quantum Cyber Defense Agent (<code>asm-shadhin-ai</code>) framework.
+        </div>
+      </div>
+    </div>
+    """
+
 DOCX_IN   = "/Volumes/BSc Works/AI digital automated system for security monitoring/ASM_Shadhin_AI_Research_Paper_2026.docx"
 HTML_OUT  = "/tmp/ieee_authentic.html"
 RAW_PDF   = "/tmp/ieee_authentic_raw.pdf"
@@ -406,6 +433,7 @@ def build_authentic_html(docx_path=DOCX_IN, html_out_path=HTML_OUT, is_anonymous
 
     # ── Inject live proof block at the end (after References) ──────────────
     body_elements.append(get_live_proof_block(is_anonymous=is_anonymous))
+    body_elements.append(get_author_bio_block(is_anonymous=is_anonymous))
 
     html_out = f"""<!DOCTYPE html>
 <html lang="en">

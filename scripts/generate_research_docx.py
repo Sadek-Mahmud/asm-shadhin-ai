@@ -30,6 +30,8 @@ C_GRAY    = RGBColor(0x33, 0x33, 0x33)
 C_MUTED   = RGBColor(0x55, 0x55, 0x55)
 C_WHITE   = RGBColor(0xFF, 0xFF, 0xFF)
 
+WS = "/Volumes/BSc Works/AI digital automated system for security monitoring"
+
 
 # ── XML helpers ───────────────────────────────────────────────────────────────
 def set_cell_bg(cell, hex_color: str):
@@ -930,6 +932,55 @@ def build_docx(out_path: str, anonymous: bool = False):
         cap_title="SYSTEM DIAGNOSTIC AND LOGICAL INTEGRITY VERIFICATION",
         footnote=f"*All 11/11 tests passed in production host environment. Full test logs and automated suite are verifiable at: {repo_url}."
     )
+    if not anonymous:
+        # ══════════════════════════════════════════════════════════════════════
+        # AUTHOR BIOGRAPHY (IEEE Standard with Photograph)
+        # ══════════════════════════════════════════════════════════════════════
+        photo_path = os.path.join(WS, "docs", "ref_photo.jpg")
+        add_sec_heading("AUTHOR BIOGRAPHY")
+        
+        bio_tbl = doc.add_table(rows=1, cols=2)
+        bio_tbl.alignment = WD_TABLE_ALIGNMENT.CENTER
+        bio_tbl.autofit = False
+        
+        # Remove borders
+        tblPr = bio_tbl._tbl.tblPr
+        tblBorders = OxmlElement('w:tblBorders')
+        for side in ('top', 'left', 'bottom', 'right', 'insideH', 'insideV'):
+            el = OxmlElement(f'w:{side}')
+            el.set(qn('w:val'), 'nil')
+            tblBorders.append(el)
+        tblPr.append(tblBorders)
+        
+        cell_img = bio_tbl.rows[0].cells[0]
+        cell_img.width = Cm(3.2)
+        p_img = cell_img.paragraphs[0]
+        p_img.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        if os.path.exists(photo_path):
+            r_img = p_img.add_run()
+            r_img.add_picture(photo_path, width=Cm(2.7))
+            
+        cell_txt = bio_tbl.rows[0].cells[1]
+        cell_txt.width = Cm(13.8)
+        p_txt = cell_txt.paragraphs[0]
+        p_txt.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+        
+        r_bname = p_txt.add_run("A S M Hossain Mahmud (Shadhin) ")
+        r_bname.bold = True
+        r_bname.font.size = Pt(9.0)
+        r_bname.font.name = "Times New Roman"
+        
+        r_btxt = p_txt.add_run(
+            "received the B.Sc. degree in Computer Science and Engineering. "
+            "His primary research interests include kernel-space high-throughput packet processing using eBPF/XDP, "
+            "post-quantum cryptographic implementations (NIST FIPS 203 ML-KEM-1024 and FIPS 204 ML-DSA-65), "
+            "sovereign local artificial intelligence architectures for automated threat reasoning, "
+            "proactive moving target defense (HMAC-SHA256 port hopping), and active cyber deception. "
+            "He is the lead architect and developer of the Autonomous Post-Quantum Cyber Defense Agent (asm-shadhin-ai) framework."
+        )
+        r_btxt.font.size = Pt(8.5)
+        r_btxt.font.name = "Times New Roman"
+
     end_wide_block()
 
     doc.save(out_path)
