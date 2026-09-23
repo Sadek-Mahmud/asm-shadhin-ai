@@ -789,8 +789,9 @@ def build_docx(out_path: str, anonymous: bool = False):
         cap_title="DETECTION ACCURACY COMPARISON ACROSS 10M FLOWS",
         footnote="*Commercial platform figures (Palo Alto, Cloudflare, Cisco) are compiled from published third-party vendor benchmarks and technical literature [15]–[17] under comparable threat workloads. Autonomous Agent achieves 87.9% C2 detection entirely out-of-band via zero-decryption Shannon entropy windowing and timing jitter analysis."
     )
-    add_figure("docs/figures/fig3_detection_accuracy.png", "Fig. 3.  Detection accuracy and evasion resistance comparison across 10M flows (Table III).", width_cm=16.0)
     end_wide_block()
+    # Figure placed in 2-column flow — fits single column (IEEE standard)
+    add_figure("docs/figures/fig3_detection_accuracy.png", "Fig. 3.  Detection accuracy and evasion resistance comparison across 10M flows (Table III).", width_cm=7.5, single_col=True)
 
     add_subsec_heading("C. Latency and Throughput Comparison")
     add_body(
@@ -820,8 +821,9 @@ def build_docx(out_path: str, anonymous: bool = False):
         cap_num="TABLE IV",
         cap_title="MITIGATION LATENCY AND THROUGHPUT COMPARISON"
     )
-    add_figure("docs/figures/fig4_latency_comparison.png", "Fig. 4.  Log-scale latency spectrum comparing data-plane mitigation and control-plane triage (Table IV).", width_cm=16.0)
     end_wide_block()
+    # Figure placed in 2-column flow — fits single column (IEEE standard)
+    add_figure("docs/figures/fig4_latency_comparison.png", "Fig. 4.  Log-scale latency spectrum comparing data-plane mitigation and control-plane triage (Table IV).", width_cm=7.5, single_col=True)
 
     add_subsec_heading("D. Sovereignty and Privacy Properties")
     add_body(
@@ -852,8 +854,9 @@ def build_docx(out_path: str, anonymous: bool = False):
         cap_num="TABLE V",
         cap_title="SOVEREIGNTY, PRIVACY, AND UNIQUE DEFENCE CAPABILITY COMPARISON"
     )
-    add_figure("docs/figures/fig5_capability_matrix.png", "Fig. 5.  Defense capability, air-gapped readiness, and sovereignty compliance matrix (Table V).", width_cm=15.0)
     end_wide_block()
+    # Figure placed in 2-column flow — fits single column (IEEE standard)
+    add_figure("docs/figures/fig5_capability_matrix.png", "Fig. 5.  Defense capability, air-gapped readiness, and sovereignty compliance matrix (Table V).", width_cm=7.5, single_col=True)
 
     add_sec_heading("V.  Experimental Setup and Results")
     add_subsec_heading("A. Test Environment & Hardware Deployment")
