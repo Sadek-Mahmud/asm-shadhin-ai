@@ -111,28 +111,43 @@ def add_para_border_bottom(para, color="000000", sz=6):
 
 # ── Document builder ──────────────────────────────────────────────────────────
 def build_docx(out_path: str, anonymous: bool = False):
-    doc = Document()
+    template_path = os.path.join(WS, "docs", "ieee_template.docx")
+    if os.path.exists(template_path):
+        doc = Document(template_path)
+        body = doc._body._element
+        for child in list(body):
+            if not child.tag.endswith('sectPr'):
+                body.remove(child)
+    else:
+        doc = Document()
 
     # Section 1: Title block & Abstract (Single column full width)
     s1 = doc.sections[0]
-    s1.top_margin    = Cm(1.8)
-    s1.bottom_margin = Cm(2.0)
-    s1.left_margin   = Cm(1.4)
-    s1.right_margin  = Cm(1.4)
+    s1.top_margin    = Pt(50.4)   # Exact IEEE 0.7 in
+    s1.bottom_margin = Pt(50.4)   # Exact IEEE 0.7 in
+    s1.left_margin   = Pt(46.8)   # Exact IEEE 0.65 in
+    s1.right_margin  = Pt(46.8)   # Exact IEEE 0.65 in
 
-    # Running footer: removed per user instruction
-    footer = s1.footer
-    p_foot = footer.paragraphs[0]
-    p_foot.text = ""
+    # Clear headers and footers
+    for section in doc.sections:
+        section.header.is_linked_to_previous = False
+        section.footer.is_linked_to_previous = False
+        for p in section.header.paragraphs:
+            p.text = ""
+        for p in section.footer.paragraphs:
+            p.text = ""
 
     # Default body font
-    style = doc.styles["Normal"]
-    style.font.name = "Times New Roman"
-    style.font.size = Pt(10)
+    if "Normal" in doc.styles:
+        style = doc.styles["Normal"]
+        style.font.name = "Times New Roman"
+        style.font.size = Pt(10)
 
     # ── Helper functions ──────────────────────────────────────────────────────
     def add_sec_heading(text):
         p = doc.add_paragraph()
+        if "Heading 1" in doc.styles:
+            p.style = doc.styles["Heading 1"]
         p.alignment = WD_ALIGN_PARAGRAPH.CENTER
         p.paragraph_format.space_before = Pt(12)
         p.paragraph_format.space_after  = Pt(4)
@@ -146,6 +161,8 @@ def build_docx(out_path: str, anonymous: bool = False):
 
     def add_subsec_heading(text):
         p = doc.add_paragraph()
+        if "Heading 2" in doc.styles:
+            p.style = doc.styles["Heading 2"]
         p.alignment = WD_ALIGN_PARAGRAPH.LEFT
         p.paragraph_format.space_before = Pt(8)
         p.paragraph_format.space_after  = Pt(2)
