@@ -480,7 +480,7 @@ def build_docx(out_path: str, anonymous: bool = False):
         r_comma.font.name = "Times New Roman"
         r_comma.font.color.rgb = C_DARK
 
-        r_dept_inline = p_auth.add_run("Department of CSE, BAUST, Saidpur 5310, Bangladesh")
+        r_dept_inline = p_auth.add_run("Department of CSE, Bangladesh Army University of Science and Technology (BAUST), Saidpur 5310, Bangladesh")
         r_dept_inline.italic = True
         r_dept_inline.font.size = Pt(11.0)
         r_dept_inline.font.name = "Times New Roman"
