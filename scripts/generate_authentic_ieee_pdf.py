@@ -384,11 +384,14 @@ def build_authentic_html(docx_path=DOCX_IN, html_out_path=HTML_OUT, is_anonymous
                     6: "fig6_diagnostic_verification.png",
                 }
                 fn = fig_files.get(fig_num)
+                # Fig. 1 and Fig. 2 removed per revision — graphs excluded from Table I and Table II
                 if fn and fig_num not in (1, 2):
                     fpath = os.path.join(WS, "docs", "figures", fn)
                     data_uri = get_image_base64(fpath)
+                    is_wide = (fig_num in [3, 4, 5])
+                    wide_cls = " full-width" if is_wide else ""
                     body_elements.append(
-                        f'<div class="ieee-figure-container">'
+                        f'<div class="ieee-figure-container{wide_cls}">'
                         f'<img src="{data_uri}" alt="Fig. {fig_num}">'
                         f'<div class="ieee-figure-caption"><span class="fig-label">Fig. {fig_num}.</span> {escape_html(fig_cap)}</div>'
                         f'</div>'
@@ -603,7 +606,7 @@ body {{
 /* Authentic IEEE Figures */
 .ieee-figure-container {{
   width: 100%;
-  margin: 6pt 0 8pt 0;
+  margin: 6pt auto 8pt auto;
   text-align: center;
   page-break-inside: avoid;
   break-inside: avoid;
@@ -618,7 +621,7 @@ body {{
 }}
 
 .ieee-figure-container img {{
-  width: 100%;
+  width: 95%;
   max-width: 100%;
   height: auto;
   display: block;
@@ -628,8 +631,8 @@ body {{
 .ieee-figure-caption {{
   font-size: 8pt;
   line-height: 1.25;
-  text-align: justify;
-  margin: 3pt 2pt 6pt 2pt;
+  text-align: center;
+  margin: 2pt 4pt 6pt 4pt;
   font-family: "Times New Roman", Times, serif;
 }}
 
