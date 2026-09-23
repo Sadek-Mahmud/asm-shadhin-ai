@@ -559,7 +559,7 @@ def build_docx(out_path: str, anonymous: bool = False):
         cap_num="TABLE I",
         cap_title="XDP PROGRAMME PIPELINE STAGES"
     )
-    add_figure("docs/figures/fig1_xdp_pipeline.png", "Fig. 1.  In-kernel XDP packet processing stage latencies (Intel Core i5 testbed).", width_cm=16.5)
+    # Fig. 1 removed per revision — graph not included for Table I section
     end_wide_block()
 
     add_body(
@@ -634,7 +634,7 @@ def build_docx(out_path: str, anonymous: bool = False):
         cap_num="TABLE II",
         cap_title="REFERENCE SYSTEMS AND DEPLOYMENT CATEGORIES"
     )
-    add_figure("docs/figures/fig2_architecture_comparison.png", "Fig. 2.  Architectural sovereignty, air-gap capability, and autonomy comparison curves (Table II).", width_cm=16.5)
+    # Fig. 2 removed per revision — graph not included for Table II section
     end_wide_block()
 
     add_subsec_heading("B. Detection Accuracy Comparison and Statistical Validation")
@@ -666,7 +666,7 @@ def build_docx(out_path: str, anonymous: bool = False):
             ["Evasion Recall / TPR (%)", "68.4", "71.2", "89.2",  "87.6",   "85.4",  "**98.64"],
             ["False Positive Rate (%)",  "14.8", "11.3", "4.5",   "5.1",    "6.2",   "**0.12"],
             ["Encrypted C2 Detect. (%)","12.0",  "18.5", "72.3*", "68.0*",  "64.1*", "**87.9"],
-            ["Scan Evasion Resist. (%)","41.0",  "49.0", "76.0",  "N/A",    "71.0",  "**96.8"],
+            ["Scan Evasion Resist. (%)","41.0",  "49.0", "76.0",  "63.0",    "71.0",  "**96.8"],
             ["Adversarial Robust. (%)","29.0",   "34.0", "67.0",  "61.0",   "59.0",  "**94.1"],
         ],
         col_widths_cm=[4.4, 2.0, 2.0, 2.0, 2.2, 2.0, 3.0],

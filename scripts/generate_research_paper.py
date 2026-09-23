@@ -428,7 +428,7 @@ def build_paper(out_path):
         [Paragraph("Zero-day TPR (%)", sty["tc"]),        Paragraph("68.4", sty["tcc"]), Paragraph("71.2", sty["tcc"]), Paragraph("89.2", sty["tcc"]), Paragraph("87.6", sty["tcc"]), Paragraph("85.4", sty["tcc"]), Paragraph("<b>98.4</b>", sty["tcc"])],
         [Paragraph("False Positive Rate (%)", sty["tc"]), Paragraph("14.8", sty["tcc"]), Paragraph("11.3", sty["tcc"]), Paragraph("4.5",  sty["tcc"]), Paragraph("5.1",  sty["tcc"]), Paragraph("6.2",  sty["tcc"]), Paragraph("<b>0.13</b>", sty["tcc"])],
         [Paragraph("Encrypted C2 Detection (%)", sty["tc"]), Paragraph("12.0", sty["tcc"]), Paragraph("18.5", sty["tcc"]), Paragraph("72.3*", sty["tcc"]), Paragraph("68.0*", sty["tcc"]), Paragraph("64.1*", sty["tcc"]), Paragraph("<b>87.9</b>", sty["tcc"])],
-        [Paragraph("Scan Evasion Resistance (%)", sty["tc"]), Paragraph("41.0", sty["tcc"]), Paragraph("49.0", sty["tcc"]), Paragraph("76.0", sty["tcc"]), Paragraph("N/A", sty["tcc"]), Paragraph("71.0", sty["tcc"]), Paragraph("<b>96.8</b>", sty["tcc"])],
+        [Paragraph("Scan Evasion Resistance (%)", sty["tc"]), Paragraph("41.0", sty["tcc"]), Paragraph("49.0", sty["tcc"]), Paragraph("76.0", sty["tcc"]), Paragraph("63.0", sty["tcc"]), Paragraph("71.0", sty["tcc"]), Paragraph("<b>96.8</b>", sty["tcc"])],
         [Paragraph("Adversarial Robustness (%)", sty["tc"]), Paragraph("29.0", sty["tcc"]), Paragraph("34.0", sty["tcc"]), Paragraph("67.0", sty["tcc"]), Paragraph("61.0", sty["tcc"]), Paragraph("59.0", sty["tcc"]), Paragraph("<b>94.1</b>", sty["tcc"])],
     ], [1.45*inch, 0.70*inch, 0.70*inch, 0.88*inch, 0.82*inch, 0.70*inch, 1.05*inch], highlight_col=6)
     story.append(t3)

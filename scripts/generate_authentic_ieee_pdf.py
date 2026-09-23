@@ -357,10 +357,11 @@ def build_authentic_html(docx_path=DOCX_IN, html_out_path=HTML_OUT, is_anonymous
                     6: "fig6_diagnostic_verification.png",
                 }
                 fn = fig_files.get(fig_num)
-                if fn:
+                # Fig. 1 and Fig. 2 removed per revision — graphs excluded from Table I and Table II
+                if fn and fig_num not in (1, 2):
                     fpath = os.path.join(WS, "docs", "figures", fn)
                     data_uri = get_image_base64(fpath)
-                    is_wide = (fig_num in [1, 2, 3, 4, 5])
+                    is_wide = (fig_num in [3, 4, 5])
                     wide_cls = " full-width" if is_wide else ""
                     body_elements.append(
                         f'<div class="ieee-figure-container{wide_cls}">'

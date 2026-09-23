@@ -191,43 +191,55 @@ def generate_fig3_detection_accuracy():
     snort =      [68.4, 14.8, 12.0, 41.0, 29.0]
     suricata =   [71.2, 11.3, 18.5, 49.0, 34.0]
     palo_alto =  [89.2,  4.5, 72.3, 76.0, 67.0]
-    cloudflare = [87.6,  5.1, 68.0,  0.0, 61.0]
+    cloudflare = [87.6,  5.1, 68.0, 63.0, 61.0]
     cisco =      [85.4,  6.2, 64.1, 71.0, 59.0]
     ours =       [98.64, 0.12, 87.9, 96.8, 94.1]
     
     x = np.arange(len(metrics))
     width = 0.13
-    
-    fig, ax = plt.subplots(figsize=(7.6, 4.2))
-    
+
+    # Taller figure so annotations+legend have room
+    fig, ax = plt.subplots(figsize=(7.6, 5.0))
+
     ax.bar(x - 2.5*width, snort,      width, label='Snort 3.x',          color="#cbd5e1", edgecolor="#475569", linewidth=0.5)
     ax.bar(x - 1.5*width, suricata,   width, label='Suricata 7.x',       color="#94a3b8", edgecolor="#334155", linewidth=0.5)
     ax.bar(x - 0.5*width, palo_alto,  width, label='Palo Alto PAN-OS',   color="#f59e0b", edgecolor="#78350f", linewidth=0.5)
     ax.bar(x + 0.5*width, cloudflare, width, label='Cloudflare MT',      color="#ea580c", edgecolor="#7c2d12", linewidth=0.5)
     ax.bar(x + 1.5*width, cisco,      width, label='Cisco Firepower',    color="#8b5cf6", edgecolor="#4c1d95", linewidth=0.5)
     rects6 = ax.bar(x + 2.5*width, ours, width, label='Autonomous Agent (Ours)', color="#0f766e", edgecolor="#042f2e", linewidth=1.0)
-    
+
     ax.set_ylabel("Detection / Robustness Rate (%)", fontweight="bold", fontsize=9)
     ax.set_xticks(x)
     ax.set_xticklabels(metrics, fontsize=8.0, fontweight="bold")
-    ax.set_ylim(0, 120)
+    # Extra headroom above 100 for annotations, legend goes below
+    ax.set_ylim(0, 130)
     ax.grid(axis='y', linestyle='--', alpha=0.5)
-    ax.legend(loc="upper right", ncol=3, frameon=True, edgecolor="#cbd5e1", fontsize=7.8)
-    
-    # Clear annotation on Ours
-    for rect in rects6:
-        height = rect.get_height()
-        label_str = f'{height:.1f}%' if height >= 1.0 else f'{height:.2f}%'
-        ax.annotate(label_str,
-                    xy=(rect.get_x() + rect.get_width() / 2, height),
-                    xytext=(0, 3), textcoords="offset points",
-                    ha='center', va='bottom', fontsize=7.5, fontweight='bold', color="#0f766e")
 
-    plt.title("Detection Accuracy & Evasion Resistance Benchmark Across 10M Flows (Table III)", fontweight="bold", pad=12)
+    # Legend placed BELOW x-axis labels so it never overlaps annotations
+    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.22),
+              ncol=3, frameon=True, edgecolor="#cbd5e1", fontsize=7.5)
+
+    # Annotate each 'Ours' bar — text always above bar, arrow down to top of bar
+    for i, rect in enumerate(rects6):
+        height = rect.get_height()
+        label_str = f'{height:.2f}%' if height < 1.0 else f'{height:.1f}%'
+        bar_cx = rect.get_x() + rect.get_width() / 2
+        # FPR bar is tiny — needs large lift so text is visible
+        text_y = max(height + 18, 6) if height < 1.0 else height + 6
+        ax.annotate(label_str,
+                    xy=(bar_cx, height),
+                    xytext=(bar_cx, text_y),
+                    textcoords="data",
+                    ha='center', va='bottom', fontsize=7.5, fontweight='bold', color="#0f766e",
+                    arrowprops=dict(arrowstyle="->", color="#0f766e", lw=1.1,
+                                   shrinkA=2, shrinkB=2))
+
+    plt.title("Detection Accuracy & Evasion Resistance Benchmark Across 10M Flows (Table III)",
+              fontweight="bold", pad=10)
     plt.tight_layout()
-    
+
     out_path = os.path.join(OUT_DIR, "fig3_detection_accuracy.png")
-    plt.savefig(out_path)
+    plt.savefig(out_path, bbox_inches='tight')
     plt.close()
     print(f"[✓] Fig 3 saved: {out_path}")
 
@@ -251,12 +263,14 @@ def generate_fig4_latency_comparison():
     
     x = np.arange(len(systems))
     width = 0.35
-    
-    fig, ax = plt.subplots(figsize=(7.4, 4.0))
-    
-    b1 = ax.bar(x - width/2, lat_data_plane, width, label='Data-Plane Inline Drop / Forward Latency', color="#0f766e", edgecolor="#042f2e", linewidth=0.8, zorder=3)
-    b2 = ax.bar(x + width/2, lat_control_plane, width, label='Control-Plane Semantic Triage Latency', color="#0284c7", edgecolor="#0369a1", linewidth=0.8, zorder=3)
-    
+
+    fig, ax = plt.subplots(figsize=(7.4, 4.4))
+
+    b1 = ax.bar(x - width/2, lat_data_plane,  width, label='Data-Plane Inline Drop / Forward Latency',
+                color="#0f766e", edgecolor="#042f2e", linewidth=0.8, zorder=3)
+    b2 = ax.bar(x + width/2, lat_control_plane, width, label='Control-Plane Semantic Triage Latency',
+                color="#0284c7", edgecolor="#0369a1", linewidth=0.8, zorder=3)
+
     ax.set_ylabel("Measured Latency (µs) — Logarithmic Scale", fontweight="bold", fontsize=9)
     ax.set_yscale('log')
     ax.set_xticks(x)
@@ -264,19 +278,24 @@ def generate_fig4_latency_comparison():
     ax.set_ylim(0.08, 5 * 10**6)
     ax.grid(axis='y', which='both', linestyle='--', alpha=0.4, zorder=0)
     ax.legend(loc="upper left", frameon=True, edgecolor="#cbd5e1", fontsize=8.0)
-    
-    # Highlight 0.33 µs data-plane latency with clear offset
-    ax.annotate('0.33 µs\n(545× faster)',
-                xy=(x[5] - width/2, 0.33),
-                xytext=(0, 26), textcoords="offset points",
-                ha='center', va='bottom', fontsize=8.0, fontweight='bold', color="#0f766e",
-                arrowprops=dict(arrowstyle="->", color="#0f766e", lw=1.2))
 
-    plt.title("Data-Plane vs Control-Plane Mitigation Latency Profile (Table IV)", fontweight="bold", pad=12)
+    # Table III-style: text directly above bar, small font, arrow down — no overlap
+    bar_cx6 = x[5] - width / 2
+    ax.annotate('0.33 µs\n(545× faster)',
+                xy=(bar_cx6, 0.33),        # arrow tip → top of tiny green bar
+                xytext=(bar_cx6 - 0.12, 4.5),  # text: above bar, nudged left
+                textcoords='data',
+                ha='center', va='bottom',
+                fontsize=6.5, fontweight='bold', color='#0f766e',
+                arrowprops=dict(arrowstyle='->', color='#0f766e', lw=1.1,
+                                shrinkA=2, shrinkB=2))
+
+    plt.title("Data-Plane vs Control-Plane Mitigation Latency Profile (Table IV)",
+              fontweight="bold", pad=12)
     plt.tight_layout()
-    
+
     out_path = os.path.join(OUT_DIR, "fig4_latency_comparison.png")
-    plt.savefig(out_path)
+    plt.savefig(out_path, bbox_inches='tight')
     plt.close()
     print(f"[✓] Fig 4 saved: {out_path}")
 
