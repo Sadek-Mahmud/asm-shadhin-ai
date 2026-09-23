@@ -454,11 +454,17 @@ def build_docx(out_path: str, anonymous: bool = False):
     core_props.keywords = "eBPF, XDP, Autonomous Cyber Defense, Post-Quantum Cryptography, ML-KEM-1024, Shannon Entropy"
     core_props.last_modified_by = "Microsoft Word for Microsoft 365"
 
+    # ══════════════════════════════════════════════════════════════════════════
+    # BODY IN TWO-COLUMN MODE — starts here so Abstract is in left column
+    # and Introduction begins in right column, matching IEEE template layout
+    # ══════════════════════════════════════════════════════════════════════════
+    end_wide_block()
+
     # ── ABSTRACT ─────────────────────────────────────────────────────────────
     p_ab = doc.add_paragraph()
     p_ab.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-    p_ab.paragraph_format.left_indent  = Cm(1.0)
-    p_ab.paragraph_format.right_indent = Cm(1.0)
+    p_ab.paragraph_format.left_indent  = Cm(0.0)
+    p_ab.paragraph_format.right_indent = Cm(0.0)
     p_ab.paragraph_format.space_after  = Pt(4)
     p_ab.paragraph_format.line_spacing = 1.15
     r_lead = p_ab.add_run("Abstract")
@@ -497,8 +503,8 @@ def build_docx(out_path: str, anonymous: bool = False):
 
     p_kw = doc.add_paragraph()
     p_kw.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-    p_kw.paragraph_format.left_indent  = Cm(1.0)
-    p_kw.paragraph_format.right_indent = Cm(1.0)
+    p_kw.paragraph_format.left_indent  = Cm(0.0)
+    p_kw.paragraph_format.right_indent = Cm(0.0)
     p_kw.paragraph_format.space_after  = Pt(8)
     r_kw_lead = p_kw.add_run("Index Terms")
     r_kw_lead.bold = True
@@ -520,10 +526,7 @@ def build_docx(out_path: str, anonymous: bool = False):
     r_kw.font.name = "Times New Roman"
     hr()
 
-    # ══════════════════════════════════════════════════════════════════════════
-    # BODY IN TWO-COLUMN MODE
-    # ══════════════════════════════════════════════════════════════════════════
-    end_wide_block()
+    # (2-col mode was already started above, before Abstract)
 
     add_sec_heading("I.  Introduction")
     add_body(
