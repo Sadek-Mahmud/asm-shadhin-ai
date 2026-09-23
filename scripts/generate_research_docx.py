@@ -113,17 +113,58 @@ def add_para_border_bottom(para, color="000000", sz=6):
 def build_docx(out_path: str, anonymous: bool = False):
     doc = Document()
 
-    # Section 1: Title block & Abstract (Single column full width)
+    # ── Section 0: Title block (single column, full width) ──────────────────
+    # Margins exactly as IEEE Transactions template: 1.65 cm sides, 1.78 cm top/bottom
     s1 = doc.sections[0]
-    s1.top_margin    = Cm(1.8)
-    s1.bottom_margin = Cm(2.0)
-    s1.left_margin   = Cm(1.4)
-    s1.right_margin  = Cm(1.4)
+    s1.top_margin     = Cm(1.78)
+    s1.bottom_margin  = Cm(1.78)
+    s1.left_margin    = Cm(1.65)
+    s1.right_margin   = Cm(1.65)
+    s1.header_distance = Cm(0.76)
+    s1.footer_distance = Cm(0.76)
+    s1.page_width      = Cm(21.59)   # US Letter width
+    s1.page_height     = Cm(27.94)   # US Letter height
 
-    # Running footer: removed per user instruction
-    footer = s1.footer
-    p_foot = footer.paragraphs[0]
-    p_foot.text = ""
+    def _add_page_number_footer(section):
+        """Add centered IEEE-style page number (just the digit) to footer."""
+        ftr = section.footer
+        ftr.is_linked_to_previous = False
+        p = ftr.paragraphs[0] if ftr.paragraphs else ftr.add_paragraph()
+        p.clear()
+        p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        p.paragraph_format.space_before = Pt(0)
+        p.paragraph_format.space_after  = Pt(0)
+        r = p.add_run()
+        r.font.name = "Times New Roman"
+        r.font.size = Pt(9)
+        # Insert PAGE field: fldChar(begin) + instrText(PAGE) + fldChar(end)
+        for fld_type in ('begin', 'end'):
+            pass
+        from docx.oxml import OxmlElement as _OE
+        from docx.oxml.ns import qn as _qn
+        def _fld(t):
+            fc = _OE('w:fldChar')
+            fc.set(_qn('w:fldCharType'), t)
+            return fc
+        def _instr(text):
+            it = _OE('w:instrText')
+            it.set('{http://www.w3.org/XML/1998/namespace}space', 'preserve')
+            it.text = text
+            return it
+        rPr_xml = '<w:rPr xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:rFonts w:ascii="Times New Roman" w:hAnsi="Times New Roman"/><w:sz w:val="18"/><w:szCs w:val="18"/></w:rPr>'
+        from lxml import etree as _et
+        rPr_el = _et.fromstring(rPr_xml)
+        # run 1: begin
+        r1 = _OE('w:r'); r1.append(rPr_el.__copy__()); r1.append(_fld('begin'))
+        # run 2: instrText
+        r2 = _OE('w:r'); r2.append(rPr_el.__copy__()); r2.append(_instr(' PAGE '))
+        # run 3: separate
+        r3 = _OE('w:r'); r3.append(rPr_el.__copy__()); r3.append(_fld('separate'))
+        # run 4: end
+        r4 = _OE('w:r'); r4.append(rPr_el.__copy__()); r4.append(_fld('end'))
+        p._p.extend([r1, r2, r3, r4])
+
+    _add_page_number_footer(s1)
 
     # Default body font
     style = doc.styles["Normal"]
@@ -230,16 +271,18 @@ def build_docx(out_path: str, anonymous: bool = False):
     def start_wide_block():
         """Creates a full-width 1-column section for wide tables and figures."""
         s = doc.add_section(WD_SECTION_START.CONTINUOUS)
-        s.top_margin = Cm(1.8); s.bottom_margin = Cm(2.0)
-        s.left_margin = Cm(1.4);  s.right_margin = Cm(1.4)
+        s.top_margin = Cm(1.78); s.bottom_margin = Cm(1.78)
+        s.left_margin = Cm(1.65);  s.right_margin = Cm(1.65)
         _set_section_cols(s._sectPr, 1)
+        _add_page_number_footer(s)
 
     def end_wide_block():
         """Resumes two-column layout for body text."""
         s = doc.add_section(WD_SECTION_START.CONTINUOUS)
-        s.top_margin = Cm(1.8); s.bottom_margin = Cm(2.0)
-        s.left_margin = Cm(1.4);  s.right_margin = Cm(1.4)
+        s.top_margin = Cm(1.78); s.bottom_margin = Cm(1.78)
+        s.left_margin = Cm(1.65);  s.right_margin = Cm(1.65)
         _set_section_cols(s._sectPr, 2, space_twips=540)
+        _add_page_number_footer(s)
 
     def make_table(headers, rows, col_widths_cm, highlight_last_col=False, alignments=None, cap_num=None, cap_title=None, footnote=None):
         if cap_num and cap_title:
@@ -389,20 +432,28 @@ def build_docx(out_path: str, anonymous: bool = False):
         return p
 
     # ══════════════════════════════════════════════════════════════════════════
-    # TITLE BLOCK (Single Column)
+    # TITLE BLOCK (Single Column) — matches IEEE Transactions 2022 template
+    # Title style: 24pt Times New Roman, centered, bold
+    # Key acronym words at slightly larger display (matching template small-caps effect)
     # ══════════════════════════════════════════════════════════════════════════
     p_title = doc.add_paragraph()
     p_title.alignment = WD_ALIGN_PARAGRAPH.CENTER
-    p_title.paragraph_format.space_before = Pt(0)
-    p_title.paragraph_format.space_after  = Pt(6)
-    r = p_title.add_run(
-        "Autonomous Post-Quantum Cyber Defense Agent: "
-        "Sovereign Line-Rate Intrusion Defence via Kernel-eBPF and Local-LLM"
-    )
-    r.bold = True
-    r.font.size = Pt(18)
-    r.font.color.rgb = C_DARK
-    r.font.name = "Times New Roman"
+    p_title.paragraph_format.space_before = Pt(6)
+    p_title.paragraph_format.space_after  = Pt(8)
+    p_title.paragraph_format.keep_together = True
+
+    def _title_run(text, size=24):
+        r = p_title.add_run(text)
+        r.font.size = Pt(size)
+        r.font.color.rgb = C_DARK
+        r.font.name = "Times New Roman"
+        return r
+
+    # "Autonomous Post-Quantum Cyber Defense Agent:" — 24pt
+    _title_run("Autonomous Post-Quantum Cyber Defense ")
+    _title_run("AGENT", size=26)         # accentuate acronym per IEEE style
+    _title_run(": Sovereign Line-Rate Intrusion Defence ")
+    _title_run("via Kernel-eBPF and Local-LLM")
 
     if anonymous:
         add_center("Anonymous Author(s)", size=11.5, bold=True, color=C_DARK, space_after=2)
