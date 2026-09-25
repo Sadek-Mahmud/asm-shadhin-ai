@@ -30,3 +30,6 @@ env/
 # Backup files
 *.bak
 
+# Word documents (all research manuscripts and reports tracked purely as PDF)
+*.docx
+
