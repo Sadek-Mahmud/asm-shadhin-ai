@@ -151,8 +151,10 @@ The detection accuracy and latency performance claims of this system have underg
 Detailed confusion matrices, Wilson score derivations, ablation studies, and execution logs are available in:
 * 📊 [**Massive-Scale Empirical Verification Datasheet (10,000,000 Flows / 1 Crore)**](docs/MASSIVE_SCALE_EMPIRICAL_DATASHEET.md) | [**Raw JSON Results**](docs/empirical_benchmark_results.json)
 * 📄 [**Zero-Day Detection Proof & Statistical Validation Dossier**](docs/ZERO_DAY_STATISTICAL_PROOF_DOSSIER.md)
-* 📋 [**Ubuntu Server 22.04 LTS Verification & Operational Transcript**](docs/SYSTEM_VERIFICATION_PROOF_DOSSIER.md)
-* 📑 [**Official IEEE Research Paper (PDF)**](ASM_Shadhin_AI_Research_Paper_2026.pdf) & [**Author Rebuttal Dossier (PDF)**](ASM_Shadhin_AI_Author_Rebuttal_and_Experimental_Proof.pdf)
+* 📑 [**Official IEEE Research Paper (PDF)**](ASM_Shadhin_AI_Research_Paper_NEW.pdf) | [**System Appendix (PDF)**](APPENDIX.pdf) | [**Comprehensive Monograph (PDF)**](ASM_Shadhin_AI_Research_Paper_2026.pdf)
+* 📋 [**IEEE Transactions Submission Dossier (PDF)**](e6f0ca28-b5fd-455e-ac50-031a968eebeb-2.pdf)
+* 🛡️ [**Author Rebuttal & Experimental Proof Dossier (PDF)**](ASM_Shadhin_AI_Author_Rebuttal_and_Experimental_Proof.pdf)
+
 
 ---
 
