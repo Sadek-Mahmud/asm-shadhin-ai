@@ -220,7 +220,7 @@ def build_pdf(target_pdf_path):
         ],
         [
             Paragraph("<b>GitHub Repository:</b>", table_cell_style), Paragraph('<font size="7.5" color="#000000"><b>github.com/Sadek-Mahmud/asm-shadhin-ai</b></font>', table_cell_style),
-            Paragraph("<b>License & Access:</b>", table_cell_style), Paragraph("Open-Source (MIT) / Public", table_cell_style)
+            Paragraph("<b>License & Access:</b>", table_cell_style), Paragraph("CC BY-NC 4.0 / Academic & Research", table_cell_style)
         ]
     ]
     meta_table = Table(meta_data, colWidths=[1.3*inch, 2.2*inch, 1.3*inch, 2.2*inch])

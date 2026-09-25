@@ -176,5 +176,15 @@ If you use this system or research in your academic work, please cite:
 
 ---
 
-## 📜 License
-MIT — Engineered for High-Throughput Autonomous Cybersecurity Operations.
+## 📜 License & Commercial Terms
+
+This repository, source code, models, and associated research assets are released under the **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)** license.
+
+- **Academic & Non-Commercial Research:** Free of charge for academic institutions, educational use, scientific study, and peer-review reproducibility under the terms of CC BY-NC 4.0 with mandatory author attribution.
+- **Commercial Deployment Strictly Prohibited:** Commercial use, production enterprise deployment, inclusion in proprietary vendor products, or offering as a paid managed/cloud security service (SaaS) is **strictly prohibited** without prior written authorization.
+- **Commercial Authorization & Licensing:** To obtain commercial licensing, enterprise integration rights, or written authorization, direct all formal inquiries to:
+  - **Author:** A S M Hossain Mahmud (Shadhin)
+  - **Email:** [sadekshadhin2000@gmail.com](mailto:sadekshadhin2000@gmail.com)
+
+*Copyright © 2026 ASM Hossain Mahmud (Shadhin) <sadekshadhin2000@gmail.com>. All rights reserved.*
+

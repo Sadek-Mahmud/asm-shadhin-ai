@@ -882,7 +882,7 @@ def build_docx(out_path: str, anonymous: bool = False):
     repo_url = "https://anonymous.4open.science/r/asm-defense-agent" if anonymous else "https://github.com/Sadek-Mahmud/asm-shadhin-ai"
     add_body(
         f"To ensure full experimental reproducibility, the complete open-source implementation is made publicly "
-        f"available at {repo_url} under the MIT licence. The release package "
+        f"available at {repo_url} under the CC BY-NC 4.0 License. The release package "
         "includes the automated test harness (scripts/test_master_suite.sh and scripts/test_ubuntu_full.py), self-contained systemd "
         "service unit files (sec-inline-bridge, sec-monitor, sec-tarpit), and offline release packaging. "
         "The automated validation suite achieves a 9/9 (100%) pass rate across all verification phases:"
