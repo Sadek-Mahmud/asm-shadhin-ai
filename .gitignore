@@ -30,8 +30,9 @@ env/
 # Backup files
 *.bak
 
-# Word documents (all research manuscripts and reports tracked purely as PDF)
+# Word documents (tracked only for the official research paper DOCX)
 *.docx
+!ASM_Shadhin_AI_Research_Paper_NEW.docx
 
 # Compiled binary objects and build artifacts
 *.o
