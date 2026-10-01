@@ -1,0 +1,67 @@
+[
+  {
+    "id": "SCN-01",
+    "name": "Volumetric TCP SYN Flood (DDoS)",
+    "src_ip": "198.51.100.44",
+    "dest_port": 443,
+    "verdict": "MALICIOUS",
+    "action": "XDP_DROP",
+    "confidence": 0.95,
+    "threat_type": "DOS_SYN_FLOOD",
+    "latency_ms": 2744.44,
+    "status": "\u2705 PASS",
+    "reason": "Possible SYN Flood detected on Web Server."
+  },
+  {
+    "id": "SCN-02",
+    "name": "Stealthy SYN/FIN Port Scan",
+    "src_ip": "203.0.113.89",
+    "dest_port": 22,
+    "verdict": "MALICIOUS",
+    "action": "XDP_DROP",
+    "confidence": 0.95,
+    "threat_type": "PORT_SCAN",
+    "latency_ms": 2699.75,
+    "status": "\u2705 PASS",
+    "reason": "Rapid port sweep across high ports detected."
+  },
+  {
+    "id": "SCN-03",
+    "name": "High-Entropy Exfiltration Payload",
+    "src_ip": "192.0.2.145",
+    "dest_port": 8080,
+    "verdict": "MALICIOUS",
+    "action": "XDP_DROP",
+    "confidence": 0.95,
+    "threat_type": "C2_COMMUNICATION",
+    "latency_ms": 2838.83,
+    "status": "\u2705 PASS",
+    "reason": "High-Entropy Outbound Stream Anomaly indicative of Command and Control traffic."
+  },
+  {
+    "id": "SCN-04",
+    "name": "PQC Handshake Downgrade Attack",
+    "src_ip": "198.51.100.210",
+    "dest_port": 50051,
+    "verdict": "MALICIOUS",
+    "action": "XDP_DROP",
+    "confidence": 0.95,
+    "threat_type": "CRYPTOGRAPHIC_INTEGRITY_ANOMALY",
+    "latency_ms": 3151.36,
+    "status": "\u2705 PASS",
+    "reason": "Invalid ML-KEM-1024 Encapsulation / Ciphertext Forgery detected."
+  },
+  {
+    "id": "SCN-05",
+    "name": "Benign HTTP REST API Traffic",
+    "src_ip": "10.0.4.55",
+    "dest_port": 443,
+    "verdict": "BENIGN",
+    "action": "XDP_PASS",
+    "confidence": 1.0,
+    "threat_type": "NORMAL_WEB_TRANSACTION",
+    "latency_ms": 2535.7,
+    "status": "\u2705 PASS",
+    "reason": "Normal HTTP GET request to a secure API endpoint."
+  }
+]

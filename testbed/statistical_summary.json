@@ -1,0 +1,398 @@
+{
+  "summary": {
+    "iptables": {
+      "throughput_mpps": {
+        "mean": 0.2822,
+        "std": 0.0062,
+        "sem": 0.0011,
+        "ci95": 0.0022,
+        "min": 0.2683,
+        "max": 0.299,
+        "p50": 0.284
+      },
+      "throughput_gbps": {
+        "mean": 0.2224,
+        "std": 0.0067,
+        "sem": 0.0012,
+        "ci95": 0.0024,
+        "min": 0.2093,
+        "max": 0.234,
+        "p50": 0.2212
+      },
+      "latency_mean_us": {
+        "mean": 26.4947,
+        "std": 1.6456,
+        "sem": 0.3004,
+        "ci95": 0.5889,
+        "min": 23.1824,
+        "max": 30.2741,
+        "p50": 26.4892
+      },
+      "latency_p99_us": {
+        "mean": 49.5437,
+        "std": 3.5327,
+        "sem": 0.645,
+        "ci95": 1.2642,
+        "min": 41.1433,
+        "max": 54.5306,
+        "p50": 49.8903
+      },
+      "jitter_us": {
+        "mean": 7.2008,
+        "std": 0.7488,
+        "sem": 0.1367,
+        "ci95": 0.268,
+        "min": 5.3898,
+        "max": 8.7403,
+        "p50": 7.1888
+      },
+      "cpu_util_pct": {
+        "mean": 89.4053,
+        "std": 2.377,
+        "sem": 0.434,
+        "ci95": 0.8506,
+        "min": 84.07,
+        "max": 94.82,
+        "p50": 89.25
+      },
+      "softirq_pct": {
+        "mean": 48.8383,
+        "std": 2.1037,
+        "sem": 0.3841,
+        "ci95": 0.7528,
+        "min": 44.62,
+        "max": 53.6,
+        "p50": 48.7
+      },
+      "ram_mb": {
+        "mean": 48.08,
+        "std": 1.1813,
+        "sem": 0.2157,
+        "ci95": 0.4227,
+        "min": 45.0,
+        "max": 51.4,
+        "p50": 48.05
+      },
+      "packet_drop_pct": {
+        "mean": 18.3873,
+        "std": 1.2512,
+        "sem": 0.2284,
+        "ci95": 0.4477,
+        "min": 16.18,
+        "max": 21.17,
+        "p50": 18.385
+      }
+    },
+    "Suricata Inline": {
+      "throughput_mpps": {
+        "mean": 0.5964,
+        "std": 0.0095,
+        "sem": 0.0017,
+        "ci95": 0.0034,
+        "min": 0.5798,
+        "max": 0.624,
+        "p50": 0.5975
+      },
+      "throughput_gbps": {
+        "mean": 0.4718,
+        "std": 0.0118,
+        "sem": 0.0022,
+        "ci95": 0.0042,
+        "min": 0.4396,
+        "max": 0.5028,
+        "p50": 0.4719
+      },
+      "latency_mean_us": {
+        "mean": 74.4686,
+        "std": 2.613,
+        "sem": 0.4771,
+        "ci95": 0.935,
+        "min": 70.7512,
+        "max": 79.9426,
+        "p50": 73.7412
+      },
+      "latency_p99_us": {
+        "mean": 139.4879,
+        "std": 6.507,
+        "sem": 1.188,
+        "ci95": 2.3285,
+        "min": 127.412,
+        "max": 154.3591,
+        "p50": 138.9959
+      },
+      "jitter_us": {
+        "mean": 14.028,
+        "std": 1.1939,
+        "sem": 0.218,
+        "ci95": 0.4272,
+        "min": 12.0541,
+        "max": 16.5249,
+        "p50": 13.7422
+      },
+      "cpu_util_pct": {
+        "mean": 98.9523,
+        "std": 0.7073,
+        "sem": 0.1291,
+        "ci95": 0.2531,
+        "min": 97.42,
+        "max": 100.0,
+        "p50": 99.02
+      },
+      "softirq_pct": {
+        "mean": 32.325,
+        "std": 1.18,
+        "sem": 0.2154,
+        "ci95": 0.4223,
+        "min": 30.25,
+        "max": 35.61,
+        "p50": 32.165
+      },
+      "ram_mb": {
+        "mean": 1417.4667,
+        "std": 23.864,
+        "sem": 4.357,
+        "ci95": 8.5396,
+        "min": 1378.3,
+        "max": 1483.2,
+        "p50": 1411.75
+      },
+      "packet_drop_pct": {
+        "mean": 35.1293,
+        "std": 2.4005,
+        "sem": 0.4383,
+        "ci95": 0.859,
+        "min": 27.48,
+        "max": 40.08,
+        "p50": 35.3
+      }
+    },
+    "DPDK": {
+      "throughput_mpps": {
+        "mean": 3.7983,
+        "std": 0.0113,
+        "sem": 0.0021,
+        "ci95": 0.0041,
+        "min": 3.7747,
+        "max": 3.8213,
+        "p50": 3.7969
+      },
+      "throughput_gbps": {
+        "mean": 2.9946,
+        "std": 0.0115,
+        "sem": 0.0021,
+        "ci95": 0.0041,
+        "min": 2.9756,
+        "max": 3.0206,
+        "p50": 2.9912
+      },
+      "latency_mean_us": {
+        "mean": 0.0808,
+        "std": 0.0022,
+        "sem": 0.0004,
+        "ci95": 0.0008,
+        "min": 0.0757,
+        "max": 0.0844,
+        "p50": 0.0806
+      },
+      "latency_p99_us": {
+        "mean": 0.1442,
+        "std": 0.0105,
+        "sem": 0.0019,
+        "ci95": 0.0038,
+        "min": 0.1233,
+        "max": 0.1699,
+        "p50": 0.1425
+      },
+      "jitter_us": {
+        "mean": 0.0237,
+        "std": 0.0009,
+        "sem": 0.0002,
+        "ci95": 0.0003,
+        "min": 0.0219,
+        "max": 0.0252,
+        "p50": 0.0236
+      },
+      "cpu_util_pct": {
+        "mean": 100.0,
+        "std": 0.0,
+        "sem": 0.0,
+        "ci95": 0.0,
+        "min": 100.0,
+        "max": 100.0,
+        "p50": 100.0
+      },
+      "softirq_pct": {
+        "mean": 0.0,
+        "std": 0.0,
+        "sem": 0.0,
+        "ci95": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "p50": 0.0
+      },
+      "ram_mb": {
+        "mean": 2048.0,
+        "std": 0.0,
+        "sem": 0.0,
+        "ci95": 0.0,
+        "min": 2048.0,
+        "max": 2048.0,
+        "p50": 2048.0
+      },
+      "packet_drop_pct": {
+        "mean": 0.0,
+        "std": 0.0,
+        "sem": 0.0,
+        "ci95": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "p50": 0.0
+      }
+    },
+    "ASM-Shadhin-AI (eBPF/XDP)": {
+      "throughput_mpps": {
+        "mean": 1.4947,
+        "std": 0.0146,
+        "sem": 0.0027,
+        "ci95": 0.0052,
+        "min": 1.4671,
+        "max": 1.5201,
+        "p50": 1.4985
+      },
+      "throughput_gbps": {
+        "mean": 1.1757,
+        "std": 0.0115,
+        "sem": 0.0021,
+        "ci95": 0.0041,
+        "min": 1.1536,
+        "max": 1.1996,
+        "p50": 1.1751
+      },
+      "latency_mean_us": {
+        "mean": 0.1263,
+        "std": 0.0071,
+        "sem": 0.0013,
+        "ci95": 0.0025,
+        "min": 0.1152,
+        "max": 0.1471,
+        "p50": 0.1251
+      },
+      "latency_p99_us": {
+        "mean": 0.2284,
+        "std": 0.01,
+        "sem": 0.0018,
+        "ci95": 0.0036,
+        "min": 0.2164,
+        "max": 0.2556,
+        "p50": 0.2273
+      },
+      "jitter_us": {
+        "mean": 0.0415,
+        "std": 0.0033,
+        "sem": 0.0006,
+        "ci95": 0.0012,
+        "min": 0.0365,
+        "max": 0.0466,
+        "p50": 0.042
+      },
+      "cpu_util_pct": {
+        "mean": 26.2417,
+        "std": 0.5694,
+        "sem": 0.104,
+        "ci95": 0.2038,
+        "min": 25.13,
+        "max": 27.48,
+        "p50": 26.2
+      },
+      "softirq_pct": {
+        "mean": 0.6367,
+        "std": 0.0479,
+        "sem": 0.0088,
+        "ci95": 0.0172,
+        "min": 0.55,
+        "max": 0.72,
+        "p50": 0.63
+      },
+      "ram_mb": {
+        "mean": 238.9767,
+        "std": 3.861,
+        "sem": 0.7049,
+        "ci95": 1.3816,
+        "min": 229.0,
+        "max": 245.0,
+        "p50": 239.8
+      },
+      "packet_drop_pct": {
+        "mean": 0.0,
+        "std": 0.0,
+        "sem": 0.0,
+        "ci95": 0.0,
+        "min": 0.0,
+        "max": 0.0,
+        "p50": 0.0
+      }
+    }
+  },
+  "t_tests": {
+    "iptables": {
+      "throughput_mpps": {
+        "t_stat": 419.005,
+        "df": 58,
+        "p_val": 1e-15,
+        "statistically_significant": true
+      },
+      "latency_mean_us": {
+        "t_stat": -87.764,
+        "df": 58,
+        "p_val": 1e-15,
+        "statistically_significant": true
+      },
+      "cpu_util_pct": {
+        "t_stat": -141.54,
+        "df": 58,
+        "p_val": 1e-15,
+        "statistically_significant": true
+      }
+    },
+    "Suricata Inline": {
+      "throughput_mpps": {
+        "t_stat": 283.019,
+        "df": 58,
+        "p_val": 1e-15,
+        "statistically_significant": true
+      },
+      "latency_mean_us": {
+        "t_stat": -155.832,
+        "df": 58,
+        "p_val": 1e-15,
+        "statistically_significant": true
+      },
+      "cpu_util_pct": {
+        "t_stat": -438.609,
+        "df": 58,
+        "p_val": 1e-15,
+        "statistically_significant": true
+      }
+    },
+    "DPDK": {
+      "throughput_mpps": {
+        "t_stat": -682.829,
+        "df": 58,
+        "p_val": 1e-15,
+        "statistically_significant": true
+      },
+      "latency_mean_us": {
+        "t_stat": 33.581,
+        "df": 58,
+        "p_val": 1e-15,
+        "statistically_significant": true
+      },
+      "cpu_util_pct": {
+        "t_stat": -709.505,
+        "df": 58,
+        "p_val": 1e-15,
+        "statistically_significant": true
+      }
+    }
+  }
+}

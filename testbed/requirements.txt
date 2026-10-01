@@ -1,0 +1,12 @@
+# ASM-Shadhin-AI eBPF/XDP Testbed — Python Dependencies (VM-2 SUT)
+# Install: pip install -r requirements.txt
+
+# Core system monitoring
+psutil>=5.9.0
+
+# Data analysis for post-run CSV processing
+numpy>=1.24.0
+pandas>=2.0.0
+
+# Optional: rich terminal output (used by summary printer)
+rich>=13.0.0
