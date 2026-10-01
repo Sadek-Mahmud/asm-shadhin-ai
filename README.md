@@ -1,8 +1,8 @@
-# Q-Vigilance AI: Autonomous Post-Quantum Cyber Defense Agent
+# ASM-Shadhin-AI: Autonomous Post-Quantum Cyber Defense Agent
 
 [![Kernel](https://img.shields.io/badge/Kernel-Linux%205.15%2B%20%7C%20eBPF%20%2F%20XDP-orange)](https://ebpf.io/)
 [![Hardware](https://img.shields.io/badge/Hardware-Intel%20Core%20i5%204th%20Gen%20%7C%2016GB%20RAM-blue)](#hardware-specification--cpu-tuning)
-[![AI Engine](https://img.shields.io/badge/AI-Q--Vigilance%20AI%20%28Ollama%29-green)](https://ollama.com/)
+[![AI Engine](https://img.shields.io/badge/AI-ASM--Shadhin--AI%20%28Ollama%20Edge--LLM%29-green)](https://ollama.com/)
 [![Cryptography](https://img.shields.io/badge/PQC-NIST%20FIPS%20203%20%26%20204%20%28ML--KEM%20%2F%20ML--DSA%29-purple)](#post-quantum-cryptography-pqc-guard)
 [![Zero-Day Detection](https://img.shields.io/badge/Zero--Day%20Detection-98.64%25%20TPR%20(10M%20Flows)-brightgreen)](docs/MASSIVE_SCALE_EMPIRICAL_DATASHEET.md)
 [![Reviewer Guide](https://img.shields.io/badge/Reviewer%20Guide-Independent%20Verification-blue)](REVIEWER_GUIDE.md)
@@ -12,8 +12,7 @@
 > 🔬 **For Academic Reviewers & Evaluators:** See [REVIEWER_GUIDE.md](REVIEWER_GUIDE.md) and [VERIFIED_PROOF_OF_RESULTS.md](docs/VERIFIED_PROOF_OF_RESULTS.md) for 100% deterministic, independent mathematical and empirical verification instructions.
 
 
-
-**Q-Vigilance AI** is a headless, enterprise-grade inline network defense ecosystem designed for Ubuntu Server. It bridges **microsecond line-rate packet mitigation (1 Gbps) in the Linux kernel via eBPF/XDP** with **local, quantized AI threat intelligence**, **NIST Post-Quantum Cryptography (PQC)**, and an **AI-Tarpit token-drain deception engine**.
+**ASM-Shadhin-AI** is a headless, enterprise-grade inline network defense ecosystem designed for Ubuntu Server. It bridges **microsecond line-rate packet mitigation (1 Gbps) in the Linux kernel via eBPF/XDP** with **local, quantized AI threat intelligence (Edge-LLM)**, **NIST Post-Quantum Cryptography (PQC)**, and an **AI-Tarpit token-drain deception engine**.
 
 ---
 
@@ -27,7 +26,7 @@ This system operates as an **Inline Bump-in-the-Wire Hardware Security Appliance
                                       │ (LAN Cable 1)
                                       ▼
              ┌──────────────────────────────────────────────────┐
-             │       Q-VIGILANCE AI SECURITY APPLIANCE          │
+             │         ASM-SHADHIN-AI SECURITY APPLIANCE        │
              │                                                  │
              │   [ Port 1: eth0 (Inbound WAN) ]                 │
              │               │                                  │
@@ -39,7 +38,7 @@ This system operates as an **Inline Bump-in-the-Wire Hardware Security Appliance
              │          ├─ (Probe / Scanner) ────┼─► AI-Tarpit  │
              │          │                        │   (Trickle)  │
              │          ▼ (Clean Traffic)                       │
-             │   [ Suricata IDS/IPS Engine (AF_PACKET) ]        │
+             │   [ Edge-LLM Threat Reasoning (Local AI) ]       │
              │               │                                  │
              │               ▼                                  │
              │   [ Port 2: eth1 (Protected LAN) ]               │
@@ -112,7 +111,7 @@ python3 scripts/test_pqc_handshake.py
 ## 🍯 AI-Tarpit & Token-Drain Deception Engine
 
 When automated AI vulnerability scanners or penetration testing agents probe decoy ports (`8088` for HTTP, `2222` for SSH):
-1. **Context-Window Exhaustion**: Injects synthetic, infinite recursive Linux filesystem trees and fake administrative API tokens crafted by `Q-Vigilance AI`.
+1. **Context-Window Exhaustion**: Injects synthetic, infinite recursive Linux filesystem trees and fake administrative API tokens crafted by `ASM-Shadhin-AI Edge-LLM`.
 2. **Trickle-Throttling**: Chunks data byte-by-byte with 35ms sleep delays, exhausting scanner worker threads and client socket limits without burdening server CPU.
 3. **Decoy Shell**: Traps brute-force bots in an interactive, recursive MFA challenge loop.
 
@@ -151,8 +150,7 @@ The detection accuracy and latency performance claims of this system have underg
 Detailed confusion matrices, Wilson score derivations, ablation studies, and execution logs are available in:
 * 📊 [**Massive-Scale Empirical Verification Datasheet (10,000,000 Flows / 1 Crore)**](docs/MASSIVE_SCALE_EMPIRICAL_DATASHEET.md) | [**Raw JSON Results**](docs/empirical_benchmark_results.json)
 * 📄 [**Zero-Day Detection Proof & Statistical Validation Dossier**](docs/ZERO_DAY_STATISTICAL_PROOF_DOSSIER.md)
-* 📑 [**Official IEEE Research Paper (PDF)**](ASM_Shadhin_AI_Research_Paper_NEW.pdf) | [**System Appendix (PDF)**](APPENDIX.pdf) | [**Comprehensive Monograph (PDF)**](ASM_Shadhin_AI_Research_Paper_2026.pdf)
-* 📋 [**IEEE Transactions Submission Dossier (PDF)**](e6f0ca28-b5fd-455e-ac50-031a968eebeb-2.pdf)
+* 📑 [**Official IEEE Research Paper (PDF)**](ASM_Shadhin_AI_Research_Paper_NEW.pdf) | [**IEEE Transactions Paper (PDF)**](SovereignLine_IEEE_Transactions_Research_Paper.pdf) | [**System Appendix (PDF)**](ASM_Shadhin_AI_APPENDIX.pdf)
 * 🛡️ [**Author Rebuttal & Experimental Proof Dossier (PDF)**](ASM_Shadhin_AI_Author_Rebuttal_and_Experimental_Proof.pdf)
 
 

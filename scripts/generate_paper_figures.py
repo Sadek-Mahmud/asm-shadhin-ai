@@ -50,39 +50,45 @@ def generate_fig1_xdp_pipeline():
         "Stage 1: IP Blocklist\n(Hash Map Match)",
         "Stage 2: Tarpit Redirect\n(Sockmap Redirection)",
         "Stage 3: TCP Flag Classifier\n(SYN/RST Anomaly)",
-        "Stage 4: RingBuffer Telemetry\n(Async User-Space Push)"
+        "Stage 4: RingBuffer Telemetry\n(Zero-Copy Push)"
     ]
     latencies = [0.33, 0.85, 0.45, 0.92]  # in microseconds
-    actions = ["XDP_DROP (0.33 µs)", "XDP_PASS (0.85 µs)", "XDP_DROP (0.45 µs)", "XDP_PASS (0.92 µs)"]
-    bar_colors = ["#b91c1c", "#d97706", "#b91c1c", "#0f766e"]
+    actions = ["XDP_DROP (0.33 µs)", "XDP_REDIRECT (0.85 µs)", "XDP_DROP (0.45 µs)", "XDP_PASS (0.92 µs)"]
+    bar_colors = ["#dc2626", "#ea580c", "#dc2626", "#0284c7"]
 
-    fig, ax = plt.subplots(figsize=(6.8, 3.4))
+    fig, ax = plt.subplots(figsize=(5.6, 2.6), dpi=300)
     y_pos = np.arange(len(stages))
     
-    bars = ax.barh(y_pos, latencies, color=bar_colors, height=0.52, edgecolor="#1e293b", linewidth=0.8, zorder=3)
+    ax.axvspan(0, 2.0, color='#f0fdf4', alpha=0.45, zorder=1)
+    bars = ax.barh(y_pos, latencies, color=bar_colors, height=0.52, edgecolor="#1e293b", linewidth=0.9, zorder=3)
     
     ax.set_yticks(y_pos)
-    ax.set_yticklabels(stages, fontweight="normal", fontsize=8.5)
+    ax.set_yticklabels(stages, fontweight="bold", fontsize=8.6, color='#1e293b')
     ax.invert_yaxis()  # Top-down order
-    ax.set_xlabel("Measured Kernel Latency (µs) — Hardware DMA Testbed", fontweight="bold", fontsize=9)
-    ax.set_xlim(0, 2.3)
+    ax.set_xlabel("Measured Fast-Path Latency (µs) — Hardware DMA Testbed", fontweight="bold", fontsize=9.0, labelpad=5)
+    ax.set_xlim(0, 2.30)
     ax.grid(axis='x', linestyle='--', alpha=0.5, zorder=0)
+    ax.tick_params(axis='x', labelsize=8.8)
+    ax.tick_params(axis='y', labelsize=8.6)
 
     # Clean text badges next to bars
     for bar, action in zip(bars, actions):
         width = bar.get_width()
         ax.text(width + 0.04, bar.get_y() + bar.get_height()/2.0, action,
-                ha='left', va='center', fontsize=8.0, fontweight='bold', color="#1e293b")
+                ha='left', va='center', fontsize=8.3, fontweight='bold', color="#0f172a")
 
     # SLA Line
-    ax.axvline(2.0, color="#dc2626", linestyle=":", linewidth=1.3, label="Line-Rate Budget SLA Target (2.0 µs max)", zorder=4)
-    ax.legend(loc="lower right", frameon=True, edgecolor="#cbd5e1", facecolor="#ffffff", framealpha=0.95)
+    ax.axvline(2.0, color="#b91c1c", linestyle="--", linewidth=1.5, zorder=4)
+    ax.text(1.97, 0.38, "Line-Rate SLA Target\n(2.0 µs Max Budget)", ha='right', va='center',
+            fontsize=8.2, fontweight='bold', color="#b91c1c",
+            bbox=dict(boxstyle='round,pad=0.35', facecolor='#fef2f2', edgecolor="#fca5a5", linewidth=0.9, alpha=0.95))
 
-    plt.title("In-Kernel XDP Pipeline Execution Latency per Stage (Table I)", fontweight="bold", pad=10)
+    ax.set_ylim(3.6, -0.6)
     plt.tight_layout()
 
     out_path = os.path.join(OUT_DIR, "fig1_xdp_pipeline.png")
-    plt.savefig(out_path)
+    os.makedirs(os.path.dirname(out_path), exist_ok=True)
+    plt.savefig(out_path, bbox_inches='tight')
     plt.close()
     print(f"[✓] Fig 1 saved: {out_path}")
 

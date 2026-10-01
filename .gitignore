@@ -33,3 +33,34 @@ env/
 # Word documents (all research manuscripts and reports tracked purely as PDF)
 *.docx
 
+# Compiled binary objects and build artifacts
+*.o
+*.so
+*.a
+ebpf/*.o
+
+# LaTeX build outputs and temporary test files
+*.aux
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+texput.pdf
+test_ref.*
+test_ref_bal.*
+
+# Temporary image audit crops and test files
+check_*.png
+dropcap_*.png
+deep_audit_*.png
+page_*.png
+v3_page_*.png
+v4_page_*.png
+v5_page_*.png
+final_v*.png
+revised_page_*.png
+submission_final_*.png
+overlap_page_*.png
+latest_verified_page_*.png
+fixed_page_*.png
