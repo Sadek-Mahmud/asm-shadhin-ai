@@ -1,4 +1,4 @@
-# ASM-Shadhin-AI: Autonomous Post-Quantum Cyber Defense Agent
+# Autonomous Post-Quantum Cyber Defense Agent (ASM-Shadhin-AI): Sovereign Line-Rate Intrusion Defence via Kernel-eBPF and Local-LLM
 
 [![Kernel](https://img.shields.io/badge/Kernel-Linux%205.15%2B%20%7C%20eBPF%20%2F%20XDP-orange)](https://ebpf.io/)
 [![Hardware](https://img.shields.io/badge/Hardware-Intel%20Core%20i5%204th%20Gen%20%7C%2016GB%20RAM-blue)](#hardware-specification--cpu-tuning)
@@ -162,7 +162,7 @@ If you use this system or research in your academic work, please cite:
 
 ```bibtex
 @article{shadhin2026autonomous,
-  title={Autonomous Post-Quantum Cyber Defense Agent: Sovereign Line-Rate Intrusion Defence via Kernel-eBPF and Local-LLM},
+  title={Autonomous Post-Quantum Cyber Defense Agent (ASM-Shadhin-AI): Sovereign Line-Rate Intrusion Defence via Kernel-eBPF and Local-LLM},
   author={Mahmud (Shadhin), A S M Hossain},
   journal={Department of Computer Science and Engineering, Bangladesh Army University of Science and Technology (BAUST)},
   year={2026},
