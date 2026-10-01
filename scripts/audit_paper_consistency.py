@@ -3,7 +3,7 @@ import json
 import fitz
 
 def main():
-    with open('SovereignLine_IEEE_Transactions_Research_Paper.tex') as f:
+    with open('ASM_Shadhin_AI_IEEE_Transactions_Research_Paper.tex') as f:
         tex = f.read()
 
     print("=== AUDIT 1: PLACEHOLDERS, TODOS, LEGACY NAMES ===")

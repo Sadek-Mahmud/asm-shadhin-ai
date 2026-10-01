@@ -11,8 +11,8 @@ import subprocess
 import shutil
 
 WS = "/Volumes/BSc Works/AI digital automated system for security monitoring"
-TEX_FILE = os.path.join(WS, "SovereignLine_IEEE_Transactions_Research_Paper.tex")
-PDF_OUT = os.path.join(WS, "SovereignLine_IEEE_Transactions_Research_Paper.pdf")
+TEX_FILE = os.path.join(WS, "ASM_Shadhin_AI_IEEE_Transactions_Research_Paper.tex")
+PDF_OUT = os.path.join(WS, "ASM_Shadhin_AI_IEEE_Transactions_Research_Paper.pdf")
 DESKTOP_PDF = os.path.expanduser("~/Desktop/ASM_Shadhin_AI_Research_Paper_NEW.pdf")
 WS_TARGET_PDF = os.path.join(WS, "ASM_Shadhin_AI_Research_Paper_NEW.pdf")
 
