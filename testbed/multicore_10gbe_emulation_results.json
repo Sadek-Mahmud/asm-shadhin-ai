@@ -1,0 +1,46 @@
+{
+  "1": {
+    "cores": 1,
+    "aggregate_mpps": 1.55,
+    "per_core_mpps": 1.55,
+    "mean_latency_ns": 645.36,
+    "mean_ringbuf_reserve_ns": 2132.27,
+    "p99_ringbuf_reserve_ns": 4550.75,
+    "scaling_efficiency_pct": 100.0,
+    "rss_imbalance_pct": 0.0,
+    "10gbe_wire_speed_ratio": 0.104
+  },
+  "2": {
+    "cores": 2,
+    "aggregate_mpps": 3.14,
+    "per_core_mpps": 1.57,
+    "mean_latency_ns": 636.91,
+    "mean_ringbuf_reserve_ns": 2353.66,
+    "p99_ringbuf_reserve_ns": 6505.41,
+    "scaling_efficiency_pct": 101.3,
+    "rss_imbalance_pct": 0.17,
+    "10gbe_wire_speed_ratio": 0.211
+  },
+  "4": {
+    "cores": 4,
+    "aggregate_mpps": 5.178,
+    "per_core_mpps": 1.295,
+    "mean_latency_ns": 772.51,
+    "mean_ringbuf_reserve_ns": 4155.99,
+    "p99_ringbuf_reserve_ns": 31718.42,
+    "scaling_efficiency_pct": 83.5,
+    "rss_imbalance_pct": 0.21,
+    "10gbe_wire_speed_ratio": 0.348
+  },
+  "8": {
+    "cores": 8,
+    "aggregate_mpps": 5.003,
+    "per_core_mpps": 0.625,
+    "mean_latency_ns": 1599.01,
+    "mean_ringbuf_reserve_ns": 48219.35,
+    "p99_ringbuf_reserve_ns": 134012.08,
+    "scaling_efficiency_pct": 40.4,
+    "rss_imbalance_pct": 0.24,
+    "10gbe_wire_speed_ratio": 0.336
+  }
+}

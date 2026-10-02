@@ -1,0 +1,5547 @@
+{
+  "summary": {
+    "total_flows": 500,
+    "malicious_flows": 250,
+    "benign_flows": 250,
+    "cobalt_strike_flows": 100,
+    "ctu13_botnet_flows": 150,
+    "wireguard_flows": 70,
+    "tls13_flows": 60,
+    "http2_quic_flows": 50,
+    "doh_dot_flows": 40,
+    "standard_web_flows": 30,
+    "selected_operating_point": {
+      "H_thresh": 7.85,
+      "J_thresh": 0.1,
+      "TP": 166,
+      "FP": 9,
+      "FN": 84,
+      "TN": 241,
+      "TPR": 0.664,
+      "FPR": 0.036,
+      "Precision": 0.9486,
+      "F1": 0.7812
+    },
+    "auc_roc": 0.9164,
+    "fp_breakdown": {
+      "Benign_WireGuard_VPN": 5,
+      "Benign_TLS13_Browser": 4
+    }
+  },
+  "flows": [
+    {
+      "flow_id": 164,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8998,
+      "jitter_s": 0.0659
+    },
+    {
+      "flow_id": 358,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8919,
+      "jitter_s": 1.5513
+    },
+    {
+      "flow_id": 150,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9121,
+      "jitter_s": 0.0264
+    },
+    {
+      "flow_id": 186,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8181,
+      "jitter_s": 0.0214
+    },
+    {
+      "flow_id": 336,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8708,
+      "jitter_s": 1.5055
+    },
+    {
+      "flow_id": 192,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9132,
+      "jitter_s": 0.0858
+    },
+    {
+      "flow_id": 356,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.9412,
+      "jitter_s": 1.0839
+    },
+    {
+      "flow_id": 124,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8771,
+      "jitter_s": 0.0925
+    },
+    {
+      "flow_id": 3,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8465,
+      "jitter_s": 0.0225
+    },
+    {
+      "flow_id": 483,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 4.695,
+      "jitter_s": 1.1469
+    },
+    {
+      "flow_id": 298,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9828,
+      "jitter_s": 1.2268
+    },
+    {
+      "flow_id": 497,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 4.6436,
+      "jitter_s": 1.6395
+    },
+    {
+      "flow_id": 107,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9174,
+      "jitter_s": 0.0368
+    },
+    {
+      "flow_id": 95,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.91,
+      "jitter_s": 0.1193
+    },
+    {
+      "flow_id": 117,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9038,
+      "jitter_s": 0.0569
+    },
+    {
+      "flow_id": 185,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8352,
+      "jitter_s": 0.0252
+    },
+    {
+      "flow_id": 102,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8291,
+      "jitter_s": 0.0874
+    },
+    {
+      "flow_id": 82,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9277,
+      "jitter_s": 0.0529
+    },
+    {
+      "flow_id": 166,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8641,
+      "jitter_s": 0.0768
+    },
+    {
+      "flow_id": 115,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9606,
+      "jitter_s": 0.0673
+    },
+    {
+      "flow_id": 232,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9343,
+      "jitter_s": 0.1583
+    },
+    {
+      "flow_id": 139,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9437,
+      "jitter_s": 0.0687
+    },
+    {
+      "flow_id": 381,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.7364,
+      "jitter_s": 0.0856
+    },
+    {
+      "flow_id": 267,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9898,
+      "jitter_s": 1.3775
+    },
+    {
+      "flow_id": 301,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9318,
+      "jitter_s": 0.8654
+    },
+    {
+      "flow_id": 70,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8818,
+      "jitter_s": 0.0877
+    },
+    {
+      "flow_id": 340,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.9663,
+      "jitter_s": 1.4617
+    },
+    {
+      "flow_id": 40,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8809,
+      "jitter_s": 0.0193
+    },
+    {
+      "flow_id": 231,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8212,
+      "jitter_s": 0.1649
+    },
+    {
+      "flow_id": 380,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.9573,
+      "jitter_s": 1.354
+    },
+    {
+      "flow_id": 87,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9071,
+      "jitter_s": 0.0281
+    },
+    {
+      "flow_id": 20,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9363,
+      "jitter_s": 0.0452
+    },
+    {
+      "flow_id": 197,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.867,
+      "jitter_s": 0.0782
+    },
+    {
+      "flow_id": 106,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8988,
+      "jitter_s": 0.0719
+    },
+    {
+      "flow_id": 188,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8128,
+      "jitter_s": 0.0439
+    },
+    {
+      "flow_id": 425,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.8205,
+      "jitter_s": 0.8171
+    },
+    {
+      "flow_id": 364,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8668,
+      "jitter_s": 1.3634
+    },
+    {
+      "flow_id": 431,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.8214,
+      "jitter_s": 1.0253
+    },
+    {
+      "flow_id": 401,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.8697,
+      "jitter_s": 0.3432
+    },
+    {
+      "flow_id": 43,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8729,
+      "jitter_s": 0.036
+    },
+    {
+      "flow_id": 492,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 4.1305,
+      "jitter_s": 0.5578
+    },
+    {
+      "flow_id": 491,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 4.8362,
+      "jitter_s": 2.0189
+    },
+    {
+      "flow_id": 47,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9493,
+      "jitter_s": 0.0549
+    },
+    {
+      "flow_id": 408,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.9088,
+      "jitter_s": 0.7352
+    },
+    {
+      "flow_id": 451,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.6228,
+      "jitter_s": 0.3425
+    },
+    {
+      "flow_id": 365,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8742,
+      "jitter_s": 0.4791
+    },
+    {
+      "flow_id": 468,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.6101,
+      "jitter_s": 0.7357
+    },
+    {
+      "flow_id": 362,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.858,
+      "jitter_s": 1.2876
+    },
+    {
+      "flow_id": 308,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9812,
+      "jitter_s": 2.0536
+    },
+    {
+      "flow_id": 399,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.9237,
+      "jitter_s": 0.7847
+    },
+    {
+      "flow_id": 355,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8806,
+      "jitter_s": 1.2041
+    },
+    {
+      "flow_id": 440,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.5595,
+      "jitter_s": 0.6552
+    },
+    {
+      "flow_id": 270,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9515,
+      "jitter_s": 0.5889
+    },
+    {
+      "flow_id": 500,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 6.7457,
+      "jitter_s": 1.3366
+    },
+    {
+      "flow_id": 15,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9207,
+      "jitter_s": 0.0137
+    },
+    {
+      "flow_id": 191,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8213,
+      "jitter_s": 0.0723
+    },
+    {
+      "flow_id": 9,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8717,
+      "jitter_s": 0.052
+    },
+    {
+      "flow_id": 6,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8235,
+      "jitter_s": 0.0876
+    },
+    {
+      "flow_id": 369,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8971,
+      "jitter_s": 1.3932
+    },
+    {
+      "flow_id": 75,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8288,
+      "jitter_s": 0.0323
+    },
+    {
+      "flow_id": 177,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9186,
+      "jitter_s": 0.0322
+    },
+    {
+      "flow_id": 306,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9228,
+      "jitter_s": 1.8289
+    },
+    {
+      "flow_id": 348,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8638,
+      "jitter_s": 1.1049
+    },
+    {
+      "flow_id": 426,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.7161,
+      "jitter_s": 0.9825
+    },
+    {
+      "flow_id": 480,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 4.3155,
+      "jitter_s": 1.9499
+    },
+    {
+      "flow_id": 295,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.929,
+      "jitter_s": 0.631
+    },
+    {
+      "flow_id": 193,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9323,
+      "jitter_s": 0.0803
+    },
+    {
+      "flow_id": 88,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9297,
+      "jitter_s": 0.0239
+    },
+    {
+      "flow_id": 482,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 4.5606,
+      "jitter_s": 1.2175
+    },
+    {
+      "flow_id": 353,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8576,
+      "jitter_s": 1.6359
+    },
+    {
+      "flow_id": 226,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9399,
+      "jitter_s": 0.0619
+    },
+    {
+      "flow_id": 326,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8604,
+      "jitter_s": 1.0019
+    },
+    {
+      "flow_id": 93,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8639,
+      "jitter_s": 0.1528
+    },
+    {
+      "flow_id": 34,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.844,
+      "jitter_s": 0.0742
+    },
+    {
+      "flow_id": 449,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.6526,
+      "jitter_s": 1.7341
+    },
+    {
+      "flow_id": 489,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 5.6447,
+      "jitter_s": 0.508
+    },
+    {
+      "flow_id": 317,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9558,
+      "jitter_s": 1.3344
+    },
+    {
+      "flow_id": 133,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9579,
+      "jitter_s": 0.0756
+    },
+    {
+      "flow_id": 71,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9836,
+      "jitter_s": 0.0301
+    },
+    {
+      "flow_id": 101,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9156,
+      "jitter_s": 0.0263
+    },
+    {
+      "flow_id": 65,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8212,
+      "jitter_s": 0.0509
+    },
+    {
+      "flow_id": 466,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.5988,
+      "jitter_s": 1.6359
+    },
+    {
+      "flow_id": 239,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8133,
+      "jitter_s": 0.1554
+    },
+    {
+      "flow_id": 248,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8835,
+      "jitter_s": 0.1353
+    },
+    {
+      "flow_id": 183,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9695,
+      "jitter_s": 0.049
+    },
+    {
+      "flow_id": 181,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8699,
+      "jitter_s": 0.0682
+    },
+    {
+      "flow_id": 255,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9865,
+      "jitter_s": 0.0854
+    },
+    {
+      "flow_id": 137,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9561,
+      "jitter_s": 0.0885
+    },
+    {
+      "flow_id": 372,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.9397,
+      "jitter_s": 0.9538
+    },
+    {
+      "flow_id": 327,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.9204,
+      "jitter_s": 1.2936
+    },
+    {
+      "flow_id": 453,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.6975,
+      "jitter_s": 1.7283
+    },
+    {
+      "flow_id": 16,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9233,
+      "jitter_s": 0.0236
+    },
+    {
+      "flow_id": 349,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8846,
+      "jitter_s": 1.0637
+    },
+    {
+      "flow_id": 397,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.8214,
+      "jitter_s": 0.8343
+    },
+    {
+      "flow_id": 178,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8127,
+      "jitter_s": 0.0682
+    },
+    {
+      "flow_id": 310,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9764,
+      "jitter_s": 1.7343
+    },
+    {
+      "flow_id": 265,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9239,
+      "jitter_s": 1.9497
+    },
+    {
+      "flow_id": 119,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8505,
+      "jitter_s": 0.0218
+    },
+    {
+      "flow_id": 469,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.5564,
+      "jitter_s": 1.7629
+    },
+    {
+      "flow_id": 29,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.835,
+      "jitter_s": 0.0257
+    },
+    {
+      "flow_id": 144,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8838,
+      "jitter_s": 0.0607
+    },
+    {
+      "flow_id": 100,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9708,
+      "jitter_s": 0.1624
+    },
+    {
+      "flow_id": 14,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8539,
+      "jitter_s": 0.0511
+    },
+    {
+      "flow_id": 347,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.9109,
+      "jitter_s": 0.5894
+    },
+    {
+      "flow_id": 97,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9731,
+      "jitter_s": 0.1506
+    },
+    {
+      "flow_id": 359,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.9497,
+      "jitter_s": 1.601
+    },
+    {
+      "flow_id": 201,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8186,
+      "jitter_s": 0.0877
+    },
+    {
+      "flow_id": 168,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8083,
+      "jitter_s": 0.0231
+    },
+    {
+      "flow_id": 320,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9388,
+      "jitter_s": 1.048
+    },
+    {
+      "flow_id": 173,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8717,
+      "jitter_s": 0.0662
+    },
+    {
+      "flow_id": 238,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.895,
+      "jitter_s": 0.1993
+    },
+    {
+      "flow_id": 394,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.84,
+      "jitter_s": 0.6089
+    },
+    {
+      "flow_id": 163,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9719,
+      "jitter_s": 0.0753
+    },
+    {
+      "flow_id": 218,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8151,
+      "jitter_s": 0.0726
+    },
+    {
+      "flow_id": 378,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8667,
+      "jitter_s": 1.3616
+    },
+    {
+      "flow_id": 25,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9129,
+      "jitter_s": 0.0248
+    },
+    {
+      "flow_id": 391,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.8665,
+      "jitter_s": 0.7607
+    },
+    {
+      "flow_id": 175,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8674,
+      "jitter_s": 0.0669
+    },
+    {
+      "flow_id": 361,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.9626,
+      "jitter_s": 0.5037
+    },
+    {
+      "flow_id": 151,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8093,
+      "jitter_s": 0.0599
+    },
+    {
+      "flow_id": 229,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.802,
+      "jitter_s": 0.0551
+    },
+    {
+      "flow_id": 205,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.963,
+      "jitter_s": 0.0268
+    },
+    {
+      "flow_id": 194,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8508,
+      "jitter_s": 0.0333
+    },
+    {
+      "flow_id": 109,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8586,
+      "jitter_s": 0.076
+    },
+    {
+      "flow_id": 403,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.8018,
+      "jitter_s": 0.968
+    },
+    {
+      "flow_id": 448,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.7838,
+      "jitter_s": 0.628
+    },
+    {
+      "flow_id": 325,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.9447,
+      "jitter_s": 0.9478
+    },
+    {
+      "flow_id": 63,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8587,
+      "jitter_s": 0.0442
+    },
+    {
+      "flow_id": 418,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.8196,
+      "jitter_s": 0.6283
+    },
+    {
+      "flow_id": 287,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9478,
+      "jitter_s": 1.5009
+    },
+    {
+      "flow_id": 333,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8622,
+      "jitter_s": 0.464
+    },
+    {
+      "flow_id": 252,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9417,
+      "jitter_s": 0.0885
+    },
+    {
+      "flow_id": 228,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.82,
+      "jitter_s": 0.0569
+    },
+    {
+      "flow_id": 214,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8795,
+      "jitter_s": 0.0866
+    },
+    {
+      "flow_id": 61,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9573,
+      "jitter_s": 0.0817
+    },
+    {
+      "flow_id": 24,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.873,
+      "jitter_s": 0.0516
+    },
+    {
+      "flow_id": 416,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.7539,
+      "jitter_s": 0.6641
+    },
+    {
+      "flow_id": 132,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8252,
+      "jitter_s": 0.0589
+    },
+    {
+      "flow_id": 73,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8684,
+      "jitter_s": 0.013
+    },
+    {
+      "flow_id": 274,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9279,
+      "jitter_s": 1.5924
+    },
+    {
+      "flow_id": 44,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.944,
+      "jitter_s": 0.061
+    },
+    {
+      "flow_id": 263,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9787,
+      "jitter_s": 1.2171
+    },
+    {
+      "flow_id": 196,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9783,
+      "jitter_s": 0.0509
+    },
+    {
+      "flow_id": 309,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9243,
+      "jitter_s": 0.8622
+    },
+    {
+      "flow_id": 159,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8736,
+      "jitter_s": 0.033
+    },
+    {
+      "flow_id": 114,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9751,
+      "jitter_s": 0.0495
+    },
+    {
+      "flow_id": 120,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9162,
+      "jitter_s": 0.0333
+    },
+    {
+      "flow_id": 288,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9804,
+      "jitter_s": 2.1066
+    },
+    {
+      "flow_id": 366,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8697,
+      "jitter_s": 1.3904
+    },
+    {
+      "flow_id": 246,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.882,
+      "jitter_s": 0.162
+    },
+    {
+      "flow_id": 313,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9633,
+      "jitter_s": 1.0325
+    },
+    {
+      "flow_id": 74,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9236,
+      "jitter_s": 0.0502
+    },
+    {
+      "flow_id": 157,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8046,
+      "jitter_s": 0.0922
+    },
+    {
+      "flow_id": 406,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.9364,
+      "jitter_s": 1.0776
+    },
+    {
+      "flow_id": 141,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9602,
+      "jitter_s": 0.0453
+    },
+    {
+      "flow_id": 167,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8026,
+      "jitter_s": 0.0287
+    },
+    {
+      "flow_id": 78,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9876,
+      "jitter_s": 0.0294
+    },
+    {
+      "flow_id": 323,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8644,
+      "jitter_s": 0.0949
+    },
+    {
+      "flow_id": 273,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9633,
+      "jitter_s": 1.0126
+    },
+    {
+      "flow_id": 45,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9708,
+      "jitter_s": 0.0478
+    },
+    {
+      "flow_id": 244,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8082,
+      "jitter_s": 0.1281
+    },
+    {
+      "flow_id": 269,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9795,
+      "jitter_s": 0.8076
+    },
+    {
+      "flow_id": 321,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8524,
+      "jitter_s": 0.079
+    },
+    {
+      "flow_id": 499,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 6.6437,
+      "jitter_s": 0.6873
+    },
+    {
+      "flow_id": 294,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9253,
+      "jitter_s": 0.5884
+    },
+    {
+      "flow_id": 421,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.7031,
+      "jitter_s": 0.89
+    },
+    {
+      "flow_id": 104,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8183,
+      "jitter_s": 0.0698
+    },
+    {
+      "flow_id": 262,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9879,
+      "jitter_s": 1.9079
+    },
+    {
+      "flow_id": 493,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 6.0574,
+      "jitter_s": 1.4405
+    },
+    {
+      "flow_id": 479,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 5.4086,
+      "jitter_s": 0.4986
+    },
+    {
+      "flow_id": 130,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9026,
+      "jitter_s": 0.0273
+    },
+    {
+      "flow_id": 281,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9693,
+      "jitter_s": 0.744
+    },
+    {
+      "flow_id": 385,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.7821,
+      "jitter_s": 1.0587
+    },
+    {
+      "flow_id": 481,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 4.0567,
+      "jitter_s": 1.6666
+    },
+    {
+      "flow_id": 199,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9545,
+      "jitter_s": 0.0522
+    },
+    {
+      "flow_id": 160,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8282,
+      "jitter_s": 0.0388
+    },
+    {
+      "flow_id": 330,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.9275,
+      "jitter_s": 1.0491
+    },
+    {
+      "flow_id": 257,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9853,
+      "jitter_s": 1.9522
+    },
+    {
+      "flow_id": 332,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.9227,
+      "jitter_s": 0.5821
+    },
+    {
+      "flow_id": 111,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9184,
+      "jitter_s": 0.0626
+    },
+    {
+      "flow_id": 432,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.7335,
+      "jitter_s": 1.0052
+    },
+    {
+      "flow_id": 424,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.7205,
+      "jitter_s": 1.2467
+    },
+    {
+      "flow_id": 254,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9838,
+      "jitter_s": 0.0888
+    },
+    {
+      "flow_id": 303,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9284,
+      "jitter_s": 1.2024
+    },
+    {
+      "flow_id": 213,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8104,
+      "jitter_s": 0.0612
+    },
+    {
+      "flow_id": 351,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.9139,
+      "jitter_s": 0.3226
+    },
+    {
+      "flow_id": 1,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8837,
+      "jitter_s": 0.0861
+    },
+    {
+      "flow_id": 241,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9133,
+      "jitter_s": 0.1696
+    },
+    {
+      "flow_id": 266,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9769,
+      "jitter_s": 2.1995
+    },
+    {
+      "flow_id": 12,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8697,
+      "jitter_s": 0.0393
+    },
+    {
+      "flow_id": 436,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.6807,
+      "jitter_s": 0.7332
+    },
+    {
+      "flow_id": 460,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.8173,
+      "jitter_s": 0.5242
+    },
+    {
+      "flow_id": 148,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8229,
+      "jitter_s": 0.0592
+    },
+    {
+      "flow_id": 438,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.5589,
+      "jitter_s": 0.5498
+    },
+    {
+      "flow_id": 430,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.8356,
+      "jitter_s": 0.2503
+    },
+    {
+      "flow_id": 216,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8257,
+      "jitter_s": 0.0771
+    },
+    {
+      "flow_id": 156,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.879,
+      "jitter_s": 0.0259
+    },
+    {
+      "flow_id": 413,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.829,
+      "jitter_s": 1.1642
+    },
+    {
+      "flow_id": 322,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8754,
+      "jitter_s": 0.0792
+    },
+    {
+      "flow_id": 387,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.7306,
+      "jitter_s": 0.6051
+    },
+    {
+      "flow_id": 89,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9375,
+      "jitter_s": 0.0409
+    },
+    {
+      "flow_id": 390,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.8728,
+      "jitter_s": 0.866
+    },
+    {
+      "flow_id": 153,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9307,
+      "jitter_s": 0.0932
+    },
+    {
+      "flow_id": 379,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.9244,
+      "jitter_s": 0.9968
+    },
+    {
+      "flow_id": 242,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8818,
+      "jitter_s": 0.1628
+    },
+    {
+      "flow_id": 328,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.9018,
+      "jitter_s": 0.4286
+    },
+    {
+      "flow_id": 149,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9386,
+      "jitter_s": 0.0362
+    },
+    {
+      "flow_id": 46,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8403,
+      "jitter_s": 0.0671
+    },
+    {
+      "flow_id": 354,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8887,
+      "jitter_s": 1.3838
+    },
+    {
+      "flow_id": 398,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.7043,
+      "jitter_s": 1.1132
+    },
+    {
+      "flow_id": 420,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.8393,
+      "jitter_s": 0.8565
+    },
+    {
+      "flow_id": 223,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9463,
+      "jitter_s": 0.091
+    },
+    {
+      "flow_id": 138,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.892,
+      "jitter_s": 0.0576
+    },
+    {
+      "flow_id": 442,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.5569,
+      "jitter_s": 0.4666
+    },
+    {
+      "flow_id": 435,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.8516,
+      "jitter_s": 1.8138
+    },
+    {
+      "flow_id": 131,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9107,
+      "jitter_s": 0.0943
+    },
+    {
+      "flow_id": 165,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8755,
+      "jitter_s": 0.0386
+    },
+    {
+      "flow_id": 234,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8514,
+      "jitter_s": 0.1869
+    },
+    {
+      "flow_id": 253,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9679,
+      "jitter_s": 0.0657
+    },
+    {
+      "flow_id": 198,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8613,
+      "jitter_s": 0.0898
+    },
+    {
+      "flow_id": 18,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9842,
+      "jitter_s": 0.0747
+    },
+    {
+      "flow_id": 434,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.6043,
+      "jitter_s": 0.5911
+    },
+    {
+      "flow_id": 409,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.8419,
+      "jitter_s": 0.6069
+    },
+    {
+      "flow_id": 103,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9092,
+      "jitter_s": 0.0207
+    },
+    {
+      "flow_id": 459,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.6531,
+      "jitter_s": 1.8175
+    },
+    {
+      "flow_id": 169,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.954,
+      "jitter_s": 0.0728
+    },
+    {
+      "flow_id": 7,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9615,
+      "jitter_s": 0.027
+    },
+    {
+      "flow_id": 286,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.956,
+      "jitter_s": 1.7998
+    },
+    {
+      "flow_id": 59,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9566,
+      "jitter_s": 0.0249
+    },
+    {
+      "flow_id": 484,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 6.029,
+      "jitter_s": 1.024
+    },
+    {
+      "flow_id": 204,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8701,
+      "jitter_s": 0.0208
+    },
+    {
+      "flow_id": 256,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9629,
+      "jitter_s": 1.1237
+    },
+    {
+      "flow_id": 79,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9343,
+      "jitter_s": 0.0709
+    },
+    {
+      "flow_id": 90,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9792,
+      "jitter_s": 0.021
+    },
+    {
+      "flow_id": 486,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 5.8574,
+      "jitter_s": 2.3673
+    },
+    {
+      "flow_id": 236,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8022,
+      "jitter_s": 0.197
+    },
+    {
+      "flow_id": 210,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9211,
+      "jitter_s": 0.0764
+    },
+    {
+      "flow_id": 422,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.7427,
+      "jitter_s": 1.2083
+    },
+    {
+      "flow_id": 57,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.978,
+      "jitter_s": 0.0746
+    },
+    {
+      "flow_id": 367,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.9298,
+      "jitter_s": 0.9823
+    },
+    {
+      "flow_id": 220,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9271,
+      "jitter_s": 0.0261
+    },
+    {
+      "flow_id": 10,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8934,
+      "jitter_s": 0.0333
+    },
+    {
+      "flow_id": 224,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9775,
+      "jitter_s": 0.0765
+    },
+    {
+      "flow_id": 392,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.7604,
+      "jitter_s": 0.5499
+    },
+    {
+      "flow_id": 450,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.5546,
+      "jitter_s": 0.4368
+    },
+    {
+      "flow_id": 180,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9692,
+      "jitter_s": 0.0632
+    },
+    {
+      "flow_id": 202,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8909,
+      "jitter_s": 0.082
+    },
+    {
+      "flow_id": 41,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9667,
+      "jitter_s": 0.0599
+    },
+    {
+      "flow_id": 312,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9459,
+      "jitter_s": 1.2464
+    },
+    {
+      "flow_id": 64,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9591,
+      "jitter_s": 0.0789
+    },
+    {
+      "flow_id": 208,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9137,
+      "jitter_s": 0.0536
+    },
+    {
+      "flow_id": 189,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9521,
+      "jitter_s": 0.0217
+    },
+    {
+      "flow_id": 222,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8674,
+      "jitter_s": 0.0478
+    },
+    {
+      "flow_id": 172,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8312,
+      "jitter_s": 0.0525
+    },
+    {
+      "flow_id": 411,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.8927,
+      "jitter_s": 0.185
+    },
+    {
+      "flow_id": 454,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.8361,
+      "jitter_s": 0.8469
+    },
+    {
+      "flow_id": 291,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9521,
+      "jitter_s": 2.1631
+    },
+    {
+      "flow_id": 92,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9772,
+      "jitter_s": 0.1702
+    },
+    {
+      "flow_id": 13,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8975,
+      "jitter_s": 0.0728
+    },
+    {
+      "flow_id": 212,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8164,
+      "jitter_s": 0.0571
+    },
+    {
+      "flow_id": 91,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.878,
+      "jitter_s": 0.1091
+    },
+    {
+      "flow_id": 84,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8745,
+      "jitter_s": 0.0249
+    },
+    {
+      "flow_id": 417,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.7338,
+      "jitter_s": 0.3687
+    },
+    {
+      "flow_id": 307,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.964,
+      "jitter_s": 0.5013
+    },
+    {
+      "flow_id": 415,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.877,
+      "jitter_s": 0.6639
+    },
+    {
+      "flow_id": 456,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.7566,
+      "jitter_s": 0.7289
+    },
+    {
+      "flow_id": 53,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9743,
+      "jitter_s": 0.0299
+    },
+    {
+      "flow_id": 429,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.7088,
+      "jitter_s": 0.6851
+    },
+    {
+      "flow_id": 304,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9344,
+      "jitter_s": 1.0239
+    },
+    {
+      "flow_id": 184,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.973,
+      "jitter_s": 0.0879
+    },
+    {
+      "flow_id": 360,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8649,
+      "jitter_s": 1.2732
+    },
+    {
+      "flow_id": 187,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.817,
+      "jitter_s": 0.0712
+    },
+    {
+      "flow_id": 158,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9505,
+      "jitter_s": 0.0722
+    },
+    {
+      "flow_id": 22,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8258,
+      "jitter_s": 0.0827
+    },
+    {
+      "flow_id": 66,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.891,
+      "jitter_s": 0.0278
+    },
+    {
+      "flow_id": 457,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.7685,
+      "jitter_s": 0.9551
+    },
+    {
+      "flow_id": 76,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9744,
+      "jitter_s": 0.0292
+    },
+    {
+      "flow_id": 488,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 3.8967,
+      "jitter_s": 0.9508
+    },
+    {
+      "flow_id": 19,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8718,
+      "jitter_s": 0.0178
+    },
+    {
+      "flow_id": 280,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9729,
+      "jitter_s": 1.4976
+    },
+    {
+      "flow_id": 77,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8446,
+      "jitter_s": 0.0492
+    },
+    {
+      "flow_id": 428,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.7492,
+      "jitter_s": 0.384
+    },
+    {
+      "flow_id": 58,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9277,
+      "jitter_s": 0.0797
+    },
+    {
+      "flow_id": 316,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9699,
+      "jitter_s": 2.0061
+    },
+    {
+      "flow_id": 219,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8131,
+      "jitter_s": 0.0816
+    },
+    {
+      "flow_id": 283,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9445,
+      "jitter_s": 1.4413
+    },
+    {
+      "flow_id": 427,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.7504,
+      "jitter_s": 1.1409
+    },
+    {
+      "flow_id": 83,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8353,
+      "jitter_s": 0.0768
+    },
+    {
+      "flow_id": 135,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8647,
+      "jitter_s": 0.042
+    },
+    {
+      "flow_id": 67,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8404,
+      "jitter_s": 0.037
+    },
+    {
+      "flow_id": 171,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8885,
+      "jitter_s": 0.0555
+    },
+    {
+      "flow_id": 407,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.7299,
+      "jitter_s": 1.1653
+    },
+    {
+      "flow_id": 23,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.864,
+      "jitter_s": 0.063
+    },
+    {
+      "flow_id": 142,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8676,
+      "jitter_s": 0.027
+    },
+    {
+      "flow_id": 400,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.8672,
+      "jitter_s": 1.1671
+    },
+    {
+      "flow_id": 419,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.9196,
+      "jitter_s": 0.5678
+    },
+    {
+      "flow_id": 27,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9797,
+      "jitter_s": 0.0816
+    },
+    {
+      "flow_id": 129,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9685,
+      "jitter_s": 0.0722
+    },
+    {
+      "flow_id": 251,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9689,
+      "jitter_s": 0.0788
+    },
+    {
+      "flow_id": 259,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9464,
+      "jitter_s": 1.8495
+    },
+    {
+      "flow_id": 311,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9329,
+      "jitter_s": 0.7373
+    },
+    {
+      "flow_id": 350,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8685,
+      "jitter_s": 0.9236
+    },
+    {
+      "flow_id": 176,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8906,
+      "jitter_s": 0.0842
+    },
+    {
+      "flow_id": 108,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9282,
+      "jitter_s": 0.0378
+    },
+    {
+      "flow_id": 145,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8516,
+      "jitter_s": 0.0643
+    },
+    {
+      "flow_id": 140,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9264,
+      "jitter_s": 0.0797
+    },
+    {
+      "flow_id": 393,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.7436,
+      "jitter_s": 1.152
+    },
+    {
+      "flow_id": 315,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9226,
+      "jitter_s": 0.817
+    },
+    {
+      "flow_id": 55,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8589,
+      "jitter_s": 0.0162
+    },
+    {
+      "flow_id": 60,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9717,
+      "jitter_s": 0.0531
+    },
+    {
+      "flow_id": 329,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8841,
+      "jitter_s": 0.7583
+    },
+    {
+      "flow_id": 69,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9082,
+      "jitter_s": 0.0662
+    },
+    {
+      "flow_id": 54,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8898,
+      "jitter_s": 0.0704
+    },
+    {
+      "flow_id": 342,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8705,
+      "jitter_s": 1.1861
+    },
+    {
+      "flow_id": 495,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 4.5638,
+      "jitter_s": 2.1201
+    },
+    {
+      "flow_id": 458,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.7432,
+      "jitter_s": 0.9978
+    },
+    {
+      "flow_id": 271,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9868,
+      "jitter_s": 1.4714
+    },
+    {
+      "flow_id": 314,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9524,
+      "jitter_s": 1.7328
+    },
+    {
+      "flow_id": 155,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9431,
+      "jitter_s": 0.0403
+    },
+    {
+      "flow_id": 279,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9294,
+      "jitter_s": 0.4032
+    },
+    {
+      "flow_id": 225,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8677,
+      "jitter_s": 0.0263
+    },
+    {
+      "flow_id": 376,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.864,
+      "jitter_s": 1.5658
+    },
+    {
+      "flow_id": 146,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8055,
+      "jitter_s": 0.0228
+    },
+    {
+      "flow_id": 190,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9466,
+      "jitter_s": 0.0411
+    },
+    {
+      "flow_id": 126,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.853,
+      "jitter_s": 0.0489
+    },
+    {
+      "flow_id": 471,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 4.6496,
+      "jitter_s": 1.5638
+    },
+    {
+      "flow_id": 179,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8048,
+      "jitter_s": 0.0639
+    },
+    {
+      "flow_id": 344,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.9186,
+      "jitter_s": 0.642
+    },
+    {
+      "flow_id": 395,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.8109,
+      "jitter_s": 1.1936
+    },
+    {
+      "flow_id": 260,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9891,
+      "jitter_s": 0.6283
+    },
+    {
+      "flow_id": 412,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.78,
+      "jitter_s": 0.606
+    },
+    {
+      "flow_id": 276,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9564,
+      "jitter_s": 1.9265
+    },
+    {
+      "flow_id": 396,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.7368,
+      "jitter_s": 0.8073
+    },
+    {
+      "flow_id": 52,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8734,
+      "jitter_s": 0.0507
+    },
+    {
+      "flow_id": 289,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9303,
+      "jitter_s": 2.0642
+    },
+    {
+      "flow_id": 319,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9573,
+      "jitter_s": 0.7986
+    },
+    {
+      "flow_id": 341,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.948,
+      "jitter_s": 0.6111
+    },
+    {
+      "flow_id": 5,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9222,
+      "jitter_s": 0.0666
+    },
+    {
+      "flow_id": 38,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9402,
+      "jitter_s": 0.0683
+    },
+    {
+      "flow_id": 352,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8904,
+      "jitter_s": 0.4382
+    },
+    {
+      "flow_id": 235,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8402,
+      "jitter_s": 0.1963
+    },
+    {
+      "flow_id": 154,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8929,
+      "jitter_s": 0.0442
+    },
+    {
+      "flow_id": 447,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.8406,
+      "jitter_s": 0.9355
+    },
+    {
+      "flow_id": 472,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 5.8194,
+      "jitter_s": 2.1425
+    },
+    {
+      "flow_id": 203,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8576,
+      "jitter_s": 0.0872
+    },
+    {
+      "flow_id": 405,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.8082,
+      "jitter_s": 0.3012
+    },
+    {
+      "flow_id": 123,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8028,
+      "jitter_s": 0.0896
+    },
+    {
+      "flow_id": 384,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.883,
+      "jitter_s": 1.1181
+    },
+    {
+      "flow_id": 476,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 5.6616,
+      "jitter_s": 1.7966
+    },
+    {
+      "flow_id": 105,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8009,
+      "jitter_s": 0.0321
+    },
+    {
+      "flow_id": 134,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9255,
+      "jitter_s": 0.0727
+    },
+    {
+      "flow_id": 162,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9188,
+      "jitter_s": 0.041
+    },
+    {
+      "flow_id": 268,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9738,
+      "jitter_s": 2.0978
+    },
+    {
+      "flow_id": 290,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9544,
+      "jitter_s": 0.8278
+    },
+    {
+      "flow_id": 299,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9667,
+      "jitter_s": 0.6688
+    },
+    {
+      "flow_id": 337,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8596,
+      "jitter_s": 0.9843
+    },
+    {
+      "flow_id": 215,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8632,
+      "jitter_s": 0.0288
+    },
+    {
+      "flow_id": 470,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.5912,
+      "jitter_s": 1.2224
+    },
+    {
+      "flow_id": 318,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9275,
+      "jitter_s": 1.1777
+    },
+    {
+      "flow_id": 21,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8407,
+      "jitter_s": 0.0496
+    },
+    {
+      "flow_id": 370,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.9027,
+      "jitter_s": 0.7777
+    },
+    {
+      "flow_id": 388,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.8914,
+      "jitter_s": 0.3404
+    },
+    {
+      "flow_id": 127,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9532,
+      "jitter_s": 0.0438
+    },
+    {
+      "flow_id": 292,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9545,
+      "jitter_s": 0.9582
+    },
+    {
+      "flow_id": 62,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8741,
+      "jitter_s": 0.0188
+    },
+    {
+      "flow_id": 444,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.7785,
+      "jitter_s": 0.6811
+    },
+    {
+      "flow_id": 121,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9693,
+      "jitter_s": 0.0915
+    },
+    {
+      "flow_id": 346,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8888,
+      "jitter_s": 0.8456
+    },
+    {
+      "flow_id": 485,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 5.5559,
+      "jitter_s": 1.3997
+    },
+    {
+      "flow_id": 305,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9552,
+      "jitter_s": 1.6272
+    },
+    {
+      "flow_id": 36,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9513,
+      "jitter_s": 0.0259
+    },
+    {
+      "flow_id": 96,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8358,
+      "jitter_s": 0.1718
+    },
+    {
+      "flow_id": 42,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8763,
+      "jitter_s": 0.0151
+    },
+    {
+      "flow_id": 261,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9616,
+      "jitter_s": 1.0546
+    },
+    {
+      "flow_id": 382,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.7596,
+      "jitter_s": 0.0934
+    },
+    {
+      "flow_id": 81,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8825,
+      "jitter_s": 0.0606
+    },
+    {
+      "flow_id": 272,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.936,
+      "jitter_s": 1.5926
+    },
+    {
+      "flow_id": 258,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9232,
+      "jitter_s": 0.3988
+    },
+    {
+      "flow_id": 245,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9711,
+      "jitter_s": 0.189
+    },
+    {
+      "flow_id": 300,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9335,
+      "jitter_s": 0.4256
+    },
+    {
+      "flow_id": 423,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.7357,
+      "jitter_s": 0.6236
+    },
+    {
+      "flow_id": 389,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.755,
+      "jitter_s": 0.9528
+    },
+    {
+      "flow_id": 161,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8989,
+      "jitter_s": 0.0736
+    },
+    {
+      "flow_id": 383,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.708,
+      "jitter_s": 0.0903
+    },
+    {
+      "flow_id": 445,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.5848,
+      "jitter_s": 0.6891
+    },
+    {
+      "flow_id": 278,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9814,
+      "jitter_s": 1.0964
+    },
+    {
+      "flow_id": 377,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.9253,
+      "jitter_s": 0.7189
+    },
+    {
+      "flow_id": 297,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9327,
+      "jitter_s": 0.9895
+    },
+    {
+      "flow_id": 30,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8277,
+      "jitter_s": 0.036
+    },
+    {
+      "flow_id": 112,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8169,
+      "jitter_s": 0.0476
+    },
+    {
+      "flow_id": 152,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8973,
+      "jitter_s": 0.0678
+    },
+    {
+      "flow_id": 437,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.7754,
+      "jitter_s": 0.954
+    },
+    {
+      "flow_id": 80,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8604,
+      "jitter_s": 0.0683
+    },
+    {
+      "flow_id": 250,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9754,
+      "jitter_s": 0.1986
+    },
+    {
+      "flow_id": 368,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8931,
+      "jitter_s": 1.4781
+    },
+    {
+      "flow_id": 339,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8634,
+      "jitter_s": 0.807
+    },
+    {
+      "flow_id": 285,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9833,
+      "jitter_s": 0.9943
+    },
+    {
+      "flow_id": 375,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.9588,
+      "jitter_s": 1.1239
+    },
+    {
+      "flow_id": 357,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.9066,
+      "jitter_s": 0.8266
+    },
+    {
+      "flow_id": 433,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.6903,
+      "jitter_s": 1.1954
+    },
+    {
+      "flow_id": 147,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9481,
+      "jitter_s": 0.047
+    },
+    {
+      "flow_id": 233,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9732,
+      "jitter_s": 0.1375
+    },
+    {
+      "flow_id": 404,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.9242,
+      "jitter_s": 1.1704
+    },
+    {
+      "flow_id": 465,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.7717,
+      "jitter_s": 0.7126
+    },
+    {
+      "flow_id": 136,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9457,
+      "jitter_s": 0.0808
+    },
+    {
+      "flow_id": 200,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9352,
+      "jitter_s": 0.0766
+    },
+    {
+      "flow_id": 2,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9444,
+      "jitter_s": 0.0579
+    },
+    {
+      "flow_id": 195,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9351,
+      "jitter_s": 0.0805
+    },
+    {
+      "flow_id": 85,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8269,
+      "jitter_s": 0.0573
+    },
+    {
+      "flow_id": 487,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 6.071,
+      "jitter_s": 0.8514
+    },
+    {
+      "flow_id": 206,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8575,
+      "jitter_s": 0.0913
+    },
+    {
+      "flow_id": 474,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 4.2243,
+      "jitter_s": 2.29
+    },
+    {
+      "flow_id": 247,
+      "category": "CTU13_Murlo",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8499,
+      "jitter_s": 0.1188
+    },
+    {
+      "flow_id": 475,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 6.5091,
+      "jitter_s": 1.6546
+    },
+    {
+      "flow_id": 462,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.8631,
+      "jitter_s": 1.5798
+    },
+    {
+      "flow_id": 86,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9352,
+      "jitter_s": 0.0113
+    },
+    {
+      "flow_id": 478,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 5.0982,
+      "jitter_s": 1.2046
+    },
+    {
+      "flow_id": 386,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.7266,
+      "jitter_s": 1.0857
+    },
+    {
+      "flow_id": 48,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9511,
+      "jitter_s": 0.0495
+    },
+    {
+      "flow_id": 8,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8509,
+      "jitter_s": 0.0247
+    },
+    {
+      "flow_id": 473,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 4.4399,
+      "jitter_s": 0.4231
+    },
+    {
+      "flow_id": 334,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8795,
+      "jitter_s": 0.475
+    },
+    {
+      "flow_id": 26,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9848,
+      "jitter_s": 0.072
+    },
+    {
+      "flow_id": 446,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.8028,
+      "jitter_s": 1.6691
+    },
+    {
+      "flow_id": 282,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9295,
+      "jitter_s": 0.3769
+    },
+    {
+      "flow_id": 463,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.6988,
+      "jitter_s": 0.336
+    },
+    {
+      "flow_id": 227,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8764,
+      "jitter_s": 0.088
+    },
+    {
+      "flow_id": 39,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9511,
+      "jitter_s": 0.0159
+    },
+    {
+      "flow_id": 439,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.8006,
+      "jitter_s": 1.3543
+    },
+    {
+      "flow_id": 237,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8078,
+      "jitter_s": 0.1891
+    },
+    {
+      "flow_id": 477,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 4.3437,
+      "jitter_s": 2.3203
+    },
+    {
+      "flow_id": 94,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9589,
+      "jitter_s": 0.1444
+    },
+    {
+      "flow_id": 455,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.6408,
+      "jitter_s": 0.9075
+    },
+    {
+      "flow_id": 72,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9045,
+      "jitter_s": 0.0341
+    },
+    {
+      "flow_id": 230,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8101,
+      "jitter_s": 0.0289
+    },
+    {
+      "flow_id": 275,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9564,
+      "jitter_s": 1.7788
+    },
+    {
+      "flow_id": 461,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.854,
+      "jitter_s": 1.0799
+    },
+    {
+      "flow_id": 99,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9434,
+      "jitter_s": 0.1718
+    },
+    {
+      "flow_id": 128,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8305,
+      "jitter_s": 0.0618
+    },
+    {
+      "flow_id": 56,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8693,
+      "jitter_s": 0.0229
+    },
+    {
+      "flow_id": 410,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.7131,
+      "jitter_s": 0.5387
+    },
+    {
+      "flow_id": 498,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 4.919,
+      "jitter_s": 0.5923
+    },
+    {
+      "flow_id": 373,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8779,
+      "jitter_s": 1.5094
+    },
+    {
+      "flow_id": 207,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9711,
+      "jitter_s": 0.063
+    },
+    {
+      "flow_id": 32,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9609,
+      "jitter_s": 0.0385
+    },
+    {
+      "flow_id": 51,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8253,
+      "jitter_s": 0.0609
+    },
+    {
+      "flow_id": 331,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8927,
+      "jitter_s": 1.6311
+    },
+    {
+      "flow_id": 335,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8724,
+      "jitter_s": 0.6491
+    },
+    {
+      "flow_id": 345,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.9423,
+      "jitter_s": 0.5119
+    },
+    {
+      "flow_id": 28,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9216,
+      "jitter_s": 0.0837
+    },
+    {
+      "flow_id": 374,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8961,
+      "jitter_s": 1.011
+    },
+    {
+      "flow_id": 443,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.83,
+      "jitter_s": 0.5857
+    },
+    {
+      "flow_id": 240,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9745,
+      "jitter_s": 0.1523
+    },
+    {
+      "flow_id": 211,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9425,
+      "jitter_s": 0.0792
+    },
+    {
+      "flow_id": 217,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9113,
+      "jitter_s": 0.0276
+    },
+    {
+      "flow_id": 182,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8825,
+      "jitter_s": 0.0609
+    },
+    {
+      "flow_id": 221,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8153,
+      "jitter_s": 0.094
+    },
+    {
+      "flow_id": 338,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.8992,
+      "jitter_s": 1.6253
+    },
+    {
+      "flow_id": 50,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8243,
+      "jitter_s": 0.0186
+    },
+    {
+      "flow_id": 49,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9089,
+      "jitter_s": 0.0442
+    },
+    {
+      "flow_id": 98,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8776,
+      "jitter_s": 0.1279
+    },
+    {
+      "flow_id": 209,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8528,
+      "jitter_s": 0.0446
+    },
+    {
+      "flow_id": 414,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.7831,
+      "jitter_s": 0.5512
+    },
+    {
+      "flow_id": 467,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.8945,
+      "jitter_s": 1.1411
+    },
+    {
+      "flow_id": 402,
+      "category": "Benign_HTTP2_QUIC",
+      "protocol": "TCP_UDP_443",
+      "label": 0,
+      "entropy": 7.8383,
+      "jitter_s": 0.8292
+    },
+    {
+      "flow_id": 125,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9735,
+      "jitter_s": 0.084
+    },
+    {
+      "flow_id": 243,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9052,
+      "jitter_s": 0.1901
+    },
+    {
+      "flow_id": 296,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9297,
+      "jitter_s": 1.5356
+    },
+    {
+      "flow_id": 293,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9643,
+      "jitter_s": 0.7943
+    },
+    {
+      "flow_id": 452,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.6135,
+      "jitter_s": 1.2329
+    },
+    {
+      "flow_id": 371,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.9055,
+      "jitter_s": 0.6719
+    },
+    {
+      "flow_id": 68,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.9803,
+      "jitter_s": 0.0359
+    },
+    {
+      "flow_id": 277,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9586,
+      "jitter_s": 1.3877
+    },
+    {
+      "flow_id": 110,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9169,
+      "jitter_s": 0.0837
+    },
+    {
+      "flow_id": 249,
+      "category": "CTU13_Neris",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9051,
+      "jitter_s": 0.1078
+    },
+    {
+      "flow_id": 343,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.9615,
+      "jitter_s": 1.0295
+    },
+    {
+      "flow_id": 143,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9041,
+      "jitter_s": 0.0227
+    },
+    {
+      "flow_id": 122,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9647,
+      "jitter_s": 0.0478
+    },
+    {
+      "flow_id": 264,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.949,
+      "jitter_s": 0.8558
+    },
+    {
+      "flow_id": 490,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 5.3387,
+      "jitter_s": 1.6534
+    },
+    {
+      "flow_id": 170,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8854,
+      "jitter_s": 0.0273
+    },
+    {
+      "flow_id": 441,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.6309,
+      "jitter_s": 1.375
+    },
+    {
+      "flow_id": 17,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8311,
+      "jitter_s": 0.0859
+    },
+    {
+      "flow_id": 464,
+      "category": "Benign_DoH_DoT",
+      "protocol": "TCP_853_443",
+      "label": 0,
+      "entropy": 7.644,
+      "jitter_s": 1.1666
+    },
+    {
+      "flow_id": 35,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8327,
+      "jitter_s": 0.089
+    },
+    {
+      "flow_id": 494,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 5.934,
+      "jitter_s": 1.3131
+    },
+    {
+      "flow_id": 31,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8861,
+      "jitter_s": 0.0317
+    },
+    {
+      "flow_id": 324,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.9212,
+      "jitter_s": 0.089
+    },
+    {
+      "flow_id": 363,
+      "category": "Benign_TLS13_Browser",
+      "protocol": "TCP_443",
+      "label": 0,
+      "entropy": 7.9189,
+      "jitter_s": 1.4286
+    },
+    {
+      "flow_id": 37,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8209,
+      "jitter_s": 0.0752
+    },
+    {
+      "flow_id": 4,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8299,
+      "jitter_s": 0.0793
+    },
+    {
+      "flow_id": 113,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8477,
+      "jitter_s": 0.0383
+    },
+    {
+      "flow_id": 496,
+      "category": "Benign_Standard_Web",
+      "protocol": "TCP_80_8080",
+      "label": 0,
+      "entropy": 6.2782,
+      "jitter_s": 1.8589
+    },
+    {
+      "flow_id": 118,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.8351,
+      "jitter_s": 0.0742
+    },
+    {
+      "flow_id": 284,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9475,
+      "jitter_s": 1.1593
+    },
+    {
+      "flow_id": 302,
+      "category": "Benign_WireGuard_VPN",
+      "protocol": "UDP_51820",
+      "label": 0,
+      "entropy": 7.9324,
+      "jitter_s": 0.5141
+    },
+    {
+      "flow_id": 11,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.924,
+      "jitter_s": 0.0212
+    },
+    {
+      "flow_id": 174,
+      "category": "CTU13_Virut",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9143,
+      "jitter_s": 0.0234
+    },
+    {
+      "flow_id": 33,
+      "category": "Malicious_Cobalt_Strike",
+      "protocol": "HTTPS_C2",
+      "label": 1,
+      "entropy": 7.8678,
+      "jitter_s": 0.0534
+    },
+    {
+      "flow_id": 116,
+      "category": "CTU13_Rbot",
+      "protocol": "TCP_IRC_HTTP_C2",
+      "label": 1,
+      "entropy": 7.9431,
+      "jitter_s": 0.0577
+    }
+  ],
+  "roc_points": [
+    {
+      "H_thresh": 7.0,
+      "J_thresh": 0.05,
+      "TP": 97,
+      "FP": 0,
+      "FN": 153,
+      "TN": 250,
+      "TPR": 0.388,
+      "FPR": 0.0,
+      "Precision": 1.0,
+      "F1": 0.5591
+    },
+    {
+      "H_thresh": 7.0,
+      "J_thresh": 0.1,
+      "TP": 220,
+      "FP": 12,
+      "FN": 30,
+      "TN": 238,
+      "TPR": 0.88,
+      "FPR": 0.048,
+      "Precision": 0.9483,
+      "F1": 0.9129
+    },
+    {
+      "H_thresh": 7.0,
+      "J_thresh": 0.15,
+      "TP": 229,
+      "FP": 12,
+      "FN": 21,
+      "TN": 238,
+      "TPR": 0.916,
+      "FPR": 0.048,
+      "Precision": 0.9502,
+      "F1": 0.9328
+    },
+    {
+      "H_thresh": 7.0,
+      "J_thresh": 0.2,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.0,
+      "J_thresh": 0.25,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.0,
+      "J_thresh": 0.3,
+      "TP": 250,
+      "FP": 14,
+      "FN": 0,
+      "TN": 236,
+      "TPR": 1.0,
+      "FPR": 0.056,
+      "Precision": 0.947,
+      "F1": 0.9728
+    },
+    {
+      "H_thresh": 7.05,
+      "J_thresh": 0.05,
+      "TP": 97,
+      "FP": 0,
+      "FN": 153,
+      "TN": 250,
+      "TPR": 0.388,
+      "FPR": 0.0,
+      "Precision": 1.0,
+      "F1": 0.5591
+    },
+    {
+      "H_thresh": 7.05,
+      "J_thresh": 0.1,
+      "TP": 220,
+      "FP": 12,
+      "FN": 30,
+      "TN": 238,
+      "TPR": 0.88,
+      "FPR": 0.048,
+      "Precision": 0.9483,
+      "F1": 0.9129
+    },
+    {
+      "H_thresh": 7.05,
+      "J_thresh": 0.15,
+      "TP": 229,
+      "FP": 12,
+      "FN": 21,
+      "TN": 238,
+      "TPR": 0.916,
+      "FPR": 0.048,
+      "Precision": 0.9502,
+      "F1": 0.9328
+    },
+    {
+      "H_thresh": 7.05,
+      "J_thresh": 0.2,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.05,
+      "J_thresh": 0.25,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.05,
+      "J_thresh": 0.3,
+      "TP": 250,
+      "FP": 14,
+      "FN": 0,
+      "TN": 236,
+      "TPR": 1.0,
+      "FPR": 0.056,
+      "Precision": 0.947,
+      "F1": 0.9728
+    },
+    {
+      "H_thresh": 7.1,
+      "J_thresh": 0.05,
+      "TP": 97,
+      "FP": 0,
+      "FN": 153,
+      "TN": 250,
+      "TPR": 0.388,
+      "FPR": 0.0,
+      "Precision": 1.0,
+      "F1": 0.5591
+    },
+    {
+      "H_thresh": 7.1,
+      "J_thresh": 0.1,
+      "TP": 220,
+      "FP": 12,
+      "FN": 30,
+      "TN": 238,
+      "TPR": 0.88,
+      "FPR": 0.048,
+      "Precision": 0.9483,
+      "F1": 0.9129
+    },
+    {
+      "H_thresh": 7.1,
+      "J_thresh": 0.15,
+      "TP": 229,
+      "FP": 12,
+      "FN": 21,
+      "TN": 238,
+      "TPR": 0.916,
+      "FPR": 0.048,
+      "Precision": 0.9502,
+      "F1": 0.9328
+    },
+    {
+      "H_thresh": 7.1,
+      "J_thresh": 0.2,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.1,
+      "J_thresh": 0.25,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.1,
+      "J_thresh": 0.3,
+      "TP": 250,
+      "FP": 14,
+      "FN": 0,
+      "TN": 236,
+      "TPR": 1.0,
+      "FPR": 0.056,
+      "Precision": 0.947,
+      "F1": 0.9728
+    },
+    {
+      "H_thresh": 7.15,
+      "J_thresh": 0.05,
+      "TP": 97,
+      "FP": 0,
+      "FN": 153,
+      "TN": 250,
+      "TPR": 0.388,
+      "FPR": 0.0,
+      "Precision": 1.0,
+      "F1": 0.5591
+    },
+    {
+      "H_thresh": 7.15,
+      "J_thresh": 0.1,
+      "TP": 220,
+      "FP": 12,
+      "FN": 30,
+      "TN": 238,
+      "TPR": 0.88,
+      "FPR": 0.048,
+      "Precision": 0.9483,
+      "F1": 0.9129
+    },
+    {
+      "H_thresh": 7.15,
+      "J_thresh": 0.15,
+      "TP": 229,
+      "FP": 12,
+      "FN": 21,
+      "TN": 238,
+      "TPR": 0.916,
+      "FPR": 0.048,
+      "Precision": 0.9502,
+      "F1": 0.9328
+    },
+    {
+      "H_thresh": 7.15,
+      "J_thresh": 0.2,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.15,
+      "J_thresh": 0.25,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.15,
+      "J_thresh": 0.3,
+      "TP": 250,
+      "FP": 14,
+      "FN": 0,
+      "TN": 236,
+      "TPR": 1.0,
+      "FPR": 0.056,
+      "Precision": 0.947,
+      "F1": 0.9728
+    },
+    {
+      "H_thresh": 7.2,
+      "J_thresh": 0.05,
+      "TP": 97,
+      "FP": 0,
+      "FN": 153,
+      "TN": 250,
+      "TPR": 0.388,
+      "FPR": 0.0,
+      "Precision": 1.0,
+      "F1": 0.5591
+    },
+    {
+      "H_thresh": 7.2,
+      "J_thresh": 0.1,
+      "TP": 220,
+      "FP": 12,
+      "FN": 30,
+      "TN": 238,
+      "TPR": 0.88,
+      "FPR": 0.048,
+      "Precision": 0.9483,
+      "F1": 0.9129
+    },
+    {
+      "H_thresh": 7.2,
+      "J_thresh": 0.15,
+      "TP": 229,
+      "FP": 12,
+      "FN": 21,
+      "TN": 238,
+      "TPR": 0.916,
+      "FPR": 0.048,
+      "Precision": 0.9502,
+      "F1": 0.9328
+    },
+    {
+      "H_thresh": 7.2,
+      "J_thresh": 0.2,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.2,
+      "J_thresh": 0.25,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.2,
+      "J_thresh": 0.3,
+      "TP": 250,
+      "FP": 14,
+      "FN": 0,
+      "TN": 236,
+      "TPR": 1.0,
+      "FPR": 0.056,
+      "Precision": 0.947,
+      "F1": 0.9728
+    },
+    {
+      "H_thresh": 7.25,
+      "J_thresh": 0.05,
+      "TP": 97,
+      "FP": 0,
+      "FN": 153,
+      "TN": 250,
+      "TPR": 0.388,
+      "FPR": 0.0,
+      "Precision": 1.0,
+      "F1": 0.5591
+    },
+    {
+      "H_thresh": 7.25,
+      "J_thresh": 0.1,
+      "TP": 220,
+      "FP": 12,
+      "FN": 30,
+      "TN": 238,
+      "TPR": 0.88,
+      "FPR": 0.048,
+      "Precision": 0.9483,
+      "F1": 0.9129
+    },
+    {
+      "H_thresh": 7.25,
+      "J_thresh": 0.15,
+      "TP": 229,
+      "FP": 12,
+      "FN": 21,
+      "TN": 238,
+      "TPR": 0.916,
+      "FPR": 0.048,
+      "Precision": 0.9502,
+      "F1": 0.9328
+    },
+    {
+      "H_thresh": 7.25,
+      "J_thresh": 0.2,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.25,
+      "J_thresh": 0.25,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.25,
+      "J_thresh": 0.3,
+      "TP": 250,
+      "FP": 14,
+      "FN": 0,
+      "TN": 236,
+      "TPR": 1.0,
+      "FPR": 0.056,
+      "Precision": 0.947,
+      "F1": 0.9728
+    },
+    {
+      "H_thresh": 7.3,
+      "J_thresh": 0.05,
+      "TP": 97,
+      "FP": 0,
+      "FN": 153,
+      "TN": 250,
+      "TPR": 0.388,
+      "FPR": 0.0,
+      "Precision": 1.0,
+      "F1": 0.5591
+    },
+    {
+      "H_thresh": 7.3,
+      "J_thresh": 0.1,
+      "TP": 220,
+      "FP": 12,
+      "FN": 30,
+      "TN": 238,
+      "TPR": 0.88,
+      "FPR": 0.048,
+      "Precision": 0.9483,
+      "F1": 0.9129
+    },
+    {
+      "H_thresh": 7.3,
+      "J_thresh": 0.15,
+      "TP": 229,
+      "FP": 12,
+      "FN": 21,
+      "TN": 238,
+      "TPR": 0.916,
+      "FPR": 0.048,
+      "Precision": 0.9502,
+      "F1": 0.9328
+    },
+    {
+      "H_thresh": 7.3,
+      "J_thresh": 0.2,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.3,
+      "J_thresh": 0.25,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.3,
+      "J_thresh": 0.3,
+      "TP": 250,
+      "FP": 14,
+      "FN": 0,
+      "TN": 236,
+      "TPR": 1.0,
+      "FPR": 0.056,
+      "Precision": 0.947,
+      "F1": 0.9728
+    },
+    {
+      "H_thresh": 7.35,
+      "J_thresh": 0.05,
+      "TP": 97,
+      "FP": 0,
+      "FN": 153,
+      "TN": 250,
+      "TPR": 0.388,
+      "FPR": 0.0,
+      "Precision": 1.0,
+      "F1": 0.5591
+    },
+    {
+      "H_thresh": 7.35,
+      "J_thresh": 0.1,
+      "TP": 220,
+      "FP": 12,
+      "FN": 30,
+      "TN": 238,
+      "TPR": 0.88,
+      "FPR": 0.048,
+      "Precision": 0.9483,
+      "F1": 0.9129
+    },
+    {
+      "H_thresh": 7.35,
+      "J_thresh": 0.15,
+      "TP": 229,
+      "FP": 12,
+      "FN": 21,
+      "TN": 238,
+      "TPR": 0.916,
+      "FPR": 0.048,
+      "Precision": 0.9502,
+      "F1": 0.9328
+    },
+    {
+      "H_thresh": 7.35,
+      "J_thresh": 0.2,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.35,
+      "J_thresh": 0.25,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.35,
+      "J_thresh": 0.3,
+      "TP": 250,
+      "FP": 14,
+      "FN": 0,
+      "TN": 236,
+      "TPR": 1.0,
+      "FPR": 0.056,
+      "Precision": 0.947,
+      "F1": 0.9728
+    },
+    {
+      "H_thresh": 7.4,
+      "J_thresh": 0.05,
+      "TP": 97,
+      "FP": 0,
+      "FN": 153,
+      "TN": 250,
+      "TPR": 0.388,
+      "FPR": 0.0,
+      "Precision": 1.0,
+      "F1": 0.5591
+    },
+    {
+      "H_thresh": 7.4,
+      "J_thresh": 0.1,
+      "TP": 220,
+      "FP": 12,
+      "FN": 30,
+      "TN": 238,
+      "TPR": 0.88,
+      "FPR": 0.048,
+      "Precision": 0.9483,
+      "F1": 0.9129
+    },
+    {
+      "H_thresh": 7.4,
+      "J_thresh": 0.15,
+      "TP": 229,
+      "FP": 12,
+      "FN": 21,
+      "TN": 238,
+      "TPR": 0.916,
+      "FPR": 0.048,
+      "Precision": 0.9502,
+      "F1": 0.9328
+    },
+    {
+      "H_thresh": 7.4,
+      "J_thresh": 0.2,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.4,
+      "J_thresh": 0.25,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.4,
+      "J_thresh": 0.3,
+      "TP": 250,
+      "FP": 14,
+      "FN": 0,
+      "TN": 236,
+      "TPR": 1.0,
+      "FPR": 0.056,
+      "Precision": 0.947,
+      "F1": 0.9728
+    },
+    {
+      "H_thresh": 7.45,
+      "J_thresh": 0.05,
+      "TP": 97,
+      "FP": 0,
+      "FN": 153,
+      "TN": 250,
+      "TPR": 0.388,
+      "FPR": 0.0,
+      "Precision": 1.0,
+      "F1": 0.5591
+    },
+    {
+      "H_thresh": 7.45,
+      "J_thresh": 0.1,
+      "TP": 220,
+      "FP": 12,
+      "FN": 30,
+      "TN": 238,
+      "TPR": 0.88,
+      "FPR": 0.048,
+      "Precision": 0.9483,
+      "F1": 0.9129
+    },
+    {
+      "H_thresh": 7.45,
+      "J_thresh": 0.15,
+      "TP": 229,
+      "FP": 12,
+      "FN": 21,
+      "TN": 238,
+      "TPR": 0.916,
+      "FPR": 0.048,
+      "Precision": 0.9502,
+      "F1": 0.9328
+    },
+    {
+      "H_thresh": 7.45,
+      "J_thresh": 0.2,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.45,
+      "J_thresh": 0.25,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.45,
+      "J_thresh": 0.3,
+      "TP": 250,
+      "FP": 14,
+      "FN": 0,
+      "TN": 236,
+      "TPR": 1.0,
+      "FPR": 0.056,
+      "Precision": 0.947,
+      "F1": 0.9728
+    },
+    {
+      "H_thresh": 7.5,
+      "J_thresh": 0.05,
+      "TP": 97,
+      "FP": 0,
+      "FN": 153,
+      "TN": 250,
+      "TPR": 0.388,
+      "FPR": 0.0,
+      "Precision": 1.0,
+      "F1": 0.5591
+    },
+    {
+      "H_thresh": 7.5,
+      "J_thresh": 0.1,
+      "TP": 220,
+      "FP": 12,
+      "FN": 30,
+      "TN": 238,
+      "TPR": 0.88,
+      "FPR": 0.048,
+      "Precision": 0.9483,
+      "F1": 0.9129
+    },
+    {
+      "H_thresh": 7.5,
+      "J_thresh": 0.15,
+      "TP": 229,
+      "FP": 12,
+      "FN": 21,
+      "TN": 238,
+      "TPR": 0.916,
+      "FPR": 0.048,
+      "Precision": 0.9502,
+      "F1": 0.9328
+    },
+    {
+      "H_thresh": 7.5,
+      "J_thresh": 0.2,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.5,
+      "J_thresh": 0.25,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.5,
+      "J_thresh": 0.3,
+      "TP": 250,
+      "FP": 14,
+      "FN": 0,
+      "TN": 236,
+      "TPR": 1.0,
+      "FPR": 0.056,
+      "Precision": 0.947,
+      "F1": 0.9728
+    },
+    {
+      "H_thresh": 7.55,
+      "J_thresh": 0.05,
+      "TP": 97,
+      "FP": 0,
+      "FN": 153,
+      "TN": 250,
+      "TPR": 0.388,
+      "FPR": 0.0,
+      "Precision": 1.0,
+      "F1": 0.5591
+    },
+    {
+      "H_thresh": 7.55,
+      "J_thresh": 0.1,
+      "TP": 220,
+      "FP": 12,
+      "FN": 30,
+      "TN": 238,
+      "TPR": 0.88,
+      "FPR": 0.048,
+      "Precision": 0.9483,
+      "F1": 0.9129
+    },
+    {
+      "H_thresh": 7.55,
+      "J_thresh": 0.15,
+      "TP": 229,
+      "FP": 12,
+      "FN": 21,
+      "TN": 238,
+      "TPR": 0.916,
+      "FPR": 0.048,
+      "Precision": 0.9502,
+      "F1": 0.9328
+    },
+    {
+      "H_thresh": 7.55,
+      "J_thresh": 0.2,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.55,
+      "J_thresh": 0.25,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.55,
+      "J_thresh": 0.3,
+      "TP": 250,
+      "FP": 14,
+      "FN": 0,
+      "TN": 236,
+      "TPR": 1.0,
+      "FPR": 0.056,
+      "Precision": 0.947,
+      "F1": 0.9728
+    },
+    {
+      "H_thresh": 7.6,
+      "J_thresh": 0.05,
+      "TP": 97,
+      "FP": 0,
+      "FN": 153,
+      "TN": 250,
+      "TPR": 0.388,
+      "FPR": 0.0,
+      "Precision": 1.0,
+      "F1": 0.5591
+    },
+    {
+      "H_thresh": 7.6,
+      "J_thresh": 0.1,
+      "TP": 220,
+      "FP": 12,
+      "FN": 30,
+      "TN": 238,
+      "TPR": 0.88,
+      "FPR": 0.048,
+      "Precision": 0.9483,
+      "F1": 0.9129
+    },
+    {
+      "H_thresh": 7.6,
+      "J_thresh": 0.15,
+      "TP": 229,
+      "FP": 12,
+      "FN": 21,
+      "TN": 238,
+      "TPR": 0.916,
+      "FPR": 0.048,
+      "Precision": 0.9502,
+      "F1": 0.9328
+    },
+    {
+      "H_thresh": 7.6,
+      "J_thresh": 0.2,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.6,
+      "J_thresh": 0.25,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.6,
+      "J_thresh": 0.3,
+      "TP": 250,
+      "FP": 14,
+      "FN": 0,
+      "TN": 236,
+      "TPR": 1.0,
+      "FPR": 0.056,
+      "Precision": 0.947,
+      "F1": 0.9728
+    },
+    {
+      "H_thresh": 7.65,
+      "J_thresh": 0.05,
+      "TP": 97,
+      "FP": 0,
+      "FN": 153,
+      "TN": 250,
+      "TPR": 0.388,
+      "FPR": 0.0,
+      "Precision": 1.0,
+      "F1": 0.5591
+    },
+    {
+      "H_thresh": 7.65,
+      "J_thresh": 0.1,
+      "TP": 220,
+      "FP": 12,
+      "FN": 30,
+      "TN": 238,
+      "TPR": 0.88,
+      "FPR": 0.048,
+      "Precision": 0.9483,
+      "F1": 0.9129
+    },
+    {
+      "H_thresh": 7.65,
+      "J_thresh": 0.15,
+      "TP": 229,
+      "FP": 12,
+      "FN": 21,
+      "TN": 238,
+      "TPR": 0.916,
+      "FPR": 0.048,
+      "Precision": 0.9502,
+      "F1": 0.9328
+    },
+    {
+      "H_thresh": 7.65,
+      "J_thresh": 0.2,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.65,
+      "J_thresh": 0.25,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.65,
+      "J_thresh": 0.3,
+      "TP": 250,
+      "FP": 14,
+      "FN": 0,
+      "TN": 236,
+      "TPR": 1.0,
+      "FPR": 0.056,
+      "Precision": 0.947,
+      "F1": 0.9728
+    },
+    {
+      "H_thresh": 7.7,
+      "J_thresh": 0.05,
+      "TP": 97,
+      "FP": 0,
+      "FN": 153,
+      "TN": 250,
+      "TPR": 0.388,
+      "FPR": 0.0,
+      "Precision": 1.0,
+      "F1": 0.5591
+    },
+    {
+      "H_thresh": 7.7,
+      "J_thresh": 0.1,
+      "TP": 220,
+      "FP": 12,
+      "FN": 30,
+      "TN": 238,
+      "TPR": 0.88,
+      "FPR": 0.048,
+      "Precision": 0.9483,
+      "F1": 0.9129
+    },
+    {
+      "H_thresh": 7.7,
+      "J_thresh": 0.15,
+      "TP": 229,
+      "FP": 12,
+      "FN": 21,
+      "TN": 238,
+      "TPR": 0.916,
+      "FPR": 0.048,
+      "Precision": 0.9502,
+      "F1": 0.9328
+    },
+    {
+      "H_thresh": 7.7,
+      "J_thresh": 0.2,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.7,
+      "J_thresh": 0.25,
+      "TP": 250,
+      "FP": 13,
+      "FN": 0,
+      "TN": 237,
+      "TPR": 1.0,
+      "FPR": 0.052,
+      "Precision": 0.9506,
+      "F1": 0.9747
+    },
+    {
+      "H_thresh": 7.7,
+      "J_thresh": 0.3,
+      "TP": 250,
+      "FP": 14,
+      "FN": 0,
+      "TN": 236,
+      "TPR": 1.0,
+      "FPR": 0.056,
+      "Precision": 0.947,
+      "F1": 0.9728
+    },
+    {
+      "H_thresh": 7.75,
+      "J_thresh": 0.05,
+      "TP": 97,
+      "FP": 0,
+      "FN": 153,
+      "TN": 250,
+      "TPR": 0.388,
+      "FPR": 0.0,
+      "Precision": 1.0,
+      "F1": 0.5591
+    },
+    {
+      "H_thresh": 7.75,
+      "J_thresh": 0.1,
+      "TP": 220,
+      "FP": 10,
+      "FN": 30,
+      "TN": 240,
+      "TPR": 0.88,
+      "FPR": 0.04,
+      "Precision": 0.9565,
+      "F1": 0.9167
+    },
+    {
+      "H_thresh": 7.75,
+      "J_thresh": 0.15,
+      "TP": 229,
+      "FP": 10,
+      "FN": 21,
+      "TN": 240,
+      "TPR": 0.916,
+      "FPR": 0.04,
+      "Precision": 0.9582,
+      "F1": 0.9366
+    },
+    {
+      "H_thresh": 7.75,
+      "J_thresh": 0.2,
+      "TP": 250,
+      "FP": 11,
+      "FN": 0,
+      "TN": 239,
+      "TPR": 1.0,
+      "FPR": 0.044,
+      "Precision": 0.9579,
+      "F1": 0.9785
+    },
+    {
+      "H_thresh": 7.75,
+      "J_thresh": 0.25,
+      "TP": 250,
+      "FP": 11,
+      "FN": 0,
+      "TN": 239,
+      "TPR": 1.0,
+      "FPR": 0.044,
+      "Precision": 0.9579,
+      "F1": 0.9785
+    },
+    {
+      "H_thresh": 7.75,
+      "J_thresh": 0.3,
+      "TP": 250,
+      "FP": 12,
+      "FN": 0,
+      "TN": 238,
+      "TPR": 1.0,
+      "FPR": 0.048,
+      "Precision": 0.9542,
+      "F1": 0.9766
+    },
+    {
+      "H_thresh": 7.8,
+      "J_thresh": 0.05,
+      "TP": 97,
+      "FP": 0,
+      "FN": 153,
+      "TN": 250,
+      "TPR": 0.388,
+      "FPR": 0.0,
+      "Precision": 1.0,
+      "F1": 0.5591
+    },
+    {
+      "H_thresh": 7.8,
+      "J_thresh": 0.1,
+      "TP": 220,
+      "FP": 9,
+      "FN": 30,
+      "TN": 241,
+      "TPR": 0.88,
+      "FPR": 0.036,
+      "Precision": 0.9607,
+      "F1": 0.9186
+    },
+    {
+      "H_thresh": 7.8,
+      "J_thresh": 0.15,
+      "TP": 229,
+      "FP": 9,
+      "FN": 21,
+      "TN": 241,
+      "TPR": 0.916,
+      "FPR": 0.036,
+      "Precision": 0.9622,
+      "F1": 0.9385
+    },
+    {
+      "H_thresh": 7.8,
+      "J_thresh": 0.2,
+      "TP": 250,
+      "FP": 10,
+      "FN": 0,
+      "TN": 240,
+      "TPR": 1.0,
+      "FPR": 0.04,
+      "Precision": 0.9615,
+      "F1": 0.9804
+    },
+    {
+      "H_thresh": 7.8,
+      "J_thresh": 0.25,
+      "TP": 250,
+      "FP": 10,
+      "FN": 0,
+      "TN": 240,
+      "TPR": 1.0,
+      "FPR": 0.04,
+      "Precision": 0.9615,
+      "F1": 0.9804
+    },
+    {
+      "H_thresh": 7.8,
+      "J_thresh": 0.3,
+      "TP": 250,
+      "FP": 11,
+      "FN": 0,
+      "TN": 239,
+      "TPR": 1.0,
+      "FPR": 0.044,
+      "Precision": 0.9579,
+      "F1": 0.9785
+    },
+    {
+      "H_thresh": 7.85,
+      "J_thresh": 0.05,
+      "TP": 78,
+      "FP": 0,
+      "FN": 172,
+      "TN": 250,
+      "TPR": 0.312,
+      "FPR": 0.0,
+      "Precision": 1.0,
+      "F1": 0.4756
+    },
+    {
+      "H_thresh": 7.85,
+      "J_thresh": 0.1,
+      "TP": 166,
+      "FP": 9,
+      "FN": 84,
+      "TN": 241,
+      "TPR": 0.664,
+      "FPR": 0.036,
+      "Precision": 0.9486,
+      "F1": 0.7812
+    },
+    {
+      "H_thresh": 7.85,
+      "J_thresh": 0.15,
+      "TP": 173,
+      "FP": 9,
+      "FN": 77,
+      "TN": 241,
+      "TPR": 0.692,
+      "FPR": 0.036,
+      "Precision": 0.9505,
+      "F1": 0.8009
+    },
+    {
+      "H_thresh": 7.85,
+      "J_thresh": 0.2,
+      "TP": 188,
+      "FP": 10,
+      "FN": 62,
+      "TN": 240,
+      "TPR": 0.752,
+      "FPR": 0.04,
+      "Precision": 0.9495,
+      "F1": 0.8393
+    },
+    {
+      "H_thresh": 7.85,
+      "J_thresh": 0.25,
+      "TP": 188,
+      "FP": 10,
+      "FN": 62,
+      "TN": 240,
+      "TPR": 0.752,
+      "FPR": 0.04,
+      "Precision": 0.9495,
+      "F1": 0.8393
+    },
+    {
+      "H_thresh": 7.85,
+      "J_thresh": 0.3,
+      "TP": 188,
+      "FP": 10,
+      "FN": 62,
+      "TN": 240,
+      "TPR": 0.752,
+      "FPR": 0.04,
+      "Precision": 0.9495,
+      "F1": 0.8393
+    },
+    {
+      "H_thresh": 7.9,
+      "J_thresh": 0.05,
+      "TP": 48,
+      "FP": 0,
+      "FN": 202,
+      "TN": 250,
+      "TPR": 0.192,
+      "FPR": 0.0,
+      "Precision": 1.0,
+      "F1": 0.3221
+    },
+    {
+      "H_thresh": 7.9,
+      "J_thresh": 0.1,
+      "TP": 101,
+      "FP": 6,
+      "FN": 149,
+      "TN": 244,
+      "TPR": 0.404,
+      "FPR": 0.024,
+      "Precision": 0.9439,
+      "F1": 0.5658
+    },
+    {
+      "H_thresh": 7.9,
+      "J_thresh": 0.15,
+      "TP": 105,
+      "FP": 6,
+      "FN": 145,
+      "TN": 244,
+      "TPR": 0.42,
+      "FPR": 0.024,
+      "Precision": 0.9459,
+      "F1": 0.5817
+    },
+    {
+      "H_thresh": 7.9,
+      "J_thresh": 0.2,
+      "TP": 115,
+      "FP": 6,
+      "FN": 135,
+      "TN": 244,
+      "TPR": 0.46,
+      "FPR": 0.024,
+      "Precision": 0.9504,
+      "F1": 0.6199
+    },
+    {
+      "H_thresh": 7.9,
+      "J_thresh": 0.25,
+      "TP": 115,
+      "FP": 6,
+      "FN": 135,
+      "TN": 244,
+      "TPR": 0.46,
+      "FPR": 0.024,
+      "Precision": 0.9504,
+      "F1": 0.6199
+    },
+    {
+      "H_thresh": 7.9,
+      "J_thresh": 0.3,
+      "TP": 115,
+      "FP": 6,
+      "FN": 135,
+      "TN": 244,
+      "TPR": 0.46,
+      "FPR": 0.024,
+      "Precision": 0.9504,
+      "F1": 0.6199
+    },
+    {
+      "H_thresh": 7.95,
+      "J_thresh": 0.05,
+      "TP": 20,
+      "FP": 0,
+      "FN": 230,
+      "TN": 250,
+      "TPR": 0.08,
+      "FPR": 0.0,
+      "Precision": 1.0,
+      "F1": 0.1481
+    },
+    {
+      "H_thresh": 7.95,
+      "J_thresh": 0.1,
+      "TP": 43,
+      "FP": 4,
+      "FN": 207,
+      "TN": 246,
+      "TPR": 0.172,
+      "FPR": 0.016,
+      "Precision": 0.9149,
+      "F1": 0.2896
+    },
+    {
+      "H_thresh": 7.95,
+      "J_thresh": 0.15,
+      "TP": 45,
+      "FP": 4,
+      "FN": 205,
+      "TN": 246,
+      "TPR": 0.18,
+      "FPR": 0.016,
+      "Precision": 0.9184,
+      "F1": 0.301
+    },
+    {
+      "H_thresh": 7.95,
+      "J_thresh": 0.2,
+      "TP": 51,
+      "FP": 4,
+      "FN": 199,
+      "TN": 246,
+      "TPR": 0.204,
+      "FPR": 0.016,
+      "Precision": 0.9273,
+      "F1": 0.3344
+    },
+    {
+      "H_thresh": 7.95,
+      "J_thresh": 0.25,
+      "TP": 51,
+      "FP": 4,
+      "FN": 199,
+      "TN": 246,
+      "TPR": 0.204,
+      "FPR": 0.016,
+      "Precision": 0.9273,
+      "F1": 0.3344
+    },
+    {
+      "H_thresh": 7.95,
+      "J_thresh": 0.3,
+      "TP": 51,
+      "FP": 4,
+      "FN": 199,
+      "TN": 246,
+      "TPR": 0.204,
+      "FPR": 0.016,
+      "Precision": 0.9273,
+      "F1": 0.3344
+    },
+    {
+      "H_thresh": 8.0,
+      "J_thresh": 0.05,
+      "TP": 0,
+      "FP": 0,
+      "FN": 250,
+      "TN": 250,
+      "TPR": 0.0,
+      "FPR": 0.0,
+      "Precision": 0,
+      "F1": 0
+    },
+    {
+      "H_thresh": 8.0,
+      "J_thresh": 0.1,
+      "TP": 0,
+      "FP": 0,
+      "FN": 250,
+      "TN": 250,
+      "TPR": 0.0,
+      "FPR": 0.0,
+      "Precision": 0,
+      "F1": 0
+    },
+    {
+      "H_thresh": 8.0,
+      "J_thresh": 0.15,
+      "TP": 0,
+      "FP": 0,
+      "FN": 250,
+      "TN": 250,
+      "TPR": 0.0,
+      "FPR": 0.0,
+      "Precision": 0,
+      "F1": 0
+    },
+    {
+      "H_thresh": 8.0,
+      "J_thresh": 0.2,
+      "TP": 0,
+      "FP": 0,
+      "FN": 250,
+      "TN": 250,
+      "TPR": 0.0,
+      "FPR": 0.0,
+      "Precision": 0,
+      "F1": 0
+    },
+    {
+      "H_thresh": 8.0,
+      "J_thresh": 0.25,
+      "TP": 0,
+      "FP": 0,
+      "FN": 250,
+      "TN": 250,
+      "TPR": 0.0,
+      "FPR": 0.0,
+      "Precision": 0,
+      "F1": 0
+    },
+    {
+      "H_thresh": 8.0,
+      "J_thresh": 0.3,
+      "TP": 0,
+      "FP": 0,
+      "FN": 250,
+      "TN": 250,
+      "TPR": 0.0,
+      "FPR": 0.0,
+      "Precision": 0,
+      "F1": 0
+    }
+  ]
+}
