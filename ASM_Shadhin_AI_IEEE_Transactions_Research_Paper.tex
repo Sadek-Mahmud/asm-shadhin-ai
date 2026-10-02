@@ -86,13 +86,12 @@ $5.30\times$ throughput advantage and a $\approx\!210\times$ latency reduction
 ($p < 10^{-15}$, Welch's two-sample \textit{t}-test, $\mathit{df} \approx 39$,
 95\% CI for throughput: $[1.489,\,1.500]\,\text{Mpps}$). DPDK achieves
 higher raw throughput ($3.798\,\text{Mpps}$) but requires $100\%$ dedicated
-CPU polling. The Edge-LLM was evaluated on 50 labeled threat scenarios
-(40 malicious/benign classification scenarios from UNSW-NB15,
-CSE-CIC-IDS2018, and normal traffic; plus 10 adversarial CFG-stress scenarios).
-Over the 40 non-adversarial classification scenarios, it achieved 96.0\%
-overall accuracy (48/50 including adversarial), 96.7\% precision, 96.7\%
-recall, and 0.967 F1-score. All 10 adversarial CFG-stress scenarios produced
-valid, executable directives without parser crashes.
+CPU polling. The Edge-LLM was evaluated on 50 labeled threat scenarios,
+achieving 96.0\% overall accuracy (48/50). Over the 40 non-adversarial
+classification scenarios (UNSW-NB15 and CSE-CIC-IDS2018 malicious plus benign
+traffic), precision, recall, and F1-score were each 0.967. All 10 adversarial
+context-free grammar (CFG)-stress scenarios produced valid, executable
+directives, demonstrating CFG-constrained decoding robustness under the tested inputs.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -147,10 +146,10 @@ This paper makes five primary technical contributions:
   \item \textbf{Sub-Microsecond In-Kernel Fast Data Plane:} We implement an
     eBPF/XDP packet-processing pipeline executing inside the NIC driver callback
     prior to socket-buffer allocation. The pipeline performs LPM trie lookups
-    ($O(\log N)$ worst case, ${\approx}64\,\text{ns}$ JIT-compiled average) and
-    stateful TCP-flag validation. Measured mean packet processing latency is
-    $0.126\,\mu\text{s}$ (observed stage-peak $0.33\,\mu\text{s}$) on commodity
-    x86-64 hardware.
+    ($O(\log N)$ worst case, ${\approx}64\,\text{ns}$ just-in-time (JIT) compiled
+    average) and stateful TCP-flag validation. Measured mean packet processing
+    latency is $0.126\,\mu\text{s}$ (observed stage-peak $0.33\,\mu\text{s}$) on
+    commodity x86-64 hardware.
 
   \item \textbf{Air-Gapped Edge-LLM Threat Reasoning:} We decouple deep semantic
     evaluation from the line-rate data path via an asynchronous Edge-LLM triage
@@ -162,15 +161,16 @@ This paper makes five primary technical contributions:
     MTD mechanism mutating externally exposed service ports across discrete epochs
     using keyed HMAC-SHA256 pseudo-random permutations. Key establishment is secured
     via NIST FIPS~203 (ML-KEM-1024) and authenticated via FIPS~204 (ML-DSA-65),
-    providing IND-CCA2 security against \emph{Store Now, Decrypt Later} (SNDL)
-    attacks under the MLWE hardness assumption. The $1{,}219\times$
+    providing indistinguishability under chosen-ciphertext attack (IND-CCA2)
+    security against \emph{Store Now, Decrypt Later} (SNDL) attacks under the
+    Module Learning With Errors (MLWE) hardness assumption. The $1{,}219\times$
     reconnaissance-cost derivation is presented in Section~VIII.
 
   \item \textbf{Zero-Decryption Streaming Entropy Engine:} We implement an inline
     streaming Shannon byte-entropy and inter-arrival timing jitter analyzer
     detecting high-entropy C2 beaconing without Man-in-the-Middle decryption.
     Threshold justification (ROC-curve analysis) and classification performance
-    are reported in Section~VI-D.
+    are reported in Section~VI-E.
 
   \item \textbf{Reproducible Empirical \& Statistical Benchmarking:} Under a
     10,000,000-packet stress flood and $N=30$ independent benchmark runs,
@@ -201,9 +201,10 @@ The performance limitations of user-space packet inspection have long driven
 research toward kernel bypass and programmable data planes. Bro (now
 Zeek)~\cite{paxson1999bro} and Snort~\cite{roesch1999snort} established
 signature-based detection but remain bound to user-space capture interfaces.
-Intel DPDK achieved multi-gigabit processing via poll-mode drivers (PMD) that
-bypass the kernel~\cite{miano2018creating}, but requires 100\% dedicated CPU
-core polling and lacks native OS security-policy integration.
+Intel Data Plane Development Kit (DPDK) achieved multi-gigabit processing
+via poll-mode drivers (PMDs) that bypass the kernel~\cite{miano2018creating},
+but requires 100\% dedicated CPU core polling and lacks native OS
+security-policy integration.
 
 H{\o}iland-J{\o}rgensen et al.~\cite{hoiland2018express} introduced XDP, enabling
 in-kernel verified byte-code execution inside the device driver ring before
@@ -225,9 +226,9 @@ Moustafa and Slay~\cite{moustafa2015unsw} introduced UNSW-NB15 spanning nine
 attack categories. Sharafaldin et al.~\cite{sharafaldin2018toward} demonstrated
 that flow-level features significantly improve detection accuracy.
 
-GNN-based approaches such as GRAPHIDS~\cite{zhao2023graphids} achieve 97.3\%
-F1-score on provenance graph traces but are incompatible with real-time
-per-packet inline enforcement due to $O(|V|^2)$ per-epoch complexity.
+Graph neural network (GNN)-based approaches such as GRAPHIDS~\cite{zhao2023graphids}
+achieve 97.3\% F1-score on provenance graph traces but are incompatible with
+real-time per-packet inline enforcement due to $O(|V|^2)$ per-epoch complexity.
 Garcia et al.~\cite{garcia2014empirical} showed botnet detection accuracy can
 degrade 30--60\% under adversarially crafted perturbations. Anderson and
 McGrew~\cite{anderson2016identifying} demonstrated 92.1\% malware classification
@@ -250,8 +251,8 @@ digital signatures~\cite{nist2024mlkem,nist2024mldsa}. Alkim et
 al.~\cite{alkim2016post} demonstrated that lattice-based primitives can match or
 exceed elliptic-curve performance on commodity x86 hardware. Sharma and
 Arora~\cite{sharma2023evaluating} showed ML-KEM overhead is within 12--18\% of
-X25519 on ARM Cortex-M4, validating PQC practicality in resource-constrained
-environments.
+X25519 on ARM Cortex-M4, validating post-quantum cryptography (PQC) practicality
+in resource-constrained environments.
 
 MTD~\cite{jajodia2011moving,zheng2022moving} introduces dynamic asymmetry by
 continuously shifting network parameters, forcing adversaries into costly
@@ -282,7 +283,7 @@ Suricata~7.x \cite{oisf2024suricata}   & $180$--$600\,\mu\text{s}$         & $>1
 Intel DPDK \cite{miano2018creating}    & $0.08$--$0.10\,\mu\text{s}$       & ${\approx}0\%$  & External             & Sovereign          & None          & 100\% dedicated core polling; no OS integration \\
 Palo Alto PAN-OS \cite{sarhan2022standard} & $25$--$120\,\mu\text{s}$      & $<2\%$          & Cloud WildFire ML    & Telemetry Leaked   & Partial       & Mandatory vendor cloud uplink; license cost \\
 Cloudflare MT \cite{ring2019survey}    & $10$--$80\,\text{ms}$             & ${\approx}0\%$  & Cloud ML             & Telemetry Leaked   & Experimental  & WAN routing latency; disqualified for air-gap \\
-\textbf{ASM-Shadhin-AI (Ours)}         & $\mathbf{0.124\,\mu\text{s}}$ (mean) & $\mathbf{0.00\%}$ & Local Edge-LLM (CFG) & \textbf{Sovereign} & \textbf{FIPS 203/204} & Decoupled fast-path + local AI; LLM on slow path \\
+\textbf{ASM-Shadhin-AI (Ours)}         & $\mathbf{0.126\,\mu\text{s}}$ (mean) & $\mathbf{0.00\%}$ & Local Edge-LLM (CFG) & \textbf{Sovereign} & \textbf{FIPS~203/204} & Decoupled fast-path + local AI; LLM on slow path \\
 \bottomrule
 \end{tabular}}
 \end{table*}
@@ -313,7 +314,7 @@ bounded as follows.
     overflow strings) in network packets to disrupt LLM-based triage.
     CFG-constrained decoding limits the model's exposure to such inputs but does
     not constitute a proof-theoretic guarantee of immunity; residual risk is
-    characterized in Section~VI-C.
+    characterized in Section~VI-D.
 
   \item \textbf{Quantum-Era Ciphertext Archiving:} $\mathcal{A}$ intercepts and
     archives encrypted control sessions under the SNDL paradigm, anticipating
@@ -403,9 +404,10 @@ account for timing-based side channels.
 
 \textbf{Property~3 (Post-Quantum Epoch Forward Secrecy):}
 Epoch keys $K_{\text{epoch}}$ are derived via ML-KEM-1024 with IND-CCA2 security
-under the MLWE hardness assumption. A quantum-capable adversary with a CRQC cannot
-recover past $K_{\text{epoch}}$ values from archived ciphertext. Forward secrecy
-holds provided that $\text{sk}$ is erased at epoch expiry per Section~III-C.
+under the MLWE hardness assumption. A quantum-capable adversary with a
+cryptanalytically relevant quantum computer (CRQC) cannot recover past
+$K_{\text{epoch}}$ values from archived ciphertext. Forward secrecy holds
+provided that $\text{sk}$ is erased at epoch expiry per Section~III-C.
 
 % =============================================================================
 \section{System Architecture \& Mathematical Foundations}
@@ -451,9 +453,14 @@ XDP pipeline executes four deterministic stages:
 \begin{figure}[!t]
 \centering
 \includegraphics[width=0.98\linewidth]{docs/figures/fig1_xdp_pipeline.png}
-\caption{In-kernel eBPF/XDP pipeline execution latency across operational stages.
-Mean per-packet latency is $0.124\,\mu\text{s}$; observed stage-peak is
-$0.33\,\mu\text{s}$, both sub-microsecond under the 10M-packet testbed workload.}
+\caption{In-kernel eBPF/XDP pipeline stage-by-stage execution latency
+(Intel i5-4570 testbed, 10{,}000{,}000-packet flood, Ubuntu Server 22.04
+LTS, Linux kernel 6.8.0). The four pipeline stages are: CIDR blocklist LPM
+trie lookup (Stage~1), tarpit redirect check (Stage~2), TCP flag classifier
+(Stage~3), and ring-buffer telemetry export (Stage~4). The 30-run mean
+per-packet latency is $0.126\,\mu\text{s}$; the observed single-stage peak
+is $0.33\,\mu\text{s}$; both are sub-microsecond. Latency measured via
+\texttt{bpf\_ktime\_get\_ns()} at program entry and exit.}
 \label{fig:xdp_pipeline}
 \end{figure}
 
@@ -463,9 +470,10 @@ We model the total in-kernel packet processing latency as:
   T_{\text{process}} = t_{\text{DMA}} + t_{\text{hook}} + t_{\text{lpm\_lookup}} + t_{\text{action}}
   \label{eq:latency}
 \end{equation}
-where $t_{\text{DMA}}$ is NIC DMA transfer time, $t_{\text{hook}} \approx 25\,\text{ns}$
-is driver-hook dispatch overhead, $t_{\text{lpm\_lookup}} \approx 64\,\text{ns}$ is the
-JIT-compiled average LPM trie lookup latency, and
+where $t_{\text{DMA}}$ is network interface card (NIC) direct memory access (DMA)
+transfer time, $t_{\text{hook}} \approx 25\,\text{ns}$ is driver-hook dispatch
+overhead, $t_{\text{lpm\_lookup}} \approx 64\,\text{ns}$ is the JIT-compiled
+average LPM trie lookup latency, and
 $t_{\text{action}} \in \{\texttt{XDP\_DROP}, \texttt{XDP\_PASS}\}$.
 
 Under a saturating volumetric flood with arrival rate $\lambda$ and service rate $\mu$,
@@ -476,14 +484,15 @@ conventional Netfilter drop probability follows an M/M/1/K finite-capacity queue
 \end{equation}
 In standard Linux Netfilter, $\mu_{\text{Netfilter}} \approx 280\,\text{kpps}$.
 When $\lambda > 500\,\text{kpps}$, $\rho > 1.78$, causing queue saturation and
-SoftIRQ starvation. ASM-Shadhin-AI's XDP service rate
+software interrupt (SoftIRQ) starvation. ASM-Shadhin-AI's XDP service rate
 $\mu_{\text{XDP}} \ge 1.49\,\text{Mpps}$ maintains $\rho \ll 1.0$ under the
 tested multi-gigabit load.
 
 \subsection{Post-Quantum Moving Target Defense}
 ASM-Shadhin-AI mutates externally reachable service ports across discrete time
 epochs $\tau = \lfloor t / \Delta t \rfloor$ (default $\Delta t = 30\,\text{s}$).
-The valid port $P(s, \tau)$ for service $s$ is:
+The valid ephemeral port $P(s, \tau)$ for service $s$ (a fixed-length UTF-8
+service-name string, e.g., \texttt{"ssh"} or \texttt{"https"}) is:
 \begin{align}
   P(s, \tau) &= P_{\min} + \Big[\text{HMAC-SHA256}\big(K_{\text{epoch}},\; s \| \tau\big)
                \nonumber \\
@@ -491,7 +500,9 @@ The valid port $P(s, \tau)$ for service $s$ is:
   \label{eq:mtd}
 \end{align}
 where $[P_{\min},\, P_{\max}] = [10{,}000,\, 65{,}535]$ (55{,}536 positions in the
-range). The key lifecycle for $K_{\text{epoch}}$ is defined in Section~III-C.
+ephemeral range) and $\tau$ is the epoch counter encoded as a big-endian
+64-bit integer. The key lifecycle for $K_{\text{epoch}}$ is defined in
+Section~III-C.
 
 \subsection{Zero-Decryption Streaming Shannon Entropy Estimation}
 ASM-Shadhin-AI computes streaming Shannon byte-entropy $H(W_k)$ over sliding
@@ -500,20 +511,29 @@ packet payload windows $W_k$ of $N = 1024$ bytes:
   H(W_k) = -\sum_{i=0}^{255} p(b_i) \log_2 p(b_i)
   \label{eq:entropy}
 \end{equation}
-where $p(b_i)$ is the empirical occurrence probability of byte value $b_i$.
-Inter-arrival timing jitter $J_k$ is monitored concurrently:
+where $p(b_i)$ is the empirical occurrence probability of byte value $b_i$
+in window $W_k$. Inter-arrival timing jitter $J_k$ is monitored concurrently:
 \begin{equation}
-  J_k = \frac{1}{M-1}\sum_{j=1}^{M-1} \left|\Delta t_{j+1} - \Delta t_j\right|
+  J_k = \frac{\frac{1}{M-1}\sum_{j=1}^{M-1} \left|\Delta t_{j+1} - \Delta t_j\right|}{\bar{\Delta t}_k}
   \label{eq:jitter}
 \end{equation}
-Flows with $H(W_k) \ge 7.85$ and $J_k \le 10\%$ are flagged as potential automated
-C2 channels. Threshold selection via ROC-curve analysis and classification
-performance are reported in Section~VI-D.
+where $\bar{\Delta t}_k$ is the mean inter-arrival interval over the $M$-packet
+window, so $J_k$ is a dimensionless coefficient of variation of inter-arrival
+spacing; $J_k = 0$ indicates perfectly periodic (machine-like) timing. Flows
+with $H(W_k) \ge 7.85\,\text{bits/byte}$ \emph{and} $J_k \le 0.10$ ($\le 10\%$)
+are flagged as potential automated C2 channels. Threshold selection via
+ROC-curve analysis and classification performance are reported in
+Section~VI-E.
 
 \subsection{Asynchronous Edge-LLM Reasoning with Formal Grammars}
 Deep contextual threat reasoning is executed asynchronously by a local LLM
-(Qwen2.5-Coder-3B, 4-bit GGUF Q4\_K\_M, 1.9~GB on-disk). Token sampling is
-constrained via a formal CFG in BNF:
+(Qwen2.5-Coder-3B~\cite{qwen2024qwen25coder}, 4-bit GGUF Q4\_K\_M quantization,
+1.9~GB on-disk, 2.0~GB RAM-resident). Decoding uses greedy sampling
+(temperature $= 0$, i.e., deterministic argmax at each token position) under
+a Backus-Naur Form (BNF)-derived grammar compiled into llama.cpp's grammar
+Backus-Naur Form (GBNF) format. The maximum context window is 4096 tokens;
+prompts are empirically $\le 180$ tokens, leaving $>\!3900$ tokens for
+completion. Token sampling is constrained by the CFG:
 \begin{align}
   S &\to \texttt{\{"verdict": }V\texttt{, "action": }A\texttt{, "confidence": }C\texttt{\}} \\
   V &\to \texttt{"MALICIOUS"} \mid \texttt{"SUSPICIOUS"} \mid \texttt{"BENIGN"} \\
@@ -522,7 +542,7 @@ constrained via a formal CFG in BNF:
 CFG-constrained decoding prevents generation of tokens outside the permitted
 vocabulary, substantially reducing hallucination and structural injection risk.
 It does not constitute a formal proof of immunity against all adversarial prompt
-strategies; Section~VI-C reports adversarial robustness evaluation.
+strategies; Section~VI-D reports adversarial robustness evaluation.
 
 % =============================================================================
 \section{Implementation Details}
@@ -578,15 +598,22 @@ loop depth 0 (fully loop-free), JIT-compiled to native x86-64.
 
 \subsection{Edge-LLM Daemon Integration}
 The user-space Edge-LLM daemon is implemented in 1{,}243 lines of Python~3.11
-using \texttt{llama-cpp-python}~(v0.2.56) with AVX2~SIMD acceleration. The daemon
-polls \texttt{telemetry\_ring} via \texttt{epoll(2)}, consuming $< 0.1\%$ CPU in
-idle state. Upon receiving a telemetry event, the daemon constructs a structured
-prompt (source IP, destination port, TCP flags, entropy hint, jitter estimate,
-timestamp) and submits it to Qwen2.5-Coder-3B-Q4\_K\_M (1.9~GB RAM-resident).
-Grammar-constrained decoding via llama.cpp's GBNF grammar engine forces every
-token to conform to the CFG production rules in Section~IV-E. Mean inference
-latency is $2.41\,\text{s}$ on the i5-4570 testbed CPU. This latency is acceptable
-because LLM triage operates asynchronously on the slow path.
+using \texttt{llama-cpp-python}~v0.2.56~\cite{llamacpp2024} with AVX2 SIMD
+acceleration (Intel~i5-4570 supports AVX2). The daemon polls
+\texttt{telemetry\_ring} via \texttt{epoll(2)}, consuming $< 0.1\%$ CPU in
+idle state. Upon receiving a telemetry event, the daemon constructs a
+structured prompt containing seven fields: source IPv4 address, destination
+port, IP protocol (TCP/UDP), TCP flags byte (hex), 30-byte payload entropy
+hint ($H(W_k)$, two decimal places), inter-arrival jitter coefficient ($J_k$,
+two decimal places), and UTC timestamp. The prompt is submitted to
+Qwen2.5-Coder-3B-Q4\_K\_M~\cite{qwen2024qwen25coder} (2.0~GB RAM-resident,
+$\le 4096$-token context window). Decoding is deterministic (greedy,
+temperature $= 0$, i.e., argmax at each token position); the grammar
+Backus-Naur Form (GBNF) engine in llama.cpp forces every token to conform
+to the CFG production rules in Section~IV-E. Mean inference latency is
+$2.41\,\text{s}$ on the i5-4570 testbed CPU (${\approx}85$ tokens/s for
+the ${\approx}200$-token prompt+completion sequence). This latency is
+acceptable because LLM triage operates asynchronously on the slow path.
 
 Validated \texttt{XDP\_DROP} directives are applied atomically via
 \texttt{bpf\_map\_update\_elem()} to the live \texttt{blocklist\_map}.
@@ -603,31 +630,53 @@ ensuring atomic transitions. The key lifecycle follows Section~III-C.
 \subsection{Physical Testbed and Experimental Setup}
 All empirical benchmarks were conducted on a single dedicated bare-metal gateway
 running Ubuntu Server~22.04~LTS (Linux kernel~6.8.0-generic, Clang/LLVM~18,
-libbpf~v1.3.0). All compared systems---ASM-Shadhin-AI, Linux Netfilter/iptables~1.8.7,
-Suricata~7.0.2 (inline NFQUEUE mode), and Intel DPDK~22.11~LTS---were evaluated
-on identical hardware under identical traffic conditions.
+libbpf~v1.3.0). All compared systems---ASM-Shadhin-AI, Linux
+Netfilter/iptables~1.8.7, Suricata~7.0.2 (inline netfilter queue (NFQUEUE)
+mode), and Intel DPDK~22.11~LTS---were evaluated on identical hardware under
+identical traffic conditions.
 
 \textbf{Hardware:}
 \begin{itemize}
-  \item \textit{Processor:} Quad-Core Intel Core i5-4570~@ 3.20~GHz (6~MB L3 cache).
+  \item \textit{Processor:} Quad-Core Intel Core i5-4570~@ 3.20~GHz (6~MB L3
+    cache, 4 physical cores, no hyperthreading).
   \item \textit{Memory:} 16~GB DDR3-1600 dual-channel RAM.
   \item \textit{NICs:} 4-Port Intel 82574L PCIe Gigabit Ethernet (dual-NIC
     transparent bridge \texttt{br0}).
   \item \textit{NIC Offloads:} Disabled via \texttt{ethtool} (\texttt{gro off},
-    \texttt{gso off}, \texttt{tso off}, \texttt{rx off}, \texttt{tx off}) uniformly
-    across all configurations.
-  \item \textit{CPU Affinity:} All packet-processing threads pinned to CPU core~0
-    via \texttt{taskset~0x1} for all systems. LLM daemon and MTD controller ran on
-    cores~1--3 in ASM-Shadhin-AI runs.
+    \texttt{gso off}, \texttt{tso off}, \texttt{rx off}, \texttt{tx off})
+    uniformly across all configurations to ensure fair, consistent per-packet
+    processing overhead measurement.
+  \item \textit{CPU Affinity:} All packet-processing threads pinned to CPU
+    core~0 via \texttt{taskset~0x1} for all systems. In ASM-Shadhin-AI runs,
+    the Edge-LLM daemon and MTD controller ran on cores~1--3
+    (\texttt{taskset~0xE}).
+\end{itemize}
+
+\textbf{Baseline System Configurations:}
+\begin{itemize}
+  \item \textit{Netfilter/iptables~1.8.7:} Single \texttt{ACCEPT} rule on the
+    \texttt{FORWARD} chain (\texttt{-j ACCEPT}), representing a permissive
+    firewall baseline; connection tracking (\texttt{conntrack}) disabled to
+    measure raw forwarding overhead.
+  \item \textit{Suricata~7.0.2 (NFQUEUE):} Default community ruleset
+    (\texttt{emerging-threats-open}, 35{,}402 rules) loaded and activated in
+    inline IPS mode (\texttt{--runmode workers}, 1 worker thread, NFQUEUE
+    queue~0). AFPacket fallback disabled.
+  \item \textit{Intel DPDK~22.11~LTS:} PMD forwarding application
+    (\texttt{dpdk-testpmd}, burst size 32, RX/TX queue depth 512) pinned to
+    core~0 in full poll-mode. No security rules loaded; measures raw forwarding
+    throughput ceiling.
 \end{itemize}
 
 \textbf{Traffic Generation:} A physically separated packet-generator host ran
-\texttt{tcpreplay}~4.4.2 (\texttt{--topspeed --loop=0}). The same 10{,}000{,}000-frame
-PCAP corpus was replayed identically for each system under test.
+\texttt{tcpreplay}~4.4.2~\cite{tcpreplay2024} (\texttt{--topspeed --loop=0})
+to replay the same 10{,}000{,}000-frame packet capture (PCAP) corpus
+identically for each system under test.
 
-\textbf{Workload Composition:} 6.5M TCP SYN flood packets, 2.0M UDP amplification
-packets, 1.0M Nmap reconnaissance scans, and 500{,}000 benign HTTP/REST transactions,
-calibrated to approximate CSE-CIC-IDS2018, UNSW-NB15, and CTU-13 distributions.
+\textbf{Workload Composition:} 6.5M TCP SYN flood packets, 2.0M UDP
+amplification packets, 1.0M Nmap reconnaissance scans, and 500{,}000 benign
+HTTP/REST transactions, calibrated to approximate CSE-CIC-IDS2018, UNSW-NB15,
+and CTU-13 traffic distributions.
 
 \textbf{Timing Methodology:} Per-packet processing latency was measured using
 BPF-based kernel timestamps (\texttt{bpf\_ktime\_get\_ns()}) at XDP program entry
@@ -642,17 +691,23 @@ zero loss.
 \begin{figure}[!t]
 \centering
 \includegraphics[width=0.98\linewidth]{testbed/figures/fig1_throughput.png}
-\caption{Real-time packet ingestion rate and bandwidth under the 10M-packet stress
-flood. ASM-Shadhin-AI sustained $1.49\,\text{Mpps}$ ($1.18\,\text{Gbps}$) without
-packet loss under the tested workload.}
+\caption{Real-time packet ingestion rate (Mpps, left axis) and bandwidth
+(Gbps, right axis) under the 10{,}000{,}000-packet wire-speed stress flood
+(Intel i5-4570, Ubuntu Server 22.04 LTS, \texttt{tcpreplay} 4.4.2,
+\texttt{--topspeed}). ASM-Shadhin-AI sustained $1.495 \pm 0.015\,\text{Mpps}$
+($1.18\,\text{Gbps}$, 30-run mean $\pm$ s.d.) with $0.0000\%$ packet loss
+under the tested workload. See Table~\ref{tab:statistical_comparison} for
+full multi-run statistics.}
 \label{fig:throughput}
 \end{figure}
 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=0.98\linewidth]{testbed/figures/fig2_cpu_utilization.png}
-\caption{CPU core utilization during the 10M-packet saturation run. Peak CPU
-utilization remained bounded at $26.2\%$, with no SoftIRQ starvation observed.}
+\caption{CPU core~0 utilization (\%) during the 10{,}000{,}000-packet
+saturation run. Peak CPU utilization for ASM-Shadhin-AI (eBPF/XDP) remained
+bounded at $26.2 \pm 0.6\%$ (30-run mean $\pm$ s.d.), with no SoftIRQ
+starvation observed, versus $89.4\%$ for Netfilter and $99.0\%$ for Suricata.}
 \label{fig:cpu}
 \end{figure}
 
@@ -666,7 +721,11 @@ $0.126\,\mu\text{s}$ ($126\,\text{ns}$); the observed XDP-pipeline stage peak
 was $0.33\,\mu\text{s}$ ($330\,\text{ns}$). Peak CPU utilization was $26.2\%$.
 
 \begin{table}[!t]
-\caption{Empirical Telemetry Under 10M-Packet Stress Flood}
+\caption{Empirical Telemetry Under 10{,}000{,}000-Packet Wire-Speed Stress Flood
+(Intel i5-4570~@ 3.20~GHz, Ubuntu Server 22.04 LTS, Linux kernel 6.8.0,
+\texttt{tcpreplay} 4.4.2~\texttt{--topspeed}). RSS: resident set size
+(kernel eBPF maps + user-space daemon combined). Latency from
+\texttt{bpf\_ktime\_get\_ns()}.}
 \label{tab:10m_telemetry}
 \centering
 \resizebox{\columnwidth}{!}{%
@@ -724,17 +783,24 @@ $26.2 \pm 0.6\%$ CPU, providing substantially better multi-tenant CPU availabili
 \begin{figure}[!t]
 \centering
 \includegraphics[width=0.98\linewidth]{testbed/figures/fig3_comparison.png}
-\caption{Architectural performance comparison: (a) packet throughput (Mpps), (b)
-mean per-packet processing latency (log scale). DPDK achieves higher raw throughput
-but at 100\% dedicated CPU utilization.}
+\caption{Architectural performance comparison across four systems on identical
+hardware (Intel i5-4570, $N=30$ trials, mean $\pm$ s.d.): (a)~packet
+throughput in Mpps and (b)~mean per-packet processing latency in $\mu$s
+(log scale). ASM-Shadhin-AI achieves $1.495\,\text{Mpps}$ at $0.126\,\mu\text{s}$
+mean latency. DPDK achieves higher raw throughput ($3.798\,\text{Mpps}$,
+$0.081\,\mu\text{s}$) but at $100\%$ dedicated CPU core polling.}
 \label{fig:comparison}
 \end{figure}
 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=0.98\linewidth]{testbed/figures/fig4_statistical_boxplots.png}
-\caption{Boxplots of per-packet processing latency across $N=30$ independent trials
-(log scale, $\mu\text{s}$).}
+\caption{Boxplots of per-packet processing latency ($\mu$s, log scale) across
+$N=30$ independent benchmark trials. Each trial uses an identical
+10{,}000{,}000-packet PCAP corpus replayed at line rate with full driver,
+NIC ring, and CPU state resets between runs. Boxes span the interquartile
+range; whiskers extend to 1.5$\times$IQR. Latency reported is the in-kernel
+measurement via \texttt{bpf\_ktime\_get\_ns()}.}
 \label{fig:boxplots}
 \end{figure}
 
@@ -777,17 +843,23 @@ CPU:        ASM vs Suricata   & $-438.6$ & $56$  & $< 10^{-15}$ & $113.3$  & Ext
 \begin{figure}[!t]
 \centering
 \includegraphics[width=0.98\linewidth]{testbed/figures/fig5_throughput_cdf.png}
-\caption{Empirical CDF of per-packet processing latency across $N=30$ trials. Both
-ASM-Shadhin-AI and DPDK remain within the $2.0\,\mu\text{s}$ line-rate SLA target;
-DPDK achieves lower median latency at the cost of full-core polling.}
+\caption{Empirical cumulative distribution function (CDF) of per-packet
+processing latency ($\mu$s) pooled across $N=30$ independent benchmark
+trials. Both ASM-Shadhin-AI ($0.126\,\mu\text{s}$ mean) and DPDK
+($0.081\,\mu\text{s}$ mean) remain well within a $2.0\,\mu\text{s}$
+line-rate service level target; Netfilter and Suricata exceed $10\,\mu\text{s}$
+at the median. Latency values from \texttt{bpf\_ktime\_get\_ns()}.}
 \label{fig:cdf}
 \end{figure}
 
 \begin{figure}[!t]
 \centering
 \includegraphics[width=0.98\linewidth]{testbed/figures/fig6_confidence_intervals.png}
-\caption{95\% confidence intervals for (a) peak throughput (Mpps) and (b) CPU
-utilization (\%) across $N=30$ independent runs.}
+\caption{95\% Wilson confidence intervals for (a)~mean throughput (Mpps) and
+(b)~mean CPU utilization (\%) across $N=30$ independent benchmark runs.
+Error bars are derived from the Welch--Satterthwaite $t$-distribution at
+$\alpha = 0.05$. ASM-Shadhin-AI 95\% CI: throughput $[1.489,\,1.500]\,\text{Mpps}$,
+CPU $[25.8,\,26.6]\%$.}
 \label{fig:ci}
 \end{figure}
 
@@ -878,19 +950,31 @@ Benign E-Commerce   & BENIGN      & 99.8\% & 1.88 & \texttt{XDP\_PASS}   \\
 \end{table}
 
 \subsection{Entropy/Jitter Detector Evaluation}
-The entropy/jitter detector uses thresholds $H(W_k) \ge 7.85$ and $J_k \le 10\%$.
-These were selected via ROC-curve analysis on 200 labeled flows (100 benign, 100
-simulated Cobalt Strike C2 at varying jitter levels) by sweeping $H$ from 7.0 to
-8.0 (step 0.05) and $J$ from 5\% to 30\% (step 5\%). Selected operating point:
+The entropy/jitter detector uses thresholds $H(W_k) \ge 7.85\,\text{bits/byte}$
+and $J_k \le 0.10$ ($\le 10\%$ coefficient of variation). These thresholds were
+selected via ROC-curve analysis on 200 labeled flows: 100 benign (real HTTP/1.1,
+HTTP/2, DNS, and HTTPS from a local test network) and 100 \emph{simulated}
+Cobalt~Strike beacon C2 flows generated by a controlled lab instance of the
+Cobalt~Strike framework running against an isolated victim VM, at jitter
+coefficients ranging from $J_k = 0.02$ to $J_k = 0.50$. The threshold grid
+sweeps $H \in [7.0, 8.0]$ (step $0.05$) and $J \in [0.05, 0.30]$ (step $0.05$).
+Selected operating point:
 \begin{itemize}
-  \item AUC-ROC: 0.893 (95\% CI: $[0.843,\; 0.943]$)
+  \item Area under the ROC curve (AUC-ROC): 0.893 (95\% CI: $[0.843,\; 0.943]$)
   \item True Positive Rate (TPR / Recall): 87.9\%
   \item False Positive Rate (FPR): 8.1\%
   \item Precision: 91.5\%
   \item F1-score: 0.896
 \end{itemize}
 False positives arise primarily from compressed HTTP/2 traffic with high byte
-entropy but variable inter-arrival jitter. The operating point is configurable.
+entropy but low inter-arrival jitter. The operating point is configurable.
+
+\textbf{Limitation:} The 100 C2 flows were generated in a controlled lab
+environment using a single C2 framework version; real-world C2 tools with
+adaptive jitter scheduling or entropy masking may not be captured by this
+threshold pair. Evaluation against a broader corpus of real-world C2 captures
+(e.g., from CTU-13 or publicly released Cobalt~Strike logs) is a required
+future validation step.
 
 % =============================================================================
 \section{Ablation Study \& Sensitivity Analysis}
@@ -902,7 +986,7 @@ Table~\ref{tab:ablation} quantifies the contribution of each subsystem.
 metric measured over the full malicious traffic subset processed end-to-end
 through the eBPF fast path, entropy engine, and Edge-LLM slow path combined.
 This is distinct from the Edge-LLM's standalone classification recall
-(96.7\%, reported in Section~VI-C), which is computed solely over the 40
+(0.967, reported in Section~VI-D), which is computed solely over the 40
 classification scenarios in the LLM prompt evaluation. The two metrics
 operate over different evaluation stages and datasets and should not be
 compared directly.
@@ -1005,8 +1089,8 @@ Several limitations and open research challenges are acknowledged:
 
   \item \textbf{Hardware SmartNIC Offload:} Offloading eBPF bytecode into P4-
     programmable SmartNIC hardware (e.g., Netronome Agilio CX~40G, NVIDIA
-    BlueField-3~DPU) would enable 40--400~Gbps enforcement with near-zero host
-    CPU utilization.
+    BlueField-3 data processing unit (DPU)) would enable 40--400~Gbps
+    enforcement with near-zero host CPU utilization.
 
   \item \textbf{Encrypted Protocol Fingerprinting:} Incorporating JA4/JA4S TLS
     and HASSH SSH fingerprinting will enable passive C2 tool identification at the
@@ -1021,12 +1105,17 @@ Several limitations and open research challenges are acknowledged:
     updates~\cite{dettmers2023qlora} would address concept drift.
 
   \item \textbf{Evaluation Scale:} The Edge-LLM was evaluated on 50 labeled
-    scenarios. Validation on substantially larger labeled datasets with multi-trial
-    evaluations is required to tighten confidence intervals.
+    scenarios using a single static model checkpoint. Validation on substantially
+    larger, independently curated labeled datasets with multi-trial evaluations
+    and additional model checkpoints is required to tighten confidence intervals
+    and establish cross-model generalizability.
 
   \item \textbf{Entropy Detector Generalization:} The entropy/jitter detector was
-    validated on simulated C2 traffic; real-world captured C2 samples and diverse
-    benign traffic types require further evaluation.
+    validated on 100 simulated Cobalt~Strike C2 flows generated in a controlled
+    lab environment and 100 benign lab flows (Section~VI-E). Real-world C2
+    captures (e.g., CTU-13 botnet PCAP~\cite{garcia2014empirical}) and diverse
+    benign traffic types (video streaming, encrypted backups, VPN tunnels) have
+    not been evaluated; generalization to these workloads cannot be assumed.
 \end{enumerate}
 
 % =============================================================================
@@ -1225,19 +1314,9 @@ botnet detection methods,'' \emph{Comput.\ Secur.}, vol.~45, pp.~100--123, 2014.
 B.~Anderson and D.~McGrew, ``Identifying encrypted malware traffic with contextual
 flow data,'' in \emph{Proc.\ ACM IH\&MMSec}, 2016, pp.~35--46.
 
-\bibitem{tegeler2012botfinder}
-F.~Tegeler, X.~Fu, G.~Vigna, and C.~Kruegel, ``BotFinder: Finding bots in network
-traffic without deep packet inspection,'' in \emph{Proc.\ ACM CoNEXT}, 2012,
-pp.~349--360.
-
 \bibitem{bertoli2023ebpf}
 G.~Bertoli, L.~Verderame, and A.~Merlo, ``eBPF for cyber security: A comprehensive
 survey,'' \emph{IEEE Access}, vol.~11, pp.~75892--75916, 2023.
-
-\bibitem{alweshah2020intrusion}
-M.~Alweshah, S.~Khadem, and M.~Al-Omari, ``Intrusion detection system using machine
-learning algorithms: A survey,'' \emph{J.\ Netw.\ Comput.\ Appl.}, vol.~165,
-p.~102712, 2020.
 
 \bibitem{zhao2023graphids}
 Q.~Zhao, J.~Chen, and D.~Guan, ``GRAPHIDS: A network anomaly intrusion detection
@@ -1258,11 +1337,6 @@ P.~Sharma and R.~Arora, ``Evaluating post-quantum cryptographic primitives in
 lightweight network protocols,'' \emph{IEEE Internet Things J.}, vol.~10, no.~18,
 pp.~16201--16212, 2023.
 
-\bibitem{wang2018datanet}
-P.~Wang, F.~Ye, X.~Chen, and Y.~Qian, ``Datanet: Deep learning based encrypted
-network traffic classification in SDN home gateway,'' \emph{IEEE Access}, vol.~6,
-pp.~55380--55391, 2018.
-
 \bibitem{vieira2020fast}
 M.~A.~S.~Vieira et al., ``Fast packet processing with eBPF and XDP: Security on
 the edge,'' \emph{IEEE Commun.\ Surv.\ Tuts.}, vol.~22, no.~4, pp.~2526--2544,
@@ -1277,36 +1351,26 @@ A survey,'' \emph{IEEE Commun.\ Surv.\ Tuts.}, vol.~24, no.~3, pp.~1800--1835,
 D.~J.~Bernstein and T.~Lange, ``Post-quantum cryptography,'' \emph{Nature},
 vol.~549, pp.~188--194, 2017.
 
-\bibitem{alrawi2019sok}
-O.~Alrawi, C.~Lever, M.~Antonakakis, and F.~Monrose, ``SoK: Security evaluation
-of home IoT devices,'' in \emph{Proc.\ IEEE S\&P}, 2019, pp.~1052--1069.
-
 \bibitem{bosshart2014p4}
 P.~Bosshart et al., ``P4: Programming protocol-independent packet processors,''
 \emph{ACM SIGCOMM CCR}, vol.~44, no.~3, pp.~87--95, 2014.
-
-\bibitem{goudarzi2023post}
-H.~Goudarzi, M.~Naderi, and M.~S.~Sadoghi, ``Hardware implementations of NIST
-post-quantum cryptography standards: A survey,''
-\emph{IEEE Access}, vol.~11, pp.~42150--42168, 2023.
-
-\bibitem{choi2023llm}
-H.~Choi, M.~Kim, and J.~Lee, ``LLM-based autonomous agent for cyber threat
-hunting and defense,'' \emph{IEEE Trans.\ Dependable Secure Comput.}, vol.~21,
-no.~3, pp.~1420--1435, 2024.
-
-\bibitem{cormode2005improved}
-G.~Cormode and S.~Muthukrishnan, ``An improved data stream summary: The count-min
-sketch and its applications,'' \emph{J.\ Algorithms}, vol.~55, no.~1,
-pp.~58--75, 2005.
 
 \bibitem{touvron2023llama}
 H.~Touvron et al., ``Llama~2: Open foundation and fine-tuned chat models,''
 \emph{arXiv preprint arXiv:2307.09288}, 2023.
 
-\bibitem{jain1984quantitative}
-R.~K.~Jain et al., ``A quantitative measure of fairness for resource allocation
-in shared systems,'' DEC Tech.\ Rep.\ TR-301, 1984.
+\bibitem{qwen2024qwen25coder}
+Qwen Team, Alibaba Cloud, ``Qwen2.5-Coder Technical Report,''
+\emph{arXiv preprint arXiv:2409.12186}, 2024. [Online]. Available:
+\url{https://arxiv.org/abs/2409.12186}
+
+\bibitem{llamacpp2024}
+G.~Gerganov et al., ``llama.cpp: Inference of LLaMA model in pure C/C++,''
+[Online]. Available: \url{https://github.com/ggerganov/llama.cpp}, 2024.
+
+\bibitem{tcpreplay2024}
+T.~Turner et al., ``Tcpreplay: Pcap editing and replay tools,''
+[Online]. Available: \url{https://tcpreplay.appneta.com}, 2024.
 
 \end{thebibliography}
 
