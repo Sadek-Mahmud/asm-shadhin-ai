@@ -58,15 +58,16 @@ recurring costs that violate air-gapped sovereignty requirements in critical
 infrastructure.
 
 This paper presents \textbf{ASM-Shadhin-AI}, an open, fully sovereign,
-line-rate intrusion-mitigation and cognitive-defense architecture uniting
-in-kernel fast-path execution with asynchronous edge intelligence and
-post-quantum cryptographic resilience. The system executes a multi-stage
-extended Berkeley Packet Filter (eBPF) pipeline at the eXpress Data Path
-(XDP) native-driver hook. CIDR blocklist lookups are implemented via
-\texttt{BPF\_MAP\_TYPE\_LPM\_TRIE} (Longest Prefix Match), providing
+in-kernel intrusion-mitigation and cognitive-defense architecture uniting
+sub-microsecond fast-path execution (under the tested workload and configuration)
+with asynchronous edge intelligence and post-quantum cryptographic resilience.
+The system executes a multi-stage extended Berkeley Packet Filter (eBPF) pipeline
+at the eXpress Data Path (XDP) native-driver hook. CIDR blocklist lookups are
+implemented via \texttt{BPF\_MAP\_TYPE\_LPM\_TRIE} (Longest Prefix Match), providing
 $O(\log N)$ worst-case complexity with kernel-JIT-compiled branch elimination
 reducing average lookup latency to approximately $64\,\text{ns}$ under the
-tested workload. Deep semantic threat reasoning is delegated to an
+tested workload on the evaluated hardware (Intel i5-4570, 10{,}000 CIDR rules
+resident in L3 cache). Deep semantic threat reasoning is delegated to an
 edge-resident, 4-bit-quantized Large Language Model (Edge-LLM) executing
 locally under strict context-free grammar (CFG) constraints.
 
@@ -87,13 +88,16 @@ $5.30\times$ throughput advantage and a $\approx\!210\times$ latency reduction
 Cohen's $d = 108.2$, 95\% CI for throughput: $[1.489,\,1.500]\,\text{Mpps}$).
 DPDK achieves higher raw forwarding throughput ($3.798\,\text{Mpps}$) under the
 tested single-core configuration but requires $100\%$ dedicated CPU core busy-polling.
-In end-to-end subsystem ablation, ASM-Shadhin-AI achieved 98.64\% evasion recall.
+In end-to-end subsystem ablation under the tested threat model and workload,
+ASM-Shadhin-AI achieved $98.64\%$ evasion recall.
 The Edge-LLM daemon was evaluated separately across 50 labeled threat scenarios,
 achieving 96.0\% overall accuracy (48/50). Over the 40 non-adversarial
 classification scenarios (UNSW-NB15 and CSE-CIC-IDS2018 malicious plus benign
 traffic), precision, recall, and F1-score were each 0.967. All 10 adversarial
 context-free grammar (CFG)-stress scenarios produced valid, executable
 directives, confirming CFG-constrained decoding robustness under the tested inputs.
+All reported performance figures are specific to the described testbed, traffic
+corpus, and configuration and should not be interpreted as universal guarantees.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -127,16 +131,18 @@ drops, enabling evasion attacks. Detection mechanisms rely primarily on
 syntactic pattern matching, leaving systems vulnerable to polymorphic variants
 and zero-day exploits.
 
-Commercial Next-Generation Firewalls (e.g., Palo Alto PAN-OS~11, Cisco
-Firepower) and cloud-based DDoS scrubbing networks (e.g., Cloudflare Magic
-Transit) provide deeper inspection but introduce three disqualifying
-trade-offs: \emph{(1)~Telemetry Leakage}: network metadata and decrypted
-packet payloads are transmitted to third-party cloud infrastructure, violating
-data-sovereignty mandates in defense and classified environments;
-\emph{(2)~Operational Dependency}: defense perimeters degrade in air-gapped
-or degraded network settings; and \emph{(3)~Financial Overhead}: recurring
-subscription licensing (\$40{,}000--\$200{,}000 annually) places
-enterprise-grade defense out of reach for resource-constrained institutions.
+Commercial Next-Generation Firewalls (e.g., Palo Alto
+PAN-OS~11~\cite{paloalto2024panos}, Cisco Firepower) and cloud-based DDoS
+scrubbing networks (e.g., Cloudflare Magic
+Transit~\cite{cloudflare2024magic}) provide deeper inspection but introduce
+three key operational trade-offs: \emph{(1)~Telemetry Leakage}: network
+metadata and decrypted packet payloads are transmitted to third-party cloud
+infrastructure, raising data-sovereignty concerns in defense and classified
+environments; \emph{(2)~Operational Dependency}: defense perimeters degrade
+in air-gapped or degraded network settings; and \emph{(3)~Financial
+Overhead}: recurring subscription licensing
+(\$40{,}000--\$200{,}000 annually) places enterprise-grade defense out of
+reach for resource-constrained institutions.
 
 To address this trilemma, we present \textbf{ASM-Shadhin-AI}, an open-source,
 fully sovereign network defense architecture integrating wire-speed in-kernel
@@ -150,9 +156,10 @@ This paper makes five primary technical contributions:
     eBPF/XDP packet-processing pipeline executing inside the NIC driver callback
     prior to socket-buffer allocation. The pipeline performs LPM trie lookups
     ($O(\log N)$ worst case, ${\approx}64\,\text{ns}$ just-in-time (JIT) compiled
-    average) and stateful TCP-flag validation. Measured mean packet processing
-    latency is $0.126\,\mu\text{s}$ (observed stage-peak $0.33\,\mu\text{s}$) on
-    commodity x86-64 hardware.
+    average under the tested workload with 10{,}000 CIDR rules resident in the
+    host L3 cache) and stateful TCP-flag validation. Measured mean packet
+    processing latency is $0.126\,\mu\text{s}$ (observed stage-peak
+    $0.33\,\mu\text{s}$) on the evaluated commodity x86-64 testbed.
 
   \item \textbf{Air-Gapped Edge-LLM Threat Reasoning:} We decouple deep semantic
     evaluation from the line-rate data path via an asynchronous Edge-LLM triage
@@ -167,7 +174,9 @@ This paper makes five primary technical contributions:
     providing indistinguishability under chosen-ciphertext attack (IND-CCA2)
     primitive security against \emph{Store Now, Decrypt Later} (SNDL) attacks under the
     Module Learning With Errors (MLWE) hardness assumption. The measured $1{,}219\times$
-    scan-duration increase under an exhaustive Nmap probe configuration is derived in Section~VIII.
+    scan-duration increase applies specifically to the evaluated sequential Nmap
+    SYN scan configuration against a single protected host; derivation and scope
+    limitations are detailed in Section~VIII.
 
   \item \textbf{Zero-Decryption Streaming Entropy Engine:} We implement an inline
     streaming Shannon byte-entropy and inter-arrival timing jitter analyzer
@@ -205,8 +214,8 @@ The performance limitations of user-space packet inspection have long driven
 research toward kernel bypass and programmable data planes. Bro (now
 Zeek)~\cite{paxson1999bro} and Snort~\cite{roesch1999snort} established
 signature-based detection but remain bound to user-space capture interfaces.
-Intel Data Plane Development Kit (DPDK) achieved multi-gigabit processing
-via poll-mode drivers (PMDs) that bypass the kernel~\cite{miano2018creating},
+Intel Data Plane Development Kit (DPDK)~\cite{intel2022dpdk} achieved
+multi-gigabit processing via poll-mode drivers (PMDs) that bypass the kernel,
 but requires 100\% dedicated CPU core polling and lacks native OS
 security-policy integration.
 
@@ -269,11 +278,13 @@ port mutation; the derivation of the $1{,}219\times$ metric is in Section~VIII.
 
 \subsection{Literature Gap Analysis}
 Table~\ref{tab:literature_gap} summarizes architectural capabilities of
-state-of-the-art intrusion defense frameworks. No existing published work
-simultaneously unifies $O(\log N)$ LPM-trie in-kernel data-plane filtering at
-sub-microsecond latency, air-gapped local LLM threat reasoning with CFG
-enforcement, post-quantum cryptographic key management, and proactive MTD within
-a fully open, reproducible framework. ASM-Shadhin-AI closes this specific gap.
+state-of-the-art intrusion defense frameworks. To the best of our literature
+review, we did not identify a published framework that simultaneously integrates
+sub-microsecond in-kernel data-plane filtering, air-gapped local LLM-based threat
+reasoning, post-quantum cryptographic mechanisms, and proactive Moving Target
+Defense within a fully open and reproducible architecture. ASM-Shadhin-AI is
+designed to address this specific combination of requirements under the
+experimental conditions described in this study.
 
 \begin{table*}[!t]
 \caption{Architectural Comparison of State-of-the-Art Perimeter Defense Paradigms}
@@ -286,9 +297,9 @@ a fully open, reproducible framework. ASM-Shadhin-AI closes this specific gap.
 \midrule
 Snort~3.x \cite{roesch1999snort}       & $250$--$800\,\mu\text{s}$         & $>15\%$         & Static Rules         & Sovereign          & None          & Kernel-to-user buffer copy; SoftIRQ starvation \\
 Suricata~7.x \cite{oisf2024suricata}   & $180$--$600\,\mu\text{s}$         & $>10\%$         & Heuristic Rules      & Sovereign          & None          & User-space packet reassembly queue \\
-Intel DPDK \cite{miano2018creating}    & $0.08$--$0.10\,\mu\text{s}$       & ${\approx}0\%$  & External             & Sovereign          & None          & 100\% dedicated core polling; no OS integration \\
-Palo Alto PAN-OS                         & $25$--$120\,\mu\text{s}$      & $<2\%$          & Cloud WildFire ML    & Telemetry Leaked   & Partial       & Mandatory vendor cloud uplink; license cost \\
-Cloudflare Magic Transit                 & $10$--$80\,\text{ms}$             & ${\approx}0\%$  & Cloud ML             & Telemetry Leaked   & Experimental  & WAN routing latency; disqualified for air-gap \\
+Intel DPDK \cite{intel2022dpdk}        & $0.08$--$0.10\,\mu\text{s}$       & ${\approx}0\%$  & External             & Sovereign          & None          & 100\% dedicated core polling; no OS integration \\
+Palo Alto PAN-OS~\cite{paloalto2024panos} & $25$--$120\,\mu\text{s}$      & $<2\%$          & Cloud WildFire ML    & Telemetry Leaked   & Partial       & Mandatory vendor cloud uplink; license cost \\
+Cloudflare Magic Transit~\cite{cloudflare2024magic} & $10$--$80\,\text{ms}$  & ${\approx}0\%$  & Cloud ML             & Telemetry Leaked   & Experimental  & WAN routing latency; requires internet uplink \\
 \textbf{ASM-Shadhin-AI (Ours)}         & $\mathbf{0.126\,\mu\text{s}}$ (mean) & $\mathbf{0.00\%}$ & Local Edge-LLM (CFG) & \textbf{Sovereign} & \textbf{FIPS~203/204} & Decoupled fast-path + local AI; LLM on slow path \\
 \bottomrule
 \end{tabular}}
@@ -781,9 +792,17 @@ Linux Netfilter (\texttt{iptables}~1.8.7), Suricata~7.0.2 inline IPS (NFQUEUE),
 and Intel DPDK~22.11. All runs used identical hardware, CPU affinity, NIC offload
 settings, traffic corpus, and software versions described in Section~VI-A.
 
-Comparisons are \emph{independent two-sample} (unpaired), as each system executed a
-separate benchmark session with full driver, NIC ring, and CPU state resets between trials.
-Normality was confirmed by Shapiro-Wilk tests ($p > 0.05$ for all evaluated architectures).
+The benchmark comparisons were performed using independent two-sample Welch's
+\textit{t}-tests on the unrounded per-trial observations; each system executed a
+separate benchmark session with full driver, NIC ring, and CPU state resets between
+trials. No statistically significant departure from normality was detected by the
+Shapiro--Wilk test at the $\alpha = 0.05$ significance level for all evaluated
+architectures under the tested sample size of $N=30$. Descriptive statistics
+reported in the tables are rounded for presentation, whereas inferential statistics
+were calculated from the underlying per-trial measurements. Unrounded per-trial data
+are provided in the supplementary archive
+(\texttt{testbed/statistical\_30\_runs\_evaluation.csv}) to enable independent
+verification of the reported $t$-statistics.
 Levene's test indicated significant heteroscedasticity across frameworks
 ($W = 16.26, p < 10^{-3}$ for throughput; $W = 49.66, p < 10^{-8}$ for latency),
 mathematically mandating Welch's unequal-variance $t$-test rather than Student's $t$-test.
@@ -817,6 +836,18 @@ executes directly inside the kernel XDP driver layer, consuming only
 $26.2 \pm 0.6\%$ CPU under the same 10M-packet flood and releasing residual
 host capacity for application workloads and the local Edge-LLM daemon.
 
+The reported throughput, latency, packet-drop rate, CPU utilization, and lookup
+latency represent measurements obtained under the specified hardware, software,
+traffic workload, network configuration, and experimental conditions described in
+this paper. Accordingly, these results should be interpreted as empirical
+performance measurements for the tested configuration rather than universal
+guarantees of performance across arbitrary hardware, traffic rates, or deployment
+environments.
+
+These observations highlight key operational trade-offs among inspection depth,
+data-plane latency, throughput, CPU utilization, deployment sovereignty, and
+integration requirements across the evaluated architectures.
+
 \begin{figure}[!t]
 \centering
 \includegraphics[width=0.98\linewidth]{testbed/figures/fig3_comparison.png}
@@ -834,10 +865,11 @@ $0.081\,\mu\text{s}$) under dedicated PMD core polling.}
 \includegraphics[width=0.98\linewidth]{testbed/figures/fig4_statistical_boxplots.png}
 \caption{Boxplots of per-packet processing latency ($\mu$s, log scale) across
 $N=30$ independent benchmark trials. Each trial uses an identical
-10{,}000{,}000-packet PCAP corpus replayed at line rate with full driver,
-NIC ring, and CPU state resets between runs. Boxes span the interquartile
-range; whiskers extend to 1.5$\times$IQR. Latency reported is the in-kernel
-measurement via \texttt{bpf\_ktime\_get\_ns()}.}
+10{,}000{,}000-packet PCAP corpus replayed at the generator's top-speed
+setting with full driver, NIC ring, and CPU state resets between runs.
+Boxes span the interquartile range; whiskers extend to 1.5$\times$IQR.
+Latency reported is the in-kernel measurement via
+\texttt{bpf\_ktime\_get\_ns()}.}
 \label{fig:boxplots}
 \end{figure}
 
@@ -1114,15 +1146,19 @@ simultaneously stalled 62{,}847 attacker connections (94.3~MB simulated attacker
 socket memory) while the gateway consumed $< 2$~MB.
 
 \subsection{Honeypot Port Fingerprinting Resistance}
-Because $P(s, \tau)$ changes every $\Delta t = 30\,\text{s}$ and HMAC-SHA256 PRF
-output is computationally indistinguishable from uniform random (under standard
-PRF assumptions), an adversary cannot predict future port assignments without
-recovering $K_{\text{epoch}}$. The port selection uses HMAC-SHA256 output
-modulo 55{,}536 (Equation~\ref{eq:mtd}); this yields an approximately uniform
-distribution with negligible modular bias since 55{,}536 divides
-$2^{32}$ with remainder $\approx 0.0085\%$. Under this approximation, the
-per-epoch guessing probability is:
-$1/55{,}536 \approx 1.8 \times 10^{-5}$.
+Because $P(s, \tau)$ changes every $\Delta t = 30\,\text{s}$ and HMAC-SHA256 is
+modeled as a pseudorandom function, the port assignment is computationally
+unpredictable without $K_{\text{epoch}}$. The port selection applies modulo
+reduction to a 256-bit HMAC-SHA256 output over 55{,}536 possible positions
+(Equation~\ref{eq:mtd}). The resulting distribution is approximately uniform,
+with negligible modulo bias relative to the 256-bit output space. Accordingly,
+the single-probe guessing probability is approximately:
+\begin{equation}
+  \Pr[\mathcal{A}\text{ finds }P(s,\tau)] \approx \frac{1}{55{,}536}
+  \approx 1.80 \times 10^{-5}
+  \label{eq:guessing}
+\end{equation}
+under the stated PRF assumption (Property~2, Section~III-B).
 
 % =============================================================================
 \section{Limitations \& Future Work}
@@ -1208,9 +1244,11 @@ The following artifacts are committed to the supplementary archive
 % =============================================================================
 \section{Conclusion}
 % =============================================================================
-This paper presented \textbf{ASM-Shadhin-AI}, an open, fully sovereign, line-rate
-intrusion-mitigation and cognitive-defense architecture. The following conclusions
-are directly supported by the reported experiments and formal analysis.
+This paper presented \textbf{ASM-Shadhin-AI}, an open, fully sovereign,
+in-kernel intrusion-mitigation and cognitive-defense architecture achieving
+sub-microsecond packet-processing latency under the tested workload and
+configuration. The following conclusions are directly supported by the
+reported experiments and formal analysis.
 
 \textbf{In-Kernel Enforcement Performance.}
 The eBPF/XDP pipeline achieved a 30-run mean per-packet processing latency of
@@ -1263,17 +1301,20 @@ Across $N=30$ independent benchmark trials using Welch's two-sample
 Cohen's $d = 108.2$ for throughput; $\mathit{df} \approx 29.0$, $t = -87.8$,
 Cohen's $d = 22.7$ for latency; both $p < 10^{-15} \ll \alpha_{\text{adj}} = 0.010$),
 ASM-Shadhin-AI's $5.30\times$ throughput improvement and $\approx\!210\times$ latency
-reduction over Netfilter are statistically significant, confirming that differences are
-not attributable to measurement noise. Under the tested testbed configuration, DPDK
+reduction over Netfilter are statistically significant.
+Under the tested testbed configuration, DPDK
 achieves $2.54\times$ higher raw forwarding throughput via continuous PMD core busy-polling
 pegging CPU to 100\%, whereas ASM-Shadhin-AI consumes only $26.2 \pm 0.6\%$ CPU within the
 in-kernel XDP driver hook.
 
-Together, these empirical and theoretical results demonstrate that deterministic line-rate
-defense, locally sovereign cognitive intelligence, and post-quantum cryptographic
-agility can coexist on commodity x86-64 hardware. Principal open items are:
-scaling the Edge-LLM evaluation to larger datasets, extending to IPv6, and
-validating at higher line rates on SmartNIC hardware.
+Together, these empirical and theoretical results demonstrate that
+sub-microsecond in-kernel enforcement, locally sovereign cognitive intelligence,
+and post-quantum cryptographic agility can coexist on commodity x86-64 hardware
+under the tested workload and configuration. Generalizing these results to
+higher line rates, diverse hardware, or alternative traffic profiles requires
+additional evaluation. Principal open items are: scaling the Edge-LLM
+evaluation to larger datasets, extending to IPv6, and validating at higher
+packet rates on SmartNIC hardware.
 
 % =============================================================================
 \section*{Acknowledgment}
@@ -1309,6 +1350,11 @@ V.~Paxson, ``Bro: A system for detecting network intruders in real-time,''
 S.~Miano, M.~Bertrone, F.~Risso, M.~Tumolo, and M.~Bernal, ``Creating complex
 network services with eBPF: Experience and lessons learned,''
 in \emph{Proc.\ IEEE HPCC}, 2018, pp.~1--8.
+
+\bibitem{intel2022dpdk}
+Intel Corporation, ``Data Plane Development Kit (DPDK),''
+[Online]. Available: \url{https://www.dpdk.org}, 2022.
+(Version~22.11~LTS, accessed Aug.~2024.)
 
 \bibitem{hoiland2018express}
 T.~H{\o}iland-J{\o}rgensen et al., ``The eXpress data path: Fast programmable
@@ -1419,6 +1465,16 @@ G.~Gerganov et al., ``llama.cpp: Inference of LLaMA model in pure C/C++,''
 \bibitem{tcpreplay2024}
 T.~Turner et al., ``Tcpreplay: Pcap editing and replay tools,''
 [Online]. Available: \url{https://tcpreplay.appneta.com}, 2024.
+
+\bibitem{paloalto2024panos}
+Palo Alto Networks, ``PAN-OS Administrator's Guide, Release~11.1,''
+Tech.\ Rep., 2024. [Online]. Available:
+\url{https://docs.paloaltonetworks.com/pan-os}
+
+\bibitem{cloudflare2024magic}
+Cloudflare, Inc., ``Magic Transit: DDoS Protection for Networks,''
+Tech.\ Rep., 2024. [Online]. Available:
+\url{https://developers.cloudflare.com/magic-transit/}
 
 \end{thebibliography}
 
