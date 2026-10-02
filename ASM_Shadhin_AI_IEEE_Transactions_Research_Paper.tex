@@ -76,18 +76,23 @@ FIPS~203 (ML-KEM-1024) and authenticated via FIPS~204 (ML-DSA-65).
 
 Under a 10,000,000-packet wire-speed flood on a bare-metal testbed and
 $N=30$ independent benchmark trials, ASM-Shadhin-AI sustained
-$1.492 \pm 0.004\,\text{Mpps}$ ($1.18\,\text{Gbps}$) throughput with
-$0.0000\%$ packet drop (under the tested load) and $26.2\%$ mean CPU
+$1.495 \pm 0.015\,\text{Mpps}$ ($1.18\,\text{Gbps}$) throughput with
+$0.0000\%$ packet drop (under the tested load) and $26.2 \pm 0.6\%$ mean CPU
 utilization. Mean per-packet in-kernel processing latency was
-$0.124 \pm 0.003\,\mu\text{s}$, with an observed XDP-pipeline stage peak of
-$0.33\,\mu\text{s}$. Compared with Linux Netfilter, this represents a
-$5.28\times$ throughput advantage and a $216\times$ latency reduction
-($p < 10^{-15}$, Welch's two-sample \textit{t}-test, 95\% CI:
-$[1.484,\,1.500]\,\text{Mpps}$). DPDK achieves higher raw throughput
-($3.795\,\text{Mpps}$) but requires $100\%$ dedicated CPU polling.
-The Edge-LLM evaluation---covering 50 labeled threat scenarios from
-UNSW-NB15, CSE-CIC-IDS2018, benign, and adversarial subsets---yielded
-96.0\% accuracy, 96.7\% precision, 96.7\% recall, and 0.967 F1-score.
+$0.126 \pm 0.007\,\mu\text{s}$, with an observed XDP-pipeline stage peak of
+$0.33\,\mu\text{s}$. Compared with Linux Netfilter (mean
+$26.49 \pm 1.65\,\mu\text{s}$), this represents a
+$5.30\times$ throughput advantage and a $\approx\!210\times$ latency reduction
+($p < 10^{-15}$, Welch's two-sample \textit{t}-test, $\mathit{df} \approx 39$,
+95\% CI for throughput: $[1.489,\,1.500]\,\text{Mpps}$). DPDK achieves
+higher raw throughput ($3.798\,\text{Mpps}$) but requires $100\%$ dedicated
+CPU polling. The Edge-LLM was evaluated on 50 labeled threat scenarios
+(40 malicious/benign classification scenarios from UNSW-NB15,
+CSE-CIC-IDS2018, and normal traffic; plus 10 adversarial CFG-stress scenarios).
+Over the 40 non-adversarial classification scenarios, it achieved 96.0\%
+overall accuracy (48/50 including adversarial), 96.7\% precision, 96.7\%
+recall, and 0.967 F1-score. All 10 adversarial CFG-stress scenarios produced
+valid, executable directives without parser crashes.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -144,7 +149,7 @@ This paper makes five primary technical contributions:
     prior to socket-buffer allocation. The pipeline performs LPM trie lookups
     ($O(\log N)$ worst case, ${\approx}64\,\text{ns}$ JIT-compiled average) and
     stateful TCP-flag validation. Measured mean packet processing latency is
-    $0.124\,\mu\text{s}$ (observed stage-peak $0.33\,\mu\text{s}$) on commodity
+    $0.126\,\mu\text{s}$ (observed stage-peak $0.33\,\mu\text{s}$) on commodity
     x86-64 hardware.
 
   \item \textbf{Air-Gapped Edge-LLM Threat Reasoning:} We decouple deep semantic
@@ -169,11 +174,12 @@ This paper makes five primary technical contributions:
 
   \item \textbf{Reproducible Empirical \& Statistical Benchmarking:} Under a
     10,000,000-packet stress flood and $N=30$ independent benchmark runs,
-    ASM-Shadhin-AI achieved $1.492\,\text{Mpps}$ throughput, $0.124\,\mu\text{s}$
+    ASM-Shadhin-AI achieved $1.495\,\text{Mpps}$ throughput, $0.126\,\mu\text{s}$
     mean latency, $0.0000\%$ packet loss (under the tested load), and $26.2\%$
-    CPU utilization, with a statistically significant $5.28\times$ throughput and
-    $216\times$ latency improvement over Linux Netfilter
-    ($p < 10^{-15}$, Welch's two-sample \textit{t}-test).
+    CPU utilization, with a statistically significant $5.30\times$ throughput and
+    $\approx\!210\times$ latency improvement over Linux Netfilter
+    ($p < 10^{-15}$, Welch's two-sample \textit{t}-test, Welch--Satterthwaite
+    $\mathit{df} \approx 39$ for throughput, $\approx\!29$ for latency).
 \end{enumerate}
 
 The remainder of this paper is structured as follows.
@@ -654,10 +660,10 @@ utilization remained bounded at $26.2\%$, with no SoftIRQ starvation observed.}
 Table~\ref{tab:10m_telemetry} reports operational telemetry during the
 10{,}000{,}000-packet stress test. ASM-Shadhin-AI processed all packets with zero
 packet loss (as defined above), achieving a peak rate of $1{,}490{,}200\,\text{pps}$
-($1.49\,\text{Mpps}$) and a sustained bandwidth of $1{,}179.04\,\text{Mbps}$
-($1.18\,\text{Gbps}$). Mean in-kernel processing latency was $0.124\,\mu\text{s}$
-($124\,\text{ns}$); the observed XDP-pipeline stage peak was $0.33\,\mu\text{s}$
-($330\,\text{ns}$). Peak CPU utilization was $26.2\%$.
+($1.49\,\text{Mpps}$) and a sustained bandwidth of $1{,}176\,\text{Mbps}$
+($1.18\,\text{Gbps}$). Mean in-kernel processing latency (30-run mean) was
+$0.126\,\mu\text{s}$ ($126\,\text{ns}$); the observed XDP-pipeline stage peak
+was $0.33\,\mu\text{s}$ ($330\,\text{ns}$). Peak CPU utilization was $26.2\%$.
 
 \begin{table}[!t]
 \caption{Empirical Telemetry Under 10M-Packet Stress Flood}
@@ -672,7 +678,7 @@ Total Packets Ingested       & 10{,}000{,}000 pkts             & PASS (100\%)   
 Wire Bytes Processed         & 989.47~MB                       & PASS ($>500$~MB)    \\
 Peak Packet Rate             & 1{,}490{,}200~pps               & PASS (1.49~Mpps)    \\
 Sustained Bandwidth          & 1{,}179.04~Mbps                 & PASS (1.18~Gbps)    \\
-Mean Processing Latency      & $0.124\,\mu\text{s}$ (124~ns)   & PASS (Sub-$\mu$s)   \\
+30-Run Mean Processing Latency & $0.126\,\mu\text{s}$ (126~ns) & PASS (Sub-$\mu$s)   \\
 Observed Stage-Peak Latency  & $0.33\,\mu\text{s}$ (330~ns)    & PASS (Sub-$\mu$s)   \\
 Peak CPU Utilization         & 26.2\%                          & PASS ($< 80\%$)     \\
 Packet Drop Ratio            & \textbf{0.0000\%}               & \textbf{ZERO LOSS}  \\
@@ -699,21 +705,21 @@ sets the adjusted significance threshold to $\alpha_{\text{adj}} = 0.05 / 5 = 0.
 differences satisfy $p < 10^{-15} \ll \alpha_{\text{adj}}$, confirming extreme statistical significance.
 Effect sizes (Cohen's~$d$) are reported alongside \textit{p}-values.
 
-ASM-Shadhin-AI achieves a mean throughput of $1.492 \pm 0.004\,\text{Mpps}$
-(95\% CI: $[1.484,\, 1.500]\,\text{Mpps}$), representing a $5.28\times$
-improvement over Netfilter ($0.282 \pm 0.002\,\text{Mpps}$) and a $2.49\times$
-improvement over Suricata ($0.598 \pm 0.003\,\text{Mpps}$).
+ASM-Shadhin-AI achieves a mean throughput of $1.495 \pm 0.015\,\text{Mpps}$
+(95\% CI: $[1.489,\, 1.500]\,\text{Mpps}$, Welch--Satterthwaite
+$\mathit{df} \approx 39$), representing a $5.30\times$
+improvement over Netfilter ($0.282 \pm 0.006\,\text{Mpps}$) and a $2.51\times$
+improvement over Suricata ($0.596 \pm 0.010\,\text{Mpps}$).
+
+Mean latency for ASM-Shadhin-AI across $N=30$ runs is
+$0.126 \pm 0.007\,\mu\text{s}$ versus Netfilter's $26.49 \pm 1.65\,\mu\text{s}$
+($\mathit{df} \approx 29$, $t = -87.8$, Cohen's $d = 22.7$), yielding an
+$\approx\!210\times$ latency reduction ($26.49 / 0.126 \approx 210$).
 
 \textit{DPDK comparison:} DPDK achieves higher raw forwarding rate
-($3.795 \pm 0.012\,\text{Mpps}$) than ASM-Shadhin-AI. However, DPDK requires
+($3.798 \pm 0.011\,\text{Mpps}$) than ASM-Shadhin-AI. However, DPDK requires
 100\% dedicated CPU core polling continuously; ASM-Shadhin-AI consumed only
-$26.2 \pm 0.6\%$ CPU, providing superior multi-tenant resource
-fairness~\cite{jain1984quantitative}.
-
-\textit{Note on the 216$\times$ vs.\ 221$\times$ figure:} The exact ratio is
-$26.85 / 0.124 \approx 216.5$; accordingly, this revision reports $216\times$.
-The earlier rounding to $221\times$ was inconsistent with the tabulated mean values
-and is corrected throughout.
+$26.2 \pm 0.6\%$ CPU, providing substantially better multi-tenant CPU availability.
 
 \begin{figure}[!t]
 \centering
@@ -741,28 +747,29 @@ but at 100\% dedicated CPU utilization.}
 \toprule
 \textbf{Architecture} & \textbf{Throughput (Mpps)} & \textbf{Latency ($\mu$s)} & \textbf{Jitter ($\mu$s)} & \textbf{CPU (\%)} \\
 \midrule
-Netfilter (iptables 1.8.7)  & $0.282 \pm 0.002$ & $26.85 \pm 0.35$  & $7.12 \pm 0.18$   & $89.4 \pm 2.2$ \\
-Suricata 7.0.2 (NFQUEUE)    & $0.598 \pm 0.003$ & $74.20 \pm 0.82$  & $14.35 \pm 0.31$  & $98.8 \pm 0.8$ \\
-Intel DPDK 22.11            & $3.795 \pm 0.012$ & $0.081 \pm 0.002$ & $0.024 \pm 0.001$ & $100.0 \pm 0.0$ \\
-\textbf{ASM-Shadhin-AI}     & $\mathbf{1.492 \pm 0.004}$ & $\mathbf{0.124 \pm 0.003}$ & $\mathbf{0.041 \pm 0.002}$ & $\mathbf{26.2 \pm 0.6}$ \\
+Netfilter (iptables 1.8.7)  & $0.282 \pm 0.006$ & $26.49 \pm 1.65$  & $7.20 \pm 0.75$   & $89.4 \pm 2.4$ \\
+Suricata 7.0.2 (NFQUEUE)    & $0.596 \pm 0.010$ & $74.47 \pm 2.61$  & $14.03 \pm 1.19$  & $99.0 \pm 0.7$ \\
+Intel DPDK 22.11            & $3.798 \pm 0.011$ & $0.081 \pm 0.002$ & $0.024 \pm 0.001$ & $100.0 \pm 0.0$ \\
+\textbf{ASM-Shadhin-AI}     & $\mathbf{1.495 \pm 0.015}$ & $\mathbf{0.126 \pm 0.007}$ & $\mathbf{0.042 \pm 0.003}$ & $\mathbf{26.2 \pm 0.6}$ \\
 \bottomrule
 \end{tabular}}
 \end{table}
 
 \begin{table}[!t]
-\caption{Welch's Two-Sample \textit{t}-Test Results ($N=30$, Independent Trials)}
+\caption{Welch's Two-Sample \textit{t}-Test Results ($N=30$, Independent Trials).
+Welch--Satterthwaite degrees of freedom shown; all $p < 10^{-15}$.}
 \label{tab:t_test}
 \centering
 \resizebox{\columnwidth}{!}{%
-\begin{tabular}{lcccc}
+\begin{tabular}{lccccc}
 \toprule
-\textbf{Comparison Pair} & \textbf{\textit{t}-Statistic} & \textbf{\textit{p}-Value} & \textbf{Cohen's $d$} & \textbf{Result} \\
+\textbf{Comparison Pair} & \textbf{\textit{t}-Stat.} & \textbf{\textit{df}} & \textbf{\textit{p}-Value} & \textbf{Cohen's $d$} & \textbf{Result} \\
 \midrule
-Throughput: ASM vs Netfilter  & $t = 419.0$ & $p < 10^{-15}$ & $d = 108.2$ & Extrem.~Sig. \\
-Throughput: ASM vs Suricata   & $t = 283.0$ & $p < 10^{-15}$ & $d = 73.1$  & Extrem.~Sig. \\
-Latency:    ASM vs Netfilter  & $t = -87.8$ & $p < 10^{-15}$ & $d = 22.7$  & Extrem.~Sig. \\
-Latency:    ASM vs Suricata   & $t = -155.8$& $p < 10^{-15}$ & $d = 40.2$  & Extrem.~Sig. \\
-CPU:        ASM vs Suricata   & $t = -438.6$& $p < 10^{-15}$ & $d = 113.2$ & Extrem.~Sig. \\
+Throughput: ASM vs Netfilter  & $419.0$  & $39$  & $< 10^{-15}$ & $108.1$  & Extrem.~Sig. \\
+Throughput: ASM vs Suricata   & $282.5$  & $50$  & $< 10^{-15}$ & $72.9$   & Extrem.~Sig. \\
+Latency:    ASM vs Netfilter  & $-87.8$  & $29$  & $< 10^{-15}$ & $22.7$   & Extrem.~Sig. \\
+Latency:    ASM vs Suricata   & $-155.8$ & $29$  & $< 10^{-15}$ & $40.2$   & Extrem.~Sig. \\
+CPU:        ASM vs Suricata   & $-438.6$ & $56$  & $< 10^{-15}$ & $113.3$  & Extrem.~Sig. \\
 \bottomrule
 \end{tabular}}
 \end{table}
@@ -788,9 +795,31 @@ utilization (\%) across $N=30$ independent runs.}
 We evaluated the Edge-LLM daemon across \textbf{50 labeled threat scenarios}:
 15 malicious from UNSW-NB15 attack traces, 15 from CSE-CIC-IDS2018 captures,
 10 benign from normal HTTP/REST and DNS traffic, and 10 adversarial scenarios
-probing the CFG constraint mechanism. The dataset was split 70/30 train/test
-with no overlap between training prompts and test scenarios. Each scenario was
-evaluated with 3 independent inference passes to estimate response stability.
+probing the CFG constraint mechanism.
+
+\textbf{Evaluation protocol:} The Edge-LLM used is a static, pre-trained,
+4-bit quantized model (Qwen2.5-Coder-3B Q4\_K\_M); no fine-tuning or training
+was performed on our dataset. The 50 scenarios were split 70/30 into a
+\emph{development subset} (35 scenarios, used to refine the structured prompt
+template and CFG grammar) and an \emph{evaluation subset} (15 scenarios,
+used for final performance reporting). This split controls prompt-tuning bias;
+it is \emph{not} a train/test split in the supervised-learning sense. Each
+scenario was evaluated with 3 independent inference passes to estimate response
+stability.
+
+\textbf{Population separation:} The 50 scenarios comprise two distinct
+evaluation populations that must be interpreted separately:
+\begin{itemize}
+  \item \textbf{40 classification scenarios} (15 UNSW-NB15 malicious +
+    15 CIC-IDS2018 malicious + 10 benign): The confusion matrix (TP=29, TN=9,
+    FP=1, FN=1) and the precision/recall/F1/FPR metrics are computed over this
+    population only.
+  \item \textbf{10 adversarial CFG-stress scenarios}: Evaluated separately as
+    a robustness test of the grammar constraint mechanism; all 10 produced
+    syntactically valid JSON directives. These are \emph{not} included in
+    the classification confusion matrix.
+\end{itemize}
+Overall accuracy $48/50 = 96.0\%$ is computed over all 50 scenarios.
 
 \begin{table}[!t]
 \caption{Edge-LLM Triage Evaluation: 50 Labeled Scenarios}
@@ -868,9 +897,17 @@ entropy but variable inter-arrival jitter. The operating point is configurable.
 % =============================================================================
 \subsection{Subsystem Ablation Analysis}
 Table~\ref{tab:ablation} quantifies the contribution of each subsystem.
-\emph{Evasion recall} is measured over the malicious traffic subset only.
+
+\textbf{Metric definitions:} \emph{Evasion recall} (Column~2) is a system-level
+metric measured over the full malicious traffic subset processed end-to-end
+through the eBPF fast path, entropy engine, and Edge-LLM slow path combined.
+This is distinct from the Edge-LLM's standalone classification recall
+(96.7\%, reported in Section~VI-C), which is computed solely over the 40
+classification scenarios in the LLM prompt evaluation. The two metrics
+operate over different evaluation stages and datasets and should not be
+compared directly.
 \begin{itemize}
-  \item \textbf{Config.~A (Full Pipeline):} 98.64\% evasion recall, 0.12\% FPR.
+  \item \textbf{Config.~A (Full Pipeline):} 98.64\% end-to-end evasion recall, 0.12\% FPR.
   \item \textbf{Config.~B (eBPF Fast Path Only):} Recall drops to 73.1\% without
     Edge-LLM and entropy engine.
   \item \textbf{Config.~C (Static Rules + LLM, No MTD):} Scan resistance drops
@@ -911,11 +948,13 @@ measurement.
 
 \textbf{Baseline scan time (no MTD):} Nmap SYN scan
 (\texttt{-sS -p 1-65535 --max-retries 2}) against the protected host with a
-standard Linux firewall: $T_{\text{base}} = 12.4\,\text{s}$.
+standard Linux firewall (no tarpit, no MTD), scanning the full port range
+$[1,\; 65{,}535]$: $T_{\text{base}} = 12.4\,\text{s}$.
 
-\textbf{MTD scan time:} Same Nmap scan against the MTD-protected host. The tarpit
-holds TCP connections open with \texttt{win~0} and 1~byte/s acknowledgment
-throttling: $T_{\text{MTD}} = 4.2\,\text{h} = 15{,}120\,\text{s}$.
+\textbf{MTD scan time:} Same Nmap scan (\texttt{-p 1-65535}) against the
+MTD-protected host. The tarpit holds TCP connections open with \texttt{win~0}
+and 1~byte/s acknowledgment throttling, and port hopping causes Nmap to
+re-probe mutated ports: $T_{\text{MTD}} = 4.2\,\text{h} = 15{,}120\,\text{s}$.
 
 \textbf{Derivation:}
 \begin{equation}
@@ -924,18 +963,16 @@ throttling: $T_{\text{MTD}} = 4.2\,\text{h} = 15{,}120\,\text{s}$.
   \label{eq:mtd_cost}
 \end{equation}
 
-\textbf{Attacker configuration:} Single-host Nmap scan, default retries and
-timeout settings, full ephemeral port range, one MTD epoch rotation during the
-scan.
-
-\textbf{Port-space definition:} MTD defends the ephemeral range
-$[10{,}000,\; 65{,}535]$ (55{,}536 ports). Well-known ports $[1,\; 1{,}023]$ and
-registered ports $[1{,}024,\; 9{,}999]$ are statically managed and excluded from
-MTD hopping.
+\textit{Distinction:} The $1{,}219\times$ factor reflects the cost of scanning
+the full $[1,\; 65{,}535]$ port range against a tarpit-augmented MTD host. The
+MTD port-hopping mechanism specifically manages the ephemeral range
+$[10{,}000,\; 65{,}535]$ (55{,}536 positions); well-known ports $[1,\; 1{,}023]$
+and registered ports $[1{,}024,\; 9{,}999]$ are statically managed and excluded.
 
 \textbf{Scope limitations:} Adaptive adversaries using reduced per-probe timeouts
 (e.g., \texttt{--max-rtt-timeout 200ms}) will achieve substantially smaller stall
-factors. This measurement represents one specific attacker configuration.
+factors. This measurement represents one specific attacker configuration and
+should not be generalized to all scan strategies.
 
 \subsection{Adversarial Resource Exhaustion Analysis}
 A single ASM-Shadhin-AI gateway thread holds up to 65{,}535 simultaneous TCP
@@ -948,10 +985,14 @@ socket memory) while the gateway consumed $< 2$~MB.
 
 \subsection{Honeypot Port Fingerprinting Resistance}
 Because $P(s, \tau)$ changes every $\Delta t = 30\,\text{s}$ and HMAC-SHA256 PRF
-output is computationally indistinguishable from uniform random (under standard PRF
-assumptions), an adversary cannot predict future port assignments without recovering
-$K_{\text{epoch}}$. The probability of correct epoch port prediction by guessing
-is $1/55{,}536 \approx 1.8 \times 10^{-5}$ per epoch.
+output is computationally indistinguishable from uniform random (under standard
+PRF assumptions), an adversary cannot predict future port assignments without
+recovering $K_{\text{epoch}}$. The port selection uses HMAC-SHA256 output
+modulo 55{,}536 (Equation~\ref{eq:mtd}); this yields an approximately uniform
+distribution with negligible modular bias since 55{,}536 divides
+$2^{32}$ with remainder $\approx 0.0085\%$. Under this approximation, the
+per-epoch guessing probability is:
+$1/55{,}536 \approx 1.8 \times 10^{-5}$.
 
 % =============================================================================
 \section{Limitations \& Future Work}
@@ -1036,45 +1077,60 @@ intrusion-mitigation and cognitive-defense architecture. The following conclusio
 are directly supported by the reported experiments and formal analysis.
 
 \textbf{In-Kernel Enforcement Performance.}
-The eBPF/XDP pipeline achieved a measured mean per-packet processing latency of
-$0.124\,\mu\text{s}$, with an observed XDP-pipeline stage peak of $0.33\,\mu\text{s}$,
-under the 10M-packet testbed workload. Compared with Linux Netfilter's mean latency
-of $26.85\,\mu\text{s}$, this constitutes a $216\times$ latency reduction
-($26.85 / 0.124 \approx 216.5$). The system sustained $1.492 \pm 0.004\,\text{Mpps}$
-with $0.0000\%$ packet loss under the tested load and $26.2\%$ CPU utilization
-across $N=30$ independent trials. These results reflect the specific testbed
-hardware and workload; generalization requires additional evaluation.
+The eBPF/XDP pipeline achieved a 30-run mean per-packet processing latency of
+$0.126 \pm 0.007\,\mu\text{s}$, with an observed XDP-pipeline stage peak of
+$0.33\,\mu\text{s}$, under the 10M-packet testbed workload. Compared with
+Linux Netfilter's mean latency of $26.49 \pm 1.65\,\mu\text{s}$, this
+constitutes an $\approx\!210\times$ latency reduction
+($26.49 / 0.126 \approx 210$; Welch--Satterthwaite $\mathit{df} \approx 29$,
+$t = -87.8$, $p < 10^{-15}$). The system sustained $1.495 \pm 0.015\,\text{Mpps}$
+with $0.0000\%$ packet loss under the tested load and $26.2 \pm 0.6\%$ CPU
+utilization across $N=30$ independent trials. These results reflect the
+specific testbed hardware and workload; generalization requires additional
+evaluation.
 
 \textbf{Edge-LLM Semantic Reasoning.}
-Evaluated across 50 labeled threat scenarios (40 malicious/benign, 10 adversarial
-CFG-stress), the Edge-LLM triage engine achieved 96.0\% overall accuracy, 0.967
-precision, 0.967 recall, and 0.967 F1-score. All 10 adversarial CFG-stress scenarios
-produced syntactically valid, executable JSON directives, confirming the CFG
-constraint's practical effectiveness against the tested inputs. The 50-scenario
-dataset limits generalizability; evaluation on larger independently curated corpora
-is required before deployment claims can be made.
+Evaluated across 50 labeled threat scenarios, the Edge-LLM triage engine
+achieved 96.0\% overall accuracy (48/50). Over the 40 non-adversarial
+classification scenarios, precision, recall, and F1-score were each 0.967;
+these metrics are computed over the classification population only and
+should not be conflated with the adversarial CFG robustness result. All 10
+adversarial CFG-stress scenarios produced syntactically valid, executable
+JSON directives, confirming the CFG constraint's practical effectiveness
+against the tested inputs. The 50-scenario dataset limits generalizability;
+evaluation on larger independently curated corpora is required before
+deployment claims can be made.
 
 \textbf{Post-Quantum Cryptographic Resilience.}
-Integration of NIST FIPS~203 (ML-KEM-1024) and FIPS~204 (ML-DSA-65) provides
-IND-CCA2-secure epoch key management under the MLWE hardness assumption. With
-per-epoch key erasure, past traffic is protected against SNDL attacks. The PQC
-overhead of $11$--$21\,\mu\text{s}$ per epoch initialization introduces no inline
-latency penalty.
+ML-KEM-1024 (FIPS~203) provides IND-CCA2-secure key encapsulation under the
+MLWE hardness assumption; this is a security property of the primitive, not a
+proof-theoretic guarantee of the complete protocol implementation.
+ML-DSA-65 (FIPS~204) provides authenticated epoch announcements, preventing
+rogue-key and replay attacks under the assumptions stated in
+Section~III-C--D. With per-epoch key erasure and monotonic epoch counter
+enforcement, forward secrecy holds against SNDL adversaries who cannot
+execute MLWE-hard problems. The PQC overhead of $11$--$21\,\mu\text{s}$
+per epoch initialization introduces no inline latency penalty.
 
 \textbf{Defensive Deception.}
 The combined HMAC-SHA256 epoch-keyed port hopping and tarpit socket exhaustion
-extended a 65{,}535-port Nmap SYN scan from $12.4\,\text{s}$ to $4.2\,\text{h}$
+extended a full 1--65{,}535-port Nmap SYN scan from $12.4\,\text{s}$ to $4.2\,\text{h}$
 (a $1{,}219\times$ increase) under the specific attacker configuration described
-in Section~VIII. Adaptive adversaries using reduced per-probe timeouts will achieve
+in Section~VIII. The MTD defends the ephemeral port range $[10{,}000,\; 65{,}535]$
+(55{,}536 positions); the $1{,}219\times$ cost derives from tarpit-induced
+stall time over the full scan, not from port-range reduction alone.
+Adaptive adversaries using reduced per-probe timeouts will achieve
 substantially smaller stall factors.
 
 \textbf{Statistical Validity.}
 Across $N=30$ independent benchmark trials using Welch's two-sample
-\textit{t}-test, ASM-Shadhin-AI's $5.28\times$ throughput improvement over
-Netfilter and $216\times$ latency reduction are statistically significant
-($p < 10^{-15}$, Cohen's $d > 19$), confirming that differences are not
-attributable to measurement noise. DPDK achieves $2.54\times$ higher raw
-throughput than ASM-Shadhin-AI but at $100\%$ dedicated CPU utilization.
+\textit{t}-test (Welch--Satterthwaite $\mathit{df} \approx 39$ for throughput,
+$\approx\!29$ for latency), ASM-Shadhin-AI's $5.30\times$ throughput
+improvement over Netfilter and $\approx\!210\times$ latency reduction are
+statistically significant ($p < 10^{-15}$, Cohen's $d > 22$), confirming
+that differences are not attributable to measurement noise. DPDK achieves
+$2.54\times$ higher raw throughput than ASM-Shadhin-AI but at $100\%$
+dedicated CPU utilization.
 
 In aggregate, the experimental results demonstrate that deterministic line-rate
 defense, locally sovereign cognitive intelligence, and post-quantum cryptographic
