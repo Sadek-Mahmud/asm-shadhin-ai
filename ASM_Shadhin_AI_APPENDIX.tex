@@ -21,9 +21,9 @@
 
 \begin{document}
 
-\title{\LARGE Autonomous Post-Quantum Cyber Defense Agent (ASM-Shadhin-AI): Sovereign Line-Rate Intrusion Defence via Kernel-eBPF and Local-LLM}
+\title{\LARGE Autonomous Post-Quantum Cyber Defense Agent (ASM-Shadhin-AI): Sovereign Line-Rate Intrusion Defense via Kernel-eBPF and Local-LLM}
 
-\author{\large A S M Hossain Mahmud (Shadhin), \textit{Department of CSE, Bangladesh Army University of Science and Technology (BAUST), Saidpur 5310, Bangladesh}}
+\author{\large A~S~M~Hossain~Mahmud~(Shadhin),~\textit{Department~of~CSE,~Bangladesh~Army~University~of~Science~and~Technology~(BAUST),~Saidpur~5310,~Bangladesh}}
 
 \maketitle
 \thispagestyle{plain}
@@ -34,11 +34,11 @@
 \end{center}
 \vspace{0.8em}
 
-\noindent To establish empirical reproducibility prior to publication, the core subsystems were evaluated using the automated test suite (\texttt{scripts/test\_system\_integrity.py}) on an authentic Ubuntu Server 22.04 LTS host (Linux kernel 6.x, libbpf). Table~VII itemises the verification criteria and outcomes. All eleven module-level checks passed without manual intervention.
+\noindent To establish empirical reproducibility prior to publication, the core subsystems were evaluated using the automated test suite (\texttt{scripts/test\_system\_integrity.py}) on an authentic Ubuntu Server 22.04 LTS host (Linux kernel 6.8.0, libbpf). Table~VIII itemizes the verification criteria and outcomes. All eleven module-level checks passed without manual intervention.
 
 \vspace{1.5em}
 
-\setcounter{table}{6}
+\setcounter{table}{7}
 \begin{table}[h!]
 \centering
 \caption{\textbf{SYSTEM DIAGNOSTIC AND LOGICAL INTEGRITY VERIFICATION}}
@@ -56,7 +56,7 @@
 5 & Threat Parser & Suricata alert parser \& deterministic XDP fallback & \textbf{PASSED [\checkmark]} \\
 6 & AI-Tarpit Deception & Context-exhaustion payloads \& honey-tokens & \textbf{PASSED [\checkmark]} \\
 7 & Systemd Daemons & Unit syntax for \texttt{sec-monitor}, \texttt{sec-tarpit}, \texttt{sec-bridge} & \textbf{PASSED [\checkmark]} \\
-8 & Moving Target Defence & HMAC-SHA256 polymorphic port hopping \& grace & \textbf{PASSED [\checkmark]} \\
+8 & Moving Target Defense & HMAC-SHA256 polymorphic port hopping \& grace & \textbf{PASSED [\checkmark]} \\
 9 & Encrypted Traffic & Shannon byte entropy ($H \ge 7.1$) \& C2 beacon detector & \textbf{PASSED [\checkmark]} \\
 10 & Forensic Audit Chain & NIST FIPS 180-4 SHA-512 immutable tamper detection & \textbf{PASSED [\checkmark]} \\
 11 & Memory-Hard Auth Guard & RFC 9106 Argon2id (64 MiB) \& HMAC-SHA512 & \textbf{PASSED [\checkmark]} \\
@@ -66,6 +66,6 @@
 
 \vfill
 
-\noindent\textit{\footnotesize *All 11/11 tests passed in production host environment. Full test logs and automated suite are verifiable at: \url{https://github.com/Sadek-Mahmud/asm-shadhin-ai}}
+\noindent\textit{\footnotesize *All 11/11 tests passed in production host environment. Full test logs and automated suite are verifiable at:\\ \url{https://github.com/Sadek-Mahmud/asm-shadhin-ai}}
 
 \end{document}
