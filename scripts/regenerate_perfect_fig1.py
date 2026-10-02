@@ -56,11 +56,11 @@ def generate_perfect_fig1():
 
     # Line-Rate SLA Line at 2.0 µs
     ax.axvline(2.0, color="#b91c1c", linestyle="--", linewidth=1.5, zorder=4)
-    ax.text(1.97, 0.38, "Line-Rate SLA Target\n(2.0 µs Max Budget)", ha='right', va='center',
-            fontsize=8.2, fontweight='bold', color="#b91c1c",
+    ax.text(1.97, 3.48, "Line-Rate SLA (2.0 µs Limit)", ha='right', va='center',
+            fontsize=8.0, fontweight='bold', color="#b91c1c",
             bbox=dict(boxstyle='round,pad=0.35', facecolor='#fef2f2', edgecolor="#fca5a5", linewidth=0.9, alpha=0.95))
 
-    ax.set_ylim(3.6, -0.6)
+    ax.set_ylim(3.8, -0.6)
 
     plt.tight_layout()
     out_path = "docs/figures/fig1_xdp_pipeline.png"

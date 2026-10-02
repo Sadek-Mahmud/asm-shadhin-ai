@@ -1,0 +1,54 @@
+{
+  "total_flows": 200,
+  "benign_flows": 100,
+  "c2_flows": 100,
+  "H_sweep": [
+    7.0,
+    7.05,
+    7.1,
+    7.15,
+    7.2,
+    7.25,
+    7.3,
+    7.35,
+    7.4,
+    7.45,
+    7.5,
+    7.55,
+    7.6,
+    7.65,
+    7.7,
+    7.75,
+    7.8,
+    7.85,
+    7.9,
+    7.95,
+    8.0
+  ],
+  "J_sweep": [
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3
+  ],
+  "AUC_ROC": 0.891,
+  "AUC_CI_95": [
+    0.841,
+    0.941
+  ],
+  "selected_operating_point": {
+    "H_threshold": 7.85,
+    "J_threshold_s": 0.1,
+    "TPR_recall": 0.88,
+    "FPR": 0.08,
+    "Precision": 0.9167,
+    "F1": 0.898,
+    "TP": 88,
+    "TN": 92,
+    "FP": 8,
+    "FN": 12
+  },
+  "false_positive_note": "FPs are compressed HTTP/2 streams with high byte entropy."
+}

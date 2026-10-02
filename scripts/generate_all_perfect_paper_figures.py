@@ -50,14 +50,14 @@ def gen_fig1():
     fig, ax = plt.subplots(figsize=(3.5, 2.15), dpi=300)
     
     stages = [
-        "Stage 1: IP Blocklist\n(Hash Map Match)",
+        "Stage 1: CIDR Blocklist\n(LPM Trie, O(log N))",
         "Stage 2: Tarpit Redirect\n(Sockmap Redir)",
         "Stage 3: TCP Flag Filter\n(SYN/RST Anomaly)",
         "Stage 4: Telemetry Push\n(Zero-Copy RingBuf)"
     ]
-    latencies = [0.33, 0.85, 0.45, 0.92]
+    latencies = [0.33, 0.85, 0.45, 0.92]  # Stage peaks
     actions = [
-        "0.33 µs (DROP)",
+        "0.33 µs peak / 0.124 µs mean",
         "0.85 µs (REDIRECT)",
         "0.45 µs (DROP)",
         "0.92 µs (PASS)"
@@ -88,11 +88,12 @@ def gen_fig1():
 
     # SLA target line at 2.0 us
     ax.axvline(2.0, color="#b91c1c", linestyle="--", linewidth=1.2, zorder=4)
-    ax.text(1.97, 0.35, "Line-Rate SLA\n(2.0 µs Limit)", ha='right', va='center',
-            fontsize=6.5, fontweight='bold', color="#b91c1c",
+    # SLA target badge placed at bottom left of line (ends cleanly before 2.0)
+    ax.text(1.93, 3.48, "Line-Rate SLA (2.0 µs Limit)", ha='right', va='center',
+            fontsize=6.5, fontweight='bold', color="#b91c1c", zorder=5,
             bbox=dict(boxstyle='round,pad=0.25', facecolor='#fef2f2', edgecolor="#fca5a5", linewidth=0.6, alpha=0.95))
 
-    ax.set_ylim(3.55, -0.55)
+    ax.set_ylim(3.80, -0.60)
     plt.tight_layout(pad=0.35)
     
     out_path = os.path.join(DOCS_FIG, "fig1_xdp_pipeline.png")
@@ -179,7 +180,7 @@ def gen_fig3():
     ax.fill_between(time_pts, 0, cpu_pts, color=color_cpu, alpha=0.15)
 
     # Red dotted peak CPU line
-    ax.axhline(26.1, color='#dc2626', linestyle=':', linewidth=1.5, label='Peak CPU (26.1%)')
+    ax.axhline(26.2, color='#dc2626', linestyle=':', linewidth=1.5, label='Peak CPU (26.2%)')
 
     ax.set_xlabel('Elapsed Time (Seconds)', fontsize=8.0, fontweight='bold', labelpad=3)
     ax.set_ylabel('CPU Utilization (%)', fontsize=8.0, fontweight='bold')
@@ -191,7 +192,7 @@ def gen_fig3():
     ax.legend(loc='upper right', fontsize=6.8, framealpha=0.9, edgecolor='#cbd5e1')
 
     # Headroom callout
-    ax.text(4.5, 38, "73.9% Headroom Available\n(Zero SoftIRQ Starvation)", ha='center', va='bottom',
+    ax.text(4.5, 38, "73.8% Headroom Available\n(Zero SoftIRQ Starvation)", ha='center', va='bottom',
             fontsize=6.5, fontweight='bold', color="#166534",
             bbox=dict(boxstyle='round,pad=0.25', facecolor='#f0fdf4', edgecolor='#86efac', linewidth=0.5, alpha=0.9))
 
@@ -210,7 +211,7 @@ def gen_fig4():
 
     short_fws = ['iptables', 'Suricata', 'DPDK', 'Ours']
     throughputs = [0.28, 0.60, 3.80, 1.49]
-    latencies = [26.85, 74.20, 0.08, 0.12]
+    latencies = [26.85, 74.20, 0.08, 0.124]
     colors = ['#ef4444', '#f97316', '#0ea5e9', '#10b981']
 
     # (a) Throughput
@@ -350,13 +351,13 @@ def gen_fig6():
     mu_suri = np.log(74.20) - (sigma_suri**2) / 2
     lat_suri = np.random.lognormal(mu_suri, sigma_suri, 10000)
 
-    fig, ax = plt.subplots(figsize=(3.5, 2.2), dpi=300)
+    fig, ax = plt.subplots(figsize=(3.6, 2.55), dpi=300)
 
     cdf_series = [
-        ('Intel DPDK (PMD Bypass)', lat_dpdk, '#0284c7', '-.', 1.3),
-        ('SovereignLine (eBPF/XDP)', lat_asm, '#16a34a', '-', 2.0),
-        ('Linux Netfilter (iptables)', lat_ipt, '#dc2626', '-', 1.3),
-        ('Suricata 7.x (Inline NFQ)', lat_suri, '#ea580c', '--', 1.3)
+        ('Intel DPDK (PMD Bypass)', lat_dpdk, '#0284c7', '-.', 1.8),
+        ('ASM-Shadhin-AI (eBPF/XDP)', lat_asm, '#16a34a', '-', 2.2),
+        ('Linux Netfilter (iptables)', lat_ipt, '#dc2626', '-', 1.8),
+        ('Suricata 7.x (Inline NFQ)', lat_suri, '#ea580c', '--', 1.8)
     ]
 
     for label, lats, color, ls, lw in cdf_series:
@@ -364,30 +365,31 @@ def gen_fig6():
         ecdf = np.linspace(0.0, 1.0, len(sorted_lats))
         ax.plot(sorted_lats, ecdf, label=label, color=color, linestyle=ls, linewidth=lw, zorder=3)
 
-    # Shaded SLA compliance region
-    ax.axvspan(0.02, 2.0, color='#f0fdf4', alpha=0.55, zorder=1)
+    # Vertical red dashed line at 2.0 us
+    ax.axvline(2.0, color='#b91c1c', linestyle='--', linewidth=1.5, zorder=4)
 
-    # Vertical SLA Line at 2.0 us
-    ax.axvline(2.0, color='#991b1b', linestyle='--', linewidth=1.2, zorder=4)
-    ax.text(2.3, 0.85, 'Line-Rate SLA\n(2.0 µs Limit)', ha='left', va='center',
-            fontsize=6.5, fontweight='bold', color='#991b1b',
-            bbox=dict(boxstyle='round,pad=0.25', facecolor='#fef2f2', edgecolor='#fca5a5', linewidth=0.6, alpha=0.95))
+    # Top annotation: "← SLA 2.0 µs →" exactly like user reference image
+    ax.text(2.0, 1.03, '←  SLA 2.0 µs  →', 
+            ha='center', va='bottom', fontsize=8.0, fontweight='bold', color='#b91c1c',
+            transform=ax.get_xaxis_transform(), clip_on=False)
 
     ax.set_xscale('log')
     ax.set_xlim(0.025, 220)
-    ax.set_ylim(-0.02, 1.03)
+    ax.set_ylim(0.0, 1.02)
 
-    ax.set_xlabel('Per-Packet Latency (µs) [Log Scale]', fontsize=8.0, fontweight='bold', labelpad=2)
-    ax.set_ylabel(r'Empirical CDF  $P(X \leq x)$', fontsize=8.0, fontweight='bold', labelpad=2)
-    ax.tick_params(axis='both', labelsize=7.2)
+    ax.set_xlabel('Per-Packet Processing Latency (µs) [Log Scale]', fontsize=8.2, fontweight='bold', labelpad=4)
+    ax.set_ylabel(r'Empirical CDF  $P(X \leq x)$', fontsize=8.2, fontweight='bold', labelpad=4)
+    ax.tick_params(axis='both', which='both', labelsize=7.5, direction='in')
     ax.grid(True, which='major', linestyle='--', alpha=0.45, zorder=0)
     ax.grid(True, which='minor', linestyle=':', alpha=0.2, zorder=0)
 
-    # Legend located in the open space below the SLA callout
-    ax.legend(loc='lower left', bbox_to_anchor=(0.38, 0.12), fontsize=6.2,
-              framealpha=0.95, edgecolor='#cbd5e1', fancybox=True)
+    # Legend BELOW the plot in 2 columns exactly as in user reference image
+    leg = ax.legend(loc='upper center', bbox_to_anchor=(0.50, -0.22), ncol=2, fontsize=6.3,
+                    columnspacing=1.5, handlelength=2.0, handletextpad=0.5,
+                    framealpha=0.9, facecolor='#f8fafc', edgecolor='#cbd5e1', fancybox=False)
+    leg.get_frame().set_linewidth(0.7)
 
-    plt.tight_layout(pad=0.35)
+    plt.tight_layout(pad=0.35, rect=[0, 0, 1, 0.95])
     out_path = os.path.join(TESTBED_FIG, "fig5_throughput_cdf.png")
     plt.savefig(out_path, bbox_inches='tight')
     plt.close()

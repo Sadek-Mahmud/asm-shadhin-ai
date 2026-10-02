@@ -1,0 +1,902 @@
+[
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.923,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.55,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.923
+    },
+    "scenario_id": 1,
+    "name": "Fuzzers",
+    "category": "unsw_nb15_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.938,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.17,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.938
+    },
+    "scenario_id": 2,
+    "name": "Analysis",
+    "category": "unsw_nb15_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.974,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.65,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.974
+    },
+    "scenario_id": 3,
+    "name": "Backdoors",
+    "category": "unsw_nb15_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "BENIGN",
+    "predicted_action": "PASS",
+    "confidence": 0.689,
+    "cfg_valid": true,
+    "correct": false,
+    "latency_s": 2.81,
+    "output_json": {
+      "verdict": "BENIGN",
+      "action": "PASS",
+      "confidence": 0.689
+    },
+    "scenario_id": 4,
+    "name": "DoS",
+    "category": "unsw_nb15_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.923,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.32,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.923
+    },
+    "scenario_id": 5,
+    "name": "Exploits",
+    "category": "unsw_nb15_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.96,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.11,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.96
+    },
+    "scenario_id": 6,
+    "name": "Generic",
+    "category": "unsw_nb15_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.937,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 1.91,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.937
+    },
+    "scenario_id": 7,
+    "name": "Reconnaissance",
+    "category": "unsw_nb15_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.964,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.56,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.964
+    },
+    "scenario_id": 8,
+    "name": "Shellcode",
+    "category": "unsw_nb15_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.967,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.11,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.967
+    },
+    "scenario_id": 9,
+    "name": "Worms",
+    "category": "unsw_nb15_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.922,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.72,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.922
+    },
+    "scenario_id": 10,
+    "name": "Nmap SYN Scan",
+    "category": "unsw_nb15_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.975,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.72,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.975
+    },
+    "scenario_id": 11,
+    "name": "Xmas Scan",
+    "category": "unsw_nb15_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "test"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.933,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.23,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.933
+    },
+    "scenario_id": 12,
+    "name": "NULL Scan",
+    "category": "unsw_nb15_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "test"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.947,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.88,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.947
+    },
+    "scenario_id": 13,
+    "name": "SYN Flood",
+    "category": "unsw_nb15_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "test"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.929,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 1.98,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.929
+    },
+    "scenario_id": 14,
+    "name": "UDP Amplification",
+    "category": "unsw_nb15_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "test"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.968,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.76,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.968
+    },
+    "scenario_id": 15,
+    "name": "ICMP Flood",
+    "category": "unsw_nb15_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "test"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.978,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.72,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.978
+    },
+    "scenario_id": 16,
+    "name": "Infiltration",
+    "category": "cic_ids2018_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.997,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.44,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.997
+    },
+    "scenario_id": 17,
+    "name": "Botnet_ARES",
+    "category": "cic_ids2018_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.964,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.27,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.964
+    },
+    "scenario_id": 18,
+    "name": "DDoS_HOIC",
+    "category": "cic_ids2018_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.969,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.74,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.969
+    },
+    "scenario_id": 19,
+    "name": "DDoS_LOIC_HTTP",
+    "category": "cic_ids2018_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.966,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.78,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.966
+    },
+    "scenario_id": 20,
+    "name": "DDoS_LOIC_UDP",
+    "category": "cic_ids2018_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.925,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.61,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.925
+    },
+    "scenario_id": 21,
+    "name": "DoS_Hulk",
+    "category": "cic_ids2018_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.944,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.12,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.944
+    },
+    "scenario_id": 22,
+    "name": "DoS_GoldenEye",
+    "category": "cic_ids2018_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.939,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 1.96,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.939
+    },
+    "scenario_id": 23,
+    "name": "DoS_Slowloris",
+    "category": "cic_ids2018_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.943,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 1.99,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.943
+    },
+    "scenario_id": 24,
+    "name": "DoS_SlowHTTPTest",
+    "category": "cic_ids2018_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.949,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.54,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.949
+    },
+    "scenario_id": 25,
+    "name": "SQL_Injection",
+    "category": "cic_ids2018_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.937,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.26,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.937
+    },
+    "scenario_id": 26,
+    "name": "BruteForce_SSH",
+    "category": "cic_ids2018_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "test"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.994,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.16,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.994
+    },
+    "scenario_id": 27,
+    "name": "BruteForce_FTP",
+    "category": "cic_ids2018_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "test"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.969,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.55,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.969
+    },
+    "scenario_id": 28,
+    "name": "Heartbleed",
+    "category": "cic_ids2018_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "test"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.978,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.06,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.978
+    },
+    "scenario_id": 29,
+    "name": "Web_Attacks_XSS",
+    "category": "cic_ids2018_malicious",
+    "ground_truth": "MALICIOUS",
+    "split": "test"
+  },
+  {
+    "predicted_verdict": "SUSPICIOUS",
+    "predicted_action": "TARPIT_REDIRECT",
+    "confidence": 0.951,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.05,
+    "output_json": {
+      "verdict": "SUSPICIOUS",
+      "action": "TARPIT_REDIRECT",
+      "confidence": 0.951
+    },
+    "scenario_id": 30,
+    "name": "Cobalt_Strike_C2",
+    "category": "cic_ids2018_malicious",
+    "ground_truth": "SUSPICIOUS",
+    "split": "test"
+  },
+  {
+    "predicted_verdict": "BENIGN",
+    "predicted_action": "PASS",
+    "confidence": 0.971,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.91,
+    "output_json": {
+      "verdict": "BENIGN",
+      "action": "PASS",
+      "confidence": 0.971
+    },
+    "scenario_id": 31,
+    "name": "Benign_HTTP_REST",
+    "category": "benign",
+    "ground_truth": "BENIGN",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "BENIGN",
+    "predicted_action": "PASS",
+    "confidence": 0.974,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.46,
+    "output_json": {
+      "verdict": "BENIGN",
+      "action": "PASS",
+      "confidence": 0.974
+    },
+    "scenario_id": 32,
+    "name": "Benign_DNS_Query",
+    "category": "benign",
+    "ground_truth": "BENIGN",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "BENIGN",
+    "predicted_action": "PASS",
+    "confidence": 0.982,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.76,
+    "output_json": {
+      "verdict": "BENIGN",
+      "action": "PASS",
+      "confidence": 0.982
+    },
+    "scenario_id": 33,
+    "name": "Benign_HTTPS_Browse",
+    "category": "benign",
+    "ground_truth": "BENIGN",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "BENIGN",
+    "predicted_action": "PASS",
+    "confidence": 0.924,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.12,
+    "output_json": {
+      "verdict": "BENIGN",
+      "action": "PASS",
+      "confidence": 0.924
+    },
+    "scenario_id": 34,
+    "name": "Benign_NTP_Sync",
+    "category": "benign",
+    "ground_truth": "BENIGN",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "BENIGN",
+    "predicted_action": "PASS",
+    "confidence": 0.942,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.21,
+    "output_json": {
+      "verdict": "BENIGN",
+      "action": "PASS",
+      "confidence": 0.942
+    },
+    "scenario_id": 35,
+    "name": "Benign_SMTP",
+    "category": "benign",
+    "ground_truth": "BENIGN",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "BENIGN",
+    "predicted_action": "PASS",
+    "confidence": 0.995,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.1,
+    "output_json": {
+      "verdict": "BENIGN",
+      "action": "PASS",
+      "confidence": 0.995
+    },
+    "scenario_id": 36,
+    "name": "Benign_ICMP_Ping",
+    "category": "benign",
+    "ground_truth": "BENIGN",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "BENIGN",
+    "predicted_action": "PASS",
+    "confidence": 0.946,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.79,
+    "output_json": {
+      "verdict": "BENIGN",
+      "action": "PASS",
+      "confidence": 0.946
+    },
+    "scenario_id": 37,
+    "name": "Benign_SSH_Session",
+    "category": "benign",
+    "ground_truth": "BENIGN",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "BENIGN",
+    "predicted_action": "PASS",
+    "confidence": 0.952,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.56,
+    "output_json": {
+      "verdict": "BENIGN",
+      "action": "PASS",
+      "confidence": 0.952
+    },
+    "scenario_id": 38,
+    "name": "Benign_HTTP_Download",
+    "category": "benign",
+    "ground_truth": "BENIGN",
+    "split": "test"
+  },
+  {
+    "predicted_verdict": "SUSPICIOUS",
+    "predicted_action": "TARPIT_REDIRECT",
+    "confidence": 0.775,
+    "cfg_valid": true,
+    "correct": false,
+    "latency_s": 2.83,
+    "output_json": {
+      "verdict": "SUSPICIOUS",
+      "action": "TARPIT_REDIRECT",
+      "confidence": 0.775
+    },
+    "scenario_id": 39,
+    "name": "Benign_HTTP2_Compressed",
+    "category": "benign",
+    "ground_truth": "BENIGN",
+    "split": "test"
+  },
+  {
+    "predicted_verdict": "BENIGN",
+    "predicted_action": "PASS",
+    "confidence": 0.94,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.16,
+    "output_json": {
+      "verdict": "BENIGN",
+      "action": "PASS",
+      "confidence": 0.94
+    },
+    "scenario_id": 40,
+    "name": "Benign_WebSocket_Enc",
+    "category": "benign",
+    "ground_truth": "BENIGN",
+    "split": "test"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.941,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.46,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.941
+    },
+    "scenario_id": 41,
+    "name": "Adv_PromptInjection_Basic",
+    "category": "adversarial_cfg",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.991,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.49,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.991
+    },
+    "scenario_id": 42,
+    "name": "Adv_RecursiveDelimiter",
+    "category": "adversarial_cfg",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.938,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.3,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.938
+    },
+    "scenario_id": 43,
+    "name": "Adv_ContextWindowOverflow",
+    "category": "adversarial_cfg",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.961,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.92,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.961
+    },
+    "scenario_id": 44,
+    "name": "Adv_JSONBreakout_Attempt",
+    "category": "adversarial_cfg",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.925,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 1.97,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.925
+    },
+    "scenario_id": 45,
+    "name": "Adv_NullByteInjection",
+    "category": "adversarial_cfg",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.97,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 1.99,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.97
+    },
+    "scenario_id": 46,
+    "name": "Adv_UnicodeRTL_Override",
+    "category": "adversarial_cfg",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.954,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.7,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.954
+    },
+    "scenario_id": 47,
+    "name": "Adv_LLMRoleplay_Jailbreak",
+    "category": "adversarial_cfg",
+    "ground_truth": "MALICIOUS",
+    "split": "train"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.951,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 1.95,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.951
+    },
+    "scenario_id": 48,
+    "name": "Adv_FormatString_Injection",
+    "category": "adversarial_cfg",
+    "ground_truth": "MALICIOUS",
+    "split": "test"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.962,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.92,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.962
+    },
+    "scenario_id": 49,
+    "name": "Adv_TemplateInjection",
+    "category": "adversarial_cfg",
+    "ground_truth": "MALICIOUS",
+    "split": "test"
+  },
+  {
+    "predicted_verdict": "MALICIOUS",
+    "predicted_action": "XDP_DROP",
+    "confidence": 0.988,
+    "cfg_valid": true,
+    "correct": true,
+    "latency_s": 2.89,
+    "output_json": {
+      "verdict": "MALICIOUS",
+      "action": "XDP_DROP",
+      "confidence": 0.988
+    },
+    "scenario_id": 50,
+    "name": "Adv_NestedJSON_Escape",
+    "category": "adversarial_cfg",
+    "ground_truth": "MALICIOUS",
+    "split": "test"
+  }
+]
