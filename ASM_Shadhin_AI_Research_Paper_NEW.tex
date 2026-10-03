@@ -1,4 +1,4 @@
-\documentclass[journal]{IEEEtran}
+\documentclass{ieeeaccess}
 
 \usepackage{cite}
 \usepackage{amsmath,amssymb,amsfonts}
@@ -9,42 +9,56 @@
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{url}
+\makeatletter
+\g@addto@macro\UrlBreaks{\do\/\do\-\do\_\do\0\do\1\do\2\do\3\do\4\do\5\do\6\do\7\do\8\do\9\do\a\do\b\do\c\do\d\do\e\do\f\do\g\do\h\do\i\do\j\do\k\do\l\do\m\do\n\do\o\do\p\do\q\do\r\do\s\do\t\do\u\do\v\do\w\do\x\do\y\do\z}
+\makeatother
+\renewcommand{\_}{\textunderscore\allowbreak}
 \usepackage{microtype}
 \usepackage{multirow}
 \usepackage{balance}
 \usepackage{lettrine}
-\usepackage{fancyhdr}
 
-% Page style: page number top-right, no running header text
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[R]{\thepage}
-\renewcommand{\headrulewidth}{0pt}
-\fancypagestyle{plain}{%
-  \fancyhf{}
-  \fancyhead[R]{\thepage}
-  \renewcommand{\headrulewidth}{0pt}
-}
+
+
 
 % Float placement
-\renewcommand{\topfraction}{0.95}
+\renewcommand{\topfraction}{0.90}
 \renewcommand{\bottomfraction}{0.85}
-\renewcommand{\textfraction}{0.05}
+\renewcommand{\textfraction}{0.07}
 \renewcommand{\floatpagefraction}{0.80}
+% Float separation — prevents caption overlap with surrounding rules/text
+\setlength{\textfloatsep}{14pt plus 4pt minus 4pt}
+\setlength{\floatsep}{12pt plus 3pt minus 3pt}
+\setlength{\intextsep}{10pt plus 3pt minus 3pt}
+\setlength{\abovecaptionskip}{6pt}
+\setlength{\belowcaptionskip}{4pt}
 
 \hyphenation{net-work semi-conduc-tor shadhin-ai packet-drop through-put}
 
+\history{}
+\doi{}
+
+\title{Autonomous Post-Quantum Cyber Defense Agent (ASM-Shadhin-AI): Sovereign High-Rate Intrusion Defense via Kernel-eBPF and Local-LLM}
+
+\author{\uppercase{A~S~M~Hossain~Mahmud~(Shadhin)}}
+
+\address[1]{Department of Computer Science and Engineering, Bangladesh Army University of Science and Technology (BAUST), Saidpur 5310, Bangladesh (e-mail: sadekshadhin2000@gmail.com)}
+
+\tfootnote{This research was conducted in the Department of Computer Science and Engineering at Bangladesh Army University of Science and Technology (BAUST), Saidpur, Bangladesh.}
+
+\markboth
+{Mahmud (Shadhin): Autonomous Post-Quantum Cyber Defense Agent (ASM-Shadhin-AI)}
+{Mahmud (Shadhin): Autonomous Post-Quantum Cyber Defense Agent (ASM-Shadhin-AI)}
+
+\corresp{Corresponding author: A~S~M~Hossain~Mahmud~(Shadhin) (e-mail: sadekshadhin2000@gmail.com).}
+
+
+% Remove VOLUME/year from footer (left blank until official publication assignment)
+\def\thevol{}
+\def\theyear{}
+
 \begin{document}
 
-\title{Autonomous Post-Quantum Cyber Defense Agent (ASM-Shadhin-AI):
-  Sovereign Line-Rate Intrusion Defense via Kernel-eBPF and Local-LLM}
-
-\author{A~S~M~Hossain~Mahmud~(Shadhin),~\textit{Department~of~CSE,~Bangladesh~Army~University~of~Science~and~Technology~(BAUST),~Saidpur~5310,~Bangladesh}}
-
-\maketitle
-\thispagestyle{fancy}
-
-% =============================================================================
 \begin{abstract}
 % =============================================================================
 Modern network perimeters face a fundamental trade-off between inspection
@@ -52,73 +66,60 @@ depth, inline latency, and operational data sovereignty. Conventional
 user-space intrusion-prevention systems (e.g., Snort~3.x, Suricata~7.x)
 operate via packet-capture interfaces, incurring socket-buffer allocation
 penalties, soft-interrupt saturation, and $180$--$800\,\mu\text{s}$
-queuing latencies that cause measurable packet drops under multi-gigabit
-loads. Commercial cloud firewalls introduce mandatory telemetry egress and
-recurring costs that violate air-gapped sovereignty requirements in critical
-infrastructure.
+queuing latencies that cause measurable packet drops under high-rate loads.
+Commercial cloud firewalls introduce mandatory telemetry egress and
+recurring costs that conflict with air-gapped sovereignty requirements in
+critical infrastructure.
 
 This paper presents \textbf{ASM-Shadhin-AI}, an open, fully sovereign,
-in-kernel intrusion-mitigation and cognitive-defense architecture uniting
-sub-microsecond fast-path execution with asynchronous edge intelligence and
-post-quantum cryptographic resilience. The system executes a multi-stage extended
-Berkeley Packet Filter (eBPF) pipeline at the eXpress Data Path (XDP) native-driver
-hook. CIDR blocklist lookups are implemented via \texttt{BPF\_MAP\_TYPE\_LPM\_TRIE},
-providing $O(\log N)$ worst-case complexity with kernel-JIT branch elimination
-reducing average lookup latency to approximately $64\,\text{ns}$ under the
-tested workload on the evaluated physical hardware (Intel i5-4570, 10{,}000 CIDR
-rules resident in L3 cache). Deep semantic threat reasoning is delegated to an
-edge-resident, 4-bit-quantized Large Language Model (Edge-LLM) executing locally
-under strict context-free grammar (CFG) constraints. During the Edge-LLM's
-$2.41\,\text{s}$ asynchronous reasoning window, an in-kernel speculative token-bucket
-rate limiter ($10\,\text{pps}$) clamps unverified high-entropy flows within $< 0.1\,\text{s}$,
-mathematically bounding in-flight exposure ($\le 3\,\text{KB}$ in $100\,\text{ms}$) and
-preventing zero-day memory corruption exploits or bulk data leakage before atomic
-kernel synchronization ($< 5\,\mu\text{s}$).
+hybrid network-defense architecture enforcing a strict separation of concerns
+between a deterministic eBPF/XDP kernel fast path and an asynchronous
+user-space Edge-LLM semantic reasoning plane. The kernel fast path executes
+a multi-stage extended Berkeley Packet Filter (eBPF) pipeline at the eXpress
+Data Path (XDP) native-driver hook, keeping the LLM completely off the
+packet-processing critical path. Post-quantum Moving Target Defense (MTD)
+provides a proactive security layer using NIST FIPS~203 (ML-KEM-1024) for
+epoch key encapsulation and FIPS~204 (ML-DSA-65) for control-plane
+authentication.
 
-ASM-Shadhin-AI integrates proactive Moving Target Defense (MTD) using HMAC-SHA256
-synchronized port hopping, with epoch keys established via NIST FIPS~203 (ML-KEM-1024)
-and authenticated via FIPS~204 (ML-DSA-65), incurring $0.00\,\mu\text{s}$ inline forwarding
-overhead and $< 0.002\%$ background CPU duty cycle. Empirical validation was conducted
-across two transparently characterized environments: (1) a legacy bare-metal gateway
-(Quad-Core Intel Core i5-4570 @ 3.20~GHz, DDR3-1600 RAM, single-core pinning) sustaining
-$1.495 \pm 0.015\,\text{Mpps}$ ($1.18\,\text{Gbps}$) wire-speed throughput with $0.0000\%$
-packet drop and $26.2 \pm 0.6\%$ CPU utilization ($0.126 \pm 0.007\,\mu\text{s}$ mean latency,
-a $5.30\times$ throughput advantage and $\approx\!210\times$ latency reduction over Linux
-Netfilter, $p < 10^{-15}$, Cohen's $d = 108.2$); and (2) a modern multi-core architecture
-(Apple Mac mini M4, ARMv9-A, LPDDR5X unified memory) running Ubuntu Server 22.04 LTS
-under Apple Hypervisor/VirtIO with multi-queue Receive Side Scaling (RSS), characterizing
-multi-producer ring-buffer contention and demonstrating that partitioned per-queue ring buffers
-eliminate atomic lock contention at 10GbE+ line rates. All benchmark scripts, testbed
-orchestrators, and raw telemetry logs are publicly available in the project GitHub repository.
-
-The Edge-LLM daemon was evaluated across 300 labeled threat scenarios spanning UNSW-NB15,
-CSE-CIC-IDS2018, CTU-13 botnet traces, high-entropy benign flows (WireGuard, TLS 1.3), and
-adversarial vectors, achieving $98.33\%$ overall task accuracy (95\% Wilson CI: $[0.962,\,0.993]$)
-and $99.00\%$ triage recall (precision $0.9851$, FPR $0.0500$). All 40 adversarial grammar-stress
-scenarios produced valid JSON directives ($100\%$), confirming that CFG decoding provides
-provable \textit{syntactic validation} against schema corruption, while semantic prompt-injection
-defense is guaranteed via multi-horizon prompt isolation and fast-path kernel invariants.
-Evaluation across 500 encrypted flows demonstrated strong false-positive resilience
-($\text{AUC} = 0.916$) with $0.0\%$ system-level false drops. Novel attack drift is handled
-without hazardous on-device continuous training through kinematic fast-path invariant anchors
-and out-of-band sovereign parameter distribution.
+Empirical evaluation on a commodity bare-metal gateway (Quad-Core Intel Core
+i5-4570~@ 3.20~GHz, Intel 82574L 1~GbE NIC, Ubuntu Server 22.04 LTS, $N=30$
+repeated benchmark runs) demonstrated the following results under the tested
+configuration: (1)~a 30-run mean per-packet processing latency of
+$0.126 \pm 0.007\,\mu\text{s}$, sustaining $1.495 \pm 0.015\,\text{Mpps}$
+(equivalent to $1.18\,\text{Gbps}$ replayed Layer-2 frame throughput) with
+$26.2 \pm 0.6\%$ CPU utilization and no observed packet loss under the
+evaluated saturation workload; these represent a $5.30\times$ throughput and
+$\approx\!210\times$ latency improvement over Linux Netfilter ($p < 10^{-15}$,
+95\% CI of difference: $[+1.207,\,+1.218]\,\text{Mpps}$); (2)~the Edge-LLM,
+evaluated across 210 strictly held-out scenarios (70\% of the 300-scenario corpus),
+demonstrated $98.10\%$ accuracy on unseen inputs; (3)~the entropy-based pre-filter
+achieved AUC~$=0.916$ (95\% CI: $[0.885,\,0.947]$) across 500 labeled encrypted
+flows as a lightweight triage signal; and (4)~MTD-augmented port hopping increased
+sequential Nmap scan duration from $12.4\,\text{s}$ to $4.2\,\text{h}$ under the
+specified single-host configuration. The key architectural contribution is the
+decoupling of deterministic low-latency enforcement from asynchronous semantic reasoning,
+enabling sub-microsecond kernel enforcement while local Edge-LLM cognition executes
+off the critical path. All benchmark scripts, raw telemetry logs, eBPF source, and
+model configuration are publicly archived in the project GitHub repository.
 \end{abstract}
 
-\begin{IEEEkeywords}
+\begin{keywords}
 Extended Berkeley Packet Filter (eBPF), eXpress Data Path (XDP),
 Autonomous Cyber Defense, Edge Large Language Model (Edge-LLM),
 Post-Quantum Cryptography, ML-KEM-1024, ML-DSA-65, Moving Target Defense,
-Shannon Entropy, Line-Rate Mitigation, Air-Gapped Security.
-\end{IEEEkeywords}
+Shannon Entropy, High-Rate Packet Processing, Air-Gapped Security.
+\end{keywords}
 
-\IEEEpeerreviewmaketitle
+\titlepgskip=-15pt
 
-% =============================================================================
+\maketitle
+
 \section{Introduction}
 % =============================================================================
 \lettrine[lines=3,loversize=0.08,findent=2pt,nindent=0pt]{P}{rotecting} enterprise
 and critical-infrastructure network perimeters against modern cyber threats requires
-reconciling two conflicting operational demands: line-rate packet forwarding at sub-microsecond
+reconciling two conflicting operational demands: high-rate packet forwarding at sub-microsecond
 latencies, and deep semantic inspection capable of detecting polymorphic attacks.
 Contemporary adversaries deploy multi-vector strategies---combining multi-gigabit volumetric
 SYN/UDP floods, evasive low-and-slow reconnaissance sweeps, and encrypted command-and-control
@@ -149,27 +150,30 @@ Overhead}: recurring subscription licensing
 reach for resource-constrained institutions.
 
 To address this trilemma, we present \textbf{ASM-Shadhin-AI}, an open-source,
-fully sovereign network defense architecture integrating wire-speed in-kernel
+fully sovereign network defense architecture integrating high-rate in-kernel
 mitigation with local, offline AI-driven threat reasoning and post-quantum
 cryptographic resilience.
 
 \subsection{Research Contributions}
 This paper makes five primary technical contributions:
 \begin{enumerate}
-  \item \textbf{Sub-Microsecond In-Kernel Fast Data Plane:} We implement an
+  \item \textbf{Deterministic In-Kernel Fast Data Plane via Separation of Concerns:} We implement an
     eBPF/XDP packet-processing pipeline executing inside the NIC driver callback
-    prior to socket-buffer allocation. The pipeline performs LPM trie lookups
-    ($O(\log N)$ worst case, ${\approx}64\,\text{ns}$ just-in-time (JIT) compiled
-    average under the tested workload with 10{,}000 CIDR rules resident in the
-    host L3 cache) and stateful TCP-flag validation. Measured mean packet
-    processing latency is $0.126\,\mu\text{s}$ (observed stage-peak
-    $0.33\,\mu\text{s}$) on the evaluated commodity x86-64 testbed.
+    prior to socket-buffer allocation, maintaining sub-microsecond per-packet
+    latency while keeping the LLM completely off the packet-forwarding critical path.
+    The pipeline performs LPM trie lookups (worst-case traversal strictly bounded by the
+    IPv4 prefix length $W \le 32$ bits, with an empirically measured average latency of
+    $64.2 \pm 3.1\,\text{ns}$ under our 10M-packet workload with 10{,}000 CIDR rules resident
+    in host L3 cache) and stateful TCP-flag validation. Measured mean packet processing
+    latency is $0.126\,\mu\text{s}$ (observed stage-peak $0.33\,\mu\text{s}$) on the
+    evaluated commodity x86-64 testbed.
 
-  \item \textbf{Air-Gapped Edge-LLM Threat Reasoning:} We decouple deep semantic
-    evaluation from the line-rate data path via an asynchronous Edge-LLM triage
+  \item \textbf{Air-Gapped Edge-LLM Threat Reasoning (Off Critical Path):} We decouple deep semantic
+    evaluation from the high-rate packet-processing data path via an asynchronous Edge-LLM triage
     engine. CFG decoding constraints eliminate hallucinated outputs and
     syntactic parser crashes. Section~VI provides an expanded 300-scenario evaluation
-    with confusion matrices, Wilson confidence intervals, and formal sample-size power analysis.
+    with confusion matrices, Wilson binomial proportion confidence intervals for precision/recall/FPR,
+    Welch--Satterthwaite \textit{t}-based intervals for mean metrics, and formal sample-size power analysis.
 
   \item \textbf{Post-Quantum Moving Target Defense (MTD):} We develop a proactive
     MTD mechanism mutating externally exposed service ports across discrete epochs
@@ -190,14 +194,16 @@ This paper makes five primary technical contributions:
     is robustly differentiated from Cobalt Strike and CTU-13 botnet C2 beacons ($\text{AUC}=0.916$).
 
   \item \textbf{Reproducible Empirical \& Statistical Benchmarking:} Under a
-    10,000,000-packet stress flood and $N=30$ independent benchmark runs,
-    ASM-Shadhin-AI achieved $1.495 \pm 0.015\,\text{Mpps}$ throughput,
-    $0.126 \pm 0.007\,\mu\text{s}$ mean latency, $0.0000\%$ packet loss (under the tested load),
-    and $26.2 \pm 0.6\%$ CPU utilization, with a statistically significant $5.30\times$ throughput
-    and $\approx\!210\times$ latency improvement over Linux Netfilter
-    ($p < 10^{-15}$, Welch's two-sample \textit{t}-test, Welch--Satterthwaite
-    $\mathit{df} \approx 39.1$, Cohen's $d = 108.2$ for throughput; $\mathit{df} \approx 29.0$,
-    Cohen's $d = 22.7$ for latency; 95\% CI for throughput: $[1.489,\, 1.500]\,\text{Mpps}$).
+    10,000,000-packet saturation stress flood and $N=30$ repeated benchmark runs,
+    ASM-Shadhin-AI achieved $1.495 \pm 0.015\,\text{Mpps}$ packet processing rate
+    (equivalent to $1.18\,\text{Gbps}$ replayed Layer-2 frame throughput),
+    $0.126 \pm 0.007\,\mu\text{s}$ mean latency, and $26.2 \pm 0.6\%$ CPU utilization.
+    Under the evaluated workload on the 1~GbE Intel i5-4570 testbed, no packet loss was
+    observed (below tcpreplay counter resolution). These benchmarks demonstrate a
+    statistically significant $5.30\times$ throughput advantage and $\approx\!210\times$
+    latency reduction over Linux Netfilter ($p < 10^{-15}$, Welch's two-sample
+    \textit{t}-test, 95\% CI of difference: $[+1.207,\, +1.218]\,\text{Mpps}$; Cohen's
+    $d = 108.2$ is reported for completeness).
 \end{enumerate}
 
 The remainder of this paper is structured as follows.
@@ -226,10 +232,10 @@ security-policy integration.
 
 H{\o}iland-J{\o}rgensen et al.~\cite{hoiland2018express} introduced XDP, enabling
 in-kernel verified byte-code execution inside the device driver ring before
-\texttt{sk\_buff} creation, achieving line-rate performance comparable to DPDK
+\texttt{sk\_buff} creation, achieving high-rate packet processing comparable to DPDK
 while preserving Linux socket abstractions. Subsequent works---Polycube, P4
 programmable data planes~\cite{bosshart2014p4}, and edge eBPF/XDP security
-architectures~\cite{vieira2020fast,miano2018introducing}---explored programmable
+architectures~\cite{vieira2020fast,miano2018introducing,miano2018creating}---explored programmable
 data paths for network defense. However, existing eBPF-based security solutions
 rely almost exclusively on static rule matching; they lack adaptive cognitive
 reasoning and cannot analyze multi-stage adversarial intent.
@@ -292,7 +298,7 @@ designed to address this specific combination of requirements under the
 experimental conditions described in this study.
 
 \begin{table*}[!t]
-\caption{Architectural Comparison of State-of-the-Art Perimeter Defense Paradigms}
+\caption{Architectural Comparison of State-of-the-Art Perimeter Defense Paradigms. Baseline metrics for external systems are drawn from their respective published benchmark literature and vendor specifications as cited; metrics for ASM-Shadhin-AI are empirical measurements under the testbed conditions described in Section~VI.}
 \label{tab:literature_gap}
 \centering
 \resizebox{\textwidth}{!}{%
@@ -328,8 +334,8 @@ bounded as follows.
     stateless filters.
 
   \item \textbf{Encrypted C2 Beaconing:} $\mathcal{A}$ establishes persistent C2
-    channels encrypted with TLS~1.3, tuning beacon intervals with low timing
-    jitter ($\leq 10\%$) to blend with legitimate background traffic.
+    channels encrypted with TLS~1.3, tuning beacon intervals with low inter-arrival
+    jitter ($J_k \leq 0.10$) to blend with legitimate background traffic.
 
   \item \textbf{Adversarial Payload Injection:} $\mathcal{A}$ embeds adversarial
     strings (prompt-injection sequences, recursive delimiters, context-window
@@ -394,11 +400,11 @@ performs the following protocol:
     binds the key to a unique epoch, preventing replay attacks.
 
   \item Each authorized client verifies the ML-DSA-65 signature and runs:
-    $(c, K_{\text{epoch}}) \leftarrow \text{ML-KEM-1024.Encaps}(\text{pk})$,
+    $(c, K_{\text{epoch}}) \leftarrow \text{ML-KEM-1024}.\allowbreak\text{Encaps}(\text{pk})$,
     transmitting ciphertext $c$ to the server.
 
-  \item Server recovers:
-    $K_{\text{epoch}} \leftarrow \text{ML-KEM-1024.Decaps}(\text{sk}, c)$.
+  \item Server recovers key:
+    $K_{\text{epoch}} \leftarrow \text{ML-KEM-1024}.\allowbreak\text{Decaps}(\text{sk}, c)$.
 
   \item Both parties compute $P(s, \tau)$ via HMAC-SHA256 keyed with
     $K_{\text{epoch}}$ (Equation~\ref{eq:mtd}).
@@ -452,7 +458,7 @@ cryptanalytically relevant quantum computer (CRQC).
 % =============================================================================
 ASM-Shadhin-AI enforces a strict separation of concerns across two decoupled
 operational planes: the \textbf{Kernel Synchronous Fast Data Plane}, optimized
-for deterministic sub-microsecond packet filtering at wire speed, and the
+for deterministic sub-microsecond packet filtering under saturating high-rate workloads, and the
 \textbf{Asynchronous User-Space Intelligence Plane}, responsible for deep
 semantic triage, post-quantum key encapsulation, and MTD coordination.
 
@@ -465,9 +471,10 @@ XDP pipeline executes four deterministic stages:
   \item \textbf{Stage~1 (CIDR Blocklist Match):} The IPv4 source address is
     queried against a \texttt{BPF\_MAP\_TYPE\_LPM\_TRIE} keyed on
     \texttt{(prefix\_len, ip\_addr)}, containing up to 65{,}536 active CIDR
-    entries. LPM trie provides $O(\log N)$ worst-case complexity; JIT branch
-    elimination reduces average path to ${\approx}64\,\text{ns}$ under the tested
-    workload. A match yields an immediate \texttt{XDP\_DROP}.
+    entries. Traversal depth is strictly bounded by the IPv4 prefix bit-length
+    ($W \le 32$ bits); JIT branch elimination and cache residency reduce average
+    lookup latency to ${\approx}64\,\text{ns}$ under the tested workload. A match
+    yields an immediate \texttt{XDP\_DROP}.
 
   \item \textbf{Stage~2 (Tarpit Redirect Hook):} Inbound connections to
     quarantined or honeypot IPs are redirected to an isolated user-space tarpit
@@ -572,11 +579,12 @@ a Backus-Naur Form (BNF)-derived grammar compiled into llama.cpp's grammar
 Backus-Naur Form (GBNF) format. The maximum context window is 4096 tokens;
 prompts are empirically $\le 180$ tokens, leaving $>\!3900$ tokens for
 completion. Token sampling is constrained by the CFG:
+{\small
 \begin{align}
-  S &\to \texttt{\{"verdict": }V\texttt{, "action": }A\texttt{, "confidence": }C\texttt{\}} \\
+  S &\to \texttt{\{"verdict": }V\texttt{, "action": }A\texttt{, "conf": }C\texttt{\}} \\
   V &\to \texttt{"MALICIOUS"} \mid \texttt{"SUSPICIOUS"} \mid \texttt{"BENIGN"} \\
-  A &\to \texttt{"XDP\_DROP"} \mid \texttt{"TARPIT\_REDIRECT"} \mid \texttt{"PASS"}
-\end{align}
+  A &\to \texttt{"XDP\_DROP"} \mid \texttt{"TARPIT"} \mid \texttt{"PASS"}
+\end{align}}
 CFG-constrained decoding prevents generation of tokens outside the permitted
 vocabulary, providing a provable, mathematically closed guarantee of \textbf{Syntactic Validation}:
 the language model is structurally incapable of emitting malformed JSON, unparseable delimiters,
@@ -593,7 +601,7 @@ terminal symbols within the formal production rules (Equations~(10)--(11)), the 
 without syntax error.
 
 Consequently, grammar constraints function strictly as a \textit{syntactic guardrail}, while true semantic
-integrity against prompt injection relies on SovereignLine's multi-horizon defense architecture:
+integrity against prompt injection relies on ASM-Shadhin-AI's multi-horizon defense architecture:
 \begin{enumerate}
   \item \textbf{Strict Parameter Isolation:} All packet payloads and ASCII headers are hex-encoded into fixed-length, immutable telemetry fields, preventing delimiter confusion and prompt syntax breakout.
   \item \textbf{Few-Shot Adversarial Grounding:} The inference prompt rigorously conditions the model to treat all header strings strictly as passive data vectors rather than executable natural-language instructions.
@@ -609,31 +617,32 @@ annotated C (Clang/LLVM~18, \texttt{-O2 -target bpf}), passing the Linux
 in-kernel eBPF verifier with 0 warnings. The BPF maps:
 
 \begin{itemize}
-  \item \texttt{blocklist\_map}: \texttt{BPF\_MAP\_TYPE\_LPM\_TRIE} keyed on
-    \texttt{(prefix\_len, ip\_addr)}, accommodating up to 65{,}536 active CIDR entries.
-    Complexity is $O(\log N)$ worst-case. For reproducibility, the average lookup
-    duration was measured in-kernel by bracketing the \texttt{bpf\_map\_lookup\_elem()}
-    call with \texttt{bpf\_ktime\_get\_ns()} timestamps over $10^7$ lookups against a
+  \item \texttt{blocklist\_map}: \texttt{BPF\_MAP\_TYPE\_}\allowbreak\texttt{LPM\_TRIE} keyed on
+    \path{(prefix_len, ip_addr)}, accommodating up to 65{,}536 active CIDR entries.
+    Worst-case trie traversal depth is strictly bounded by IPv4 prefix length ($W \le 32$~bits),
+    ensuring deterministic lookup performance independent of table density. For reproducibility,
+    average lookup duration was measured in-kernel by bracketing the \path{bpf_map_lookup_elem()}
+    call with \path{bpf_ktime_get_ns()} timestamps over $10^7$ lookups against a
     pre-populated table of 10{,}000 active IPv4 CIDR rules (prefix lengths /16 to /32).
     With the table residing within the host's 6~MB L3 cache and executing on a CPU core
     shielded from hardware IRQs via \texttt{isolcpus}, the measured average lookup
     latency was $64.2 \pm 3.1\,\text{ns}$ (reported as ${\approx}64\,\text{ns}$).
 
   \item \texttt{tarpit\_ips\_map}: \texttt{BPF\_MAP\_TYPE\_HASH} keyed on
-    \texttt{u32 src\_ip}, mapping quarantined IPs to tarpit redirection markers.
+    \path{u32 src_ip}, mapping quarantined IPs to tarpit redirection markers.
 
-  \item \texttt{flow\_entropy\_map}: BPF LRU hash map
-    (\texttt{BPF\_MAP\_TYPE\_LRU\_HASH}) keyed on 5-tuple flow keys, tracking
+  \item \texttt{flow\_entropy\_map}: LRU hash map
+    (\texttt{BPF\_MAP\_TYPE\_}\allowbreak\texttt{LRU\_HASH}) keyed on 5-tuple flow keys, tracking
     per-flow entropy state across $N = 1024$ byte windows.
 
   \item \texttt{telemetry\_ring}: 4~MB lockless ring buffer
-    (\texttt{BPF\_MAP\_TYPE\_RINGBUF}) for zero-copy telemetry export to the
+    (\texttt{BPF\_MAP\_TYPE\_}\allowbreak\texttt{RINGBUF}) for zero-copy telemetry export to the
     user-space Edge-LLM daemon.
 \end{itemize}
 
 \textit{Clarification on lookup complexity:} The \texttt{blocklist\_map} uses
-\texttt{BPF\_MAP\_TYPE\_LPM\_TRIE}, providing $O(\log N)$ worst-case complexity,
-not $O(1)$. The $O(1)$ characterization in earlier drafts referred only to the
+\texttt{BPF\_MAP\_TYPE\_LPM\_TRIE}, whose traversal is bounded by the IPv4 prefix bit-width
+($W \le 32$), not $O(1)$. The $O(1)$ characterization refers only to the
 simpler exact-match \texttt{BPF\_MAP\_TYPE\_HASH} used for individual host
 addresses; CIDR prefix matching requires the LPM trie. Both map types coexist
 in the implementation: the LPM trie is invoked first for CIDR blocklist matching,
@@ -644,8 +653,8 @@ The per-packet decision logic:
 \begin{enumerate}\setlength{\itemsep}{0pt}
   \item \textbf{Header Parse:} Ethernet $\to$ IPv4 $\to$ TCP/UDP, bounds-checked,
     verified at BPF load time.
-  \item \textbf{LPM Blocklist (Stage~1):} \texttt{src\_ip} against
-    \texttt{blocklist\_map}. Match $\Rightarrow$ \texttt{XDP\_DROP}.
+  \item \textbf{LPM Blocklist (Stage~1):} Check \texttt{src\_ip} in
+    \texttt{blocklist\_map}. If match $\Rightarrow$ \texttt{XDP\_DROP}.
   \item \textbf{Tarpit IP Check (Stage~2):} \texttt{src\_ip} against
     \texttt{tarpit\_ips\_map}. Match $\Rightarrow$ \texttt{XDP\_PASS} (to tarpit
     via iptables).
@@ -667,13 +676,20 @@ idle state. Upon receiving a telemetry event, the daemon constructs a
 structured prompt containing seven fields: source IPv4 address, destination
 port, IP protocol (TCP/UDP), TCP flags byte (hex), 30-byte payload entropy
 hint ($H(W_k)$, two decimal places), inter-arrival jitter coefficient ($J_k$,
-two decimal places), and UTC timestamp. The prompt is submitted to
+two decimal places), and UTC timestamp. 
+\textit{Architectural Rationale: Edge-LLM vs. Tabular Classifiers:} While classical tree-based models (such as XGBoost or Random Forest) execute in tens of microseconds, they operate strictly on static, pre-engineered scalar features and cannot interpret non-deterministic protocol framing, obfuscated ASN.1 field lengths, or multi-stage natural-language prompt-injection sequences. The 4-bit Edge-LLM serves as a zero-shot cognitive arbiter, synthesizing heterogeneous telemetry into a contextual semantic verdict while the in-kernel fast path guarantees deterministic bounded latency.
+
+The prompt is submitted to
 Qwen2.5-Coder-3B-Q4\_K\_M~\cite{qwen2024qwen25coder} (2.0~GB RAM-resident,
 $\le 4096$-token context window). Decoding is deterministic (greedy,
 temperature $= 0$, i.e., argmax at each token position); the grammar
 Backus-Naur Form (GBNF) engine in llama.cpp forces every token to conform
 to the CFG production rules in Section~IV-E. Mean inference latency is $2.41\,\text{s}$ on the i5-4570 testbed CPU (${\approx}85$ tokens/s for
-the ${\approx}200$-token prompt+completion sequence).
+the ${\approx}200$-token prompt+completion sequence). During this $2.41\,\text{s}$ deliberation
+window, in-kernel eBPF enforces a speculative token-bucket rate limiter ($R_{\text{quarantine}} = 10\,\text{pps}$,
+burst $B = 1$) on each flagged 5-tuple, admitting at most $\le 37.65\,\text{KB}$ of in-flight data
+before the atomic blocklist update --- thereby containing the unverified flow without buffering or
+dropping legitimate cached traffic, until the LLM verdict is committed to the kernel.
 
 \begin{figure}[!t]
 \centering
@@ -683,11 +699,11 @@ the ${\approx}200$-token prompt+completion sequence).
 \end{figure}
 
 \subsubsection{In-Flight Packet Filtering Control During the 2.41s Latency Window}
-A central challenge in decoupling cognitive LLM reasoning from line-rate packet processing is governing in-flight packets during the model's $2.41\,\text{s}$ asynchronous deliberation window. If in-flight packets were speculatively forwarded at wire speed, an adversary could complete data exfiltration or execute a multi-stage exploit before the Edge-LLM issues a drop directive. Conversely, buffering millions of in-flight packets in memory would exhaust gateway RAM within milliseconds ($1.49\,\text{Mpps} \times 2.41\,\text{s} \approx 3.59\times 10^6$ packets, requiring $\approx 5.4\,\text{GB}$ buffer space).
+A central challenge in decoupling cognitive LLM reasoning from high-rate packet processing is governing in-flight packets during the model's $2.41\,\text{s}$ asynchronous deliberation window. If in-flight packets were speculatively forwarded at high packet rates, an adversary could complete data exfiltration or execute a multi-stage exploit before the Edge-LLM issues a drop directive. Conversely, buffering millions of in-flight packets in memory would exhaust gateway RAM within milliseconds ($1.49\,\text{Mpps} \times 2.41\,\text{s} \approx 3.59\times 10^6$ packets, requiring $\approx 5.4\,\text{GB}$ buffer space).
 
-SovereignLine resolves this dilemma via a \textbf{Dual-Horizon In-Flight Control Policy} implemented across four coordinated phases (Fig.~\ref{fig:async_lifecycle}):
+ASM-Shadhin-AI resolves this dilemma via a \textbf{Dual-Horizon In-Flight Control Policy} implemented across four coordinated phases (Fig.~\ref{fig:async_lifecycle}):
 \begin{enumerate}
-  \item \textbf{Stage-4 Telemetry Emission ($t = 0$):} When a packet exceeds the streaming Shannon entropy and timing thresholds ($H(W_k) \ge 7.85\,\text{bits/byte}$ and $J_k \le 0.10\,\text{s}$), the eBPF program atomically pushes a 30-byte telemetry descriptor into \texttt{telemetry\_ring} via \texttt{bpf\_ringbuf\_submit()} without blocking the NIC RX ring.
+  \item \textbf{Stage-4 Telemetry Emission ($t = 0$):} When a packet exceeds the streaming Shannon entropy and timing thresholds ($H(W_k) \ge 7.85\,\text{bits/byte}$ and $J_k \le 0.10$), the eBPF program atomically pushes a 30-byte telemetry descriptor into \texttt{telemetry\_ring} via \texttt{bpf\_ringbuf\_submit()} without blocking the NIC RX ring.
   \item \textbf{Kernel-Space Speculative Rate Clamping ($0 < t \le 2.41\,\text{s}$):} Simultaneously, the eBPF program inserts the flow's 5-tuple into an in-kernel LRU table (\texttt{suspicious\_flow\_table}, \texttt{BPF\_MAP\_TYPE\_LRU\_HASH}). While the flow resides in this table, all subsequent in-flight packets for this 5-tuple are subjected to an in-kernel token-bucket rate limiter enforced at XDP hook:
   \begin{equation}
     R_{\text{quarantine}} \le 10\,\text{pps} \quad (\approx 12\,\text{kB/s})
@@ -697,8 +713,8 @@ SovereignLine resolves this dilemma via a \textbf{Dual-Horizon In-Flight Control
   \item \textbf{Asynchronous LLM Semantic Reasoning:} The Edge-LLM evaluates the flow telemetry on dedicated CPU cores (cores 1--3) under strict GBNF grammar constraints, determining whether the flow is a genuine attack (e.g., Cobalt Strike or CTU-13 beacon) or legitimate high-entropy traffic (e.g., WireGuard VPN bulk transfer or TLS~1.3 session).
   \item \textbf{Atomic Kernel Synchronization ($t \approx 2.41\,\text{s}$):}
   \begin{itemize}
-    \item \textit{Malicious Verdict:} If verdict is \texttt{MALICIOUS} with confidence $\ge 0.80$, the daemon invokes \texttt{bpf\_map\_update\_elem()} on the live \texttt{blocklist\_map} ($< 5\,\mu\text{s}$ update latency). In-kernel eBPF immediately transitions the flow from speculative rate clamping to permanent, line-rate \texttt{XDP\_DROP} and injects an out-of-band \texttt{TCP\_RST} packet to terminate the remote connection.
-    \item \textit{Benign Verdict:} If verdict is \texttt{BENIGN}, the daemon deletes the 5-tuple from \texttt{suspicious\_flow\_table} via \texttt{bpf\_map\_delete\_elem()}. The flow instantaneously resumes full line-rate forwarding (\texttt{XDP\_PASS}) without latency penalty.
+    \item \textit{Malicious Verdict:} If verdict is \texttt{MALICIOUS} with confidence $\ge 0.80$, the daemon invokes \texttt{bpf\_map\_update\_elem()} on the live \texttt{blocklist\_map} ($< 5\,\mu\text{s}$ update latency). In-kernel eBPF immediately transitions the flow from speculative rate clamping to permanent, high-rate \texttt{XDP\_DROP} and injects an out-of-band \texttt{TCP\_RST} packet to terminate the remote connection.
+    \item \textit{Benign Verdict:} If verdict is \texttt{BENIGN}, the daemon deletes the 5-tuple from \texttt{suspicious\_flow\_table} via \texttt{bpf\_map\_delete\_elem()}. The flow instantaneously resumes full high-rate forwarding (\texttt{XDP\_PASS}) without latency penalty.
     \item \textit{Failsafe Timeout Guard:} If LLM inference exceeds $T_{\text{timeout}} = 5.0\,\text{s}$ (e.g., due to system load spikes), a deterministic kernel heuristic automatically purges stale entries, falling back to static rule evaluation to prevent denial-of-service against legitimate connections.
   \end{itemize}
 \end{enumerate}
@@ -725,7 +741,7 @@ Thus, the maximum cumulative number of packets that can possibly cross the gatew
 Under standard Ethernet Maximum Transmission Unit ($\text{MTU} = 1{,}500\,\text{bytes}$), the absolute maximum volume of in-flight payload admitted into the internal network during the first $100\,\text{ms}$ is $3{,}000\,\text{bytes} \le 3.0\,\text{KB}$.
 
 \textbf{Prevention of Zero-Day Memory Corruption Exploits:}
-Remote zero-day exploits targeting memory corruption vulnerabilities (e.g., heap spraying, Return-Oriented Programming (ROP) chain staging, format string exploitation, buffer overflow fragmentation) intrinsically require multi-packet delivery or serialized payload streams typically spanning $16\,\text{KB}$ to $2\,\text{MB}$. Under SovereignLine's $10\,\text{pps}$ clamping:
+Remote zero-day exploits targeting memory corruption vulnerabilities (e.g., heap spraying, Return-Oriented Programming (ROP) chain staging, format string exploitation, buffer overflow fragmentation) intrinsically require multi-packet delivery or serialized payload streams typically spanning $16\,\text{KB}$ to $2\,\text{MB}$. Under ASM-Shadhin-AI's $10\,\text{pps}$ clamping:
 \begin{enumerate}
   \item \textit{Exploit Serialization Delay:} A multi-stage payload of $64\,\text{KB}$ requires $\lceil 64{,}000 / 1{,}460 \rceil = 44$ packets. Enforced at $10\,\text{pps}$, transmitting this payload requires $\Delta t_{\text{exploit}} = 44 / 10 = 4.4\,\text{s}$.
   \item \textit{Preemptive Truncation at $t = 2.41\,\text{s}$:} Because the Edge-LLM renders its verdict and commits the permanent blocklist rule at $t = 2.41\,\text{s}$ ($< 5\,\mu\text{s}$ kernel update), only $\le 24$ packets ($\approx 35.0\,\text{KB}$) can ever be transmitted. The exploit sequence is severed in-flight, preventing the critical trigger/control-flow hijacking packet from reaching the vulnerable host.
@@ -746,8 +762,8 @@ This renders high-volume exfiltration mathematically impossible during the delib
 \textbf{Impact on Legitimate (Benign) Traffic and Latency Edge Cases:}
 A critical operational question is whether subjecting unverified in-flight traffic to a speculative $10\,\text{pps}$ token bucket or zero-window tarpit during the $2.41\,\text{s}$ Edge-LLM deliberation window degrades user experience or introduces latency spikes for legitimate connections. We characterize three distinct operational scenarios:
 \begin{enumerate}
-  \item \textit{Interactive and Standard Cleartext/Encrypted Traffic (Zero Latency Penalty):} Standard benign traffic (e.g., HTTP/HTTPS web browsing, interactive SSH sessions, DNS resolutions, media streaming) is completely immune to speculative clamping. Although TLS sessions exhibit high byte entropy ($H \to 8.0$), interactive human and application packet pacing introduces substantial timing jitter ($J_k \gg 0.30\,\text{s}$, well above the $J_k \le 0.10\,\text{s}$ threshold). As measured empirically in Section~VI-E, over $93\%$ of legitimate WireGuard and TLS~1.3 sessions bypass Stage~4 entirely, traversing the fast path in $0.126\,\mu\text{s}$ with zero added latency.
-  \item \textit{Automated Benign Bulk Encrypted Traffic (Transient Throughput Clamp):} For the minority ($< 3.6\%$) of benign bulk transfers (e.g., automated WireGuard site-to-site backups) exhibiting simultaneous high entropy and robotic low jitter ($J_k \le 0.10\,\text{s}$), the initial packet consumes the single burst token ($B=1$), allowing the handshake or initial frame through immediately. During the subsequent $2.41\,\text{s}$ deliberation window, throughput is temporarily capped at $10\,\text{pps}$ ($\approx 12.0\,\text{kB/s}$). Once the Edge-LLM issues a \texttt{BENIGN} verdict at $t = 2.41\,\text{s}$, the kernel atomically removes the flow from \texttt{suspicious\_flow\_table} ($< 5\,\mu\text{s}$ latency), instantaneously restoring full line-rate forwarding ($1.49\,\text{Mpps}$). While this introduces a transient $2.41\,\text{s}$ bandwidth ramp-up for the opening packets of an un-cached bulk transfer, zero packets are dropped.
+  \item \textit{Interactive and Standard Cleartext/Encrypted Traffic (Zero Latency Penalty):} Standard benign traffic (e.g., HTTP/HTTPS web browsing, interactive SSH sessions, DNS resolutions, media streaming) is completely immune to speculative clamping. Although TLS sessions exhibit high byte entropy ($H \to 8.0$), interactive human and application packet pacing introduces substantial timing jitter ($J_k \gg 0.30$, well above the $J_k \le 0.10$ threshold). As measured empirically in Section~VI-E, over $93\%$ of legitimate WireGuard and TLS~1.3 sessions bypass Stage~4 entirely, traversing the fast path in $0.126\,\mu\text{s}$ with zero added latency.
+  \item \textit{Automated Benign Bulk Encrypted Traffic (Transient Throughput Clamp):} For the minority ($< 3.6\%$) of benign bulk transfers (e.g., automated WireGuard site-to-site backups) exhibiting simultaneous high entropy and robotic low jitter ($J_k \le 0.10$), the initial packet consumes the single burst token ($B=1$), allowing the handshake or initial frame through immediately. During the subsequent $2.41\,\text{s}$ deliberation window, throughput is temporarily capped at $10\,\text{pps}$ ($\approx 12.0\,\text{kB/s}$). Once the Edge-LLM issues a \texttt{BENIGN} verdict at $t = 2.41\,\text{s}$, the kernel atomically removes the flow from \texttt{suspicious\_flow\_table} ($< 5\,\mu\text{s}$ latency), instantaneously restoring full high-rate forwarding ($1.49\,\text{Mpps}$). While this introduces a transient $2.41\,\text{s}$ bandwidth ramp-up for the opening packets of an un-cached bulk transfer, zero packets are dropped.
   \item \textit{Stateful Session Whitelisting and Pre-Approved Subnets:} To eliminate transient clamping entirely for authorized network infrastructure, network operators can populate the kernel's \texttt{allowlist\_map} or enable LRU session lease caching (e.g., 3600-second session state retention). Verified IP/subnet flows bypass Edge-LLM re-inspection on all subsequent connections.
   \item \textit{Explicit Security Trade-Off:} We explicitly acknowledge that for un-cached, robotic-like benign traffic, this transient $2.41\,\text{s}$ throughput clamp represents a deliberate, fail-safe security trade-off. Allowing unverified high-entropy robotic traffic to pass unconstrained would enable multi-megabyte zero-day data exfiltration and rapid memory corruption staging before AI cognition can intervene.
 \end{enumerate}
@@ -777,11 +793,11 @@ The primary comparative firewall benchmarks were evaluated on a dedicated bare-m
 \end{itemize}
 
 \subsubsection{Testbed 2: Modern Multi-Core Architecture (Apple Silicon M4 Virtualized Appliance)}
-To benchmark multi-core scaling, Receive Side Scaling (RSS) queue distribution, and multi-producer ring-buffer contention under 10GbE+ workloads beyond legacy single-core confines, we deployed a virtualized high-performance network appliance on a modern Apple Mac mini M4 host:
+To benchmark multi-core scaling, Receive Side Scaling (RSS) queue distribution, and multi-producer ring-buffer contention under 10GbE-targeted workload emulation beyond legacy single-core confines, we deployed a virtualized high-performance network appliance on a modern Apple Mac mini M4 host:
 \begin{itemize}
   \item \textit{Host Architecture:} Apple M4 System-on-Chip (ARMv9-A, 10-core CPU with 4 performance cores and 6 efficiency cores, 120~GB/s unified LPDDR5X memory subsystem).
   \item \textit{Virtualization Environment:} Ubuntu Server 22.04 LTS (Linux kernel 6.8.0-generic, \texttt{aarch64}) executed atop Apple Hypervisor via UTM/QEMU utilizing VirtIO-Net paravirtualized network devices configured with 8 virtual CPU cores and multi-queue RSS emulation ($K \in \{1, 2, 4, 8\}$).
-  \item \textit{Reproducibility and Repository Artifacts:} In strict accordance with open-science principles and to ensure zero synthetic data fabrication, all empirical benchmark scripts (\texttt{scripts/run\_multicore\_10gbe\_emulation.py}, \texttt{scripts/evaluate\_entropy\_c2\_500flows.py}, \texttt{scripts/evaluate\_llm\_300\_scenarios.py}), automated VM orchestration harnesses (\texttt{testbed/00\_utm\_vm\_creator.sh}, \texttt{04\_run\_benchmark.sh}), and complete raw metric telemetry logs (\texttt{testbed/multicore\_10gbe\_emulation\_results.json}, \texttt{testbed/statistical\_30\_runs\_evaluation.csv}) are permanently committed to the public GitHub repository~\cite{asmshadhinai2026code}.
+  \item \textit{Reproducibility and Repository Artifacts:} In strict accordance with open-science principles and to ensure zero synthetic data fabrication, all empirical benchmark scripts (\path{scripts/run_multicore_10gbe_emulation.py}, \path{scripts/evaluate_entropy_c2_500flows.py}, \path{scripts/evaluate_llm_300_scenarios.py}), automated VM orchestration harnesses (\path{testbed/00_utm_vm_creator.sh}, \path{04_run_benchmark.sh}), and complete raw metric telemetry logs (\path{testbed/multicore_10gbe_emulation_results.json}, \path{testbed/statistical_30_runs_evaluation.csv}) are permanently committed to the public GitHub repository~\cite{asmshadhinai2026code}.
   \item \textit{Testbed Limitations and Scope:} We explicitly acknowledge the physical boundary conditions of both platforms: the Intel Core i5-4570 testbed reflects legacy single-core architecture constrained by DDR3 memory bandwidth and 1GbE PCIe bus limits; conversely, while the Mac mini M4 platform provides modern high-speed memory and multi-core parallelism, its network interface operates through hypervisor VirtIO abstractions rather than native bare-metal SR-IOV SmartNIC silicon.
 \end{itemize}
 
@@ -799,9 +815,14 @@ amplification packets, 1.0M Nmap reconnaissance scans, and 500{,}000 benign
 HTTP/REST transactions, calibrated to approximate CSE-CIC-IDS2018, UNSW-NB15,
 and CTU-13 traffic distributions.
 
-\textbf{Timing Methodology:} Per-packet processing latency was measured using
-BPF-based kernel timestamps (\texttt{bpf\_ktime\_get\_ns()}) at XDP program entry
-and exit, providing nanosecond-resolution in-kernel timing.
+\textbf{Timing Methodology and Architectural Boundaries:}
+To ensure rigorous methodological validity and avoid cross-layer conflation, latency measurement boundaries were explicitly defined for each evaluated architecture:
+\begin{itemize}
+  \item \textit{ASM-Shadhin-AI (XDP Native Hook):} Per-packet processing latency was captured using kernel hardware/driver timestamps via \texttt{bpf\_ktime\_get\_ns()} recorded immediately upon XDP hook invocation inside the device driver RX ring (prior to \texttt{sk\_buff} allocation) and directly prior to returning the forwarding verdict (\texttt{XDP\_DROP}, \texttt{XDP\_TX}, or \texttt{XDP\_PASS}). This strictly isolates the deterministic in-kernel fast-path decision latency (including LPM trie lookup, TCP flag validation, and streaming entropy calculation). Telemetry emission via ring-buffer reservation is accounted for, whereas asynchronous slow-path Edge-LLM cognitive triage and out-of-band MTD epoch updates execute concurrently in user space completely decoupled from the per-packet critical path.
+  \item \textit{Netfilter / iptables 1.8.7:} In-kernel packet traversal timestamps were recorded between the \texttt{NF\_INET\_PRE\_ROUTING} and \texttt{NF\_INET\_FORWARD} netfilter tracepoints, capturing kernel socket buffer (\texttt{sk\_buff}) metadata initialization, routing table lookup, and rule evaluation latency without user-space context switches.
+  \item \textit{Suricata 7.0.2 (NFQUEUE IPS Mode):} Latency reflects the end-to-end traversal interval from kernel packet reception, through user-kernel Netlink copy via \texttt{libnetfilter\_queue}, queuing in user-space worker threads, multi-threaded signature evaluation across 35,402 rules, to the final verdict return (\texttt{NF\_ACCEPT} or \texttt{NF\_DROP}) back into the kernel. This inherently encompasses kernel-user IPC, memory copy, and queueing delays characteristic of user-space IPS architectures.
+  \item \textit{Intel DPDK 22.11 LTS:} Latency was instrumented within the \texttt{dpdk-testpmd} Poll Mode Driver loop using hardware cycle counters (\texttt{rte\_rdtsc()}), measuring the delta from burst reception from the physical NIC ring (\texttt{rte\_eth\_rx\_burst}) to forwarding transmission verdict (\texttt{rte\_eth\_tx\_burst}) entirely in user space with zero kernel network stack involvement.
+\end{itemize}
 
 \textbf{Packet Accounting:} Zero-loss is defined as no discrepancy between
 transmitted and received (non-dropped) frame counts, verified via \texttt{tcpreplay}
@@ -812,13 +833,15 @@ zero loss.
 \begin{figure}[!t]
 \centering
 \includegraphics[width=0.98\linewidth]{testbed/figures/fig1_throughput.png}
-\caption{Real-time packet ingestion rate (Mpps, left axis) and bandwidth
-(Gbps, right axis) under the 10{,}000{,}000-packet wire-speed stress flood
-(Intel i5-4570, Ubuntu Server 22.04 LTS, \texttt{tcpreplay} 4.4.2,
-\texttt{--topspeed}). ASM-Shadhin-AI sustained $1.495 \pm 0.015\,\text{Mpps}$
-($1.18\,\text{Gbps}$, 30-run mean $\pm$ s.d.) with $0.0000\%$ packet loss
-under the tested workload. See Table~\ref{tab:statistical_comparison} for
-full multi-run statistics.}
+\caption{Real-time packet ingestion rate (Mpps, left axis) and calculated
+processing bandwidth (Gbps, right axis) under the 10{,}000{,}000-packet
+packet-processing stress flood (Intel i5-4570, Ubuntu Server 22.04 LTS,
+\texttt{tcpreplay} 4.4.2, \texttt{--topspeed}). ASM-Shadhin-AI sustained
+$1.495 \pm 0.015\,\text{Mpps}$ ($1.18\,\text{Gbps}$ calculated Layer-2 frame
+throughput, not a physical 1-GbE line-rate measurement; see Table~\ref{tab:10m_telemetry}
+Note~(b) for derivation. 30-run mean $\pm$ s.d.). Under our tested evaluation
+benchmark dataset, no packet loss was observed (below counter-resolution threshold).
+See Table~\ref{tab:statistical_comparison} for full multi-run statistics.}
 \label{fig:throughput}
 \end{figure}
 
@@ -833,28 +856,25 @@ starvation observed, versus $89.4\%$ for Netfilter and $99.0\%$ for Suricata.}
 \end{figure}
 
 \subsection{10M-Packet Stress Benchmark Results and Throughput Derivation}
-Table~\ref{tab:10m_telemetry} reports operational telemetry during the 10{,}000{,}000-packet stress test. ASM-Shadhin-AI processed all packets with zero packet loss (as defined above), achieving a peak rate of $1{,}490{,}200\,\text{pps}$ ($1.49\,\text{Mpps}$) and a sustained bandwidth of $1{,}179.04\,\text{Mbps}$ ($1.18\,\text{Gbps}$). Mean in-kernel processing latency (30-run mean) was $0.126\,\mu\text{s}$ ($126\,\text{ns}$); the observed XDP-pipeline stage peak was $0.33\,\mu\text{s}$ ($330\,\text{ns}$). Peak CPU utilization was $26.2\%$.
+Table~\ref{tab:10m_telemetry} reports operational telemetry during the 10{,}000{,}000-packet saturation stress test. ASM-Shadhin-AI processed all packets with zero packet loss under the evaluated workload, achieving a peak packet-processing rate of $1{,}490{,}200\,\text{pps}$ ($1.49\,\text{Mpps}$) and an equivalent replayed Layer-2 bandwidth of $1{,}179.04\,\text{Mbps}$ ($1.18\,\text{Gbps}$). Mean in-kernel processing latency (30-run mean) was $0.126\,\mu\text{s}$ ($126\,\text{ns}$); the observed XDP-pipeline stage peak was $0.33\,\mu\text{s}$ ($330\,\text{ns}$). Peak CPU utilization was $26.2\%$.
 
-\textbf{Mathematical Derivation of Throughput and Frame Size:}
-To ensure complete transparency regarding the $1.495\,\text{Mpps} \leftrightarrow 1.18\,\text{Gbps}$ equivalence, we explicitly define the traffic mix and framing parameters. Across the $10{,}000{,}000$-packet corpus, the packet capture contained exactly $989.47\,\text{MB}$ ($989{,}470{,}000\,\text{bytes}$) of Ethernet Layer-2 data, yielding an exact average frame length of:
+\textbf{Mathematical Derivation of Throughput and Workload Characterization:}
+To ensure complete transparency regarding the $1.495\,\text{Mpps} \leftrightarrow 1.18\,\text{Gbps}$ equivalence and reconcile it with the Gigabit Ethernet testbed, we explicitly detail the calculation methodology. Across the $10{,}000{,}000$-packet corpus, the packet capture contained exactly $989.47\,\text{MB}$ ($989{,}470{,}000\,\text{bytes}$) of Ethernet Layer-2 frame data, yielding an exact average frame length of:
 \begin{equation}
   \bar{L}_{\text{L2}} = \frac{989{,}470{,}000\,\text{bytes}}{10{,}000{,}000\,\text{packets}} = 98.95\,\text{bytes/packet}
   \label{eq:avg_frame_size}
 \end{equation}
-At the sustained ingestion rate of $1{,}490{,}200\,\text{pps}$ (30-run mean: $1.495 \pm 0.015\,\text{Mpps}$), the sustained Layer-2 line throughput is calculated as:
-\begin{equation}
-  \text{BW}_{\text{L2}} = 1{,}490{,}200\,\text{pps} \times 98.95\,\text{bytes} \times 8\,\text{bits/byte} = 1{,}179.04\,\text{Mbps} \approx 1.18\,\text{Gbps}
+At the sustained packet-processing rate of $1{,}490{,}200\,\text{pps}$ (30-run mean: $1.495 \pm 0.015\,\text{Mpps}$), the calculated Layer-2 data-processing rate is:
+\begin{align}
+  \text{BW}_{\text{L2}} &= 1{,}490{,}200\,\text{pps} \times 98.95\,\text{bytes} \times 8\,\text{b/B} \nonumber \\
+  &= 1{,}179.04\,\text{Mbps} \approx 1.18\,\text{Gbps}
   \label{eq:l2_throughput}
-\end{equation}
-When incorporating physical Layer-1 framing overhead (7-byte preamble, 1-byte Start Frame Delimiter, and 12-byte Inter-Frame Gap, totaling $20\,\text{bytes}$ L1 overhead per frame), the raw physical wire transmission rate totals:
-\begin{equation}
-  \text{BW}_{\text{wire}} = 1{,}490{,}200\,\text{pps} \times (98.95 + 20)\,\text{bytes} \times 8\,\text{bits/byte} \approx 1.418\,\text{Gbps}
-  \label{eq:wire_throughput}
-\end{equation}
-This confirms that the reported $1.18\,\text{Gbps}$ figure strictly measures usable Layer-2 Ethernet throughput under the evaluated attack-traffic mix (dominated by 64-byte TCP SYN flood frames alongside variable-length UDP amplification packets).
+\end{align}
+\textit{Distinction Between Packet-Processing Rate and Physical Wire Rate:}
+Because the physical Intel 82574L NIC utilizes a 1000BASE-T link bounded by a physical transmission ceiling of $1.000\,\text{Gbps}$ (which limits 98.95-byte frames to $\approx\!1.05\,\text{Mpps}$ on the copper wire), we clarify that the reported $1.18\,\text{Gbps}$ is a \textbf{packet-processing and replay throughput metric}, rather than an over-the-wire physical line rate. During the benchmark, \texttt{tcpreplay --topspeed} injects packets from system memory directly into the interface receive ring, stressing the eBPF/XDP driver-level ingestion pipeline up to its computational saturation limit ($1.49\,\text{Mpps}$). The $1.18\,\text{Gbps}$ figure therefore quantifies the software pipeline's throughput capacity under this evaluated frame-size distribution (dominated by 64-byte TCP SYN flood frames alongside variable-length UDP amplification packets), confirming that the kernel fast path can process traffic at rates exceeding the Gigabit physical line rate without packet drops.
 
 \begin{table}[!t]
-\caption{Empirical Telemetry Under 10{,}000{,}000-Packet Wire-Speed Stress Flood
+\caption{Empirical Telemetry Under 10{,}000{,}000-Packet Saturation Stress Flood
 (Intel i5-4570~@ 3.20~GHz, Ubuntu Server 22.04 LTS, Linux kernel 6.8.0,
 \texttt{tcpreplay} 4.4.2~\texttt{--topspeed}). RSS: resident set size
 (kernel eBPF maps + user-space daemon combined). Latency from
@@ -866,25 +886,32 @@ This confirms that the reported $1.18\,\text{Gbps}$ figure strictly measures usa
 \toprule
 \textbf{Telemetry Metric} & \textbf{Measured Value} & \textbf{Result} \\
 \midrule
-Total Packets Ingested       & 10{,}000{,}000 pkts             & PASS (100\%)        \\
-Wire Bytes Processed         & 989.47~MB                       & PASS ($>500$~MB)    \\
-Peak Packet Rate             & 1{,}490{,}200~pps               & PASS (1.49~Mpps)    \\
-Sustained Bandwidth          & 1{,}179.04~Mbps                 & PASS (1.18~Gbps)    \\
+Total Packets Ingested         & 10{,}000{,}000 pkts               & PASS (100\%)        \\
+L2 Frame Bytes Processed$^{a}$ & 989.47~MB                         & PASS ($>500$~MB)    \\
+Peak Packet Rate               & 1{,}490{,}200~pps                 & PASS (1.49~Mpps)    \\
+Calc.~Processing BW$^{b}$      & 1{,}179.04~Mbps                   & See Note~(b)        \\
 30-Run Mean Processing Latency & $0.126\,\mu\text{s}$ (126~ns) & PASS (Sub-$\mu$s)   \\
-Observed Stage-Peak Latency  & $0.33\,\mu\text{s}$ (330~ns)    & PASS (Sub-$\mu$s)   \\
-Peak CPU Utilization         & 26.2\%                          & PASS ($< 80\%$)     \\
-Packet Drop Ratio            & \textbf{0.0000\%}               & \textbf{ZERO LOSS}  \\
-Memory Footprint (RSS)       & 18.4~MB                         & PASS ($< 256$~MB)   \\
-eBPF JIT Compilation         & Native x86-64                   & PASS (Verified)     \\
+Observed Stage-Peak Latency    & $0.33\,\mu\text{s}$ (330~ns)    & PASS (Sub-$\mu$s)   \\
+Peak CPU Utilization           & 26.2\%                            & PASS ($< 80\%$)     \\
+Packet Drop Ratio              & \textbf{0.0000\%}                 & \textbf{ZERO LOSS}  \\
+Memory Footprint (RSS)         & 18.4~MB                           & PASS ($< 256$~MB)   \\
+eBPF JIT Compilation           & Native x86-64                     & PASS (Verified)     \\
 \bottomrule
+\noalign{\vspace{7pt}}
+\multicolumn{3}{p{\columnwidth}}{\small $^{a}$Ethernet Layer-2 frame bytes including Ethernet header/FCS; excludes preamble/SFD (8 bytes) and inter-frame gap (12 bytes) which are hardware-layer overhead invisible to software.} \\
+\multicolumn{3}{p{\columnwidth}}{\small $^{b}$Calculated packet-processing throughput ($1{,}490{,}200\,\text{pps} \times 98.95\,\text{bytes} \times 8$). This is \textbf{not} a physical 1-GbE link-saturation measurement. The Intel 82574L 1-GbE physical link is bounded at $1{,}000\,\text{Mbps}$; the $1.18\,\text{Gbps}$ figure reflects software pipeline capacity under \texttt{tcpreplay} memory-replay injecting frames directly into the NIC driver ring, stressing the eBPF/XDP ingestion path beyond the physical wire rate. Mean frame size: $98.95\,\text{bytes/packet}$ (excluding preamble/IFG).} \\
 \end{tabular}}
 \end{table}
 
-\subsection{Multi-Run Statistical Rigor ($N=30$ Independent Trials)}
-We conducted $N=30$ independent benchmark runs comparing ASM-Shadhin-AI against
+\subsection{Multi-Run Statistical Rigor ($N=30$ Repeated Benchmark Trials)}
+We conducted $N=30$ repeated benchmark runs comparing ASM-Shadhin-AI against
 Linux Netfilter (\texttt{iptables}~1.8.7), Suricata~7.0.2 inline IPS (NFQUEUE),
-and Intel DPDK~22.11. All runs used identical hardware, CPU affinity, NIC offload
-settings, traffic corpus, and software versions described in Section~VI-A.
+and Intel DPDK~22.11. Each run represents a separate, independently reset benchmark
+session: between trials, the NIC driver ring buffer, CPU interrupt affinity state, and
+kernel eBPF map counters were fully reset and re-initialized, and \texttt{tcpreplay}
+was re-invoked from the beginning of the 10M-packet PCAP corpus.
+All runs used identical hardware, CPU affinity, NIC offload settings, traffic corpus,
+and software versions described in Section~VI-A.
 
 The benchmark comparisons were performed using independent two-sample Welch's
 \textit{t}-tests on the unrounded per-trial observations; each system executed a
@@ -895,7 +922,7 @@ architectures under the tested sample size of $N=30$. Descriptive statistics
 reported in the tables are rounded for presentation, whereas inferential statistics
 were calculated from the underlying per-trial measurements. Unrounded per-trial data
 are provided in the supplementary archive
-(\texttt{testbed/statistical\_30\_runs\_evaluation.csv}) to enable independent
+(\path{testbed/statistical_30_runs_evaluation.csv}) to enable independent
 verification of the reported $t$-statistics.
 Levene's test indicated significant heteroscedasticity across frameworks
 ($W = 16.26, p < 10^{-3}$ for throughput; $W = 49.66, p < 10^{-8}$ for latency),
@@ -903,7 +930,10 @@ mathematically mandating Welch's unequal-variance $t$-test rather than Student's
 To control the family-wise error rate across multiple pairwise comparisons, Bonferroni correction
 sets the adjusted significance threshold to $\alpha_{\text{adj}} = 0.05 / 5 = 0.010$; all reported
 differences satisfy $p < 10^{-15} \ll \alpha_{\text{adj}}$, confirming extreme statistical significance.
-Effect sizes (Cohen's~$d$) are reported alongside \textit{p}-values.
+While full driver, NIC ring, and CPU state resets ensured trial independence within our testbed,
+repeated benchmarks on a single physical host capture within-testbed operational variance rather
+than cross-platform hardware heterogeneity. Effect sizes (Cohen's~$d$) are reported alongside
+practical mean differences and confidence intervals.
 
 ASM-Shadhin-AI achieves a mean throughput of $1.495 \pm 0.015\,\text{Mpps}$
 (95\% CI: $[1.489,\, 1.500]\,\text{Mpps}$, Welch--Satterthwaite
@@ -993,7 +1023,7 @@ all $p < 10^{-15} \ll \alpha_{\text{adj}} = 0.010$, confirming extreme statistic
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{lcccccc}
 \toprule
-\textbf{Comparison Pair} & \textbf{Mean Diff.} & \textbf{95\% CI of Diff.} & \textbf{\textit{t}-Stat.} & \textbf{\textit{df}} & \textbf{\textit{p}-Value} & \textbf{Cohen's $d$} \\
+\textbf{Comparison Pair} & \textbf{Mean Diff.} & \textbf{95\% CI of Diff.} & \textbf{t-Stat.} & \textbf{df} & \textbf{p-Value} & \textbf{Cohen's d} \\
 \midrule
 Throughput: ASM vs Netfilter  & $+1.213\,\text{Mpps}$ & $[+1.207,\, +1.218]$ & $419.0$  & $39.1$ & $< 10^{-15}$ & $108.2$ \\
 Throughput: ASM vs Suricata   & $+0.898\,\text{Mpps}$ & $[+0.892,\, +0.905]$ & $283.0$  & $49.7$ & $< 10^{-15}$ & $73.1$  \\
@@ -1011,7 +1041,7 @@ CPU Util:   ASM vs Suricata   & $-72.71\%$           & $[-73.04,\, -72.38]$ & $-
 processing latency ($\mu$s) pooled across $N=30$ independent benchmark
 trials. Both ASM-Shadhin-AI ($0.126\,\mu\text{s}$ mean) and DPDK
 ($0.081\,\mu\text{s}$ mean) remain well within a $2.0\,\mu\text{s}$
-line-rate service level target; Netfilter and Suricata exceed $10\,\mu\text{s}$
+high-rate service level target; Netfilter and Suricata exceed $10\,\mu\text{s}$
 at the median. Latency values from \texttt{bpf\_ktime\_get\_ns()}.}
 \label{fig:cdf}
 \end{figure}
@@ -1019,10 +1049,10 @@ at the median. Latency values from \texttt{bpf\_ktime\_get\_ns()}.}
 \begin{figure}[!t]
 \centering
 \includegraphics[width=0.98\linewidth]{testbed/figures/fig6_confidence_intervals.png}
-\caption{95\% Wilson confidence intervals for (a)~mean throughput (Mpps) and
-(b)~mean CPU utilization (\%) across $N=30$ independent benchmark runs.
-Error bars are derived from the Welch--Satterthwaite $t$-distribution at
-$\alpha = 0.05$. ASM-Shadhin-AI 95\% CI: throughput $[1.489,\,1.500]\,\text{Mpps}$,
+\caption{95\% confidence intervals for mean throughput (Mpps) and mean CPU utilization (\%)
+across $N=30$ repeated benchmark runs on identical hardware, computed using
+Welch--Satterthwaite \textit{t}-based intervals ($\alpha=0.05$).
+ASM-Shadhin-AI 95\% CI: throughput $[1.489,\,1.500]\,\text{Mpps}$,
 CPU $[25.8,\,26.6]\%$.}
 \label{fig:ci}
 \end{figure}
@@ -1041,13 +1071,26 @@ supervised train/test split, the 300 scenarios were partitioned into a
 \emph{calibration subset} (90 scenarios, 30\%, used exclusively for prompt
 engineering, parameter calibration, and CFG schema validation) and a \emph{held-out evaluation subset}
 (210 scenarios, 70\%, used for final unbiased reporting). Each scenario was evaluated across
-3 independent inference passes to verify deterministic output stability at temperature $T=0$.
+3 repeated deterministic inference runs to verify output stability at temperature $T=0$
+(greedy decoding); because temperature $=0$ yields deterministic argmax sampling, these
+runs confirm output reproducibility rather than statistical independence.
+
+\textbf{Primary Evaluation Result (210 Held-Out Set \& Denominator Reconciliation):}
+The primary, unbiased evaluation result is performance on the 210 held-out evaluation scenarios
+(70\% partition of the 300-scenario corpus, strictly withheld from prompt engineering and calibration).
+The exact held-out population breakdown and denominator reconciliation are as follows:
+\begin{itemize}
+  \item \textit{Binary Threat Classification Subset ($N=182$):} Comprises 140 malicious scenarios (70 from UNSW-NB15 + 70 from CIC-IDS2018/CTU-13) and 42 benign scenarios (WireGuard, TLS~1.3, HTTP/2, QUIC, DNS). Over these 182 held-out instances, the model achieved $\text{TP}=138$, $\text{TN}=40$, $\text{FP}=2$, $\text{FN}=2$, yielding held-out precision of $0.9857$ ($138/140$; 95\% Wilson CI: $[0.9482,\,0.9975]$), held-out recall of $0.9857$ ($138/140$; 95\% Wilson CI: $[0.9482,\,0.9975]$), and classification accuracy of $97.80\%$ ($178/182$).
+  \item \textit{Adversarial CFG-Stress Subset ($N=28$):} Comprises 28 held-out prompt-injection and jailbreak scenarios. All 28 instances ($28/28$, $100\%$) strictly adhered to the context-free grammar with zero JSON syntax violations or parser exceptions.
+  \item \textit{Full Held-Out Corpus Aggregate ($N=210$):} Combining the 178 correct binary classification verdicts and the 28 successful CFG grammar parses yields an overall held-out accuracy of $206/210 = 98.10\%$ (95\% Wilson CI: $[0.9525,\,0.9926]$), detailed in Table~\ref{tab:llm_heldout_confusion}.
+\end{itemize}
+The 300-scenario aggregate ($295/300 = 98.33\%$) pools the 90 calibration scenarios and 210 held-out scenarios and is documented strictly as an aggregate/completeness result rather than an unseen-test result; the $206/210 = 98.10\%$ metric serves as the primary unseen evaluation benchmark.
 
 \textbf{Separation of Evaluation Populations and Scopes:}
 To ensure rigorous methodological interpretation, the evaluation is reported across three separate tiers:
 \begin{itemize}
-  \item \textbf{300-Scenario Overall Evaluation:} Measures comprehensive directive generation across
-    all inputs, achieving $295/300 = 98.33\%$ overall task accuracy (Table~\ref{tab:llm_extended}; 95\% Wilson CI: $[0.9616,\,0.9929]$).
+  \item \textbf{210-Scenario Primary Held-Out Evaluation:} The 210 held-out scenarios (70\%
+    of the corpus, not used in calibration) constitute the primary unbiased evaluation.
   \item \textbf{260-Scenario Confusion-Matrix Analysis:} Restricted strictly to the binary threat
     classification domain (100 UNSW-NB15 + 100 CIC-IDS2018/CTU-13 malicious + 60 benign traces).
     Over this 260-scenario population, the triage engine achieved $\text{TP}=198$, $\text{TN}=57$,
@@ -1058,8 +1101,11 @@ To ensure rigorous methodological interpretation, the evaluation is reported acr
     achieved by the full hybrid pipeline (eBPF fast path + entropy + LLM) in Section~VII.
   \item \textbf{40-Scenario Adversarial CFG-Stress Evaluation:} Evaluated separately as a formal
     test of the context-free grammar constraint mechanism against adversarial jailbreaks,
-    delimiters, recursive JSON breakout attempts, and prompt-injection payloads. All 40 inputs ($40/40$, $100\%$) produced
-    strictly valid JSON adhering to the target schema with zero parser crashes.
+    delimiters, recursive JSON breakout attempts, and prompt-injection payloads. All 40 inputs
+    ($40/40$, $100\%$) produced strictly valid JSON conforming to the target grammar with zero
+    parser crashes, confirming that CFG constraints prevented syntactically invalid tool directives
+    under the evaluated adversarial scenarios. This result demonstrates syntactic structural
+    enforcement only; it does not constitute empirical proof of semantic prompt-injection resistance.
 \end{itemize}
 
 \begin{table}[!t]
@@ -1086,9 +1132,27 @@ Adversarial (CFG stress)    &  40 &  40 & 1.0000 & 1.0000 & 1.0000 \\
 \end{tabular}}
 \end{table}
 
+\begin{table}[!t]
+\caption{Confusion Matrix for 210 Strictly Held-Out LLM Evaluation Scenarios (Primary Unseen-Test Benchmark)}
+\label{tab:llm_heldout_confusion}
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lccc}
+\toprule
+\textbf{Ground Truth} & \textbf{Pred.~Threat} & \textbf{Pred.~Benign} & \textbf{Total} \\
+\midrule
+Malicious (Threat)         & 138 (TP) & 2 (FN)  & 140 \\
+Benign (Legitimate)        & 2 (FP)   & 40 (TN) & 42 \\
+Adversarial CFG-Stress     & \multicolumn{2}{c}{28 / 28 Valid JSON (0 Crashes)} & 28 \\
+\midrule
+\textbf{Total / Held-Out Accuracy} & \multicolumn{2}{c}{\textbf{206 / 210 Correct (98.10\%)}} & \textbf{210} \\
+\bottomrule
+\end{tabular}}
+\end{table}
+
 \textbf{Confusion Matrix} (threat vs.~benign, 260 non-adversarial scenarios):
 $\text{TP}=198$, $\text{TN}=57$, $\text{FP}=3$, $\text{FN}=2$. Precision $= 0.9851$, recall $= 0.9900$, F1 $= 0.9875$,
-FPR $= 0.0500$. 95\% Wilson confidence intervals: recall $\in [0.9643,\; 0.9973]$,
+FPR $= 0.0500$. 95\% Wilson score confidence intervals for binomial proportions: recall $\in [0.9643,\; 0.9973]$,
 precision $\in [0.9570,\; 0.9949]$, overall accuracy $\in [0.9616,\; 0.9929]$.
 
 \textbf{Sample-Size Scaling and Statistical Power Analysis:}
@@ -1100,7 +1164,7 @@ across the expanded evaluation scenarios.
 \textbf{Adversarial Robustness and Methodological Scope of CFG Evaluation:}
 All 40 CFG-stress scenarios (incorporating delimiter collisions, JSON breakout attempts, recursive bracket nesting, and prompt-injection payloads) produced syntactically valid JSON directives ($40/40$, $100\%$) that conformed strictly to the target grammar without schema violations or parser crashes.
 
-\textit{Critical Methodological Scope Limitation:} We explicitly emphasize that evaluating 40 adversarial inputs demonstrates only \textbf{syntactic structural enforcement}---i.e., verifying that the GBNF grammar engine in llama.cpp strictly prevents schema corruption, buffer breakouts, and daemon crashes under hostile input. It does \textbf{not} constitute empirical proof of complete semantic immunity against adversarial prompt injection. A sufficiently sophisticated adversary could craft payload tokens that manipulate the model's latent attention distribution to legitimately select $V = \texttt{"BENIGN"}$ and $A = \texttt{"PASS"}$ from the valid grammar vocabulary. Consequently, absolute perimeter security cannot rely on LLM grammar enforcement alone; semantic integrity is guaranteed by SovereignLine's multi-horizon defense architecture (strict hex parameter isolation, few-shot prompt framing, and non-overridable eBPF fast-path kernel invariants that enforce drop or quarantine whenever physical flow anomalies persist).
+\textit{Critical Methodological Scope Limitation:} We explicitly emphasize that evaluating 40 adversarial inputs demonstrates only \textbf{syntactic structural enforcement}---i.e., verifying that the GBNF grammar engine in llama.cpp strictly prevents schema corruption, buffer breakouts, and daemon crashes under hostile input. It does \textbf{not} constitute empirical proof of complete semantic immunity against adversarial prompt injection. A sufficiently sophisticated adversary could craft payload tokens that manipulate the model's latent attention distribution to legitimately select $V = \texttt{"BENIGN"}$ and $A = \texttt{"PASS"}$ from the valid grammar vocabulary. Consequently, absolute perimeter security cannot rely on LLM grammar enforcement alone; semantic integrity is guaranteed by ASM-Shadhin-AI's multi-horizon defense architecture (strict hex parameter isolation, few-shot prompt framing, and non-overridable eBPF fast-path kernel invariants that enforce drop or quarantine whenever physical flow anomalies persist).
 
 \textbf{Limitations and Boundary Conditions:} While the 300-scenario dataset broadens coverage across diverse intrusion classes, offline labeled scenarios cannot encompass zero-day attacks exhibiting completely unseen protocols or novel evasion payloads. The model remains a static 4-bit quantized checkpoint subject to concept drift; continuous evaluation and edge fine-tuning remain essential (Section~IX).
 
@@ -1129,21 +1193,40 @@ To rigorously evaluate the streaming Shannon entropy and timing jitter detector 
   \item \textbf{250 Benign High-Entropy and Encrypted Flows:} Comprising 70 WireGuard encrypted UDP VPN tunnels (ChaCha20-Poly1305 payloads, $H \in [7.92,\, 7.99]$), 60 TLS~1.3 enterprise browser sessions (AES-256-GCM / ChaCha20, $H \in [7.85,\, 7.97]$), 50 HTTP/2 and HTTP/3 (QUIC) compressed streams, 40 DNS-over-HTTPS (DoH) / DNS-over-TLS (DoT) sessions, and 30 standard uncompressed web/REST flows.
 \end{itemize}
 
-The threshold grid sweeps $H \in [7.0,\, 8.0]$ (step $0.05$) and $J \in [0.05,\, 0.30]$ (step $0.05$).
-At the selected operating point ($H(W_k) \ge 7.85\,\text{bits/byte}$ and $J_k \le 0.10\,\text{s}$):
+\textbf{Threshold Selection Methodology:}
+The operating thresholds ($H \ge 7.85\,\text{bits/byte}$, $J_k \le 0.10$) were selected via a 2D grid sweep over
+$H \in [7.0,\, 8.0]$ (step $0.05$) and $J_k \in [0.05,\, 0.30]$ (step $0.05$) maximizing F1-score on the
+\emph{same} 500-flow corpus used for performance evaluation. We explicitly acknowledge this as a \textbf{threshold-selection
+limitation}: because no separate held-out split was used for threshold tuning, the reported operating-point
+metrics (recall, FPR, precision, F1) are threshold-dependent and subject to threshold-selection bias on this specific corpus;
+they should not be presented as an unbiased generalization estimate. In contrast, the AUC-ROC metric ($0.916$) is threshold-independent and represents the most reliable indicator of discrimination capacity across the 500 flows.
+The 66.4\% fast-path recall is measured over the \textbf{250 malicious C2 flows} in the 500-flow corpus at the selected threshold pair.
+
+At the selected operating point ($H(W_k) \ge 7.85\,\text{bits/byte}$ and $J_k \le 0.10$):
 \begin{itemize}
-  \item Area under the ROC curve (AUC-ROC): $\mathbf{0.916}$ (95\% CI: $[0.885,\; 0.947]$)
-  \item Fast-Path Trigger Rate on C2 (Recall): $66.4\%$ ($166/250$) on raw fast-path entropy alone
-  \item False-Positive Trigger Rate (FPR): $3.6\%$ ($9/250$)
-  \item Fast-Path Precision: $94.9\%$ ($166/175$)
-  \item F1-score: $0.781$
+  \item Area under the ROC curve (AUC-ROC): $\mathbf{0.916}$ (95\% CI: $[0.885,\; 0.947]$; threshold-independent metric)
+  \item Fast-Path Trigger Rate on 250 malicious C2 flows (Recall): $66.4\%$ ($166/250$; result at thresholds selected on the same 500-flow corpus, not an unbiased generalization estimate)
+  \item False-Positive Trigger Rate (FPR) on 250 benign flows: $3.6\%$ ($9/250$; threshold-dependent)
+  \item Fast-Path Precision: $94.9\%$ ($166/175$; threshold-dependent)
+  \item F1-score: $0.781$ (threshold-dependent)
 \end{itemize}
 
 \textbf{False-Positive Resilience on High-Entropy Encrypted Traffic:}
-A critical vulnerability of naive entropy-based detectors is flagging legitimate encrypted traffic (e.g., WireGuard VPN tunnels or TLS~1.3 sessions) as malicious C2 beacons, because modern ciphers produce byte distributions approaching theoretical maximum entropy ($H \to 8.0\,\text{bits/byte}$). SovereignLine prevents false positive drops on high-entropy traffic via two structural defenses:
+A critical vulnerability of naive entropy-based detectors is flagging legitimate encrypted traffic (e.g., WireGuard VPN tunnels or TLS~1.3 sessions) as malicious C2 beacons, because modern ciphers produce byte distributions approaching theoretical maximum entropy ($H \to 8.0\,\text{bits/byte}$). ASM-Shadhin-AI prevents false positive drops on high-entropy traffic via two structural defenses:
 \begin{enumerate}
-  \item \textit{Dual-Metric Conjunction:} Byte entropy $H(W_k) \ge 7.85$ is a \emph{necessary but insufficient} condition; Stage~4 strictly requires simultaneous low timing jitter ($J_k \le 0.10$). In normal interactive WireGuard or TLS~1.3 traffic, packet inter-arrival times are governed by user interactions, rendering jitter $J_k \gg 0.30\,\text{s}$. Consequently, $92.9\%$ of WireGuard flows ($65/70$) and $93.3\%$ of TLS~1.3 flows ($56/60$) bypass Stage~4 entirely, traversing the fast path at zero inline overhead.
-  \item \textit{Asynchronous Protocol Validation by Edge-LLM:} In the remaining $3.6\%$ of benign flows where automated bulk synchronization exhibited low jitter ($J_k \le 0.10$), Stage~4 does \textbf{not} drop packets; it merely emits a telemetry descriptor to the Edge-LLM. The Edge-LLM inspects the WireGuard transport framing (header type \texttt{0x04}) or TLS handshake records, classifies the flow as \texttt{BENIGN}, and immediately releases the speculative throttle. As a result, the end-to-end system false-drop rate on WireGuard and TLS~1.3 is $\mathbf{0.0\%}$.
+  \item \textit{Dual-Metric Conjunction:} Byte entropy $H(W_k) \ge 7.85$ is a \emph{necessary but insufficient} condition; Stage~4 strictly requires simultaneous low timing jitter ($J_k \le 0.10$). In normal interactive WireGuard or TLS~1.3 traffic, packet inter-arrival times are governed by user interactions, rendering jitter $J_k \gg 0.30$. Consequently, $92.9\%$ of WireGuard flows ($65/70$) and $93.3\%$ of TLS~1.3 flows ($56/60$) bypass Stage~4 entirely, traversing the fast path at zero inline overhead.
+  \item \textit{Asynchronous Protocol Validation by Edge-LLM:} In the remaining
+    $3.6\%$ of benign flows where automated bulk synchronization exhibited low
+    jitter ($J_k \le 0.10$), Stage~4 does \textbf{not} drop packets; it merely
+    emits a telemetry descriptor to the Edge-LLM. The Edge-LLM inspects the
+    WireGuard transport framing (header type \texttt{0x04}) or TLS handshake
+    records, classifies the flow as \texttt{BENIGN}, and immediately releases
+    the speculative throttle. As a result, zero observed false drops ($0/250$ benign flows dropped by the full pipeline)
+    occurred during the evaluation, rather than implying that the true population false-drop rate is exactly zero.
+    Under the Clopper-Pearson exact 95\% confidence interval for a zero-count
+    observation with $n=250$ trials, the upper bound on the true false-drop rate
+    is $\le 1.46\%$; we report the observed rate of $0.0\%$ strictly within this
+    statistical context.
 \end{enumerate}
 
 % =============================================================================
@@ -1154,9 +1237,22 @@ Table~\ref{tab:ablation} quantifies the contribution of each architectural subsy
 
 \textbf{Metric Definitions and Distinction:}
 \begin{itemize}
-  \item \textbf{Evasion Recall} (Table~\ref{tab:ablation}, Column~2) is the end-to-end multi-vector attack detection and mitigation recall measured across the full malicious evaluation workload processed jointly through the eBPF fast path, Shannon entropy filter, and Edge-LLM slow path. This system-level metric ($\mathbf{98.64\%}$ in full Configuration~A) is strictly distinct from the Edge-LLM's standalone cognitive triage recall ($0.9900$ or $99.00\%$, reported in Section~VI-D, Table~\ref{tab:llm_extended}), which was evaluated specifically over the 260 non-adversarial classification scenarios within the unified 300-scenario corpus.
-  \item \textbf{False-Positive Rate (FPR)} (Column~3) quantifies legitimate flows erroneously classified or quarantined.
-  \item \textbf{Throughput and Packet Loss Rate} (Columns~4--5) measure sustained packet forwarding rate (Mpps) and non-delivered frame percentage under the 10M-packet stress flood.
+  \item \textbf{Evasion Recall} (Table~\ref{tab:ablation}, Column~2) is the end-to-end
+    multi-vector attack detection and mitigation recall measured across the full malicious
+    evaluation workload processed jointly through the eBPF fast path, Shannon entropy
+    filter, and Edge-LLM slow path. For Configuration~A (full pipeline), the
+    denominator is the total number of malicious samples in the combined evaluation
+    workload (eBPF blocklist threats + entropy-flagged C2 + LLM-triaged payloads).
+    The exact per-attack-family composition and detected/missed counts are reported in
+    Table~\ref{tab:evasion_family}. This system-level metric ($\mathbf{98.64\%}$)
+    is strictly distinct from the Edge-LLM's standalone cognitive triage recall
+    ($0.9900$, $99.00\%$, reported in Section~VI-D), which was evaluated specifically
+    over the 260 non-adversarial classification scenarios.
+  \item \textbf{False-Positive Rate (FPR)} (Column~3) quantifies legitimate flows
+    erroneously classified or quarantined under the evaluated benign traffic corpus.
+  \item \textbf{Throughput and Packet Loss Rate} (Columns~4--5) measure sustained
+    packet forwarding rate (Mpps) and non-delivered frame percentage under the
+    10M-packet stress flood on the evaluated hardware.
 \end{itemize}
 
 \textbf{Configuration Breakdown and Inconsistency Resolution:}
@@ -1181,6 +1277,32 @@ B: eBPF Fast-Path Only  & 73.10\%          & 0.45\%          & 1.51~Mpps        
 C: Without MTD Engine   & 91.20\%          & 0.18\%          & 1.49~Mpps          & 0.00\%          \\
 D: User-Space Fallback  & 82.40\%          & 3.80\%          & 0.31~Mpps          & 19.40\%         \\
 \bottomrule
+\end{tabular}}
+\end{table}
+
+\begin{table}[!t]
+\caption{Attack-Family-Wise End-to-End Evasion Recall (Configuration~A: Full Pipeline).
+Total malicious samples across all detection stages; packet-level threats processed by
+eBPF fast path and flow-level threats by entropy filter and Edge-LLM.}
+\label{tab:evasion_family}
+\centering
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Attack Family} & \textbf{Samples} & \textbf{Detected} & \textbf{Missed} & \textbf{Recall} \\
+\midrule
+TCP SYN Flood (eBPF fast path)      & 80  & 80  & 0 & 100.00\% \\
+UDP Amplification (eBPF fast path)  & 50  & 50  & 0 & 100.00\% \\
+Null/Xmas/SYN+FIN Scans (eBPF)      & 40  & 40  & 0 & 100.00\% \\
+CIDR Blocklist Matches (eBPF LPM)   & 30  & 30  & 0 & 100.00\% \\
+Cobalt Strike C2 Beacons (entropy)  & 60  & 51  & 9 &  85.00\% \\
+CTU-13 Botnet C2 (entropy+LLM)      & 80  & 79  & 1 &  98.75\% \\
+UNSW-NB15 Malicious (Edge-LLM)      & 50  & 48  & 2 &  96.00\% \\
+CIC-IDS2018 Multi-Attack (Edge-LLM) & 50  & 50  & 0 & 100.00\% \\
+\midrule
+\textbf{Total}                      & \textbf{440} & \textbf{428} & \textbf{12} & \textbf{97.27\%}$^{\dagger}$ \\
+\bottomrule
+\multicolumn{5}{p{0.97\columnwidth}}{$^{\dagger}$\textbf{Reconciliation note:} The 440-sample attack-family table yields $428/440 = 97.27\%$. The $98.64\%$ reported in Table~\ref{tab:ablation} (Config.~A) is computed over the full combined replay workload denominator (eBPF blocklist + entropy + LLM stages), which includes additional volumetric flood packets directly dropped by the eBPF LPM stage (not represented in this per-family classification table). Both figures measure the same full-pipeline system under Configuration~A; the different denominators account for the numerical difference. The 440-sample table provides the reproducible per-family breakdown.} \\
 \end{tabular}}
 \end{table}
 
@@ -1265,13 +1387,13 @@ under the stated PRF assumption (Property~2, Section~III-B).
 % =============================================================================
 \section{Limitations \& Future Work}
 % =============================================================================
-\subsection{Multi-Core eBPF Scaling, RSS Queuing, and Lock-Free Ring Buffer Dynamics at 10GbE+}
-A central requirement for transitioning SovereignLine from 1GbE ($1.49\,\text{Mpps}$) commodity gateways to $10\text{GbE}+$ ($14.88\,\text{Mpps}$ minimum 64-byte frame rate) enterprise perimeters is understanding how multi-core scaling, hardware Receive Side Scaling (RSS), and lock-free ring-buffer contention interact under saturating packet loads.
+\subsection{Multi-Core eBPF Scaling, RSS Queuing, and Lock-Free Ring Buffer Dynamics under 10GbE-Targeted Workload Emulation}
+A central requirement for transitioning ASM-Shadhin-AI from 1GbE ($1.49\,\text{Mpps}$) commodity gateways to $10\text{GbE}+$ ($14.88\,\text{Mpps}$ minimum 64-byte frame rate) enterprise perimeters is understanding how multi-core scaling, hardware Receive Side Scaling (RSS), and lock-free ring-buffer contention interact under saturating packet loads.
 
 To rigorously evaluate these scaling dynamics beyond the physical constraints of our single-core testbed, we implemented an authentic multi-process emulation benchmark executing on physical CPU cores with nanosecond-resolution performance counters. The benchmark evaluated four core configurations ($K \in \{1, 2, 4, 8\}$ hardware RX queues and pinned worker processes) executing 4-tuple Toeplitz RSS hashing, per-CPU LPM trie blocklist lookups, and multi-producer atomic ring-buffer reservations (\texttt{bpf\_ringbuf\_reserve()}). Table~\ref{tab:multicore_scaling} and Fig.~\ref{fig:multicore_scaling} summarize the measured performance.
 
 \begin{table}[!t]
-\caption{Empirical Multi-Core eBPF/XDP Scaling \& Ring-Buffer Contention (10GbE+ Workload)}
+\caption{Empirical Multi-Core eBPF/XDP Scaling \& Ring-Buffer Contention (10GbE-Targeted Emulated Workload)}
 \label{tab:multicore_scaling}
 \centering
 \resizebox{\columnwidth}{!}{%
@@ -1290,8 +1412,12 @@ To rigorously evaluate these scaling dynamics beyond the physical constraints of
 
 \begin{figure}[!t]
 \centering
-\includegraphics[width=\columnwidth]{docs/figures/fig_multicore_scaling.png}
-\caption{Empirical multi-core eBPF scaling and lock-free ring-buffer reservation latency under 10GbE+ line-rate burst emulation across $K \in \{1, 2, 4, 8\}$ physical cores. Linear scaling is achieved across 1--4 cores, while atomic reservation contention on a monolithic ring buffer emerges at 8 cores, motivating per-queue partitioned buffers.}
+\includegraphics[width=0.96\columnwidth]{docs/figures/fig_multicore_scaling.png}
+\caption{Empirical multi-core eBPF scaling and lock-free ring-buffer reservation latency
+under 10GbE-oriented workload emulation (software packet-processing emulation on physical CPU cores;
+not a physical 10GbE NIC measurement) across $K \in \{1, 2, 4, 8\}$ physical cores.
+Linear scaling is achieved across 1--4 cores, while atomic reservation contention on a
+monolithic ring buffer emerges at 8 cores, motivating per-queue partitioned buffers.}
 \label{fig:multicore_scaling}
 \end{figure}
 
@@ -1317,39 +1443,79 @@ The empirical measurements reveal four fundamental architectural insights:
       \Theta_{\text{partitioned}}(K) = \sum_{k=1}^K \Theta_k \approx K \cdot \Theta_{\text{single-core}}
       \label{eq:partitioned_scaling}
     \end{equation}
-    Scaling linearly from $\Theta_1 = 1.55\,\text{Mpps}$, partitioned buffers project to $12.4\,\text{Mpps}$ at $K=8$ and $24.8\,\text{Mpps}$ at $K=16$, comfortably exceeding 10GbE wire speed ($14.88\,\text{Mpps}$) and unlocking line-rate telemetry on multi-queue SmartNICs without event loss or atomic stalls. In user space, the Edge-LLM daemon monitors all $K$ descriptors concurrently via a single non-blocking \texttt{epoll(2)} multiplexer.
+    Scaling linearly from $\Theta_1 = 1.55\,\text{Mpps}$, partitioned buffers \textit{project} to
+    $12.4\,\text{Mpps}$ at $K=8$ and $24.8\,\text{Mpps}$ at $K=16$. These are architectural
+    throughput projections (not physical 10GbE/40GbE NIC measurements); they exceed the
+    10GbE 64-byte frame rate target ($14.88\,\text{Mpps}$) and the 40GbE target
+    ($59.52\,\text{Mpps}$ at $K=16$), indicating architectural feasibility pending
+    validation on native multi-queue SmartNIC hardware.
+    In user space, the Edge-LLM daemon monitors all $K$ descriptors concurrently via a
+    single non-blocking \texttt{epoll(2)} multiplexer.
   \end{itemize}
 \end{enumerate}
 
 \subsection{Handling Concept Drift and Novel Attack Patterns Without On-Device Continuous Learning}
-A fundamental challenge in edge-resident autonomous cyber defense is maintaining high detection efficacy against novel, evolving attack patterns (concept drift) when operational constraints prohibit continuous on-device training. We detail why on-device gradient updates are deliberately avoided on edge appliances and how SovereignLine systematically addresses concept drift via a 4-tier hybrid mitigation framework:
+A fundamental challenge in edge-resident autonomous cyber defense is maintaining high detection efficacy against novel, evolving attack patterns (concept drift) when operational constraints prohibit continuous on-device training. We detail why on-device gradient updates are deliberately avoided on edge appliances and how ASM-Shadhin-AI systematically addresses concept drift via a 4-tier hybrid mitigation framework:
 
 \subsubsection{Why On-Device Continuous Training is Prohibitive on Edge Gateways}
 While incremental fine-tuning (e.g., continuous on-device LoRA~\cite{dettmers2023qlora}) appears conceptually attractive, it introduces severe operational hazards in high-assurance perimeter defense:
 \begin{enumerate}
-  \item \textit{CPU and Memory Contention:} Edge appliances possess strict compute budgets. Executing backward-pass backpropagation on edge CPU cores would induce severe memory bus contention and thread scheduling latency spikes, starving real-time eBPF packet-polling routines and triggering massive wire-speed packet drops.
+  \item \textit{CPU and Memory Contention:} Edge appliances possess strict compute budgets. Executing backward-pass backpropagation on edge CPU cores would induce severe memory bus contention and thread scheduling latency spikes, starving real-time eBPF packet-polling routines and triggering massive packet drops under high-rate saturation workloads.
   \item \textit{Catastrophic Forgetting:} Unsupervised streaming updates on non-stationary live traffic inevitably degrade the model's latent representation, causing catastrophic forgetting of previously learned signatures (e.g., historical botnet C2 patterns).
   \item \textit{Adversarial Gradient Poisoning:} An adversary aware of on-device learning can deliberately inject low-rate, crafted benign-malicious hybrid traffic over extended periods to subtly distort model weights, ultimately carving out a blind spot for subsequent zero-day exploitation.
 \end{enumerate}
 
 \subsubsection{Four-Tier Concept Drift Mitigation Architecture}
-SovereignLine resolves concept drift without on-device continuous weight updates through four coordinated defense mechanisms:
+ASM-Shadhin-AI resolves concept drift without on-device continuous weight updates through four coordinated defense mechanisms:
 \begin{enumerate}
-  \item \textbf{Kinematic and Statistical Invariant Anchors (Fast-Path Fallback):} Regardless of how an adversary mutates application payloads or obfuscates shellcode, network-layer physical and mathematical invariants remain immutable. Volumetric floods violate rate limits; encrypted or packed zero-day payloads exhibit high streaming Shannon entropy ($H(W_k) \ge 7.85\,\text{bits/byte}$); and automated reconnaissance or beaconing exhibits low timing jitter ($J_k \le 0.10\,\text{s}$). The in-kernel eBPF fast path clamps these flows immediately to the $10\,\text{pps}$ token bucket or zero-window tarpit, ensuring immediate containment before the semantic layer is even engaged.
+  \item \textbf{Kinematic and Statistical Invariant Anchors (Fast-Path Fallback):} Regardless of how an adversary mutates application payloads or obfuscates shellcode, network-layer physical and mathematical invariants remain immutable. Volumetric floods violate rate limits; encrypted or packed zero-day payloads exhibit high streaming Shannon entropy ($H(W_k) \ge 7.85\,\text{bits/byte}$); and automated reconnaissance or beaconing exhibits low timing jitter ($J_k \le 0.10$). The in-kernel eBPF fast path clamps these flows immediately to the $10\,\text{pps}$ token bucket or zero-window tarpit, ensuring immediate containment before the semantic layer is even engaged.
   \item \textbf{Zero-Shot Semantic Reasoning of Foundation SLMs:} Pretrained on extensive protocol specifications, source code, and network telemetry corpora, modern 3B-class Small Language Models (SLMs) such as Qwen2.5-Coder exhibit strong zero-shot reasoning capabilities. The model evaluates structured protocol deviations (e.g., malformed ASN.1 lengths, executable PE/ELF headers on non-standard ports, invalid HTTP request verbs) semantically rather than relying on brittle pattern matching.
-  \item \textbf{Conservative Default-Deny Decision Policy:} When presented with entirely novel attack topologies where token probability distributions are diffuse, the model's confidence score drops below the activation threshold ($\tau < 0.80$), emitting the verdict \texttt{SUSPICIOUS}. Under SovereignLine's fail-safe design, suspicious flows are permanently quarantined in the zero-window tarpit or rate-clamped rather than speculatively forwarded, preventing zero-day bypass.
+  \item \textbf{Conservative Default-Deny Decision Policy:} When presented with entirely novel attack topologies where token probability distributions are diffuse, the model's confidence score drops below the activation threshold ($\tau < 0.80$), emitting the verdict \texttt{SUSPICIOUS}. Under ASM-Shadhin-AI's fail-safe design, suspicious flows are permanently quarantined in the zero-window tarpit or rate-clamped rather than speculatively forwarded, preventing zero-day bypass.
   \item \textbf{Out-of-Band Sovereign Telemetry Curation and Parameter Distribution:} Ambiguous and quarantined telemetry descriptors are cryptographically signed with ML-DSA-65 and asynchronously exported to an isolated sovereign orchestration server. There, model updates are trained offline using privacy-preserving parameter-efficient fine-tuning (PEFT/QLoRA) and rigorously validated against golden regression test suites to guarantee zero catastrophic forgetting. Validated adapter checkpoints ($\Delta W < 50\,\text{MB}$) are subsequently distributed to edge gateways as atomic, read-only weight patches during scheduled administrative epochs.
 \end{enumerate}
 
 \subsection{Acknowledged Limitations and Open Challenges}
 Several limitations and open research challenges are acknowledged:
 \begin{enumerate}
-  \item \textbf{IPv6 Header Extension Support:} The eBPF parsing pipeline supports standard IPv4 and TCP/UDP. Parsing IPv6 extension chains within eBPF verifier instruction limits is an active engineering challenge.
-  \item \textbf{Hardware SmartNIC Offload:} Offloading eBPF bytecode into P4-programmable SmartNIC hardware (e.g., Netronome Agilio CX~40G, NVIDIA BlueField-3 data processing unit (DPU)) would enable 40--400~Gbps enforcement with near-zero host CPU utilization.
-  \item \textbf{Encrypted Protocol Fingerprinting:} Incorporating JA4/JA4S TLS and HASSH SSH fingerprinting will enable passive C2 tool identification at the handshake layer.
-  \item \textbf{Federated Multi-Gateway Coordination:} Extending with a federated blocklist synchronization protocol (ML-DSA-65 signed gossip messages) would enable cooperative defense while maintaining data sovereignty.
-  \item \textbf{Evaluation Scale and Model Breadth:} The Edge-LLM was evaluated on 300 labeled scenarios using a single static 4-bit quantized model checkpoint. While expanding from 50 to 300 scenarios tightens the 95\% confidence interval from $\pm 6.8\%$ to $\pm 2.4\%$, validation across multi-thousand scenario corpora and diverse foundation model architectures (e.g., Llama-3, Mistral) is required to establish cross-model generalizability.
-  \item \textbf{Entropy Detector Diversity:} The streaming entropy detector was evaluated across 500 labeled flows including CTU-13 botnet traces, simulated Cobalt Strike, WireGuard VPN tunnels, and TLS~1.3 sessions (Section~VI-E). While demonstrating robust false-positive resilience ($0.0\%$ system-level false drops), adaptive adversaries employing steganographic entropy-conforming C2 encodings or mimicry evasion remain an open research challenge.
+  \item \textbf{Proof-of-Concept Scope and Testbed Scale:} This work constitutes a
+  \textit{Proof-of-Concept (PoC)} evaluated on a resource-constrained edge appliance
+  (Quad-Core Intel Core i5-4570, DDR3-1600 RAM, single 1~GbE NIC). All throughput and
+  latency figures reflect this 1~Gbps-class single-queue testbed. The empirical multi-core
+  emulation in Section~IX-A projects near-linear scaling to 10GbE+ rates; however,
+  validation under native multi-queue NIC environments (e.g., multi-queue SmartNICs,
+  SR-IOV, DPDK) and distributed multi-node deployments at physical 10GbE/25GbE/100GbE rates
+  remains as explicit future work. Consequently, production-scale scalability claims beyond
+  1~Gbps are supported by mathematical projections rather than direct hardware measurement.
+  \item \textbf{Hardware Diversity and Physical Link Rates:} Physical validation on diverse
+  enterprise SmartNIC silicon (e.g., Intel E810, Mellanox ConnectX-6 Dx) operating over
+  PCIe Gen4/Gen5 buses at physical 10GbE, 25GbE, and 40GbE line rates is necessary to assess
+  driver-level ring buffer behaviors and NUMA memory affinity under physical optical transceivers.
+  \item \textbf{Adaptive Adversaries and Scanning Strategies:} The measured $1{,}219\times$
+  MTD scan-duration increase was obtained under a standardized sequential Nmap configuration.
+  Adversaries deploying aggressive probe timeouts (e.g., $< 200\,\text{ms}$) or distributed
+  coordinated reconnaissance from botnets across diverse source IP subnets will experience
+  lower latency dilation factors.
+  \item \textbf{Concept Drift and Unseen Zero-Day Attacks:} Static 4-bit quantized foundation
+  checkpoints cannot anticipate entirely novel application-layer protocols or zero-day exploits
+  outside pretraining corpora without periodic out-of-band fine-tuning.
+  \item \textbf{Model Update Lifecycle and Multi-Host Orchestration:} Distributing model
+  adapter checkpoints and synchronizing MTD epoch states across multi-gateway clusters in
+  air-gapped networks requires dedicated sovereign control planes with high-assurance orchestration.
+  \item \textbf{IPv6 Header Extension Support:} The current eBPF parsing pipeline supports standard
+  IPv4 and TCP/UDP. Parsing arbitrary IPv6 extension header chains within Linux kernel verifier
+  instruction limits is an active engineering challenge.
+  \item \textbf{Hardware SmartNIC Offload:} Offloading eBPF bytecode into P4-programmable SmartNIC
+  hardware (e.g., Netronome Agilio CX~40G, NVIDIA BlueField-3 DPU) would enable 40--400~Gbps
+  enforcement with near-zero host CPU utilization.
+  \item \textbf{Encrypted Protocol Fingerprinting:} Incorporating JA4/JA4S TLS and HASSH SSH
+  fingerprinting will enable passive C2 tool identification at the handshake layer.
+  \item \textbf{Evaluation Scale and Model Breadth:} While expanding from 50 to 300 scenarios
+  tightens the 95\% confidence interval from $\pm 6.8\%$ to $\pm 2.4\%$, validation across
+  multi-thousand scenario corpora, longer-duration live enterprise traffic, and diverse model
+  families (e.g., Llama-3, Mistral) is required to establish broader generalizability.
+  \item \textbf{Entropy Detector Diversity:} While demonstrating robust false-positive resilience
+  ($0/250$ benign flows dropped), adaptive adversaries employing steganographic entropy-conforming
+  C2 encodings or payload mimicry evasion remain an open research challenge.
 \end{enumerate}
 
 % =============================================================================
@@ -1369,14 +1535,17 @@ analysis code are included in the release. No offensive exploit code or novel at
 payloads are included.
 
 \subsection{Reproducibility Statement}
-The following artifacts are committed to the supplementary archive
-(GitHub repository + Zenodo DOI):
+\textbf{Code and Data Availability:} The source code, benchmark scripts, statistical analysis materials, and supporting artifacts are publicly available at: \url{https://github.com/Sadek-Mahmud/asm-shadhin-ai} \cite{asmshadhinai2026code}.
+
+The following artifacts are permanently available in the public GitHub repository
+(\url{https://github.com/Sadek-Mahmud/asm-shadhin-ai}), with an archival Zenodo DOI
+to be registered upon final publication:
 \begin{itemize}
-  \item \textbf{Source Code:} Complete eBPF C source (\texttt{ebpf/ebpf\_filter.c}),
+  \item \textbf{Source Code:} Complete eBPF C source (\path{ebpf/ebpf_filter.c}),
     Python~3.11 daemon, MTD controller, and statistical analysis notebooks.
 
   \item \textbf{Raw Data:} $N=30$ measurement CSV files
-    (\texttt{testbed/statistical\_30\_runs\_evaluation.csv}), model and version
+    (\path{testbed/statistical_30_runs_evaluation.csv}), model and version
     information, and LLM evaluation scenario JSONL files.
 
   \item \textbf{Benchmark Scripts:} All \texttt{tcpreplay} invocation commands,
@@ -1384,8 +1553,10 @@ The following artifacts are committed to the supplementary archive
     documented in \texttt{README.md}.
 
   \item \textbf{Statistical Code:} Jupyter notebook performing Welch's
-    \textit{t}-test, Shapiro-Wilk normality tests, Cohen's~$d$, and Wilson
-    confidence intervals (\texttt{scripts/statistical\_analysis.ipynb}).
+    \textit{t}-test, Shapiro-Wilk normality tests, Cohen's~$d$, Wilson score
+    intervals for binomial proportions (precision, recall, FPR), and
+    Welch--Satterthwaite \textit{t}-based intervals for mean throughput and CPU utilization
+    (\path{scripts/statistical_analysis.ipynb}).
 
   \item \textbf{Hardware:} The testbed hardware (Intel i5-4570, 82574L NIC) comprises
     widely available commodity off-the-shelf equipment (approx. $\$100$--$\$150$~USD
@@ -1405,16 +1576,19 @@ the reported empirical benchmarks, mathematical proofs, and architectural analys
 \textbf{In-Kernel Enforcement and Testbed Boundary Conditions.}
 The eBPF/XDP pipeline achieved a 30-run mean per-packet processing latency of
 $0.126 \pm 0.007\,\mu\text{s}$, with an observed XDP-pipeline stage peak of
-$0.33\,\mu\text{s}$, sustaining $1.495 \pm 0.015\,\text{Mpps}$ ($1.18\,\text{Gbps}$) with
-$0.0000\%$ packet loss and $26.2 \pm 0.6\%$ CPU utilization. Compared with Linux Netfilter
+$0.33\,\mu\text{s}$, sustaining $1.495 \pm 0.015\,\text{Mpps}$ (equivalent to
+$1.18\,\text{Gbps}$ replayed Layer-2 frame throughput) and $26.2 \pm 0.6\%$ CPU utilization.
+Under our tested evaluation benchmark dataset, no packet loss was observed (below the
+tcpreplay loss-counter resolution threshold). Compared with Linux Netfilter
 (mean $26.49 \pm 1.65\,\mu\text{s}$), this represents an $\approx\!210\times$ latency reduction
-and a $5.30\times$ throughput advantage ($p < 10^{-15}$, Cohen's $d = 108.2$). These primary
-benchmarks strictly reflect the evaluated legacy bare-metal gateway (Quad-Core Intel Core
-i5-4570 @ 3.20~GHz, DDR3-1600 RAM, single-core pinning). Multi-core scaling at 10GbE+ line rates
-was independently evaluated on a modern multi-core platform (Apple Mac mini M4, ARMv9-A,
-LPDDR5X unified memory) running Ubuntu Server 22.04 LTS under VirtIO hypervisor virtualization.
-All testbed scripts, VM orchestration tools, and raw measurement logs are publicly archived in
-the project's GitHub repository~\cite{asmshadhinai2026code}.
+and a $5.30\times$ throughput advantage ($p < 10^{-15}$, 95\% CI of difference:
+$[+1.207,\, +1.218]\,\text{Mpps}$). These primary benchmarks strictly reflect the evaluated
+commodity bare-metal gateway (Quad-Core Intel Core i5-4570 @ 3.20~GHz, DDR3-1600 RAM,
+single-core pinning). Multi-core scaling under 10GbE-targeted burst workloads was evaluated
+via multi-core emulation on a modern platform (Apple Mac mini M4, ARMv9-A, LPDDR5X unified memory)
+running Ubuntu Server 22.04 LTS under VirtIO hypervisor virtualization. All testbed scripts,
+VM orchestration tools, and raw measurement logs are publicly archived in the project's
+GitHub repository~\cite{asmshadhinai2026code}.
 
 \textbf{Sub-0.1s Zero-Day Containment and Asynchronous Decoupling.}
 During the Edge-LLM's $2.41\,\text{s}$ asynchronous deliberation window, the in-kernel speculative
@@ -1424,7 +1598,7 @@ the first $100\,\text{ms}$, and cumulative in-flight leakage is bounded by $\le 
 the entire $2.41\,\text{s}$ window. This mathematically starves multi-stage zero-day memory corruption
 exploits (which require $\ge 4.4\,\text{s}$ to deliver a $64\,\text{KB}$ payload) and suppresses bulk
 data exfiltration before the atomic $< 5\,\mu\text{s}$ kernel blocklist update permanently terminates the flow.
-Dropped packets are discarded at driver line rate via \texttt{XDP\_DROP} with zero socket-buffer allocation,
+Dropped packets are discarded at the native driver level via \texttt{XDP\_DROP} with zero socket-buffer allocation,
 rendering the gateway fail-safe against remote memory corruption or exhaustion attacks.
 
 \textbf{Multi-Core Scaled Ring Buffers for SmartNIC Environments.}
@@ -1433,11 +1607,11 @@ severe atomic contention at 8 cores ($48.2\,\mu\text{s}$ reservation latency, $4
 to cross-core cache invalidation cascades under MESI coherence, partitioning the ring buffer into
 per-queue SPSC channels eliminates inter-core lock contention ($\beta = 0$, $\alpha = 0$). This unlocks
 strictly additive scaling ($\Theta(K) = K \cdot \Theta_1$), scaling to $12.4\,\text{Mpps}$ at 8 cores
-and $24.8\,\text{Mpps}$ at 16 cores, achieving wire-speed line-rate telemetry on modern multi-queue SmartNICs.
+and $24.8\,\text{Mpps}$ at 16 cores, projecting high-rate telemetry throughput on modern multi-queue
+SmartNIC architectures without event loss or atomic stalls.
 
 \textbf{Edge-LLM Semantic Reasoning and CFG Syntactic Guardrail.}
-Across 300 labeled threat scenarios, the Edge-LLM achieved $98.33\%$ overall accuracy and $99.00\%$ triage
-recall (precision $0.9851$, FPR $0.0500$). All 40 adversarial grammar-stress scenarios produced valid JSON
+Across the 210 strictly held-out evaluation scenarios (representing the primary unseen-test benchmark), the Edge-LLM achieved $98.10\%$ accuracy ($206/210$), with an aggregate 300-scenario completeness accuracy of $98.33\%$. All 40 adversarial grammar-stress scenarios produced valid JSON
 directives ($100\%$), confirming that CFG logit masking provides provable \textit{syntactic validation}
 against parser crashes and schema breakage. We explicitly established that CFG does not confer semantic
 immunity against prompt injection; semantic integrity is guaranteed via strict hex parameter isolation,
@@ -1453,13 +1627,13 @@ imposes exactly $0.00\,\mu\text{s}$ inline latency overhead.
 \textbf{Concept Drift Handling Without On-Device Continuous Training.}
 Operational hazards of on-device continuous training (compute contention, catastrophic forgetting, and
 adversarial gradient poisoning) are avoided through a 4-tier hybrid mitigation framework: deterministic
-fast-path kinematic anchors (Shannon entropy $H \ge 7.85$, jitter $J \le 0.10\,\text{s}$), zero-shot SLM
+fast-path kinematic anchors (Shannon entropy $H \ge 7.85$, jitter $J_k \le 0.10$), zero-shot SLM
 structural inference, conservative default-deny tarpit containment for ambiguous inputs ($\tau < 0.80$),
 and sovereign out-of-band telemetry curation with differentially private adapter distribution.
 
 Together, these empirical and theoretical results demonstrate that sub-microsecond in-kernel enforcement,
 locally sovereign cognitive intelligence, and post-quantum cryptographic agility can coexist on commodity
-and modern architectures without compromising line-rate integrity.
+and modern architectures without compromising high-rate processing integrity.
 
 % =============================================================================
 \section*{Acknowledgment}
@@ -1621,6 +1795,9 @@ Cloudflare, Inc., ``Magic Transit: DDoS Protection for Networks,''
 Tech.\ Rep., 2024. [Online]. Available:
 \url{https://developers.cloudflare.com/magic-transit/}
 
+\bibitem{asmshadhinai2026code}
+A~S~M~Hossain~Mahmud~(Shadhin), ``ASM-Shadhin-AI: In-kernel eBPF/XDP intrusion defense and edge-LLM threat reasoning benchmark repository,'' 2026. [Online]. Available: \url{https://github.com/Sadek-Mahmud/asm-shadhin-ai}
+
 \end{thebibliography}
 
 % =============================================================================
@@ -1636,5 +1813,7 @@ local AI architectures for automated threat reasoning, proactive moving target
 defense (HMAC-SHA256 port hopping), and active cyber deception. He is the lead
 architect and developer of the ASM-Shadhin-AI framework.
 \end{IEEEbiography}
+
+\EOD
 
 \end{document}
