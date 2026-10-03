@@ -149,8 +149,13 @@ The detection accuracy and latency performance claims of this system have underg
 
 Detailed confusion matrices, Wilson score derivations, ablation studies, and execution logs are available in:
 * 📊 [**Massive-Scale Empirical Verification Datasheet (10,000,000 Flows / 1 Crore)**](docs/MASSIVE_SCALE_EMPIRICAL_DATASHEET.md) | [**Raw JSON Results**](docs/empirical_benchmark_results.json)
+* 📈 [**30-Trial Multi-Run Statistical Benchmark CSV ($N=30$)**](testbed/statistical_30_runs_evaluation.csv) | [**Summary JSON**](testbed/statistical_summary.json)
+* 🚀 [**10GbE Multi-Core Scaling & Ring-Buffer Results**](testbed/multicore_10gbe_emulation_results.json) | [**Script**](scripts/run_multicore_10gbe_emulation.py)
+* 🧠 [**300-Scenario LLM Evaluation Dataset (JSONL)**](testbed/llm_evaluation_300_scenarios.jsonl) | [**Results JSON**](testbed/llm_evaluation_300_results.json)
+* 🔒 [**500-Flow Shannon Entropy & Jitter Evaluation**](testbed/entropy_roc_500flows.json) | [**Script**](scripts/evaluate_entropy_c2_500flows.py)
+* 📓 [**Reproducible Statistical Analysis Notebook**](scripts/statistical_analysis.ipynb)
 * 📄 [**Zero-Day Detection Proof & Statistical Validation Dossier**](docs/ZERO_DAY_STATISTICAL_PROOF_DOSSIER.md)
-* 📑 [**Official IEEE Research Paper (PDF)**](ASM_Shadhin_AI_Research_Paper_NEW.pdf) | [**System Appendix (PDF)**](ASM_Shadhin_AI_APPENDIX.pdf)
+* 📑 [**Official IEEE Access Research Paper (PDF)**](ASM_Shadhin_AI_Research_Paper_NEW.pdf) | [**System Appendix (PDF)**](ASM_Shadhin_AI_APPENDIX.pdf)
 * 🛡️ [**Author Rebuttal & Experimental Proof Dossier (PDF)**](ASM_Shadhin_AI_Author_Rebuttal_and_Experimental_Proof.pdf)
 
 

@@ -206,7 +206,8 @@ def gen_multicore_scaling_figure(data):
     plt.rcParams['axes.linewidth'] = 0.75
     plt.rcParams['grid.linewidth'] = 0.5
 
-    fig, ax1 = plt.subplots(figsize=(3.5, 2.3), dpi=300)
+    # Taller figure to accommodate external legend below the axes
+    fig, ax1 = plt.subplots(figsize=(3.5, 2.8), dpi=300)
 
     cores = [d["cores"] for d in data.values()]
     mpps = [d["aggregate_mpps"] for d in data.values()]
@@ -217,7 +218,7 @@ def gen_multicore_scaling_figure(data):
 
     ax1.set_xlabel('Active CPU Cores / RSS Hardware Queues', fontsize=8)
     ax1.set_ylabel('Aggregate Throughput (Mpps)', color=color1, fontsize=8)
-    line1 = ax1.plot(cores, mpps, marker='o', markersize=4, color=color1, linewidth=1.2, label='eBPF/XDP Throughput')
+    line1 = ax1.plot(cores, mpps, marker='o', markersize=4, color=color1, linewidth=1.2, label='Throughput (Mpps)')
     ax1.tick_params(axis='y', labelcolor=color1, labelsize=7)
     ax1.tick_params(axis='x', labelsize=7)
     ax1.set_xticks(cores)
@@ -225,21 +226,28 @@ def gen_multicore_scaling_figure(data):
 
     ax2 = ax1.twinx()
     ax2.set_ylabel('RingBuf Reserve Latency (ns)', color=color2, fontsize=8)
-    line2 = ax2.plot(cores, reserve_lat, marker='s', markersize=4, color=color2, linewidth=1.2, linestyle='-.', label='RingBuf MPSC Latency')
+    line2 = ax2.plot(cores, reserve_lat, marker='s', markersize=4, color=color2, linewidth=1.2, linestyle='-.', label='RingBuf Reserve (ns)')
     ax2.tick_params(axis='y', labelcolor=color2, labelsize=7)
 
+    # Legend placed BELOW the axes (outside the plot area)
     lines = line1 + line2
-    labels = ['Throughput (Mpps)', 'RingBuf Reserve (ns)']
-    ax1.legend(lines, labels, loc='center left', bbox_to_anchor=(0.02, 0.78), fontsize=6, framealpha=0.9)
+    labels = [l.get_label() for l in lines]
+    ax1.legend(lines, labels,
+               loc='upper center',
+               bbox_to_anchor=(0.5, -0.28),
+               ncol=2,
+               fontsize=6.5,
+               framealpha=0.9,
+               borderpad=0.6)
 
     plt.title('Multi-Core eBPF Scaling & RingBuf Contention (10GbE+)', fontsize=8, fontweight='bold', pad=4)
-    plt.tight_layout()
+    plt.tight_layout(rect=[0, 0.12, 1, 1])  # leave bottom margin for the external legend
 
     out_fig = FIG_DIR / "fig_multicore_scaling.png"
-    plt.savefig(out_fig, dpi=300)
-    plt.savefig(DOCS_FIG / "fig_multicore_scaling.png", dpi=300)
+    plt.savefig(out_fig, dpi=300, bbox_inches='tight')
+    plt.savefig(DOCS_FIG / "fig_multicore_scaling.png", dpi=300, bbox_inches='tight')
     plt.close()
-    print(f"[+] Generated multi-core scaling figure: {out_fig}")
+    print(f"[+] Generated multi-core scaling figure (legend below): {out_fig}")
 
 if __name__ == "__main__":
     mp.set_start_method("spawn", force=True)

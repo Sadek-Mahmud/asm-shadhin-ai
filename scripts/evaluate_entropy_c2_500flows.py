@@ -207,7 +207,7 @@ def run_evaluation():
         fp_categories[cat] = fp_categories.get(cat, 0) + 1
     for cat, count in fp_categories.items():
         print(f"    - {cat}: {count} flows flagged for LLM verification")
-    print("    * Crucial System Design Note: In SovereignLine, Stage 4 does NOT drop packets!")
+    print("    * Crucial System Design Note: In ASM-Shadhin-AI, Stage 4 does NOT drop packets!")
     print("      It merely emits telemetry to Edge-LLM. The Edge-LLM verifies protocol headers")
     print("      (e.g. WireGuard handshake, TLS ClientHello) and safely passes them.")
     print("      Hence, End-to-End System False-Drop Rate on WireGuard/TLS = 0.0%!")
